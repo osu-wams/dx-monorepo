@@ -13,9 +13,7 @@
     "packages": [
       "packages/apps/*",
       "packages/components",
-      "packages/components-typescript",
-      "packages/storybook",
-      "packages/storybook-typescript"
+      "packages/storybook"
     ],
     "nohoist": [
       "packages/apps/**/webpack-dev-server",
@@ -29,7 +27,9 @@
     "babel-eslint": "10.0.3",
     "eslint": "6.6.0",
     "eslint-config-prettier": "^4.2.0",
-    "eslint-config-react-app": "^4.0.0",
+    "eslint-config-react-app": "^5.1.0",
+    "eslint-config-xo": "^0.27.2",
+    "eslint-config-xo-react": "^0.22.0",
     "eslint-plugin-flowtype": "^3.6.1",
     "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-jsx-a11y": "^6.2.1",

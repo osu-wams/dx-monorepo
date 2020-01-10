@@ -1,27 +1,31 @@
 {
   "name": "@project/components",
   "version": "1.0.0",
-  "homepage": "https://react-workspaces.github.io/react-workspaces-playground",
-  "main": "src/index.js",
-  "main:src": "src/index.js",
+  "main": "src/index.tsx",
+  "main:src": "src/index.tsx",
   "scripts": {
     "test": "react-scripts test",
-    "lint": "eslint ./src/**/*.js --max-warnings=0 --format=codeframe"
+    "lint": "eslint ./src/**/*.tsx --max-warnings=0 --format=codeframe"
   },
   "dependencies": {
     "@react-workspaces/react-scripts": "3.3.0-alpha-08",
     "@storybook/react": "^5.2.0-alpha.35",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "@types/jest": "^24.0.0",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
+    "@typescript-eslint/eslint-plugin": "^2.13.0",
+    "@typescript-eslint/parser": "^2.13.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-scripts": "3.3.0",
+    "typescript": "~3.7.2"
   },
-  "devDependencies": {
-    "cross-env": "5.0.5",
-    "enzyme": "^3.9.0",
-    "enzyme-adapter-react-16": "^1.12.1",
-    "prop-types": "^15.6.2",
-    "eslint-config-prettier": "^6.8.0",
-    "eslint-plugin-prettier": "^3.1.2",
-    "eslint-config-react-app": "^5.1.0"
+  "eslintConfig": {
+    "extends": "react-app"
   },
   "browserslist": [
     ">0.2%",
@@ -31,10 +35,10 @@
   ],
   "jest": {
     "collectCoverageFrom": [
-      "src/**/*.{js}",
-      "!src/setupTests.{js}",
-      "!src/serviceWorker.{js}",
-      "!src/**/*.(spec|test|stories).{js}"
+      "src/**/*.{ts,tsx}",
+      "!src/setupTests.{ts,tsx}",
+      "!src/serviceWorker.{ts,jsx}",
+      "!src/**/*.(spec|test|stories).{ts,tsx}"
     ],
     "coverageThreshold": {
       "global": {

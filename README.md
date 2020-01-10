@@ -1,6 +1,8 @@
-![React Workspaces Playground Screenshots](https://i.imgur.com/7snWXD0.png)
+## Apps
 
-> 💥 Now supports TypeScript and React-App-Rewired!
+- [DX](#dx)
+- [DX-Mobile](#dx-mobile)
+- [DX-Server](#dx-server)
 
 ## Features
 
@@ -11,11 +13,9 @@
 - ✨ Host Multiple CRA Apps, Component Libraries & Storybooks in one Monorepo
 - 🔥 Hot Reload all Apps, Components & Storybooks
 - 👨‍🔬 Test all workspaces with Eslint & Jest using one command
-- :octocat: Deploy your apps to Github Pages using one command
 
 ## Contents
 
-- [Features](#features)
 - [Contents](#contents)
 - [Setup](#setup)
   - [Pre-Requisites](#pre-requisites)
@@ -38,17 +38,29 @@
 ### Installation
 
 ```bash
-git clone git@github.com:react-workspaces/cra-workspaces-playground.git
-cd cra-workspaces-playground
+git clone git@github.com:osu-wams/dx-monorepo.git
+cd dx-monorepo
 yarn
 ```
 
 ## Usage
 
-### Starting The React App
+### Starting the Backend and Frontend with SAML Authentication
+
+Open two terminals;
 
 ```bash
-yarn workspace @project/app-one start
+yarn workspace dx start
+```
+
+```bash
+yarn workspace dx-server saml
+```
+
+### Starting the Mobile App
+
+```bash
+yarn workspace dx-mobile start
 ```
 
 ### Starting The Storybook
@@ -63,147 +75,16 @@ yarn workspace @project/storybook storybook
 yarn workspace <workspace-root> test
 ```
 
-### Deploying to GitHub Pages
+## Apps
 
-Update the `homepage` URL in `app-one/package.json` to reflect your GitHub Pages URL.
+### DX
 
-```json
-{
-  "name": "@project/app-one",
-  "private": true,
-  "homepage": "https://react-workspaces.github.io/react-workspaces-playground",
-  "scripts": {
-    "deploy": "gh-pages -d build"
-  }
-}
-```
+This is the mobile-first React web application found in `packages/apps/dx`.
 
-Run the deploy script.
+### DX Mobile
 
-```bash
-yarn workspace <workspace-root> deploy
-```
+This is the React Native mobile application found in `packages/apps/dx-mobile`.
 
-### Creating a New CRA App
+### DX Server
 
-Use Create React App's `--scripts-version` to create a new React App with Yarn Workspaces support.
-
-```bash
-create-react-app --scripts-version @react-workspaces/react-scripts my-app
-```
-
-## How Does It Work?
-
-React Workspaces Playground uses a custom version of `react-scripts` under the hood. The custom `react-scripts` is an NPM package to use in place of the `react-scripts` dependency that usually ships with Create React App. See: ([@react-workspaces/react-scripts](https://www.npmjs.com/@react-workspaces/react-scripts)) on NPM.
-
-Support for Yarn Workspaces was added by:
-
-1. Adding [yarn-workspaces.js](https://github.com/react-workspaces/create-react-app/blob/master/packages/react-scripts/config/yarn-workspaces.js) file to resolve workspaces modules.
-
-1. Updating the Webpack config:
-
-   - Use `main:src` in `package.json` for loading development source code.
-
-   - Use `production` or `development` settings based on your `yarn workspaces` settings in your `<workspaces-root>/package.json`:
-
-     ```json
-     {
-       "workspaces": {
-         "packages": ["packages/apps/*", "packages/components", "packages/storybook"],
-         "production": true,
-         "development": true,
-         "package-entry": "main:src"
-       }
-     }
-     ```
-
-Minimal updates to the Webpack config were required.
-
-Diff: `webpack.config.js`
-
-```diff
---- a/./facebook/react-scripts/config/webpack.config.js
-+++ b/react-workspaces/react-scripts/config/webpack.config.js
-@@ -9,7 +9,6 @@
-'use strict';
-
-const fs = require('fs');
-const isWsl = require('is-wsl');
-const path = require('path');
-const webpack = require('webpack');
-const resolve = require('resolve');
-@@ -28,15 +27,14 @@ const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeM
-const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
-const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
-const paths = require('./paths');
-const modules = require('./modules');
-+const workspaces = require('./workspaces');
-const getClientEnvironment = require('./env');
-const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
-const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
-const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
-// @remove-on-eject-begin
-const getCacheIdentifier = require('react-dev-utils/getCacheIdentifier');
-// @remove-on-eject-end
-
-// Source maps are resource heavy and can cause out of memory issue for large source files.
-const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
-@@ -53,12 +51,22 @@ const cssModuleRegex = /\.module\.css$/;
-const sassRegex = /\.(scss|sass)$/;
-const sassModuleRegex = /\.module\.(scss|sass)$/;
-
-+const workspacesConfig = workspaces.init(paths);
-+
-// This is the production and development configuration.
-// It is focused on developer experience, fast rebuilds, and a minimal bundle.
-module.exports = function(webpackEnv) {
-  const isEnvDevelopment = webpackEnv === 'development';
-  const isEnvProduction = webpackEnv === 'production';
-
-+  const workspacesMainFields = [workspacesConfig.packageEntry, 'main'];
-+  const mainFields =
-+    isEnvDevelopment && workspacesConfig.development
-+      ? workspacesMainFields
-+      : isEnvProduction && workspacesConfig.production
-+        ? workspacesMainFields
-+        : undefined;
-+
-  // Webpack uses `publicPath` to determine where the app is being served from.
-  // It requires a trailing slash, or the file assets will get an incorrect path.
-  // In development, we always serve from the root. This makes config easier.
-@@ -279,6 +282,7 @@ module.exports = function(webpackEnv) {
-      extensions: paths.moduleFileExtensions
-        .map(ext => `.${ext}`)
-        .filter(ext => useTypeScript || !ext.includes('ts')),
-+      mainFields,
-      alias: {
-        // Support React Native Web
-        // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
-@@ -330,7 +335,11 @@ module.exports = function(webpackEnv) {
-              loader: require.resolve('eslint-loader'),
-            },
-          ],
--          include: paths.appSrc,
-+          include: isEnvDevelopment && workspacesConfig.development
-+          ? [paths.appSrc, workspacesConfig.paths]
-+          : isEnvProduction && workspacesConfig.production
-+            ? [paths.appSrc, workspacesConfig.paths]
-+            : paths.appSrc,
-        },
-        {
-          // "oneOf" will traverse all following loaders until one will
-@@ -352,7 +361,12 @@ module.exports = function(webpackEnv) {
-            // The preset includes JSX, Flow, TypeScript, and some ESnext features.
-            {
-              test: /\.(js|mjs|jsx|ts|tsx)$/,
--              include: paths.appSrc,
-+              include:
-+                isEnvDevelopment && workspacesConfig.development
-+                  ? [paths.appSrc, workspacesConfig.paths]
-+                  : isEnvProduction && workspacesConfig.production
-+                    ? [paths.appSrc, workspacesConfig.paths]
-+                    : paths.appSrc,
-              loader: require.resolve('babel-loader'),
-              options: {
-                customize: require.resolve(
-```
+This is the Express node server application found in `packages/apps/dx-server`.

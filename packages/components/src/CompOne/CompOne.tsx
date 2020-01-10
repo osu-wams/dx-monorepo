@@ -8,7 +8,7 @@ const CompOne: React.FC = () => {
         <span role="img" aria-label="React Logo">
           ⚛️
         </span>
-          Comp One
+        Comp One
       </h3>
     </div>
   );
