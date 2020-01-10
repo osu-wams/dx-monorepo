@@ -34,15 +34,10 @@
     "@types/request-promise": "^4.1.44",
     "@types/supertest": "^2.0.8",
     "@types/winston": "^2.4.4",
-    "@typescript-eslint/eslint-plugin": "^1.13.0",
-    "@typescript-eslint/parser": "^1.13.0",
     "codecov": "^3.1.0",
     "concurrently": "^5.0.2",
     "cross-env": "^5.2.0",
-    "eslint": "^6.7",
-    "eslint-config-airbnb": "^17.1.1",
-    "eslint-config-airbnb-base": "13.2.0",
-    "eslint-config-prettier": "^6.0.0",
+    "eslint": "^6.6.0",
     "eslint-plugin-import": "^2.17.2",
     "eslint-utils": "^1.4.1",
     "jest": "^24.8.0",
@@ -52,7 +47,7 @@
     "supertest": "^4.0.2",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
-    "typescript": "3.7"
+    "typescript": "^3.7.3"
   },
   "dependencies": {
     "aws-sdk": "^2.510.0",
