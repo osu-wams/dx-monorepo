@@ -1,0 +1,49 @@
+{
+  "name": "@project/components",
+  "version": "1.0.0",
+  "homepage": "https://react-workspaces.github.io/react-workspaces-playground",
+  "main": "src/index.js",
+  "main:src": "src/index.js",
+  "scripts": {
+    "test": "react-scripts test",
+    "lint": "eslint ./src/**/*.js --max-warnings=0 --format=codeframe"
+  },
+  "dependencies": {
+    "@react-workspaces/react-scripts": "3.3.0-alpha-08",
+    "@storybook/react": "^5.2.0-alpha.35",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {
+    "cross-env": "5.0.5",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.12.1",
+    "prop-types": "^15.6.2",
+    "eslint-config-prettier": "^6.8.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-config-react-app": "^5.1.0"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js}",
+      "!src/setupTests.{js}",
+      "!src/serviceWorker.{js}",
+      "!src/**/*.(spec|test|stories).{js}"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "statements": 98,
+        "branches": 98,
+        "functions": 98,
+        "lines": 98
+      }
+    }
+  },
+  "license": "MIT"
+}
