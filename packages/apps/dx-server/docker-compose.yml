@@ -1,0 +1,41 @@
+version: '3.7'
+
+networks:
+  internal:
+  external:
+
+volumes:
+  dynamodbdata:
+
+services:
+  # App service isn't ready for prime-time, docker-compose exec app yarn db:migrate up is failing
+  #  app:
+  #    build: .
+  #    environment:
+  #      - REDIS_HOST=session_cache
+  #      - RDS_HOST=rds
+  #      - NODE_ENV=${NODE_ENV}
+  #    volumes:
+  #      - .:/var/www/app/current
+  #    networks:
+  #      - internal
+  #      - external
+  #    depends_on:
+  #      - session_cache
+  #      - rds
+  #    ports:
+  #      - '4000:4000'
+  session_cache:
+    image: redis
+    networks:
+      - internal
+      - external
+  dynamodb:
+    image: amazon/dynamodb-local
+    working_dir: /home/dynamodblocal
+    command: -jar DynamoDBLocal.jar -sharedDb -dbPath .
+    volumes:
+      - dynamodbdata:/home/dynamodblocal
+    networks:
+      - internal
+      - external
