@@ -5,6 +5,10 @@
     "test": "FORCE_COLOR=true lerna run lint && CI=true FORCE_COLOR=true lerna run test -- --coverage",
     "deploy": "FORCE_COLOR=true lerna run deploy"
   },
+  "engines": {
+    "_YARN_VERSION_1.19.1_README": "Yarn 1.19.1 is necessary for Expo to build the app properly due to a bug in Yarn, see https://github.com/yarnpkg/yarn/issues/7734",
+    "yarn": "1.19.1"
+  },
   "workspaces": {
     "packages": [
       "packages/apps/*",
@@ -32,14 +36,14 @@
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-react-hooks": "^1.6.0",
-    "husky": "^3.1.0",
+    "husky": "^4.0.0",
     "jest-prop-type-error": "^1.1.0",
     "lerna": "^3.10.7",
     "prettier": "^1.16.1"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn test"
+      "_pre-commit": "yarn test"
     }
   },
   "jest": {
@@ -50,5 +54,8 @@
       "!src/serviceWorker.{js,jsx,ts,tsx}",
       "!src/**/*.(spec|test|stories).{js,jsx,ts,tsx}"
     ]
+  },
+  "dependencies": {
+    "yarn": "^1.19.1"
   }
 }
