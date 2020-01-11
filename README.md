@@ -34,8 +34,9 @@
 
 ### Pre-Requisites
 
-- Yarn 1.13.0
-- Node 11.14.0
+- [Docker](https://docs.docker.com/install/)
+- [NVM](https://github.com/nvm-sh/nvm#installation-and-update)
+- [Yarn (install via NPM)](https://yarnpkg.com/en/docs/install#alternatives-stable)
 
 ### Installation
 
