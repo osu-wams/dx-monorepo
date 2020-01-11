@@ -1,7 +1,7 @@
-jest.mock('../util/cache.ts', () => ({
+jest.mock('@osu-wams/lib/src/react/util/cache.ts', () => ({
   clear: () => {
     throw new Error('blah');
-  }
+  },
 }));
 
 jest.mock('../api/errors.ts');

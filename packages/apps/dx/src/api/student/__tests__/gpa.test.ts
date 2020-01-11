@@ -3,7 +3,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { renderHook } from '@testing-library/react-hooks';
 import { gpaData } from '../__mocks__/gpa.data';
 import { useGpa, gpaInitialState } from '../gpa';
-import * as cache from '../../../util/cache';
+import { cache } from '@osu-wams/lib';
 
 const initialState = { data: gpaInitialState, loading: true, error: false };
 const errorState = { data: gpaInitialState, loading: false, error: true };

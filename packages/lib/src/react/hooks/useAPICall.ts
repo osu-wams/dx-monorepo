@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { cache } from '@osu-wams/lib';
-import { postError } from './errors';
+
+// eslint-disable-next-line
+// import { postError } from './errors';
 
 /* eslint-disable react-hooks/exhaustive-deps */
 
@@ -9,7 +11,7 @@ import { postError } from './errors';
  * trigger any time one of the referenced methods changes upstream.
  */
 
-export interface IAPIResult<T> {
+export interface APIResult<T> {
   data: T;
   loading: boolean;
   error: boolean;
@@ -42,13 +44,13 @@ const useAPICall = <T>(
   initialState: T,
   useCache?: boolean,
   errorCallback?: Function,
-): IAPIResult<T> => {
+): APIResult<T> => {
   const [data, setData] = useState<T>(initialState);
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const cacheKey = `${api.name}:${query}:${dataTransform.name}`;
 
-  const fetchData = async () => {
+  const fetchData = async (): Promise<void> => {
     setLoading(true);
     api(query)
       .then((result: T) => {
@@ -57,14 +59,17 @@ const useAPICall = <T>(
         setData(transformed);
         setLoading(false);
       })
-      .catch(async e => {
+      .catch(async (e: any) => {
         // API calls fail when the cookie expires, this causes the front-end to
         // flow through the login process while providing the backend the target
         // url to redirect the user to after a successful login.
         if (e.response?.status === 401) {
           window.location.assign(`/login?return=${window.location.pathname}`);
         } else {
-          await postError(e);
+          // eslint-disable-next-line
+          // await postError(e);
+          // eslint-disable-next-line
+          // TODO: refactor to take postError as an option
           cache.removeItem(cacheKey);
           setError(true);
           setLoading(false);

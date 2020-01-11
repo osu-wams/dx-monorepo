@@ -1,10 +1,10 @@
 import ReactGA from 'react-ga';
 import '@testing-library/jest-dom/extend-expect';
 import 'jest-styled-components';
-import * as cache from './util/cache';
+import { cache } from '@osu-wams/lib';
 
 ReactGA.initialize('UA-48705802-13', {
-  testMode: true
+  testMode: true,
 });
 
 export const mockGAEvent = jest.fn();
@@ -12,7 +12,7 @@ export const mockGAEvent = jest.fn();
 jest.mock('../src/util/gaTracking', () => ({
   Event: () => {
     return mockGAEvent();
-  }
+  },
 }));
 
 mockGAEvent.mockResolvedValue(Promise.resolve(true));
@@ -32,22 +32,22 @@ if (global.document) {
     setEnd: () => {},
     commonAncestorContainer: {
       nodeName: 'BODY',
-      ownerDocument: document
-    }
+      ownerDocument: document,
+    },
   });
 }
 
 // Supress missing CSS warnings in tests from @reach ui components
 jest.mock('@reach/utils', () => ({
   ...jest.requireActual('@reach/utils'),
-  checkStyles: jest.fn()
+  checkStyles: jest.fn(),
 }));
 
 // Mock matchMedia for test env
 const matchMedia = () => ({
   matches: false,
   addListener: () => {},
-  removeListener: () => {}
+  removeListener: () => {},
 });
 window.matchMedia = window.matchMedia || matchMedia;
 

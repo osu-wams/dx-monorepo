@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { render } from '../../util/test-utils';
-import * as cache from '../../util/cache';
+import { cache } from '@osu-wams/lib';
 import useAPICall from '../useAPICall';
 import { act, wait } from '@testing-library/react';
 
-jest.mock('../../util/cache.ts');
+jest.mock('@osu-wams/lib');
 
 interface IAPICall {
   api: jest.Mock<any, any>;
@@ -21,7 +21,7 @@ const testArgs: IAPICall = {
   dataTransform: jest.fn(),
   initialState: {},
   useCache: false,
-  errorCallback: jest.fn()
+  errorCallback: jest.fn(),
 };
 
 const HookWrapper: React.FC = () => {
@@ -31,7 +31,7 @@ const HookWrapper: React.FC = () => {
     testArgs.dataTransform,
     testArgs.initialState,
     testArgs.useCache,
-    testArgs.errorCallback
+    testArgs.errorCallback,
   );
   return (
     <div>
