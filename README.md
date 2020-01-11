@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/osu-wams/dx-monorepo/branch/master/graph/badge.svg)](https://codecov.io/gh/osu-wams/dx-monorepo)
+
 ## Apps
 
 - [DX](#dx)
