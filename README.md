@@ -22,6 +22,7 @@
 - [Setup](#setup)
   - [Pre-Requisites](#pre-requisites)
   - [Installation](#installation)
+  - [Development Setup](#development-setup)
 - [Usage](#usage)
   - [Starting The React App](#starting-the-react-app)
   - [Starting The Storybook](#starting-the-storybook)
