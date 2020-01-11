@@ -2,7 +2,8 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "test": "FORCE_COLOR=true lerna run lint && CI=true FORCE_COLOR=true lerna run test -- --coverage",
+    "test": "CI=true FORCE_COLOR=true lerna run test -- --coverage --silent -w 1",
+    "lint": "FORCE_COLOR=true lerna run lint",
     "deploy": "FORCE_COLOR=true lerna run deploy"
   },
   "engines": {
@@ -43,7 +44,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn test"
+      "pre-commit": "yarn lint"
     }
   },
   "jest": {
