@@ -15,6 +15,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: yarn install, lint, test
         run: |
+          yarn policies set-version 1.19.1
           yarn install --frozen-lockfile
           yarn run lint
           yarn run test

@@ -1,0 +1,13 @@
+.DS_STORE
+.idea
+**/coverage
+logs/
+node_modules/
+**/node_modules
+npm-debug.log
+yarn-error.log
+config/local.ts
+dist/
+.env
+docker-compose.override.yml
+*osuIds.csv
