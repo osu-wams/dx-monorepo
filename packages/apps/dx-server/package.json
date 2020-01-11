@@ -1,6 +1,7 @@
 {
   "name": "dx-server",
   "version": "0.1.0",
+  "private": true,
   "license": "MIT",
   "scripts": {
     "start": "yarn run build && pm2 kill && concurrently 'yarn run build:watch' 'yarn run pm2:localhost'",
@@ -10,7 +11,7 @@
     "pm2:localhost": "truncate -s 0 logs/localhost.log && cross-env NODE_ENV=localhost pm2 --no-daemon --env localhost start pm2.localhost.config.js",
     "pm2:development": "truncate -s 0 logs/development.log && cross-env NODE_ENV=development pm2 --no-daemon --env development start pm2.localhost.config.js",
     "monit": "pm2 monit",
-    "lint": "eslint --ext .js,.ts 'src/**'",
+    "lint": "eslint --ext .js,.ts 'src/**' --format=codeframe",
     "lint:fix": "eslint --ext .js,.ts 'src/**' --fix",
     "test": "cross-env NODE_ENV=test USE_MOCKS=0 jest --no-coverage",
     "test:coverage": "NODE_ENV=test USE_MOCKS=0 jest --coverage"
