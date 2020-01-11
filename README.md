@@ -37,6 +37,7 @@
 - [Docker](https://docs.docker.com/install/)
 - [NVM](https://github.com/nvm-sh/nvm#installation-and-update)
 - [Yarn (install via NPM)](https://yarnpkg.com/en/docs/install#alternatives-stable)
+- truncate (required for MacOS users) : `brew install truncate`
 
 ### Installation
 
@@ -44,6 +45,16 @@
 git clone git@github.com:osu-wams/dx-monorepo.git
 cd dx-monorepo
 yarn
+```
+
+### Development Setup
+
+Find an appropriate `local.ts` for the dx-server application and place it in the `packages/apps/dx-server/config/` directory. The WAMS department has this stored in a shared credentials storage.
+
+```bash
+cp docker-compose.override.example.yml docker-compose.override.yml
+docker-compose up -d
+cd packages/apps/dx-server && yarn exec ts-node src/db/scripts/create_users_table.ts && cd -
 ```
 
 ## Usage
