@@ -7,7 +7,7 @@ import { toast, Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { Event } from '../util/gaTracking';
 import { getMasqueradeUser, postMasqueradeUser } from '../api/masquerade';
-import * as cache from '../util/cache';
+import { cache } from '@osu-wams/lib';
 import { ThemeContext } from '../theme';
 
 interface MasqueradeProps {
@@ -64,6 +64,7 @@ export const Masquerade = (props: MasqueradeProps) => {
     if (e.target.id === 'osu-id') {
       setMasqueradeId(e.target.value);
     }
+
     if (e.target.id === 'masquerade-reason') {
       setMasqueradeReason(e.target.value);
     }
@@ -83,9 +84,11 @@ export const Masquerade = (props: MasqueradeProps) => {
     if (masqueradeId !== '' && masqueradeReason !== '') {
       return false;
     }
+
     if (masqueradeId === '') {
       return false;
     }
+
     return true;
   };
 
@@ -96,29 +99,23 @@ export const Masquerade = (props: MasqueradeProps) => {
   const masqueradeText = () => {
     if (masqueradeId === '') {
       return 'Remove Masquerade';
-    } else {
-      return 'Masquerade';
     }
+
+    return 'Masquerade';
   };
 
   return (
     <MyDialog
       isOpen={showMasqueradeDialog}
-      onDismiss={() => toggleMasqueradeDialog()}
       data-testid="masquerade-dialog"
       aria-labelledby="maskDialog-title"
+      onDismiss={() => toggleMasqueradeDialog()}
     >
       <h2 id="maskDialog-title">Log in as another user</h2>
       <Label htmlFor="osu-id">
         Enter user OSU ID
         <br />
-        <Input
-          type="text"
-          id="osu-id"
-          value={masqueradeId}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-        />
+        <Input type="text" id="osu-id" value={masqueradeId} onChange={handleChange} onKeyDown={handleKeyDown} />
       </Label>
       <br />
       {masqueradeId !== '' && (
@@ -141,9 +138,7 @@ export const Masquerade = (props: MasqueradeProps) => {
       <Button
         type="submit"
         disabled={masqueradeDisabled()}
-        bg={
-          masqueradeDisabled() ? themeContext.features.masquerade.buttonAlt.background : undefined
-        }
+        bg={masqueradeDisabled() ? themeContext.features.masquerade.buttonAlt.background : undefined}
         fg={masqueradeDisabled() ? themeContext.features.masquerade.buttonAlt.color : undefined}
         onClick={() => {
           Event('footer', 'masquerade', 'submit form to masquerade');

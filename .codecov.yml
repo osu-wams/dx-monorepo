@@ -14,6 +14,9 @@ coverage:
       components:
         paths: 'packages/components/'
         flags: components
+      lib:
+        paths: 'packages/lib/'
+        flags: lib
     patch:
       default: off
 
@@ -30,3 +33,6 @@ flags:
   components:
     paths:
       - packages/components/
+  lib:
+    paths:
+      - packages/lib/

@@ -3,7 +3,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { renderHook } from '@testing-library/react-hooks';
 import holds from '../__mocks__/holds.data';
 import { useAccountHolds } from '..';
-import * as cache from '../../../util/cache';
+import { cache } from '@osu-wams/lib';
 
 const initialState = { data: [], loading: true, error: false };
 const errorState = { data: [], loading: false, error: true };

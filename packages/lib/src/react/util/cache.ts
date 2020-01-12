@@ -30,10 +30,11 @@ export const getItem = (key: string): any => {
       // When code is compiled, IE and Edge error out here, so we're skipping them
       if (/Edge\/\d./i.test(navigator.userAgent) || /rv:11.0/i.test(navigator.userAgent)) {
         return null;
-      } else {
-        return JSON.parse(cacheHit);
       }
+
+      return JSON.parse(cacheHit);
     }
+
     return null;
   } catch (err) {
     console.debug(`session cache get failed: ${err}`);

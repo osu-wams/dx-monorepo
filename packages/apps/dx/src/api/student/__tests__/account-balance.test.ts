@@ -3,7 +3,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { renderHook } from '@testing-library/react-hooks';
 import accountBalance from '../__mocks__/accountBalance.data';
 import { useAccountBalance } from '../account-balance';
-import * as cache from '../../../util/cache';
+import { cache } from '@osu-wams/lib';
 
 const initialState = { data: {}, loading: true, error: false };
 const errorState = { data: {}, loading: false, error: true };

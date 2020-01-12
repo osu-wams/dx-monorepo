@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import ReactGA from 'react-ga';
 import App from './App';
 import ErrorBoundary from './features/ErrorBoundary';
-import * as cache from './util/cache';
+import { cache } from '@osu-wams/lib';
 import { postError } from './api/errors';
 
 // Initialize Google Analytics
@@ -23,8 +23,8 @@ try {
       // Uncomment line below to get details in the console when developing
       debug: isDevelopment && isGADebug,
       gaOptions: {
-        siteSpeedSampleRate: 100
-      }
+        siteSpeedSampleRate: 100,
+      },
     });
   }
 
@@ -36,7 +36,7 @@ try {
     <ErrorBoundary errorComponent={() => <></>} errorHandlerCallback={redirectToError}>
       <App containerElement={applicationRoot} />
     </ErrorBoundary>,
-    applicationRoot
+    applicationRoot,
   );
 } catch (e) {
   postError(e).then(v => redirectToError());
