@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react';
 import { cache } from '@osu-wams/lib';
 
-// eslint-disable-next-line
-// import { postError } from './errors';
-
 /* eslint-disable react-hooks/exhaustive-deps */
 
 /**
@@ -42,6 +39,7 @@ const useAPICall = <T>(
   query: string | undefined,
   dataTransform: Function,
   initialState: T,
+  errorAPICall: Function,
   useCache?: boolean,
   errorCallback?: Function,
 ): APIResult<T> => {
@@ -66,10 +64,7 @@ const useAPICall = <T>(
         if (e.response?.status === 401) {
           window.location.assign(`/login?return=${window.location.pathname}`);
         } else {
-          // eslint-disable-next-line
-          // await postError(e);
-          // eslint-disable-next-line
-          // TODO: refactor to take postError as an option
+          await errorAPICall(e);
           cache.removeItem(cacheKey);
           setError(true);
           setLoading(false);
