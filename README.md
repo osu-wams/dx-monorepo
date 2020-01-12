@@ -60,6 +60,12 @@ cd packages/apps/dx-server && yarn exec ts-node src/db/scripts/create_users_tabl
 
 ## Usage
 
+### Starting Docker for Backend Infrastructure
+
+```bash
+docker-compose up -d
+```
+
 ### Starting the Backend and Frontend with SAML Authentication
 
 Open two terminals;
