@@ -1,27 +1,33 @@
 {
   "name": "@osu-wams/lib",
-  "version": "1.0.0",
-  "private": true,
-  "main": "src/index.ts",
+  "version": "0.0.1",
+  "description": "Lib functions for DX applications",
+  "author": "Josh Gum <revgum@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/osu-wams/dx-monorepo.git",
+    "directory": "packages/lib"
+  },
+  "main": "dist/index.ts",
   "main:src": "src/index.ts",
   "scripts": {
     "test": "jest",
-    "lint": "eslint ./src/**/*.ts --format=codeframe"
+    "lint": "eslint ./src/**/*.ts --format=codeframe",
+    "compile": "cross-env NODE_ENV=production tsc -p ./tsconfig.build.json "
   },
-  "dependencies": {
+  "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
     "@types/jest": "^24.0.0",
     "@types/node": "^12.0.0",
-    "@types/react": "^16.9.0",
-    "@types/react-dom": "^16.9.0",
+    "@types/react": "^16.9.17",
     "@typescript-eslint/eslint-plugin": "^2.13.0",
     "@typescript-eslint/parser": "^2.13.0",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
+    "jest": "^24.9.0",
     "ts-jest": "^24.0.2",
-    "typescript": "~3.7.2"
+    "typescript": "~3.7.3"
   },
-  "license": "MIT"
+  "peerDependencies": {
+    "react": "^16.12.0"
+  }
 }
