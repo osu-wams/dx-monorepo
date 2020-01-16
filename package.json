@@ -6,10 +6,6 @@
     "lint": "FORCE_COLOR=true lerna run lint",
     "deploy": "FORCE_COLOR=true lerna run deploy"
   },
-  "engines": {
-    "_YARN_VERSION_1.19.1_README": "Yarn 1.19.1 is necessary for Expo to build the app properly due to a bug in Yarn, see https://github.com/yarnpkg/yarn/issues/7734",
-    "yarn": "1.19.1"
-  },
   "workspaces": {
     "packages": [
       "packages/apps/*",
@@ -27,6 +23,7 @@
     "@typescript-eslint/eslint-plugin": "^2.13.0",
     "@typescript-eslint/parser": "^2.13.0",
     "babel-eslint": "10.0.3",
+    "cross-env": "^6.0.3",
     "eslint": "6.6.0",
     "eslint-config-prettier": "^4.2.0",
     "eslint-config-react-app": "^5.1.0",
