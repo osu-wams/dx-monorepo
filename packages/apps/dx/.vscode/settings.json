@@ -1,9 +1,0 @@
-{
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "jestrunner.debugOptions": {
-    "args": ["--no-cache"],
-    "sourcemaps": "inline",
-    "disableOptimisticBPs": true
-  },
-  "jestrunner.jestCommand": "yarn test"
-}

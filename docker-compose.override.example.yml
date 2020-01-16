@@ -1,9 +1,0 @@
-version: '3.7'
-
-services:
-  session_cache:
-    ports:
-      - '6379:6379'
-  dynamodb:
-    ports:
-      - '8000:8000'
