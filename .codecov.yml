@@ -2,18 +2,6 @@ coverage:
   status:
     project:
       default: off
-      dx-mobile:
-        paths: 'packages/apps/dx-mobile/'
-        flags: mobile
-      dx-server:
-        paths: 'packages/apps/dx-server/'
-        flags: server
-      dx:
-        paths: 'packages/apps/dx/'
-        flags: app
-      components:
-        paths: 'packages/components/'
-        flags: components
       lib:
         paths: 'packages/lib/'
         flags: lib
@@ -21,18 +9,6 @@ coverage:
       default: off
 
 flags:
-  dx-mobile:
-    paths:
-      - packages/apps/dx-mobile/
-  dx-server:
-    paths:
-      - packages/apps/dx-server/
-  dx:
-    paths:
-      - packages/apps/dx/
-  components:
-    paths:
-      - packages/components/
   lib:
     paths:
       - packages/lib/
