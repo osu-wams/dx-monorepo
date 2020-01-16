@@ -4,6 +4,7 @@
   "description": "Lib functions for DX applications",
   "author": "Josh Gum <revgum@gmail.com>",
   "license": "MIT",
+  "private": false,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/osu-wams/dx-monorepo.git",
@@ -29,5 +30,9 @@
   },
   "peerDependencies": {
     "react": "^16.12.0"
-  }
+  },
+  "files": [
+    "README.md",
+    "dist"
+  ]
 }
