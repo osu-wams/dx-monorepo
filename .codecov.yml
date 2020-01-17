@@ -2,13 +2,25 @@ coverage:
   status:
     project:
       default: off
+      hooks:
+        paths: 'packages/hooks/'
+        flags: hooks
       lib:
         paths: 'packages/lib/'
         flags: lib
+      utils:
+        paths: 'packages/utils/'
+        flags: utils
     patch:
       default: off
 
 flags:
+  hooks:
+    paths:
+      - packages/hooks/
   lib:
     paths:
       - packages/lib/
+  utils:
+    paths:
+      - packages/utils/

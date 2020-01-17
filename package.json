@@ -8,18 +8,20 @@
   },
   "workspaces": {
     "packages": [
-      "packages/apps/*",
-      "packages/components",
-      "packages/lib",
-      "packages/storybook"
+      "packages/*"
     ],
     "nohoist": [
-      "packages/apps/**/webpack-dev-server",
       "**/babel-loader",
       "**/babel-jest"
     ]
   },
-  "devDependencies": {
+  "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.4.0",
+    "@testing-library/react-hooks": "^3.2.1",
+    "@types/jest": "^24.0.0",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.17",
     "@typescript-eslint/eslint-plugin": "^2.13.0",
     "@typescript-eslint/parser": "^2.13.0",
     "babel-eslint": "10.0.3",
@@ -36,25 +38,19 @@
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-react-hooks": "^1.6.0",
     "husky": "^4.0.0",
+    "jest": "^24.9.0",
     "jest-prop-type-error": "^1.1.0",
     "lerna": "^3.10.7",
-    "prettier": "^1.16.1"
+    "prettier": "^1.16.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-test-renderer": "^16.12.0",
+    "ts-jest": "^24.0.2",
+    "typescript": "~3.7.4"
   },
   "husky": {
     "hooks": {
       "pre-commit": "yarn lint"
     }
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx,ts,tsx}",
-      "!src/setupTests.{js,jsx,ts,tsx}",
-      "!src/index.{js,jsx,ts,tsx}",
-      "!src/serviceWorker.{js,jsx,ts,tsx}",
-      "!src/**/*.(spec|test|stories).{js,jsx,ts,tsx}"
-    ]
-  },
-  "dependencies": {
-    "yarn": "1.19.1"
   }
 }
