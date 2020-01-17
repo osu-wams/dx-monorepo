@@ -1,0 +1,61 @@
+{
+  "name": "@osu-wams/hooks",
+  "version": "0.0.1",
+  "description": "React Hooks for DX applications",
+  "author": "Josh Gum <revgum@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/osu-wams/dx-monorepo.git",
+    "directory": "packages/hooks"
+  },
+  "main": "dist/index.ts",
+  "main:src": "src/index.ts",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint ./src/**/*.ts --format=codeframe",
+    "compile": "cross-env NODE_ENV=production tsc -p ./tsconfig.build.json "
+  },
+  "dependencies": {
+    "@osu-wams/utils": "^0.0.1"
+  },
+  "peerDependencies": {
+    "react": "^16.12.0"
+  },
+  "files": [
+    "README.md",
+    "dist"
+  ],
+  "jest": {
+    "globals": {
+      "__DEV__": "boolean"
+    },
+    "setupFilesAfterEnv": [
+      "<rootDir>../../setupTests.ts"
+    ],
+    "collectCoverage": true,
+    "coverageDirectory": "./coverage",
+    "collectCoverageFrom": [
+      "<rootDir>/src/**/*.{js,ts,tsx}"
+    ],
+    "modulePathIgnorePatterns": [
+      "/dist/"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "preset": "ts-jest",
+    "moduleNameMapper": {
+      "^@osu-wams/(.*)$": "<rootDir>../$1/src"
+    },
+    "coverageThreshold": {
+      "global": {
+        "branches": 50,
+        "functions": 50,
+        "lines": 50,
+        "statements": 50
+      }
+    }
+  }
+}
