@@ -1,11 +1,6 @@
 {
   "useWorkspaces": true,
-  "packages": [
-    "packages/*/*"
-  ],
+  "packages": ["packages/*/*"],
   "version": "0.0.2-alpha.7",
-  "registry": "https://registry.npmjs.org",
-  "publishConfig": {
-    "access": "public"
-  }
+  "registry": "https://registry.npmjs.org"
 }
