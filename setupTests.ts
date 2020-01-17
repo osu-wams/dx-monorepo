@@ -16,4 +16,6 @@ export const storageMock = {
 Object.defineProperty(global, 'sessionStorage', { value: storageMock });
 Object.defineProperty(global, 'localStorage', { value: storageMock });
 
+window.location.assign = jest.fn();
+
 beforeEach(() => {});

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { sessionCache } from '@osu-wams/utils';
+import { storageCache } from '@osu-wams/utils';
 
 /* eslint-disable react-hooks/exhaustive-deps */
 
@@ -53,11 +53,13 @@ const useAPICall = <T>(
     api(query)
       .then((result: T) => {
         const transformed = dataTransform(result);
-        sessionCache.setItem(cacheKey, transformed);
+        storageCache.setItem(cacheKey, transformed);
         setData(transformed);
         setLoading(false);
       })
       .catch(async (e: any) => {
+        setError(true);
+        setLoading(false);
         // API calls fail when the cookie expires, this causes the front-end to
         // flow through the login process while providing the backend the target
         // url to redirect the user to after a successful login.
@@ -65,16 +67,14 @@ const useAPICall = <T>(
           window.location.assign(`/login?return=${window.location.pathname}`);
         } else {
           if (postError) await postError(e);
-          sessionCache.removeItem(cacheKey);
-          setError(true);
-          setLoading(false);
+          storageCache.removeItem(cacheKey);
           if (errorCallback) errorCallback();
         }
       });
   };
 
   useEffect(() => {
-    const cached = sessionCache.getItem(cacheKey);
+    const cached = storageCache.getItem(cacheKey);
     if (useCache !== false && cached) {
       setData(cached);
       setLoading(false);

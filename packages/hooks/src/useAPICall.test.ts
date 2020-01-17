@@ -12,7 +12,7 @@ interface IAPICall {
 }
 
 const testArgs: IAPICall = {
-  api: jest.fn(),
+  api: jest.fn(() => Promise.resolve({})),
   query: undefined,
   dataTransform: jest.fn(),
   initialState: {},
@@ -22,8 +22,8 @@ const testArgs: IAPICall = {
 };
 
 describe('useAPICall', () => {
-  it('performs the call', () => {
-    const { result } = renderHook(() =>
+  it('performs the call', async () => {
+    const { result, waitForNextUpdate } = renderHook(() =>
       useAPICall(
         testArgs.api,
         testArgs.query,
@@ -34,10 +34,70 @@ describe('useAPICall', () => {
         testArgs.postError,
       ),
     );
-    act(() => {
-      result.current.data = {};
-    });
+    await waitForNextUpdate();
 
+    expect(result.current.loading).toBeFalsy();
+    expect(testArgs.dataTransform).toHaveBeenCalled();
+    expect(testArgs.errorCallback).not.toHaveBeenCalled();
+    expect(testArgs.postError).not.toHaveBeenCalled();
+  });
+
+  it('handles an HTTP 401', async () => {
+    testArgs.api.mockRejectedValue({ response: { status: 401 } });
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useAPICall(
+        testArgs.api,
+        testArgs.query,
+        testArgs.dataTransform,
+        testArgs.initialState,
+        testArgs.useCache,
+        testArgs.errorCallback,
+        testArgs.postError,
+      ),
+    );
+    await waitForNextUpdate();
+
+    expect(testArgs.errorCallback).not.toHaveBeenCalled();
+    expect(testArgs.postError).not.toHaveBeenCalled();
+    expect(result.current.loading).toBeFalsy();
+    expect(window.location.assign).toHaveBeenCalled();
+  });
+
+  it('handles an HTTP 403', async () => {
+    testArgs.api.mockRejectedValue({ response: { status: 403 } });
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useAPICall(
+        testArgs.api,
+        testArgs.query,
+        testArgs.dataTransform,
+        testArgs.initialState,
+        testArgs.useCache,
+        testArgs.errorCallback,
+        testArgs.postError,
+      ),
+    );
+    await waitForNextUpdate();
+    expect(testArgs.errorCallback).toHaveBeenCalled();
+    expect(testArgs.postError).toHaveBeenCalled();
+    expect(result.current.loading).toBeFalsy();
+  });
+
+  it('handles an HTTP 500', async () => {
+    testArgs.api.mockRejectedValue({ response: { status: 500 } });
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useAPICall(
+        testArgs.api,
+        testArgs.query,
+        testArgs.dataTransform,
+        testArgs.initialState,
+        testArgs.useCache,
+        testArgs.errorCallback,
+        testArgs.postError,
+      ),
+    );
+    await waitForNextUpdate();
+    expect(testArgs.errorCallback).toHaveBeenCalled();
+    expect(testArgs.postError).toHaveBeenCalled();
     expect(result.current.loading).toBeFalsy();
   });
 });
