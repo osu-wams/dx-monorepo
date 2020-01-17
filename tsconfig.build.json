@@ -23,7 +23,13 @@
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
     "stripInternal": true,
-    "target": "es5"
+    "target": "es5",
+    "baseUrl": ".",
+    "paths": {
+      "@osu-wams/hooks": ["packages/hooks/src"],
+      "@osu-wams/lib": ["packages/lib/src"],
+      "@osu-wams/utils": ["packages/utils/src"]
+    }
   },
   "include": ["packages/**/*.ts", "packages/**/*.tsx"]
 }

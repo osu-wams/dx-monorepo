@@ -1,10 +1,10 @@
 {
   "useWorkspaces": true,
   "packages": ["packages/*/*"],
-  "version": "1.0.0",
-  "command": {
-    "run": {
-      "npmClient": "yarn"
-    }
-  }
+  "version": "0.0.1",
+  "registry": "https://registry.npmjs.org",
+  "publishConfig": {
+    "access": "public"
+  },
+  "npmClient": "yarn"
 }
