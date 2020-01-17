@@ -1,5 +1,5 @@
 import useAPICall from './useAPICall';
-import { act, renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react-hooks';
 
 interface IAPICall {
   api: jest.Mock<any, any>;

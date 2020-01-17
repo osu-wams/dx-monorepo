@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { storageCache } from '@osu-wams/utils';
 
-/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react-hooks/exhaustive-deps, max-params */
 
 /**
  * Exhaustive deps has been disabled in linting because this hook shouldn't
@@ -88,4 +88,4 @@ const useAPICall = <T>(
 
 export default useAPICall;
 
-/* eslint-enable react-hooks/exhaustive-deps */
+/* eslint-enable react-hooks/exhaustive-deps, max-params */
