@@ -17,22 +17,42 @@
     "lint": "eslint ./src/**/*.ts --format=codeframe",
     "compile": "cross-env NODE_ENV=production tsc -p ./tsconfig.build.json "
   },
-  "devDependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@types/jest": "^24.0.0",
-    "@types/node": "^12.0.0",
-    "@types/react": "^16.9.17",
-    "@typescript-eslint/eslint-plugin": "^2.13.0",
-    "@typescript-eslint/parser": "^2.13.0",
-    "jest": "^24.9.0",
-    "ts-jest": "^24.0.2",
-    "typescript": "~3.7.3"
-  },
-  "peerDependencies": {
+  "dependencies": {
     "react": "^16.12.0"
   },
   "files": [
     "README.md",
     "dist"
-  ]
+  ],
+  "jest": {
+    "globals": {
+      "__DEV__": "boolean"
+    },
+    "setupFilesAfterEnv": [
+      "<rootDir>../../setupTests.ts"
+    ],
+    "collectCoverage": true,
+    "coverageDirectory": "./coverage",
+    "collectCoverageFrom": [
+      "<rootDir>/src/**/*.{js,ts,tsx}"
+    ],
+    "modulePathIgnorePatterns": [
+      "/dist/"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "preset": "ts-jest",
+    "moduleNameMapper": {
+      "^@osu-wams/(.*)$": "<rootDir>../$1/src"
+    },
+    "coverageThreshold": {
+      "global": {
+        "branches": 50,
+        "functions": 50,
+        "lines": 50,
+        "statements": 50
+      }
+    }
+  }
 }
