@@ -1,6 +1,6 @@
 {
   "name": "@osu-wams/hooks",
-  "version": "0.0.1",
+  "version": "0.0.2-alpha.0",
   "description": "React Hooks for DX applications",
   "author": "Josh Gum <revgum@gmail.com>",
   "license": "MIT",
@@ -18,7 +18,7 @@
     "compile": "cross-env NODE_ENV=production tsc -p ./tsconfig.build.json "
   },
   "dependencies": {
-    "@osu-wams/utils": "^0.0.1"
+    "@osu-wams/utils": "^0.0.2-alpha.0"
   },
   "peerDependencies": {
     "react": "^16.12.0"
