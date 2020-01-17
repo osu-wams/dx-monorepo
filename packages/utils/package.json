@@ -1,6 +1,6 @@
 {
   "name": "@osu-wams/utils",
-  "version": "0.0.2-alpha.5",
+  "version": "0.0.2-alpha.6",
   "description": "Common utilities for DX applications",
   "author": "Josh Gum <revgum@gmail.com>",
   "license": "MIT",
@@ -56,5 +56,5 @@
       }
     }
   },
-  "gitHead": "3e06f30747fcbec5d142333b914eee397cafa23d"
+  "gitHead": "ecd013bde18c2eb47d16c08acd7ed5283ebf39e1"
 }
