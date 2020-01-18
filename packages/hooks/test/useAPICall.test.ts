@@ -1,4 +1,4 @@
-import useAPICall from './useAPICall';
+import useAPICall from '../src/useAPICall';
 import { renderHook } from '@testing-library/react-hooks';
 
 interface IAPICall {

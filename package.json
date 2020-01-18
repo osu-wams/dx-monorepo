@@ -4,7 +4,8 @@
   "scripts": {
     "test": "CI=true FORCE_COLOR=true lerna run test -- --coverage --silent -w 1",
     "lint": "FORCE_COLOR=true lerna run lint",
-    "deploy": "FORCE_COLOR=true lerna run deploy"
+    "deploy": "FORCE_COLOR=true lerna run deploy",
+    "publish:prerelease": "FORCE_COLOR=true lerna publish prerelease --force-publish"
   },
   "workspaces": {
     "packages": [

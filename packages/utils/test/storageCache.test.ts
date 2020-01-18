@@ -1,6 +1,6 @@
-import * as storageCache from './storageCache';
+import * as storageCache from '../src/storageCache';
 
-import { storageMock } from '../../../setupTests';
+import { storageMock } from '../../../jest.setup.js';
 
 describe('getItem', () => {
   it('return null on error', () => {
@@ -15,7 +15,9 @@ describe('getItem', () => {
       return '{"bob":"ross"}';
     });
 
-    expect(storageCache.getItem('test-set-item')).toStrictEqual({ bob: 'ross' });
+    expect(storageCache.getItem('test-set-item')).toStrictEqual({
+      bob: 'ross',
+    });
   });
 });
 
