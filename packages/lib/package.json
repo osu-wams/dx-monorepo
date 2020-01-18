@@ -1,62 +1,31 @@
 {
   "name": "@osu-wams/lib",
-  "version": "0.0.2-alpha.8",
-  "description": "Lib functions for DX applications",
   "author": "Josh Gum <revgum@gmail.com>",
+  "version": "0.0.2-alpha.11",
   "license": "MIT",
-  "private": false,
-  "publishConfig": {
-    "access": "public"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/osu-wams/dx-monorepo.git",
-    "directory": "packages/lib"
-  },
-  "main": "dist/index.ts",
-  "main:src": "src/index.ts",
-  "scripts": {
-    "test": "jest",
-    "lint": "eslint ./src/**/*.ts --format=codeframe",
-    "compile": "cross-env NODE_ENV=production tsc -p ./tsconfig.build.json "
-  },
-  "dependencies": {
-    "react": "^16.12.0"
-  },
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "files": [
-    "README.md",
     "dist"
   ],
-  "jest": {
-    "globals": {
-      "__DEV__": "boolean"
-    },
-    "setupFilesAfterEnv": [
-      "<rootDir>../../setupTests.ts"
-    ],
-    "collectCoverage": true,
-    "coverageDirectory": "./coverage",
-    "collectCoverageFrom": [
-      "<rootDir>/src/**/*.{js,ts,tsx}"
-    ],
-    "modulePathIgnorePatterns": [
-      "/dist/"
-    ],
-    "testPathIgnorePatterns": [
-      "/node_modules/"
-    ],
-    "preset": "ts-jest",
-    "moduleNameMapper": {
-      "^@osu-wams/(.*)$": "<rootDir>../$1/src"
-    },
-    "coverageThreshold": {
-      "global": {
-        "branches": 50,
-        "functions": 50,
-        "lines": 50,
-        "statements": 50
-      }
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
     }
   },
-  "gitHead": "06a21c3ad9115e72e825296fc4361c61d83a9336"
+  "module": "dist/lib.esm.js",
+  "devDependencies": {
+    "@types/jest": "^24.9.0",
+    "husky": "^4.0.10",
+    "tsdx": "^0.12.3",
+    "tslib": "^1.10.0",
+    "typescript": "^3.7.5"
+  }
 }
