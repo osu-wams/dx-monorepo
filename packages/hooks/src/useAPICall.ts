@@ -14,7 +14,7 @@ export interface APICall<T> {
   errorCallback?: Function;
   initialState: T;
   postError?: Function;
-  query: string | undefined;
+  query?: string;
   useCache?: boolean;
 }
 

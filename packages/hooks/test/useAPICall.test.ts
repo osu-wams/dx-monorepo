@@ -3,9 +3,9 @@ import { renderHook } from '@testing-library/react-hooks';
 
 interface IAPICall {
   api: jest.Mock<any, any>;
-  query: string | undefined;
+  query?: string;
   dataTransform: jest.Mock<any, any>;
-  initialState: {} | undefined;
+  initialState: {};
   useCache: boolean;
   errorCallback: jest.Mock<any, any>;
   postError: jest.Mock<any, any>;
@@ -13,7 +13,6 @@ interface IAPICall {
 
 const testArgs: IAPICall = {
   api: jest.fn(() => Promise.resolve({})),
-  query: undefined,
   dataTransform: jest.fn(),
   initialState: {},
   useCache: false,
