@@ -23,17 +23,7 @@ const testArgs: IAPICall = {
 
 describe('useAPICall', () => {
   it('performs the call', async () => {
-    const { result, waitForNextUpdate } = renderHook(() =>
-      useAPICall(
-        testArgs.api,
-        testArgs.query,
-        testArgs.dataTransform,
-        testArgs.initialState,
-        testArgs.useCache,
-        testArgs.errorCallback,
-        testArgs.postError,
-      ),
-    );
+    const { result, waitForNextUpdate } = renderHook(() => useAPICall(testArgs));
     await waitForNextUpdate();
 
     expect(result.current.loading).toBeFalsy();
@@ -44,17 +34,7 @@ describe('useAPICall', () => {
 
   it('handles an HTTP 401', async () => {
     testArgs.api.mockRejectedValue({ response: { status: 401 } });
-    const { result, waitForNextUpdate } = renderHook(() =>
-      useAPICall(
-        testArgs.api,
-        testArgs.query,
-        testArgs.dataTransform,
-        testArgs.initialState,
-        testArgs.useCache,
-        testArgs.errorCallback,
-        testArgs.postError,
-      ),
-    );
+    const { result, waitForNextUpdate } = renderHook(() => useAPICall(testArgs));
     await waitForNextUpdate();
 
     expect(testArgs.errorCallback).not.toHaveBeenCalled();
@@ -65,17 +45,7 @@ describe('useAPICall', () => {
 
   it('handles an HTTP 403', async () => {
     testArgs.api.mockRejectedValue({ response: { status: 403 } });
-    const { result, waitForNextUpdate } = renderHook(() =>
-      useAPICall(
-        testArgs.api,
-        testArgs.query,
-        testArgs.dataTransform,
-        testArgs.initialState,
-        testArgs.useCache,
-        testArgs.errorCallback,
-        testArgs.postError,
-      ),
-    );
+    const { result, waitForNextUpdate } = renderHook(() => useAPICall(testArgs));
     await waitForNextUpdate();
     expect(testArgs.errorCallback).toHaveBeenCalled();
     expect(testArgs.postError).toHaveBeenCalled();
@@ -84,17 +54,7 @@ describe('useAPICall', () => {
 
   it('handles an HTTP 500', async () => {
     testArgs.api.mockRejectedValue({ response: { status: 500 } });
-    const { result, waitForNextUpdate } = renderHook(() =>
-      useAPICall(
-        testArgs.api,
-        testArgs.query,
-        testArgs.dataTransform,
-        testArgs.initialState,
-        testArgs.useCache,
-        testArgs.errorCallback,
-        testArgs.postError,
-      ),
-    );
+    const { result, waitForNextUpdate } = renderHook(() => useAPICall(testArgs));
     await waitForNextUpdate();
     expect(testArgs.errorCallback).toHaveBeenCalled();
     expect(testArgs.postError).toHaveBeenCalled();

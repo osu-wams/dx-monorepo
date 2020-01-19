@@ -1,17 +1,27 @@
 import { useEffect, useState } from 'react';
 import { storageCache } from '@osu-wams/utils';
 
-/* eslint-disable react-hooks/exhaustive-deps, max-params */
+/* eslint-disable react-hooks/exhaustive-deps */
 
 /**
  * Exhaustive deps has been disabled in linting because this hook shouldn't
  * trigger any time one of the referenced methods changes upstream.
  */
 
+export interface APICall<T> {
+  api: Function;
+  dataTransform: Function;
+  errorCallback?: Function;
+  initialState: T;
+  postError?: Function;
+  query: string | undefined;
+  useCache?: boolean;
+}
+
 export interface APIResult<T> {
   data: T;
-  loading: boolean;
   error: boolean;
+  loading: boolean;
   setData: Function;
 }
 
@@ -29,20 +39,11 @@ export interface APIResult<T> {
  * *  - Perform the Data Transformation
  * *  - Set the data state and loading state to false
  * *  - If an error is caught, set the loading state to false and the error state to true
- * @param api - a function which makes an API call using axios
- * @param query - an optional querystring to include to the API call
- * @param dataTransform - a function that takes the data as input and expects to return properly shaped data
- * @param initialState - an initial state for the data to render in the component
+ * @param options [APICall] - the options for the related API call
  */
-const useAPICall = <T>(
-  api: Function,
-  query: string | undefined,
-  dataTransform: Function,
-  initialState: T,
-  useCache?: boolean,
-  errorCallback?: Function,
-  postError?: Function,
-): APIResult<T> => {
+const useAPICall = <T>(options: APICall<T>): APIResult<T> => {
+  const { api, initialState, query, dataTransform, errorCallback, postError, useCache } = options;
+
   const [data, setData] = useState<T>(initialState);
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
@@ -88,4 +89,4 @@ const useAPICall = <T>(
 
 export default useAPICall;
 
-/* eslint-enable react-hooks/exhaustive-deps, max-params */
+/* eslint-enable react-hooks/exhaustive-deps */
