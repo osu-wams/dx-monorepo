@@ -1,3 +1,4 @@
-import postError, { IGNORED_ERRORS } from './errors';
+import * as AppVersions from './appVersions';
+import * as Errors from './errors';
 
-export default { postError, IGNORED_ERRORS };
+export default { AppVersions, Errors };
