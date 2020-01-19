@@ -1,62 +1,127 @@
-import useAPICall from '../src/useAPICall';
+import useAPICall, { APICall } from '../src/useAPICall';
 import { renderHook } from '@testing-library/react-hooks';
 
-interface IAPICall {
-  api: jest.Mock<any, any>;
-  query?: string;
-  dataTransform: jest.Mock<any, any>;
-  initialState: {};
-  useCache: boolean;
-  errorCallback: jest.Mock<any, any>;
-  postError: jest.Mock<any, any>;
-}
+const mockedGetItem = jest.fn();
+const mockedRemoveItem = jest.fn();
+const mockedSetItem = jest.fn();
+jest.mock('@osu-wams/utils', () => ({
+  __esModule: true,
+  storageCache: {
+    getItem: () => mockedGetItem(),
+    removeItem: () => mockedRemoveItem(),
+    setItem: () => mockedSetItem(),
+    clear: jest.fn(),
+  },
+}));
 
-const testArgs: IAPICall = {
-  api: jest.fn(() => Promise.resolve({})),
-  dataTransform: jest.fn(),
-  initialState: {},
-  useCache: false,
-  errorCallback: jest.fn(),
-  postError: jest.fn(),
-};
+const mockedApi = jest.fn(() => Promise.resolve([]));
+const mockedDataTransform = jest.fn();
+const mockedErrorCallback = jest.fn();
+const mockedPostError = jest.fn();
+let testArgs: APICall<string[]>;
 
 describe('useAPICall', () => {
+  beforeEach(() => {
+    testArgs = {
+      api: () => mockedApi(),
+      dataTransform: () => mockedDataTransform(),
+      initialState: [],
+      useCache: false,
+      errorCallback: () => mockedErrorCallback(),
+      postError: () => mockedPostError(),
+    };
+  });
+
   it('performs the call', async () => {
     const { result, waitForNextUpdate } = renderHook(() => useAPICall(testArgs));
     await waitForNextUpdate();
 
     expect(result.current.loading).toBeFalsy();
-    expect(testArgs.dataTransform).toHaveBeenCalled();
-    expect(testArgs.errorCallback).not.toHaveBeenCalled();
-    expect(testArgs.postError).not.toHaveBeenCalled();
+    expect(mockedDataTransform).toHaveBeenCalled();
+    expect(mockedGetItem).toHaveBeenCalled();
+    expect(mockedSetItem).toHaveBeenCalled();
+    expect(mockedRemoveItem).not.toHaveBeenCalled();
+    expect(mockedErrorCallback).not.toHaveBeenCalled();
+    expect(mockedPostError).not.toHaveBeenCalled();
+  });
+
+  it('performs the call returning cached data', async () => {
+    mockedGetItem.mockReturnValueOnce(['bob', 'ross']);
+    testArgs.initialState = [];
+    testArgs.useCache = true;
+    const { result } = renderHook(() => useAPICall(testArgs));
+
+    expect(result.current.loading).toBeFalsy();
+    expect(result.current.data).toEqual(['bob', 'ross']);
+    expect(mockedDataTransform).not.toHaveBeenCalled();
+    expect(mockedGetItem).toHaveBeenCalled();
+    expect(mockedSetItem).not.toHaveBeenCalled();
+    expect(mockedRemoveItem).not.toHaveBeenCalled();
+    expect(mockedErrorCallback).not.toHaveBeenCalled();
+    expect(mockedPostError).not.toHaveBeenCalled();
   });
 
   it('handles an HTTP 401', async () => {
-    testArgs.api.mockRejectedValue({ response: { status: 401 } });
+    mockedApi.mockRejectedValue({ response: { status: 401 } });
     const { result, waitForNextUpdate } = renderHook(() => useAPICall(testArgs));
     await waitForNextUpdate();
 
-    expect(testArgs.errorCallback).not.toHaveBeenCalled();
-    expect(testArgs.postError).not.toHaveBeenCalled();
+    expect(mockedErrorCallback).not.toHaveBeenCalled();
+    expect(mockedPostError).not.toHaveBeenCalled();
     expect(result.current.loading).toBeFalsy();
+    expect(mockedGetItem).toHaveBeenCalled();
+    expect(mockedSetItem).not.toHaveBeenCalled();
+    expect(mockedRemoveItem).not.toHaveBeenCalled();
     expect(window.location.assign).toHaveBeenCalled();
   });
 
   it('handles an HTTP 403', async () => {
-    testArgs.api.mockRejectedValue({ response: { status: 403 } });
+    mockedApi.mockRejectedValue({ response: { status: 403 } });
     const { result, waitForNextUpdate } = renderHook(() => useAPICall(testArgs));
     await waitForNextUpdate();
-    expect(testArgs.errorCallback).toHaveBeenCalled();
-    expect(testArgs.postError).toHaveBeenCalled();
+    expect(mockedErrorCallback).toHaveBeenCalled();
+    expect(mockedPostError).toHaveBeenCalled();
     expect(result.current.loading).toBeFalsy();
+    expect(mockedGetItem).toHaveBeenCalled();
+    expect(mockedSetItem).not.toHaveBeenCalled();
+    expect(mockedRemoveItem).toHaveBeenCalled();
+  });
+
+  it('skips handling an HTTP 403', async () => {
+    mockedApi.mockRejectedValue({ response: { status: 403 } });
+    const { result, waitForNextUpdate } = renderHook(() => useAPICall({ ...testArgs, skipPostErrorStatuses: [403] }));
+    await waitForNextUpdate();
+    expect(mockedErrorCallback).toHaveBeenCalled();
+    expect(mockedPostError).not.toHaveBeenCalled();
+    expect(result.current.loading).toBeFalsy();
+    expect(mockedGetItem).toHaveBeenCalled();
+    expect(mockedSetItem).not.toHaveBeenCalled();
+    expect(mockedRemoveItem).toHaveBeenCalled();
+  });
+
+  it('will not post an error api call or errorcallback', async () => {
+    mockedApi.mockRejectedValue({ response: { status: 500 } });
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useAPICall({ ...testArgs, postError: undefined, errorCallback: undefined }),
+    );
+    await waitForNextUpdate();
+    expect(mockedErrorCallback).not.toHaveBeenCalled();
+    expect(mockedPostError).not.toHaveBeenCalled();
+    expect(result.current.loading).toBeFalsy();
+    expect(mockedGetItem).toHaveBeenCalled();
+    expect(mockedSetItem).not.toHaveBeenCalled();
+    expect(mockedRemoveItem).toHaveBeenCalled();
   });
 
   it('handles an HTTP 500', async () => {
-    testArgs.api.mockRejectedValue({ response: { status: 500 } });
+    mockedApi.mockRejectedValue({ response: { status: 500 } });
     const { result, waitForNextUpdate } = renderHook(() => useAPICall(testArgs));
     await waitForNextUpdate();
-    expect(testArgs.errorCallback).toHaveBeenCalled();
-    expect(testArgs.postError).toHaveBeenCalled();
+    expect(mockedErrorCallback).toHaveBeenCalled();
+    expect(mockedPostError).toHaveBeenCalled();
     expect(result.current.loading).toBeFalsy();
+    expect(mockedGetItem).toHaveBeenCalled();
+    expect(mockedSetItem).not.toHaveBeenCalled();
+    expect(mockedRemoveItem).toHaveBeenCalled();
   });
 });
