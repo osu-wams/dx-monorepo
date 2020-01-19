@@ -1,3 +1,4 @@
 import useAPICall from './useAPICall';
+import api from './api';
 
-export { useAPICall };
+export { api, useAPICall };
