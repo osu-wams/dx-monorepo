@@ -1,12 +1,12 @@
 import axios from 'axios';
-import { useAPICall } from '@osu-wams/hooks/src';
+import useAPICall from '../useAPICall';
 
-export interface Versions {
+interface Versions {
   serverVersion: string;
   appVersion: string;
 }
 
-export const getAppVersions = async (): Promise<Versions> => {
+const getAppVersions = async (): Promise<Versions> => {
   const healthCheck: { version: string } = await axios
     .get('/healthcheck')
     .then(res => res.data)
@@ -27,5 +27,7 @@ export const getAppVersions = async (): Promise<Versions> => {
   };
 };
 
-export const useAppVersions = (initialState: Versions) =>
+const useAppVersions = (initialState: Versions) =>
   useAPICall<Versions>({ api: getAppVersions, dataTransform: (data: any) => data, initialState });
+
+export { Versions, getAppVersions, useAppVersions };

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { postError } from '@osu-wams/hooks/src/api/errors';
+import { postError } from '../../src/api/errors';
 
 const mock = new MockAdapter(axios);
 
