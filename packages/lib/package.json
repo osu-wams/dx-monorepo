@@ -1,7 +1,7 @@
 {
   "name": "@osu-wams/lib",
   "author": "Josh Gum <revgum@gmail.com>",
-  "version": "0.0.2-alpha.12",
+  "version": "0.0.2-alpha.37",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -21,11 +21,17 @@
     }
   },
   "module": "dist/lib.esm.js",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/osu-wams/dx-monorepo.git",
+    "directory": "packages/lib"
+  },
   "devDependencies": {
     "@types/jest": "^24.9.0",
     "husky": "^4.0.10",
     "tsdx": "^0.12.3",
     "tslib": "^1.10.0",
     "typescript": "^3.7.5"
-  }
+  },
+  "gitHead": "764a9513c014811231c64171dd624f033953e8da"
 }
