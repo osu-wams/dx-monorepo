@@ -1,4 +1,4 @@
 import useAPICall from './useAPICall';
 import api from './api';
-
-export { api, useAPICall };
+import { useAppVersions } from './api/appVersions';
+export { api, useAPICall, useAppVersions };
