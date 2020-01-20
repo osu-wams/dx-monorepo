@@ -1,12 +1,12 @@
 import axios from 'axios';
 import useAPICall from '../useAPICall';
 
-interface Versions {
+export interface Versions {
   serverVersion: string;
   appVersion: string;
 }
 
-const getAppVersions = async (): Promise<Versions> => {
+export const getAppVersions = async (): Promise<Versions> => {
   const healthCheck: { version: string } = await axios
     .get('/healthcheck')
     .then(res => res.data)
@@ -27,8 +27,5 @@ const getAppVersions = async (): Promise<Versions> => {
   };
 };
 
-const useAppVersions = (initialState: Versions) =>
+export const useAppVersions = (initialState: Versions) =>
   useAPICall<Versions>({ api: getAppVersions, dataTransform: (data: any) => data, initialState });
-
-export { Versions, getAppVersions, useAppVersions };
-export default { getAppVersions, useAppVersions };

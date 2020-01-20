@@ -1,8 +1,10 @@
 import axios from 'axios';
 import useAPICall from '../useAPICall';
-import mockStatus from '../mocks/status';
+import mocks from '../mocks/status';
 
-const STATUS_SORT: { [k: number]: number } = {
+export const mockStatus = mocks;
+
+export const STATUS_SORT: { [k: number]: number } = {
   4: 1,
   3: 2,
   2: 3,
@@ -14,7 +16,7 @@ const STATUS_SORT: { [k: number]: number } = {
  * This is why the sort key is generated with the status and name so that natural lexigraphical sorting works.
  * @param components the IT System components from the API
  */
-const sortedByStatus = (components: ICachetComponent[]): ICachetComponent[] => {
+export const sortedByStatus = (components: ICachetComponent[]): ICachetComponent[] => {
   return components
     ?.map(c => ({ ...c, key: `${STATUS_SORT[c.status]}${c.name}` }))
     .sort((a, b) => (a.key > b.key ? 1 : -1));
@@ -24,7 +26,7 @@ const sortedByStatus = (components: ICachetComponent[]): ICachetComponent[] => {
  * Return a list of components having incidents for the Sticky Incident portion of the UI
  * @param components the IT System components from the API
  */
-const withStickyIncidents = (components: ICachetComponent[]): ICachetComponent[] => {
+export const withStickyIncidents = (components: ICachetComponent[]): ICachetComponent[] => {
   return components?.filter(c => c.incidents.length > 0) ?? [];
 };
 
@@ -32,16 +34,16 @@ const withStickyIncidents = (components: ICachetComponent[]): ICachetComponent[]
  * Return whether all components are in the Operational status.
  * @param components the IT System components from the API
  */
-const allOperational = (components: ICachetComponent[]): boolean => {
+export const allOperational = (components: ICachetComponent[]): boolean => {
   return components?.filter(c => c.status > 1).length === 0 ?? false;
 };
 
-const getStatus = (): Promise<ICachetComponent[]> => axios.get(`/api/status`).then(res => res.data);
+export const getStatus = (): Promise<ICachetComponent[]> => axios.get(`/api/status`).then(res => res.data);
 
-const useStatus = () =>
+export const useStatus = () =>
   useAPICall<ICachetComponent[]>({ api: getStatus, dataTransform: (data: any) => data, initialState: [] });
 
-interface ICachetIncident {
+export interface ICachetIncident {
   id: number;
   name: string;
   message: string;
@@ -53,7 +55,7 @@ interface ICachetIncident {
   updatedAt: string;
 }
 
-interface ICachetComponent {
+export interface ICachetComponent {
   id: number;
   name: string;
   description: string;
@@ -62,16 +64,3 @@ interface ICachetComponent {
   updatedAt: string;
   incidents: ICachetIncident[];
 }
-
-export {
-  ICachetComponent,
-  ICachetIncident,
-  useStatus,
-  getStatus,
-  allOperational,
-  withStickyIncidents,
-  sortedByStatus,
-  STATUS_SORT,
-  mockStatus,
-};
-export default { useStatus, getStatus, allOperational, withStickyIncidents, sortedByStatus, STATUS_SORT, mockStatus };
