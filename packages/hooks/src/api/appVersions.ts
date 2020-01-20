@@ -31,3 +31,4 @@ const useAppVersions = (initialState: Versions) =>
   useAPICall<Versions>({ api: getAppVersions, dataTransform: (data: any) => data, initialState });
 
 export { Versions, getAppVersions, useAppVersions };
+export default { getAppVersions, useAppVersions };

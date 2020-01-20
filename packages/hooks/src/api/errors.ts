@@ -1,9 +1,9 @@
 import axios from 'axios';
 import StackTrace from 'stacktrace-js';
 
-export const IGNORED_ERRORS = ['Error: Request aborted'];
+const IGNORED_ERRORS = ['Error: Request aborted'];
 
-export const postError = async (e: Error) => {
+const postError = async (e: Error) => {
   const stack = await StackTrace.fromError(e).catch(err => console.error(err));
   await axios
     .post('/api/errors', { error: e.toString(), stack })
@@ -13,4 +13,5 @@ export const postError = async (e: Error) => {
     });
 };
 
-export default postError;
+export { postError, IGNORED_ERRORS };
+export default { postError };
