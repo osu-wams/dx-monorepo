@@ -1,7 +1,7 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { getStatus, allOperational, sortedByStatus, withStickyIncidents } from '../../src/api/status';
-import statusData from '../../mocks/status';
+import statusData from '../../src/mocks/status';
 
 const mock = new MockAdapter(axios);
 
