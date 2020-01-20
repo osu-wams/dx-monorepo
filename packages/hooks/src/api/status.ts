@@ -1,5 +1,8 @@
 import axios from 'axios';
 import useAPICall from '../useAPICall';
+import mockStatus from '../mocks/status';
+
+export { mockStatus };
 
 export const STATUS_SORT: { [k: number]: number } = {
   4: 1,
