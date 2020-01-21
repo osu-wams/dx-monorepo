@@ -1,0 +1,16 @@
+export default {
+  data: [
+    {
+      id: 'academic-overview',
+      title: 'Academic Overview',
+      content: 'This is content for Academic Overview.',
+    },
+    {
+      id: 'financial-overview',
+      title: 'Financial Overview',
+      content: 'This is content for Financial Overview.',
+    },
+  ],
+  loading: false,
+  error: false,
+};
