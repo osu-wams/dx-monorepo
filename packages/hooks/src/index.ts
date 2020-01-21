@@ -7,6 +7,8 @@ import * as Errors from './api/errors';
 import * as InfoButtons from './api/infoButtons';
 import { useInfoButtons } from './api/infoButtons';
 import * as Masquerade from './api/masquerade';
+import * as Resources from './api/resources';
+import { useResources, useCategories, useResourcesByQueue } from './api/resources';
 import * as Status from './api/status';
 import { useStatus } from './api/status';
 
@@ -16,11 +18,15 @@ export {
   Errors,
   InfoButtons,
   Masquerade,
+  Resources,
   Status,
   useAPICall,
   useAppVersions,
-  useInfoButtons,
+  useCategories,
   useDxAlerts,
+  useInfoButtons,
   useRaveAlerts,
+  useResources,
+  useResourcesByQueue,
   useStatus,
 };
