@@ -1,4 +1,6 @@
 import useAPICall from './useAPICall';
+import * as Announcements from './api/announcements';
+import { useAnnouncements } from './api/announcements';
 import * as AppVersions from './api/appVersions';
 import { useAppVersions } from './api/appVersions';
 import * as Alerts from './api/alerts';
@@ -17,6 +19,7 @@ import * as Status from './api/status';
 import { useStatus } from './api/status';
 
 export {
+  Announcements,
   AppVersions,
   Alerts,
   Errors,
@@ -26,6 +29,7 @@ export {
   ReleaseNotes,
   Resources,
   Status,
+  useAnnouncements,
   useAPICall,
   useAppVersions,
   useCategories,
