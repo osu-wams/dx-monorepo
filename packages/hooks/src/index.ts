@@ -9,6 +9,8 @@ import { useInfoButtons } from './api/infoButtons';
 import * as Masquerade from './api/masquerade';
 import * as PageContents from './api/pageContents';
 import { usePageContent } from './api/pageContents';
+import * as ReleaseNotes from './api/releaseNotes';
+import { useReleaseNotes } from './api/releaseNotes';
 import * as Resources from './api/resources';
 import { useResources, useCategories, useResourcesByQueue } from './api/resources';
 import * as Status from './api/status';
@@ -21,6 +23,7 @@ export {
   InfoButtons,
   Masquerade,
   PageContents,
+  ReleaseNotes,
   Resources,
   Status,
   useAPICall,
@@ -30,6 +33,7 @@ export {
   useInfoButtons,
   usePageContent,
   useRaveAlerts,
+  useReleaseNotes,
   useResources,
   useResourcesByQueue,
   useStatus,
