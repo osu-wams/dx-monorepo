@@ -12,7 +12,7 @@ import * as Masquerade from './api/masquerade';
 import * as PageContents from './api/pageContents';
 import { usePageContent } from './api/pageContents';
 import * as Person from './api/person';
-import { useAddresses, useMealPlans } from './api/person';
+import { useAddresses, useMealPlans, usePerson } from './api/person';
 import * as ReleaseNotes from './api/releaseNotes';
 import { useReleaseNotes } from './api/releaseNotes';
 import * as Resources from './api/resources';
@@ -41,6 +41,7 @@ export {
   useInfoButtons,
   useMealPlans,
   usePageContent,
+  usePerson,
   useRaveAlerts,
   useReleaseNotes,
   useResources,
