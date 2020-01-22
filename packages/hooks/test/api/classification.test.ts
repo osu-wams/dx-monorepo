@@ -1,6 +1,6 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { getClassification, mockClassification } from '../../../src/api/student/classification';
+import { getClassification, mockClassification } from '../../src/api/classification';
 
 const mock = new MockAdapter(axios);
 

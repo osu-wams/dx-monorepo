@@ -1,5 +1,5 @@
 import axios from 'axios';
-import mocks from '../../mocks/student/classification';
+import mocks from '../mocks/classification';
 
 export const mockClassification = mocks;
 
