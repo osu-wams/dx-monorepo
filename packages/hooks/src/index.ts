@@ -7,6 +7,13 @@ import * as Alerts from './api/alerts';
 import { useDxAlerts, useRaveAlerts } from './api/alerts';
 import * as Classification from './api/classification';
 import * as Errors from './api/errors';
+import * as Events from './api/events';
+import {
+  useAcademicCalendarEvents,
+  useCampusEvents,
+  useEmployeeEvents,
+  useStudentExperienceEvents,
+} from './api/events';
 import * as InfoButtons from './api/infoButtons';
 import { useInfoButtons } from './api/infoButtons';
 import * as Masquerade from './api/masquerade';
@@ -38,6 +45,7 @@ export {
   Alerts,
   Classification,
   Errors,
+  Events,
   InfoButtons,
   Masquerade,
   PageContents,
@@ -46,6 +54,7 @@ export {
   Resources,
   Status,
   Student,
+  useAcademicCalendarEvents,
   useAcademicStatus,
   useAccountBalance,
   useAccountTransactions,
@@ -53,9 +62,11 @@ export {
   useAnnouncements,
   useAPICall,
   useAppVersions,
+  useCampusEvents,
   useCategories,
   useCourseSchedule,
   useDxAlerts,
+  useEmployeeEvents,
   useGpa,
   useGrades,
   useHolds,
@@ -69,4 +80,5 @@ export {
   useResources,
   useResourcesByQueue,
   useStatus,
+  useStudentExperienceEvents,
 };
