@@ -21,6 +21,7 @@ import * as Status from './api/status';
 import { useStatus } from './api/status';
 import * as Student from './api/student';
 import { useAcademicStatus } from './api/student';
+import { useAccountBalance } from './api/student';
 
 export {
   Announcements,
@@ -36,6 +37,7 @@ export {
   Status,
   Student,
   useAcademicStatus,
+  useAccountBalance,
   useAddresses,
   useAnnouncements,
   useAPICall,
