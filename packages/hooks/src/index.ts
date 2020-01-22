@@ -28,6 +28,7 @@ import {
   useCourseSchedule,
   useGpa,
   useGrades,
+  useHolds,
 } from './api/student';
 
 export {
@@ -56,6 +57,7 @@ export {
   useDxAlerts,
   useGpa,
   useGrades,
+  useHolds,
   useInfoButtons,
   useMealPlans,
   usePageContent,

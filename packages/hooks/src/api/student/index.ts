@@ -10,6 +10,8 @@ import * as Gpa from './gpa';
 import { useGpa } from './gpa';
 import * as Grades from './grades';
 import { useGrades } from './grades';
+import * as Holds from './holds';
+import { useHolds } from './holds';
 
 export {
   AcademicStatus,
@@ -18,10 +20,12 @@ export {
   CourseSchedule,
   Gpa,
   Grades,
+  Holds,
   useAcademicStatus,
   useAccountBalance,
   useAccountTransactions,
   useCourseSchedule,
   useGpa,
   useGrades,
+  useHolds,
 };
