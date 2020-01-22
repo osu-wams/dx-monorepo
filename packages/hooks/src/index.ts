@@ -29,6 +29,7 @@ import {
   useGpa,
   useGrades,
   useHolds,
+  usePlannerItems,
 } from './api/student';
 
 export {
@@ -62,6 +63,7 @@ export {
   useMealPlans,
   usePageContent,
   usePerson,
+  usePlannerItems,
   useRaveAlerts,
   useReleaseNotes,
   useResources,
