@@ -21,10 +21,7 @@ import { useResources, useCategories, useResourcesByQueue } from './api/resource
 import * as Status from './api/status';
 import { useStatus } from './api/status';
 import * as Student from './api/student';
-import { useAcademicStatus } from './api/student';
-import { useAccountBalance } from './api/student';
-import { useAccountTransactions } from './api/student';
-import { useCourseSchedule } from './api/student';
+import { useAcademicStatus, useAccountBalance, useAccountTransactions, useCourseSchedule, useGpa } from './api/student';
 
 export {
   Announcements,
@@ -50,6 +47,7 @@ export {
   useCategories,
   useCourseSchedule,
   useDxAlerts,
+  useGpa,
   useInfoButtons,
   useMealPlans,
   usePageContent,
