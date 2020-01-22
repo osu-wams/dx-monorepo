@@ -4,7 +4,7 @@ import mocks from '../../mocks/student/classification';
 export const mockClassification = mocks;
 
 export const getClassification = (): Promise<Classification> =>
-  axios.get(`/api/student/classification`).then(res => res.data);
+  axios.get(`/api/user/classification`).then(res => res.data);
 
 export type Classification = {
   id: string;
