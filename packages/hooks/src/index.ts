@@ -19,6 +19,8 @@ import * as Resources from './api/resources';
 import { useResources, useCategories, useResourcesByQueue } from './api/resources';
 import * as Status from './api/status';
 import { useStatus } from './api/status';
+import * as Student from './api/student';
+import { useAcademicStatus } from './api/student';
 
 export {
   Announcements,
@@ -32,6 +34,8 @@ export {
   ReleaseNotes,
   Resources,
   Status,
+  Student,
+  useAcademicStatus,
   useAddresses,
   useAnnouncements,
   useAPICall,
