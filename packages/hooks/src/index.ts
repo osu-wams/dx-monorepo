@@ -5,6 +5,7 @@ import * as AppVersions from './api/appVersions';
 import { useAppVersions } from './api/appVersions';
 import * as Alerts from './api/alerts';
 import { useDxAlerts, useRaveAlerts } from './api/alerts';
+import * as Classification from './api/classification';
 import * as Errors from './api/errors';
 import * as InfoButtons from './api/infoButtons';
 import { useInfoButtons } from './api/infoButtons';
@@ -23,11 +24,13 @@ import * as Student from './api/student';
 import { useAcademicStatus } from './api/student';
 import { useAccountBalance } from './api/student';
 import { useAccountTransactions } from './api/student';
+import { useCourseSchedule } from './api/student';
 
 export {
   Announcements,
   AppVersions,
   Alerts,
+  Classification,
   Errors,
   InfoButtons,
   Masquerade,
@@ -45,6 +48,7 @@ export {
   useAPICall,
   useAppVersions,
   useCategories,
+  useCourseSchedule,
   useDxAlerts,
   useInfoButtons,
   useMealPlans,
