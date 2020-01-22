@@ -8,6 +8,8 @@ import * as CourseSchedule from './courseSchedule';
 import { useCourseSchedule } from './courseSchedule';
 import * as Gpa from './gpa';
 import { useGpa } from './gpa';
+import * as Grades from './grades';
+import { useGrades } from './grades';
 
 export {
   AcademicStatus,
@@ -15,9 +17,11 @@ export {
   AccountTransactions,
   CourseSchedule,
   Gpa,
+  Grades,
   useAcademicStatus,
   useAccountBalance,
   useAccountTransactions,
   useCourseSchedule,
   useGpa,
+  useGrades,
 };
