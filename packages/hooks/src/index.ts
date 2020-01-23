@@ -38,6 +38,8 @@ import {
   useHolds,
   usePlannerItems,
 } from './api/student';
+import * as User from './api/user';
+import { useUser } from './api/user';
 
 export {
   Announcements,
@@ -54,6 +56,7 @@ export {
   Resources,
   Status,
   Student,
+  User,
   useAcademicCalendarEvents,
   useAcademicStatus,
   useAccountBalance,
@@ -81,4 +84,5 @@ export {
   useResourcesByQueue,
   useStatus,
   useStudentExperienceEvents,
+  useUser,
 };
