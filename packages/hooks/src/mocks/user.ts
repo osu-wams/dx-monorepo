@@ -42,6 +42,8 @@ const user = {
   },
   loading: false,
   errror: false,
+  isCanvasOptIn: true,
+  setUser: () => {},
 };
 
 export default { user, userAudienceOverride, userClassification, settings };
