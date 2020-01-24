@@ -41,7 +41,7 @@ const user = {
     audienceOverride: userAudienceOverride,
   },
   loading: false,
-  errror: false,
+  error: false,
   isCanvasOptIn: true,
   setUser: () => {},
 };
