@@ -51,6 +51,9 @@ export interface UserClassification {
 }
 
 export interface User {
+  osuId?: string;
+  firstName?: string;
+  lastName?: string;
   email?: string;
   isCanvasOptIn?: boolean;
   isAdmin: boolean;
@@ -67,6 +70,7 @@ export interface UserState {
   error: boolean;
   loading: boolean;
   isCanvasOptIn?: boolean;
+  setUser?: Function;
 }
 
 export interface UserAudienceOverride {

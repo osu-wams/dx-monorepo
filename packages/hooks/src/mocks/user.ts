@@ -1,4 +1,4 @@
-import { UserAudienceOverride, UserClassification } from '../api/user';
+import { UserAudienceOverride, UserClassification, UserState } from '../api/user';
 
 const settings = {
   data: {
@@ -26,7 +26,7 @@ const userClassification: UserClassification = {
   },
 };
 
-const user = {
+const user: UserState = {
   data: {
     osuId: '123',
     email: 'testo@oregonstate.edu',
