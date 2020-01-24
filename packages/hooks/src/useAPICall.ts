@@ -54,51 +54,65 @@ const useAPICall = <T>(options: APICall<T>): APIResult<T> => {
     skipPostErrorStatuses,
   } = options;
 
+  let mounted = true;
   const [data, setData] = useState<T>(initialState);
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const cacheKey = `${api.name}:${query}:${dataTransform.name}`;
 
   const fetchData = async (): Promise<void> => {
-    setLoading(true);
     api(query)
       .then((result: T) => {
-        const transformed = dataTransform(result);
-        storageCache.setItem(cacheKey, transformed);
-        setData(transformed);
-        setLoading(false);
+        if (mounted) {
+          const transformed = dataTransform(result);
+          storageCache.setItem(cacheKey, transformed);
+          setData(transformed);
+          setLoading(false);
+        }
       })
       .catch(async (e: any) => {
-        setError(true);
-        setLoading(false);
-        // API calls fail when the cookie expires, this causes the front-end to
-        // flow through the login process while providing the backend the target
-        // url to redirect the user to after a successful login.
-        if (e.response?.status === 401) {
-          window.location.assign(`/login?return=${window.location.pathname}`);
-        } else {
-          // Gives the ability for an API call to bypass posting an error to the server in
-          // certain circumstances, such as an HTTP 403 from Planner Item API call when the user
-          // has not yet opted-in for Canvas. This is an expected error response and needs not
-          // be posted to the backend for monitoring.
-          if (!skipPostErrorStatuses?.includes(e.response?.status) && postError) {
-            await postError(e);
-          }
+        if (mounted) {
+          setError(true);
+          setLoading(false);
+          // API calls fail when the cookie expires, this causes the front-end to
+          // flow through the login process while providing the backend the target
+          // url to redirect the user to after a successful login.
+          if (e.response?.status === 401) {
+            window.location.assign(`/login?return=${window.location.pathname}`);
+          } else {
+            // Gives the ability for an API call to bypass posting an error to the server in
+            // certain circumstances, such as an HTTP 403 from Planner Item API call when the user
+            // has not yet opted-in for Canvas. This is an expected error response and needs not
+            // be posted to the backend for monitoring.
+            if (!skipPostErrorStatuses?.includes(e.response?.status) && postError) {
+              await postError(e);
+            }
 
-          storageCache.removeItem(cacheKey);
-          if (errorCallback) errorCallback();
+            storageCache.removeItem(cacheKey);
+            if (errorCallback) errorCallback();
+          }
         }
       });
   };
 
   useEffect(() => {
     const cached = storageCache.getItem(cacheKey);
-    if (useCache !== false && cached) {
-      setData(cached);
-      setLoading(false);
-    } else {
-      fetchData();
+    if (mounted) {
+      if (useCache !== false && cached) {
+        setLoading(false);
+        setData(cached);
+      } else {
+        setLoading(true);
+        fetchData();
+      }
     }
+
+    // Set mounted to false so that async fetch calls can decide
+    // whether or not to set state if the component that called
+    // this hook has went out of scope before the call completed.
+    return () => {
+      mounted = false;
+    };
   }, [query]);
 
   return { data, loading, error, setData };
