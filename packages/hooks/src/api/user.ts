@@ -2,7 +2,7 @@ import axios from 'axios';
 import useAPICall from '../useAPICall';
 import * as Classification from './classification';
 import { useEffect, useState } from 'react';
-import { User } from '@osu-wams/lib';
+import { User, Types } from '@osu-wams/lib';
 
 export const mockUser = User.mockUser;
 export const DEFAULT_THEME = User.DEFAULT_THEME;
@@ -25,28 +25,28 @@ export const usersCampus = User.usersCampus;
 export const hasAudience = User.hasAudience;
 export const atCampus = User.atCampus;
 
-export const getUser = (): Promise<User.User> => axios.get('/api/user').then(res => res.data);
+export const getUser = (): Promise<Types.User> => axios.get('/api/user').then(res => res.data);
 
 /**
  * The primary hook to fetch the user session and set the user for access throughout the application, this
  * is intended to be set near the root level of the application and exposed by way of the UserContext.
  */
 export const useUser = () => {
-  const [user, setUser] = useState<User.UserState>({
+  const [user, setUser] = useState<Types.UserState>({
     data: INITIAL_USER,
     error: false,
     loading: true,
     isCanvasOptIn: false,
   });
-  const u = useAPICall<User.User>({
+  const u = useAPICall<Types.User>({
     api: getUser,
-    dataTransform: (data: User.User) => data,
+    dataTransform: (data: Types.User) => data,
     initialState: INITIAL_USER,
     useCache: false,
   });
-  const classification = useAPICall<User.UserClassification>({
+  const classification = useAPICall<Types.UserClassification>({
     api: Classification.getClassification,
-    dataTransform: (data: User.UserClassification) => data,
+    dataTransform: (data: Types.UserClassification) => data,
     initialState: {},
     useCache: true,
   });
@@ -73,7 +73,7 @@ export const useUser = () => {
  * Send the settings to the backend to be saved.
  * @param settings the settings to persist to the backend
  */
-export const postSettings = (settings: User.UserSettings): Promise<User.UserSettings> =>
+export const postSettings = (settings: Types.UserSettings): Promise<Types.UserSettings> =>
   axios
     .post('/api/user/settings', settings)
     .then(res => res.data)
