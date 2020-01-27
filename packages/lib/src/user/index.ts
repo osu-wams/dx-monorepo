@@ -1,11 +1,4 @@
-import {
-  User,
-  UserAudienceOverride,
-  UserClassification,
-  UserClassificationAttributes,
-  UserSettings,
-  UserState,
-} from './types';
+import { User } from '../types';
 import {
   atCampus,
   getAffiliation,
@@ -72,12 +65,6 @@ export {
   DEFAULT_THEME,
   GROUPS,
   INITIAL_USER,
-  User,
-  UserAudienceOverride,
-  UserClassification,
-  UserClassificationAttributes,
-  UserSettings,
-  UserState,
   atCampus,
   getAffiliation,
   hasAudience,

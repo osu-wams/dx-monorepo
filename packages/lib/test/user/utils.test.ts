@@ -11,7 +11,8 @@ import {
   usersCampus,
   usersSettings,
 } from '../../src/user/utils';
-import { mockUser, User } from '../../src/user';
+import { mockUser } from '../../src/user';
+import { User } from '../../src/types';
 
 // C const { userClassification, user, settings } = mockUser;
 const { user } = mockUser;

@@ -1,3 +1,4 @@
 import * as User from './user';
+import * as Types from './types';
 
-export { User };
+export { Types, User };
