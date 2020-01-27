@@ -14,9 +14,9 @@ import {
 import { mockUser } from '../../src/user';
 import { User } from '../../src/types';
 
-// C const { userClassification, user, settings } = mockUser;
 const { user } = mockUser;
 const classificationAttributes = user.data.classification.attributes ?? {
+  levelCode: '',
   level: '',
   campus: '',
   campusCode: '',
@@ -124,7 +124,7 @@ describe('isGraduate', () => {
   it('detects not graduate student', async () => {
     mockedUser.mockReturnValue({
       ...user.data,
-      classification: { attributes: { ...classificationAttributes, level: 'blah' } },
+      classification: { attributes: { ...classificationAttributes, level: '', levelCode: '' } },
       audienceOverride: {},
     });
     expect(isGraduate(mockedUser())).toBeFalsy();
@@ -162,7 +162,7 @@ describe('hasAudience', () => {
     mockedUser.mockReturnValue({
       ...user.data,
       audienceOverride: {},
-      classification: { attributes: { ...classificationAttributes, level: 'not-grad' } },
+      classification: { attributes: { ...classificationAttributes, level: '', levelCode: '' } },
     });
     const result = hasAudience(mockedUser(), { audiences: ['Graduate Student'] });
     expect(result).toBeFalsy();

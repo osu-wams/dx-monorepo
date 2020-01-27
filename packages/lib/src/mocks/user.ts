@@ -18,6 +18,7 @@ const userAudienceOverride: UserAudienceOverride = {
 const userClassification: UserClassification = {
   id: '123',
   attributes: {
+    levelCode: '02',
     level: 'Graduate',
     campus: '',
     campusCode: 'C',

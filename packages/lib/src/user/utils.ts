@@ -34,15 +34,25 @@ const isInternational = (user: User): boolean => {
  * Returns the audience override value or users classification in that order
  * of precedence.
  * @param user the user to inspect
- * @returns whether or not the override or user classification is true
+ * @returns if the user is graduate
  */
 const isGraduate = (user: User): boolean => {
   if (user.audienceOverride?.graduate !== undefined) {
     return user.audienceOverride.graduate;
   }
 
-  const userLevel = user.classification?.attributes?.level?.toLowerCase();
-  return userLevel !== undefined && CLASSIFICATIONS.graduate.includes(userLevel);
+  const userLevelCode = user.classification?.attributes?.levelCode?.toLowerCase();
+  return userLevelCode !== undefined && CLASSIFICATIONS.graduate.includes(userLevelCode);
+};
+
+/**
+ * Returns if the users classification is an undergraduate student
+ * @param user the user to inspect
+ * @returns if the user is an undergraduate
+ */
+const isUndergraduate = (user: User): boolean => {
+  const userLevelCode = user.classification?.attributes?.levelCode?.toLowerCase();
+  return userLevelCode !== undefined && CLASSIFICATIONS.undergraduate.includes(userLevelCode);
 };
 
 /**
@@ -119,7 +129,7 @@ const settingIsOverridden = (
     classification: { attributes },
   } = user;
   if (attributes) {
-    const { isInternational, classification, level } = attributes;
+    const { isInternational, classification, levelCode } = attributes;
     switch (propertyName) {
       case 'international':
         if (isInternational && currentValue !== undefined) {
@@ -136,7 +146,7 @@ const settingIsOverridden = (
         return false;
 
       case 'graduate':
-        if (CLASSIFICATIONS.graduate.includes(level?.toLowerCase()) && currentValue !== undefined) {
+        if (CLASSIFICATIONS.graduate.includes(levelCode?.toLowerCase()) && currentValue !== undefined) {
           return !currentValue;
         }
 
@@ -196,6 +206,7 @@ const hasAudience = (user: User, item: { audiences: string[] }): boolean => {
   }
 
   if (isGraduate(user)) foundAudiences.push(CLASSIFICATION_AUDIENCES.graduate);
+  if (isUndergraduate(user)) foundAudiences.push(CLASSIFICATION_AUDIENCES.undergraduate);
   if (isFirstYear(user)) foundAudiences.push(CLASSIFICATION_AUDIENCES.firstYear);
   if (isInternational(user)) foundAudiences.push(CLASSIFICATION_AUDIENCES.international);
 
@@ -222,6 +233,7 @@ export {
   isFirstYear,
   isGraduate,
   isInternational,
+  isUndergraduate,
   settingIsDefault,
   settingIsOverridden,
   usersCampus,
