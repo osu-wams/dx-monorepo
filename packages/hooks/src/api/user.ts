@@ -16,6 +16,7 @@ export const INITIAL_USER = User.INITIAL_USER;
 export const isFirstYear = User.isFirstYear;
 export const isInternational = User.isInternational;
 export const isGraduate = User.isGraduate;
+export const isUndergraduate = User.isUndergraduate;
 export const hasPrimaryAffiliation = User.hasPrimaryAffiliation;
 export const getAffiliation = User.getAffiliation;
 export const usersSettings = User.usersSettings;
