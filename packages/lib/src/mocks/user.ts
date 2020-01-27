@@ -1,4 +1,4 @@
-import { UserAudienceOverride, UserClassification, UserState } from '../user';
+import { UserAudienceOverride, UserClassification, UserState } from '../types';
 
 const settings = {
   data: {

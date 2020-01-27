@@ -1,5 +1,5 @@
-import { User, UserSettings } from './types';
-import { CLASSIFICATIONS, CLASSIFICATION_AUDIENCES, CAMPUS_CODES, DEFAULT_CAMPUS } from './index';
+import { User, UserSettings } from '../types';
+import { CLASSIFICATIONS, CLASSIFICATION_AUDIENCES, CAMPUS_CODES, DEFAULT_CAMPUS } from './constants';
 
 /**
  * Returns the audience override value or users classification in that order
