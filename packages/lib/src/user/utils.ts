@@ -1,5 +1,6 @@
 import { User, UserSettings } from '../types';
 import { CLASSIFICATIONS, CLASSIFICATION_AUDIENCES, CAMPUS_CODES, DEFAULT_CAMPUS } from './constants';
+import { isNullOrUndefined } from 'util';
 
 /**
  * Returns the audience override value or users classification in that order
@@ -167,52 +168,64 @@ const settingIsOverridden = (
  * @returns the campus name and campus code that the user is associated with
  */
 const usersCampus = (user: User): { campusName: string | undefined; campusCode: string } => {
-  const { campusCode } = user.classification?.attributes ?? {
-    campusCode: DEFAULT_CAMPUS,
-  };
-  const campusCodeOverride = user.audienceOverride?.campusCode ?? DEFAULT_CAMPUS;
-  const selectedCampusCode = campusCodeOverride || campusCode;
+  const campusCode = user.classification?.attributes?.campusCode || user.audienceOverride?.campusCode || DEFAULT_CAMPUS;
   // Find the key name associated to the users campusCode to use for matching in the audiences
   // set for the announcement
   const campusName = Object.keys(CAMPUS_CODES)
     .map(k => k.toLowerCase())
-    .find(key => CAMPUS_CODES[key].toLowerCase() === selectedCampusCode.toLowerCase());
-  return { campusCode: selectedCampusCode, campusName };
+    .find(key => CAMPUS_CODES[key].toLowerCase() === campusCode.toLowerCase());
+  return { campusCode, campusName };
 };
 
 /**
- * Detects if the user is associated with any of the audiences that are provided. An audience could be
- * the users campus code or the classifications (both of which take into account the user override settings)
+ * Detect if the item provided is intended to be visible by the User. The logic is as follows;
+ *  - The user affiliation (Employee or Student) _must_ match the user, or the item is not visible.
+ *  - The users campus (Corvallis, Bend, Ecampus) _must_ match the user, or the item is not visible.
+ *  - Evaluate the audience tags;
+ *    - If the user doesn't have audience classification properties, then the item should be visible, this type of
+ *      user is likely an employee.
+ *    - If audiences are empty, then this is considered visible by everyone.
+ *    - If audiences are specified, then at least one _must_ match the user attributes, or the item is not visible.
  * @param user the user to inspect
- * @param item a list of audiences to detect
+ * @param item an item with audiences, locations, and affiliations to consider
  */
-const hasAudience = (user: User, item: { audiences: string[] }): boolean => {
-  const foundAudiences: string[] = [];
-  const { audiences } = item;
-  if (
-    audiences?.length === 0 ||
-    (user.classification?.attributes === undefined && Object.keys(user.audienceOverride).length === 0)
-  )
-    return true;
+const hasAudience = (
+  user: User,
+  item: { audiences: string[]; locations: string[]; affiliation: string[] },
+): boolean => {
+  // The users affiliation wasn't found, don't show this item
+  const { audiences, locations, affiliation } = item;
+  const usersAffiliation = getAffiliation(user);
+  if (!hasValue(affiliation, usersAffiliation)) return false;
 
+  // The user affiliation was found but the campus can't be detected, this is a data problem!
   const { campusName, campusCode } = usersCampus(user);
-
-  if (campusName) {
-    foundAudiences.push(campusName);
-  } else {
+  if (!campusName) {
     console.error(
       `Expected campus code ${campusCode} not found in configuration, this is an unexpected circumstance that needs to be repaired.`,
     );
+    return false;
   }
 
-  if (isGraduate(user)) foundAudiences.push(CLASSIFICATION_AUDIENCES.graduate);
-  if (isUndergraduate(user)) foundAudiences.push(CLASSIFICATION_AUDIENCES.undergraduate);
-  if (isFirstYear(user)) foundAudiences.push(CLASSIFICATION_AUDIENCES.firstYear);
-  if (isInternational(user)) foundAudiences.push(CLASSIFICATION_AUDIENCES.international);
+  // The user affiliation was found but not the campus, don't show this
+  if (!hasValue(locations, campusName)) return false;
 
-  // The user has a classification and the item has audiences specified, return if
-  // this users campusCode exists in the audience list.
-  return item.audiences.some(a => foundAudiences.map(fa => fa.toLowerCase()).includes(a.toLowerCase()));
+  // The user affiliation and campus were found, audiences empty is treated as reason to show all
+  if (audiences?.length === 0) return true;
+
+  // The user affiliation asn campus were found, audiences are specified but this user doesn't
+  // have classification data (they are an employee), so audience can't be evaluated and the item shouldn't be showed
+  if (user.classification?.attributes === undefined && Object.keys(user.audienceOverride).length === 0) return false;
+
+  const usersAudiences: string[] = [];
+  if (isGraduate(user)) usersAudiences.push(CLASSIFICATION_AUDIENCES.graduate.toLowerCase());
+  if (isUndergraduate(user)) usersAudiences.push(CLASSIFICATION_AUDIENCES.undergraduate.toLowerCase());
+  if (isFirstYear(user)) usersAudiences.push(CLASSIFICATION_AUDIENCES.firstYear.toLowerCase());
+  if (isInternational(user)) usersAudiences.push(CLASSIFICATION_AUDIENCES.international.toLowerCase());
+
+  // The item has been evaluated to be visible for this users affiliation and campus, and the item
+  // has audience specified. Return whether or not one of the users audiences are specified in the item
+  return item.audiences.some(a => usersAudiences.includes(a.toLowerCase()));
 };
 
 /**
@@ -223,6 +236,15 @@ const hasAudience = (user: User, item: { audiences: string[] }): boolean => {
 const atCampus = (user: User, code: string): boolean => {
   const { campusCode } = usersCampus(user);
   return campusCode.toLowerCase() === code.toLowerCase();
+};
+
+/**
+ * Inspect an array of strings to find a case-insensitive value
+ * @param list an array of strings to consider
+ * @param value the value to find
+ */
+const hasValue = (list: string[], value: string): boolean => {
+  return list?.filter(v => !isNullOrUndefined(v)).some(a => a.toLowerCase() === value.toLowerCase());
 };
 
 export {

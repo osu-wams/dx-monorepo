@@ -12,7 +12,7 @@ import {
   usersCampus,
   usersSettings,
 } from '../../src/user/utils';
-import { mockUser } from '../../src/user';
+import { mockUser, AFFILIATIONS } from '../../src/user';
 import { User } from '../../src/types';
 
 const { user } = mockUser;
@@ -190,76 +190,159 @@ describe('isInternational', () => {
 });
 
 describe('hasAudience', () => {
-  it('returns true that the user is an undergraduate student ', async () => {
-    mockedUser.mockReturnValue({
-      ...user.data,
-      classification: { attributes: { ...classificationAttributes, levelCode: '01' } },
-      audienceOverride: {},
+  const mockedItem = jest.fn();
+  const item = {
+    locations: [user.data.classification.attributes?.campus || 'Corvallis'],
+    affiliation: [user.data.primaryAffiliation],
+    audiences: [],
+  };
+  describe('as an Employee', () => {
+    beforeEach(() => {
+      mockedUser.mockReturnValue({
+        ...user.data,
+        primaryAffiliation: AFFILIATIONS.employee,
+        primaryAffiliationOverride: undefined,
+        audienceOverride: {},
+      });
     });
-    const result = hasAudience(mockedUser(), { audiences: ['Undergraduate Student'] });
-    expect(result).toBeTruthy();
-  });
-  it('returns true that the user is a graduate student ', async () => {
-    const result = hasAudience(mockedUser(), { audiences: ['Graduate Student'] });
-    expect(result).toBeTruthy();
-  });
-  it('returns false that the user is not a graduate student ', async () => {
-    mockedUser.mockReturnValue({
-      ...user.data,
-      audienceOverride: {},
-      classification: { attributes: { ...classificationAttributes, level: '', levelCode: '' } },
+
+    it('returns false when the item is intended for a student ', async () => {
+      mockedItem.mockReturnValue({ ...item, affiliation: [AFFILIATIONS.student] });
+      expect(hasAudience(mockedUser(), mockedItem())).toBeFalsy();
     });
-    const result = hasAudience(mockedUser(), { audiences: ['Graduate Student'] });
-    expect(result).toBeFalsy();
-  });
-  it('returns true that the user is a first year student ', async () => {
-    const result = hasAudience(mockedUser(), { audiences: ['First Year'] });
-    expect(result).toBeTruthy();
-  });
-  it('returns false that the user is not a first year student ', async () => {
-    mockedUser.mockReturnValue({
-      ...user.data,
-      audienceOverride: {},
-      classification: { attributes: { ...classificationAttributes, classification: 'not-first-year' } },
+    it('returns false when the item is intended for a campus other than the default (an employee doesnt have campus classification)', async () => {
+      mockedItem.mockReturnValue({ ...item, affiliation: [AFFILIATIONS.employee], locations: ['ECampus'] });
+      expect(hasAudience(mockedUser(), mockedItem())).toBeFalsy();
     });
-    const result = hasAudience(mockedUser(), { audiences: ['First Year'] });
-    expect(result).toBeFalsy();
-  });
-  it('returns true that the user is an international student ', async () => {
-    const result = hasAudience(mockedUser(), { audiences: ['International Student'] });
-    expect(result).toBeTruthy();
-  });
-  it('returns false that the user is not an international student ', async () => {
-    mockedUser.mockReturnValue({
-      ...user.data,
-      audienceOverride: {},
-      classification: { attributes: { ...classificationAttributes, isInternational: false } },
+    it('returns false when the item is intended for a campus that the user is not on ', async () => {
+      mockedUser.mockReturnValue({
+        ...user.data,
+        classification: { attributes: { ...classificationAttributes, campusCode: 'B' } },
+        primaryAffiliation: AFFILIATIONS.employee,
+        primaryAffiliationOverride: undefined,
+        audienceOverride: {},
+      });
+      mockedItem.mockReturnValue({ ...item, affiliation: [AFFILIATIONS.employee], locations: ['Corvallis'] });
+      expect(hasAudience(mockedUser(), mockedItem())).toBeFalsy();
     });
-    const result = hasAudience(mockedUser(), { audiences: ['International Student'] });
-    expect(result).toBeFalsy();
-  });
-  it('logs an error when an unrecognized campus exists on the users details', async () => {
-    jest.spyOn(console, 'error').mockImplementation(() => {});
-    mockedUser.mockReturnValue({
-      ...user.data,
-      audienceOverride: { campusCode: 'BOBROSS' },
-      classification: { attributes: { ...classificationAttributes, campusCode: 'BOBROSS' } },
+    it('returns true when the item has no audiences specified ', async () => {
+      mockedUser.mockReturnValue({
+        ...user.data,
+        classification: { attributes: undefined },
+        primaryAffiliation: AFFILIATIONS.employee,
+        primaryAffiliationOverride: undefined,
+        audienceOverride: {},
+      });
+      mockedItem.mockReturnValue({ ...item, affiliation: [AFFILIATIONS.employee], locations: ['Corvallis'] });
+      expect(hasAudience(mockedUser(), mockedItem())).toBeTruthy();
     });
-    hasAudience(mockedUser(), { audiences: ['Corvallis'] });
-    expect(console.error).toHaveBeenCalledTimes(1);
-  });
-  it('returns true by default when there are no audiences to check for', async () => {
-    const result = hasAudience(mockedUser(), { audiences: [] });
-    expect(result).toBeTruthy();
-  });
-  it('returns true by default when the user has no audience related data', async () => {
-    mockedUser.mockReturnValue({
-      ...user.data,
-      audienceOverride: {},
-      classification: { attributes: undefined },
+    it('returns false when the item has an audiences specified ', async () => {
+      mockedUser.mockReturnValue({
+        ...user.data,
+        classification: { attributes: undefined },
+        primaryAffiliation: AFFILIATIONS.employee,
+        primaryAffiliationOverride: undefined,
+        audienceOverride: {},
+      });
+      mockedItem.mockReturnValue({
+        ...item,
+        affiliation: [AFFILIATIONS.employee, AFFILIATIONS.student],
+        locations: ['Corvallis', 'Bend', 'Ecampus'],
+        audiences: ['Graduate Student'],
+      });
+      expect(hasAudience(mockedUser(), mockedItem())).toBeFalsy();
     });
-    const result = hasAudience(mockedUser(), { audiences: ['First Year'] });
-    expect(result).toBeTruthy();
+    it('returns true when the item has an audiences specified and the user as an audience override matching ', async () => {
+      mockedUser.mockReturnValue({
+        ...user.data,
+        classification: { attributes: undefined },
+        primaryAffiliation: AFFILIATIONS.employee,
+        primaryAffiliationOverride: undefined,
+        audienceOverride: { graduate: true },
+      });
+      mockedItem.mockReturnValue({
+        ...item,
+        affiliation: [AFFILIATIONS.employee, AFFILIATIONS.student],
+        locations: ['Corvallis', 'Bend', 'Ecampus'],
+        audiences: ['Graduate Student'],
+      });
+      expect(hasAudience(mockedUser(), mockedItem())).toBeTruthy();
+    });
+  });
+  describe('as a Student', () => {
+    beforeEach(() => {
+      mockedItem.mockReturnValue({ ...item });
+    });
+
+    it('returns true that the user is an undergraduate student ', async () => {
+      mockedUser.mockReturnValue({
+        ...user.data,
+        classification: { attributes: { ...classificationAttributes, levelCode: '01' } },
+        audienceOverride: {},
+      });
+      mockedItem.mockReturnValue({ ...item, audiences: ['Undergraduate Student'] });
+      expect(hasAudience(mockedUser(), mockedItem())).toBeTruthy();
+    });
+    it('returns true that the user is a graduate student ', async () => {
+      mockedItem.mockReturnValue({ ...item, audiences: ['Graduate Student'] });
+      expect(hasAudience(mockedUser(), mockedItem())).toBeTruthy();
+    });
+    it('returns false that the user is not a graduate student ', async () => {
+      mockedUser.mockReturnValue({
+        ...user.data,
+        audienceOverride: {},
+        classification: { attributes: { ...classificationAttributes, level: '', levelCode: '' } },
+      });
+      mockedItem.mockReturnValue({ ...item, audiences: ['Graduate Student'] });
+      expect(hasAudience(mockedUser(), mockedItem())).toBeFalsy();
+    });
+    it('returns true that the user is a first year student ', async () => {
+      mockedItem.mockReturnValue({ ...item, audiences: ['First Year'] });
+      expect(hasAudience(mockedUser(), mockedItem())).toBeTruthy();
+    });
+    it('returns false that the user is not a first year student ', async () => {
+      mockedUser.mockReturnValue({
+        ...user.data,
+        audienceOverride: {},
+        classification: { attributes: { ...classificationAttributes, classification: 'not-first-year' } },
+      });
+      mockedItem.mockReturnValue({ ...item, audiences: ['First Year'] });
+      expect(hasAudience(mockedUser(), mockedItem())).toBeFalsy();
+    });
+    it('returns true that the user is an international student ', async () => {
+      mockedItem.mockReturnValue({ ...item, audiences: ['International Student'] });
+      expect(hasAudience(mockedUser(), mockedItem())).toBeTruthy();
+    });
+    it('returns false that the user is not an international student ', async () => {
+      mockedUser.mockReturnValue({
+        ...user.data,
+        audienceOverride: {},
+        classification: { attributes: { ...classificationAttributes, isInternational: false } },
+      });
+      mockedItem.mockReturnValue({ ...item, audiences: ['International Student'] });
+      expect(hasAudience(mockedUser(), mockedItem())).toBeFalsy();
+    });
+    it('logs an error when an unrecognized campus exists on the users details', async () => {
+      jest.spyOn(console, 'error').mockImplementation(() => {});
+      mockedUser.mockReturnValue({
+        ...user.data,
+        audienceOverride: { campusCode: 'BOBROSS' },
+        classification: { attributes: { ...classificationAttributes, campusCode: 'BOBROSS' } },
+      });
+      hasAudience(mockedUser(), mockedItem());
+      expect(console.error).toHaveBeenCalledTimes(1);
+    });
+    it('returns true by default when there are no audiences to check for', async () => {
+      expect(hasAudience(mockedUser(), mockedItem())).toBeTruthy();
+    });
+    it('returns true by default when the user has no audience related data', async () => {
+      mockedUser.mockReturnValue({
+        ...user.data,
+        audienceOverride: {},
+        classification: { attributes: undefined },
+      });
+      expect(hasAudience(mockedUser(), mockedItem())).toBeTruthy();
+    });
   });
 });
 
