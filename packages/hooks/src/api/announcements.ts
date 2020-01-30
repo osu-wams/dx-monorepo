@@ -4,13 +4,6 @@ import mocks from '../mocks/announcements';
 
 export const mockAnnouncements = mocks;
 
-export interface ResourceResult {
-  id: string;
-  title: string;
-  icon?: string;
-  uri: string;
-}
-
 export interface Category {
   id: string;
   name: string;
