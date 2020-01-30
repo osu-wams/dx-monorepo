@@ -1,43 +1,22 @@
 import axios from 'axios';
+import { Types } from '@osu-wams/lib';
 import useAPICall from '../useAPICall';
 import mocks from '../mocks/resources';
 
 export const mockResources = mocks;
 
-export interface IResourceResult {
-  id: string;
-  title: string;
-  iconName?: string;
-  link: string;
-  synonyms: string[];
-  categories: string[];
-  audiences: string[];
-  affiliation: string[];
-}
-
-export interface IEntityQueueResourceResult {
-  entityQueueTitle: string;
-  items: IResourceResult[];
-}
-
-export interface ICategory {
-  id: string;
-  name: string;
-  icon: string;
-}
-
 /**
  * Resources
  */
-export const getResources = (): Promise<IResourceResult[]> =>
+export const getResources = (): Promise<Types.Resource[]> =>
   axios.get(`/api/resources`).then(res => {
     return res.data;
   });
 
 export const useResources = () => {
-  return useAPICall<IResourceResult[]>({
+  return useAPICall<Types.Resource[]>({
     api: getResources,
-    dataTransform: (d: IResourceResult[]): IResourceResult[] => d,
+    dataTransform: (d: Types.Resource[]): Types.Resource[] => d,
     initialState: [],
   });
 };
@@ -45,14 +24,14 @@ export const useResources = () => {
 /**
  * ResourcesByQueue
  */
-export const getResourcesByQueue = (category: string): Promise<IResourceResult[]> =>
+export const getResourcesByQueue = (category: string): Promise<Types.Resource[]> =>
   axios.get(`/api/resources/category/${category}`).then(res => res.data);
 
 export const useResourcesByQueue = (category: string) =>
-  useAPICall<IEntityQueueResourceResult>({
+  useAPICall<Types.ResourceEntityQueue>({
     api: getResourcesByQueue,
     query: category,
-    dataTransform: (d: IEntityQueueResourceResult): IEntityQueueResourceResult => d,
+    dataTransform: (d: Types.ResourceEntityQueue): Types.ResourceEntityQueue => d,
     initialState: {
       entityQueueTitle: '',
       items: [],
@@ -62,14 +41,15 @@ export const useResourcesByQueue = (category: string) =>
 /**
  * Categories
  */
-export const getCategories = (): Promise<ICategory[]> => axios.get('/api/resources/categories').then(res => res.data);
+export const getCategories = (): Promise<Types.Category[]> =>
+  axios.get('/api/resources/categories').then(res => res.data);
 
 /**
  * Gets data from the Categories API
  * @param callback (optional) data transformation function
  */
 export const useCategories = (callback: Function = (data: any) => data) => {
-  return useAPICall<ICategory[]>({ api: getCategories, dataTransform: callback, initialState: [] });
+  return useAPICall<Types.Category[]>({ api: getCategories, dataTransform: callback, initialState: [] });
 };
 
 // Category selected by default. Currently the 'featured' category id
