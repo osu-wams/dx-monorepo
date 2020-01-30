@@ -1,6 +1,6 @@
 import * as storageCache from '../src/storageCache';
 
-import { storageMock } from '../../../jest.setup.js';
+import { storageMock } from '../src/jest.setup';
 
 describe('getItem', () => {
   it('return null on error', () => {

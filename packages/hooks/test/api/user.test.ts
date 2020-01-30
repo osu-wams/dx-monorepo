@@ -2,10 +2,10 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { renderHook } from '@testing-library/react-hooks';
 import { postSettings, useUser, mockUser, INITIAL_USER } from '../../src/api/user';
-import { User } from '@osu-wams/lib/dist/user/types';
+import { Types } from '@osu-wams/lib';
 
 const { userClassification, user, settings } = mockUser;
-const mockedUser = jest.fn<User, any>(() => user.data);
+const mockedUser = jest.fn<Types.User, any>(() => user.data);
 const mock = new MockAdapter(axios);
 
 beforeEach(() => {
