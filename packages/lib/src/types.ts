@@ -1,3 +1,34 @@
+export interface Alert {
+  content: string;
+  date: Date;
+  title: string;
+  type: string;
+}
+
+export interface Category {
+  id: string;
+  icon: string;
+  name: string;
+}
+
+export interface Resource {
+  affiliation: string[];
+  audiences: string[];
+  categories: string[];
+  iconName?: string;
+  id: string;
+  link: string;
+  locations: string[];
+  synonyms: string[];
+  title: string;
+  type: string;
+}
+
+export interface ResourceEntityQueue {
+  entityQueueTitle: string;
+  items: Resource[];
+}
+
 export interface UserClassificationAttributes {
   [key: string]: any;
   level: string;
