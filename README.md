@@ -1,10 +1,5 @@
 [![codecov](https://codecov.io/gh/osu-wams/dx-monorepo/branch/master/graph/badge.svg)](https://codecov.io/gh/osu-wams/dx-monorepo)
-
-## Features
-
-- 🐈 Yarn Workspaces
-- 🐉 Lerna 3
-- 👨‍🔬 Test all workspaces with Eslint & Jest using one command
+![Lint, Build, Test](https://github.com/osu-wams/dx-monorepo/workflows/Lint,%20Build,%20Test/badge.svg)
 
 ## Contents
 
@@ -24,6 +19,14 @@
 
 ### Installation
 
+First set an environment variable `FONTAWESOME_TOKEN` that has access to Font Awesome Pro icons. Typically you'd add this to your shell in `.bashrc` or `.zshrc`.
+
+```bash
+export FONTAWESOME_TOKEN=xxxxxxxxxx
+```
+
+Clone the repository and install the dependencies.
+
 ```bash
 git clone git@github.com:osu-wams/dx-monorepo.git
 cd dx-monorepo
@@ -35,5 +38,6 @@ yarn
 ### Linting & Testing
 
 ```bash
-yarn workspace <workspace-root> test
+yarn lint
+yarn test
 ```

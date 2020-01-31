@@ -1,27 +1,21 @@
-# TSDX Bootstrap
+### Jest
 
-This project was bootstrapped with [TSDX](https://github.com/jaredpalmer/tsdx).
+Jest tests are set up to run with `npm test` or `yarn test`. This runs the test watcher (Jest) in an interactive mode. By default, runs tests related to files changed since the last commit.
 
-## Local Development
+#### Typescript configuration
 
-Below is a list of commands you will probably find useful.
+Base configuration for Typescript are extended from the root folders `tsconfig.json` file and are intended to be fairly strict to en(force/courage) higher quality code standards.
 
-### `npm start` or `yarn start`
+## Optimizations
 
-Runs the project in development/watch mode. Your project will be rebuilt upon changes. TSDX has a special logger for you convenience. Error messages are pretty printed and formatted for compatibility VS Code's Problems tab.
+A handy development optimization exists to provide a global boolean `__DEV__` to target debugging code only in the development environment.
 
-<img src="https://user-images.githubusercontent.com/4060187/52168303-574d3a00-26f6-11e9-9f3b-71dbec9ebfcb.gif" width="600" />
+```js
+// ./types/index.d.ts
+declare var __DEV__: boolean;
 
-Your library will be rebuilt if you make edits.
-
-### `npm run build` or `yarn build`
-
-Bundles the package to the `dist` folder.
-The package is optimized and bundled with Rollup into multiple formats (CommonJS, UMD, and ES Module).
-
-<img src="https://user-images.githubusercontent.com/4060187/52168322-a98e5b00-26f6-11e9-8cf6-222d716b75ef.gif" width="600" />
-
-### `npm test` or `yarn test`
-
-Runs the test watcher (Jest) in an interactive mode.
-By default, runs tests related to files changed since the last commit.
+// inside your code...
+if (__DEV__) {
+  console.log('foo');
+}
+```
