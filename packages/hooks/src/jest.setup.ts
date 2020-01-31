@@ -1,7 +1,3 @@
-import '@testing-library/jest-dom/extend-expect';
-
-global.window = {};
-window.__DEV__ = true;
 window.location.assign = jest.fn();
 
 afterEach(() => {
