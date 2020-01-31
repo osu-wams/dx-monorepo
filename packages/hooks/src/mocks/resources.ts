@@ -1,74 +1,88 @@
+import { Types } from '@osu-wams/lib';
+
 // Reusable array for both Resources and ResourcesCard
-const resourcesArray = [
+const resourcesArray: Types.Resource[] = [
   {
     id: '1',
     title: 'Bend Testo Success Center',
     link: 'https://success.oregonstate.edu/',
-    icon: 'https://data.dx.oregonstate.edu/sites/default/files/2019-05/badge-check.svg',
-    audiences: ['Bend'],
-    affiliation: [],
+    iconName: 'fal.check',
+    audiences: [],
+    locations: ['Bend'],
+    affiliation: ['student', 'employee'],
     categories: ['Featured'],
     synonyms: ['help', 'tutoring', 'writing', 'math'],
+    type: 'resource',
   },
   {
     id: '2',
     title: 'Academics for Student Athletes',
     link: 'https://studentathlete.oregonstate.edu/',
-    icon: 'https://data.dx.oregonstate.edu/sites/default/files/2019-05/running.svg',
+    iconName: 'fal.check',
     audiences: [],
     affiliation: ['student', 'employee'],
     categories: ['Academic'],
+    locations: ['Corvallis', 'Bend'],
     synonyms: [],
+    type: 'resource',
   },
   {
     id: '3',
     title: 'Billing Information',
     link: 'https://oregonstate.edu/bill',
-    icon: 'https://data.dx.oregonstate.edu/sites/default/files/2019-05/align-justify.svg',
-    audiences: ['Corvallis'],
-    affiliation: [],
+    iconName: 'fal.check',
+    audiences: [],
+    affiliation: ['student', 'employee'],
+    locations: ['Corvallis', 'Bend'],
     categories: ['Featured', 'Financial'],
     synonyms: ['boo'],
+    type: 'resource',
   },
   {
     id: '4',
     title: 'Student Jobs',
     link: 'https://testo.com',
-    icon: 'https://data.dx.oregonstate.edu/sites/default/files/2019-05/align-justify.svg',
-    audiences: ['Corvallis'],
+    iconName: 'fal.check',
+    audiences: [],
+    locations: ['Corvallis'],
     categories: ['Financial'],
     affiliation: ['student'],
     synonyms: ['boo'],
+    type: 'resource',
   },
   {
     id: '5',
     title: 'Listservs',
     link: 'https://oregonstate.edu/bill',
-    icon: 'https://data.dx.oregonstate.edu/sites/default/files/2019-05/align-justify.svg',
-    audiences: ['Corvallis'],
+    iconName: 'fal.check',
+    audiences: [],
+    locations: ['Corvallis'],
     affiliation: ['employee'],
     categories: ['Financial'],
     synonyms: [],
+    type: 'resource',
   },
   {
     id: '6',
     title: 'Employee Only',
     link: 'https://oregonstate.edu/bill',
-    icon: 'https://data.dx.oregonstate.edu/sites/default/files/2019-05/align-justify.svg',
-    audiences: ['Corvallis'],
+    iconName: 'fal.check',
+    locations: ['Corvallis'],
+    audiences: [],
     affiliation: ['employee'],
     categories: ['Featured'],
     synonyms: [],
+    type: 'resource',
   },
 ];
 
-const resourcesData = {
+const resourcesData: { data: Types.Resource[]; loading: boolean; error: boolean } = {
   data: resourcesArray,
   loading: false,
   error: false,
 };
 
-const resourcesCardData = {
+const resourcesCardData: { data: Types.ResourceEntityQueue; loading: boolean; error: boolean } = {
   data: {
     entityQueueTitle: 'Featured',
     items: resourcesArray,
@@ -77,22 +91,26 @@ const resourcesCardData = {
   error: false,
 };
 
-const resourcesDataByCategory = {
+const resourcesDataByCategory: { data: Types.Resource[]; loading: boolean; error: boolean } = {
   data: [
     {
       audiences: [],
-      affiliation: [],
+      categories: ['Financial'],
+      locations: ['Bend', 'Corvallis', 'Ecampus'],
+      synonyms: ['payroll', 'payment'],
+      affiliation: ['student', 'employee'],
       id: '825d22a1-938c-4ca7-8b9d-625a639bcdde',
       title: 'Billing Information',
-      icon: 'http://dev-api-dx.pantheonsite.io/sites/default/files/2019-05/money-bill-wave.svg',
+      iconName: 'fal.money-check-edit-alt',
       link: 'http://fa.oregonstate.edu/business-affairs/studentbilling',
+      type: 'resource',
     },
   ],
   loading: false,
   error: false,
 };
 
-const categoriesData = {
+const categoriesData: { data: Types.Category[]; loading: boolean; error: boolean } = {
   data: [
     {
       id: '6b7cd598-d71e-45f7-911c-d71551ec0a7c',
@@ -114,6 +132,6 @@ const categoriesData = {
   error: false,
 };
 
-const defaultCategory = 'Featured';
+const defaultCategory: string = 'Featured';
 
 export default { resourcesData, resourcesDataByCategory, categoriesData, defaultCategory, resourcesCardData };
