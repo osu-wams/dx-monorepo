@@ -16,9 +16,11 @@ export interface Announcement {
   id: string;
   title: string;
   body: string;
+  date: string;
   bg_image?: string;
-  affiliation?: string[];
+  affiliation: string[];
   audiences: string[];
+  locations: string[];
   pages: string[];
   action?: object;
 }
