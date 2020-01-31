@@ -47,7 +47,7 @@ describe('useAnnouncements', () => {
 describe('hasAffiliation', () => {
   it('returns true if the announcement has no affiliations', async () => {
     const announcement: Announcement = mockAnnouncements.academicAnnouncementResult.data[0];
-    announcement.affiliation = undefined;
+    announcement.affiliation = [];
     expect(hasAffiliation('bob-ross', announcement)).toBeTruthy();
   });
   it('returns true if the announcement has zero affiliations', async () => {
