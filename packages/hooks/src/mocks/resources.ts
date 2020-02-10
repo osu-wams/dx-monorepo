@@ -113,16 +113,19 @@ const resourcesDataByCategory: { data: Types.Resource[]; loading: boolean; error
 const categoriesData: { data: Types.Category[]; loading: boolean; error: boolean } = {
   data: [
     {
+      affiliation: ['Employee', 'Student'],
       id: '6b7cd598-d71e-45f7-911c-d71551ec0a7c',
       name: 'Featured',
       icon: 'http://dev-api-dx.pantheonsite.io/sites/default/files/2019-05/star.svg',
     },
     {
+      affiliation: ['Student'],
       id: '2cd0a3c4-a7f1-4080-bf2e-e458559de2a3',
       name: 'Academic',
       icon: 'http://dev-api-dx.pantheonsite.io/sites/default/files/2019-05/graduation-cap.svg',
     },
     {
+      affiliation: ['Employee', 'Student'],
       id: 'e2730988-0614-43b7-b3ce-0b047e8219e0',
       name: 'Financial',
       icon: 'http://dev-api-dx.pantheonsite.io/sites/default/files/2019-05/hands-usd.svg',

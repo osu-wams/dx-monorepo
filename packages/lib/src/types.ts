@@ -6,6 +6,7 @@ export interface Alert {
 }
 
 export interface Category {
+  affiliation: string[];
   id: string;
   icon: string;
   name: string;
