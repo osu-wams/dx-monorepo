@@ -15,7 +15,7 @@
     "prepare": "tsdx build"
   },
   "dependencies": {
-    "@osu-wams/lib": "^0.1.3",
+    "@osu-wams/lib": "^0.1.4",
     "@osu-wams/utils": "^0.0.2",
     "axios": "^0.19.1",
     "react": "^16.12.0",
