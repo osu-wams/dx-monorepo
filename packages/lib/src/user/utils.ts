@@ -1,6 +1,5 @@
 import { User, UserSettings } from '../types';
 import { CLASSIFICATIONS, CLASSIFICATION_AUDIENCES, CAMPUS_CODES, DEFAULT_CAMPUS } from './constants';
-import { isNullOrUndefined } from 'util';
 
 /**
  * Returns the audience override value or users classification in that order
@@ -244,7 +243,7 @@ const atCampus = (user: User, code: string): boolean => {
  * @param value the value to find
  */
 const hasValue = (list: string[], value: string): boolean => {
-  return list?.filter(v => !isNullOrUndefined(v)).some(a => a.toLowerCase() === value.toLowerCase());
+  return list?.filter(v => v !== null && v !== undefined).some(a => a.toLowerCase() === value.toLowerCase());
 };
 
 export {
