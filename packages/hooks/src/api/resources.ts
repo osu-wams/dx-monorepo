@@ -54,3 +54,30 @@ export const useCategories = (callback: Function = (data: any) => data) => {
 
 // Category selected by default. Currently the 'featured' category id
 export const defaultCategoryName = () => 'featured';
+
+/**
+ * Gets data from FavoriteResources
+ */
+export const getFavorites = (): Promise<Types.FavoriteResource[]> =>
+  axios.get('/api/resources/favorites').then(res => res.data);
+
+/**
+ * Gets data from the FavoriteResources API
+ */
+export const useFavorites = () => {
+  return useAPICall<Types.FavoriteResource[]>({
+    api: getFavorites,
+    dataTransform: (d: Types.FavoriteResource[]): Types.FavoriteResource[] => d,
+    initialState: [],
+  });
+};
+
+// Adds/updates data for Favorite Resources
+export const postFavorite = (resourceId: string, active: boolean, order: number): Promise<Types.FavoriteResource> =>
+  axios
+    .post('/api/resources/favorites', { resourceId, active, order })
+    .then(res => res.data)
+    .catch(e => {
+      console.error(e);
+      throw e;
+    });
