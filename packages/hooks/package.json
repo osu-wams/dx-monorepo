@@ -1,5 +1,5 @@
 {
-  "version": "1.0.5",
+  "version": "1.0.6-alpha.0",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -15,7 +15,7 @@
     "prepare": "tsdx build"
   },
   "dependencies": {
-    "@osu-wams/lib": "^0.1.4",
+    "@osu-wams/lib": "^0.1.5-alpha.0",
     "@osu-wams/utils": "^0.0.2",
     "axios": "^0.19.1",
     "react": "^16.12.0",
