@@ -66,6 +66,7 @@ export interface User {
   theme: string;
   primaryAffiliation: string;
   primaryAffiliationOverride?: string;
+  favoriteResources?: FavoriteResource[];
 }
 
 export interface UserState {

@@ -39,4 +39,5 @@ export const INITIAL_USER: User = {
   groups: [],
   theme: DEFAULT_THEME,
   primaryAffiliation: AFFILIATIONS.employee,
+  favoriteResources: [],
 };

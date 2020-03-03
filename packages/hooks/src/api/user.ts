@@ -2,6 +2,7 @@ import axios from 'axios';
 import useAPICall from '../useAPICall';
 import * as Classification from './classification';
 import { useEffect, useState } from 'react';
+import { useFavorites } from './resources';
 import { User, Types } from '@osu-wams/lib';
 
 export const mockUser = User.mockUser;
@@ -51,15 +52,24 @@ export const useUser = () => {
     initialState: {},
     useCache: true,
   });
+  const favoriteResources = useFavorites();
 
   useEffect(() => {
     setUser({
-      data: { ...u.data, classification: { ...classification.data } },
+      data: { ...u.data, classification: { ...classification.data }, favoriteResources: [...favoriteResources.data] },
       error: u.error,
       loading: u.loading,
       isCanvasOptIn: u.data.isCanvasOptIn,
     });
-  }, [u.data, u.error, u.loading, classification.data, classification.loading]);
+  }, [
+    u.data,
+    u.error,
+    u.loading,
+    classification.data,
+    classification.loading,
+    favoriteResources.data,
+    favoriteResources.loading,
+  ]);
 
   return {
     error: user.error,
