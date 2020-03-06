@@ -65,11 +65,22 @@ export const getFavorites = (): Promise<Types.FavoriteResource[]> =>
  * Gets data from the FavoriteResources API
  */
 export const useFavorites = () => {
-  return useAPICall<Types.FavoriteResource[]>({
+  const favorites = useAPICall<Types.FavoriteResource[]>({
     api: getFavorites,
     dataTransform: (d: Types.FavoriteResource[]): Types.FavoriteResource[] => d,
     initialState: [],
   });
+
+  // Gets the latest favorites and sets the new state
+  const refreshFavorites = async () => {
+    const newFavorites = await getFavorites();
+    favorites.setData(newFavorites);
+  };
+
+  return {
+    favorites,
+    refreshFavorites,
+  };
 };
 
 // Adds/updates data for Favorite Resources

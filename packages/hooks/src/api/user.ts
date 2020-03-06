@@ -52,24 +52,16 @@ export const useUser = () => {
     initialState: {},
     useCache: true,
   });
-  const favoriteResources = useFavorites();
+  const { favorites, refreshFavorites } = useFavorites();
 
   useEffect(() => {
     setUser({
-      data: { ...u.data, classification: { ...classification.data }, favoriteResources: [...favoriteResources.data] },
+      data: { ...u.data, classification: { ...classification.data }, favoriteResources: [...favorites.data] },
       error: u.error,
       loading: u.loading,
       isCanvasOptIn: u.data.isCanvasOptIn,
     });
-  }, [
-    u.data,
-    u.error,
-    u.loading,
-    classification.data,
-    classification.loading,
-    favoriteResources.data,
-    favoriteResources.loading,
-  ]);
+  }, [u.data, u.error, u.loading, classification.data, classification.loading, favorites.data, favorites.loading]);
 
   return {
     error: user.error,
@@ -77,6 +69,7 @@ export const useUser = () => {
     loading: user.loading,
     isCanvasOptIn: user.data?.isCanvasOptIn ?? false,
     setUser,
+    refreshFavorites,
   };
 };
 
