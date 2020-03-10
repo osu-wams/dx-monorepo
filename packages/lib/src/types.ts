@@ -75,6 +75,7 @@ export interface UserState {
   loading: boolean;
   isCanvasOptIn?: boolean;
   setUser?: Function;
+  refreshFavorites?: Function;
 }
 
 export interface UserAudienceOverride {
