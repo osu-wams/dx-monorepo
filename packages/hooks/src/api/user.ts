@@ -1,9 +1,9 @@
 import axios from 'axios';
 import useAPICall from '../useAPICall';
-import * as Classification from './classification';
 import { useEffect, useState } from 'react';
-import { useFavorites } from './resources';
 import { User, Types } from '@osu-wams/lib';
+import { getFavorites } from '../api/resources';
+import { getClassification } from '../api/classification';
 
 export const mockUser = User.mockUser;
 export const DEFAULT_THEME = User.DEFAULT_THEME;
@@ -47,12 +47,23 @@ export const useUser = () => {
     useCache: false,
   });
   const classification = useAPICall<Types.UserClassification>({
-    api: Classification.getClassification,
+    api: getClassification,
     dataTransform: (data: Types.UserClassification) => data,
     initialState: {},
     useCache: true,
   });
-  const { favorites, refreshFavorites } = useFavorites();
+
+  const favorites = useAPICall<Types.FavoriteResource[]>({
+    api: getFavorites,
+    dataTransform: (d: Types.FavoriteResource[]): Types.FavoriteResource[] => d,
+    initialState: [],
+  });
+
+  // Gets the latest favorites and sets the new state
+  const refreshFavorites = async () => {
+    const favoriteResources = await getFavorites();
+    setUser((p: Types.UserState) => ({ ...p, data: { ...p.data, favoriteResources } }));
+  };
 
   useEffect(() => {
     setUser({

@@ -4,7 +4,7 @@ import { renderHook } from '@testing-library/react-hooks';
 import { postSettings, useUser, mockUser, INITIAL_USER } from '../../src/api/user';
 import { Types } from '@osu-wams/lib';
 
-const { userClassification, user, settings } = mockUser;
+const { userClassification, user, settings, userFavoriteResources } = mockUser;
 const mockedUser = jest.fn<Types.User, any>(() => user.data);
 const mock = new MockAdapter(axios);
 
@@ -14,6 +14,7 @@ beforeEach(() => {
 
 describe('useUser', () => {
   it('gets user on successful returns', async () => {
+    mock.onGet('/api/resources/favorites').reply(200, userFavoriteResources);
     mock.onGet('/api/user/classification').reply(200, userClassification);
     mock.onGet('/api/user').reply(200, user.data);
     const { result, waitForNextUpdate } = renderHook(() => useUser());
@@ -23,6 +24,7 @@ describe('useUser', () => {
     expect(result.current.data).toEqual(user.data);
   });
   it('handles api error', async () => {
+    mock.onGet('/api/resources/favorites').reply(500);
     mock.onGet('/api/user/classification').reply(500);
     mock.onGet('/api/user').reply(500);
     const { result, waitForNextUpdate } = renderHook(() => useUser());
