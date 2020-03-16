@@ -24,7 +24,7 @@ import { useAddresses, useMealPlans, usePerson } from './api/person';
 import * as ReleaseNotes from './api/releaseNotes';
 import { useReleaseNotes } from './api/releaseNotes';
 import * as Resources from './api/resources';
-import { useResources, useCategories, useResourcesByQueue, useFavorites } from './api/resources';
+import { useResources, useCategories, useResourcesByQueue, useTrendingResources } from './api/resources';
 import * as Status from './api/status';
 import { useStatus } from './api/status';
 import * as Student from './api/student';
@@ -84,6 +84,6 @@ export {
   useResourcesByQueue,
   useStatus,
   useStudentExperienceEvents,
+  useTrendingResources,
   useUser,
-  useFavorites,
 };

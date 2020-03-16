@@ -137,4 +137,38 @@ const categoriesData: { data: Types.Category[]; loading: boolean; error: boolean
 
 const defaultCategory: string = 'Featured';
 
-export default { resourcesData, resourcesDataByCategory, categoriesData, defaultCategory, resourcesCardData };
+const trendingResourcesData: { data: Types.TrendingResource[]; loading: boolean; error: boolean } = {
+  data: [
+    {
+      resourceId: '9d615d11-Bc00-4f03-A90c-502103928d30',
+      date: '2020-03-16',
+      affiliation: 'Employee',
+      campus: 'Corvallis',
+      title: 'Statement',
+      totalEvents: 15,
+      uniqueEvents: 6,
+      period: '14daysAgo',
+    },
+    {
+      resourceId: '03794c38-D4cb-422f-96e4-6fce8bf4850b',
+      date: '2020-03-16',
+      affiliation: 'Student',
+      campus: 'Corvallis',
+      title: 'MyDegrees',
+      totalEvents: 5,
+      uniqueEvents: 5,
+      period: '14daysAgo',
+    },
+  ],
+  loading: false,
+  error: false,
+};
+
+export default {
+  resourcesData,
+  resourcesDataByCategory,
+  categoriesData,
+  defaultCategory,
+  resourcesCardData,
+  trendingResourcesData,
+};

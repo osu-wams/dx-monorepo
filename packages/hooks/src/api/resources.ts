@@ -61,28 +61,6 @@ export const defaultCategoryName = () => 'featured';
 export const getFavorites = (): Promise<Types.FavoriteResource[]> =>
   axios.get('/api/resources/favorites').then(res => res.data);
 
-/**
- * Gets data from the FavoriteResources API
- */
-export const useFavorites = () => {
-  const favorites = useAPICall<Types.FavoriteResource[]>({
-    api: getFavorites,
-    dataTransform: (d: Types.FavoriteResource[]): Types.FavoriteResource[] => d,
-    initialState: [],
-  });
-
-  // Gets the latest favorites and sets the new state
-  const refreshFavorites = async () => {
-    const newFavorites = await getFavorites();
-    favorites.setData(newFavorites);
-  };
-
-  return {
-    favorites,
-    refreshFavorites,
-  };
-};
-
 // Adds/updates data for Favorite Resources
 export const postFavorite = (resourceId: string, active: boolean, order: number): Promise<Types.FavoriteResource> =>
   axios
@@ -92,3 +70,28 @@ export const postFavorite = (resourceId: string, active: boolean, order: number)
       console.error(e);
       throw e;
     });
+
+/**
+ * Get a list of trending resources from a number of days in the past
+ * @param query url path for filtering trending resources, eg. '7daysAgo', or '7daysAgo/student'
+ */
+export const getTrendingResources = (query: string): Promise<Types.Resource[]> =>
+  axios.get(`/api/resources/trending/${query}`).then(res => {
+    return res.data;
+  });
+
+/**
+ * Hook for fetching trending resources
+ * @param daysAgo days to look back for trending resources, eg. '7daysAgo'
+ * @param affiliation optionally filter trending resources for a type of user, eg. 'student'
+ */
+export const useTrendingResources = (daysAgo: string, affiliation?: string) => {
+  const affiliationPath = affiliation ? `/${affiliation}` : '';
+  const query = `${daysAgo}${affiliationPath}`;
+  return useAPICall<Types.TrendingResource[]>({
+    api: getTrendingResources,
+    query,
+    dataTransform: (d: Types.TrendingResource[]): Types.TrendingResource[] => d,
+    initialState: [],
+  });
+};

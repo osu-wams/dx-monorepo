@@ -12,6 +12,14 @@ export interface Category {
   name: string;
 }
 
+export interface FavoriteResource {
+  osuId?: number;
+  created?: string;
+  resourceId: string;
+  order: number;
+  active: boolean;
+}
+
 export interface Resource {
   affiliation: string[];
   audiences: string[];
@@ -25,17 +33,20 @@ export interface Resource {
   type: string;
 }
 
-export interface FavoriteResource {
-  osuId?: number;
-  created?: string;
-  resourceId: string;
-  order: number;
-  active: boolean;
-}
-
 export interface ResourceEntityQueue {
   entityQueueTitle: string;
   items: Resource[];
+}
+
+export interface TrendingResource {
+  resourceId: string;
+  date: string;
+  affiliation: string;
+  campus: string;
+  title: string;
+  totalEvents: number;
+  uniqueEvents: number;
+  period?: string;
 }
 
 export interface UserClassificationAttributes {
