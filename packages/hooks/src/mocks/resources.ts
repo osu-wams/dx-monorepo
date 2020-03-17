@@ -140,21 +140,21 @@ const defaultCategory: string = 'Featured';
 const trendingResourcesData: { data: Types.TrendingResource[]; loading: boolean; error: boolean } = {
   data: [
     {
-      resourceId: '9d615d11-Bc00-4f03-A90c-502103928d30',
+      resourceId: '6',
       date: '2020-03-16',
       affiliation: 'Employee',
       campus: 'Corvallis',
-      title: 'Statement',
+      title: 'Employee Only',
       totalEvents: 15,
       uniqueEvents: 6,
       period: '14daysAgo',
     },
     {
-      resourceId: '03794c38-D4cb-422f-96e4-6fce8bf4850b',
+      resourceId: '4',
       date: '2020-03-16',
       affiliation: 'Student',
       campus: 'Corvallis',
-      title: 'MyDegrees',
+      title: 'Student Jobs',
       totalEvents: 5,
       uniqueEvents: 5,
       period: '14daysAgo',
