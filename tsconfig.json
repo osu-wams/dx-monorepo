@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "composite": true,
     "allowJs": true,
     "target": "es5",
     "module": "esnext",
