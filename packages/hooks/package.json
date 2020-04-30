@@ -43,7 +43,7 @@
     "@types/react-dom": "^16.9.4",
     "axios-mock-adapter": "^1.17.0",
     "husky": "^4.0.10",
-    "tsdx": "^0.12.3",
+    "tsdx": "^0.13.2",
     "tslib": "^1.10.0",
     "typescript": "^3.7.5"
   }
