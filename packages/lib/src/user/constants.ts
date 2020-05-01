@@ -1,4 +1,4 @@
-import { User } from '../types';
+import { Types } from '../';
 
 export const DEFAULT_THEME = 'light';
 export const DEFAULT_CAMPUS = 'C';
@@ -32,7 +32,7 @@ export const GROUPS = {
   masquerade: 'masquerade',
 };
 
-export const INITIAL_USER: User = {
+export const INITIAL_USER: Types.User = {
   classification: {},
   audienceOverride: {},
   isAdmin: false,

@@ -37,6 +37,7 @@ import {
   useGrades,
   useHolds,
   usePlannerItems,
+  useDegrees,
 } from './api/student';
 import * as User from './api/user';
 import { useUser } from './api/user';
@@ -57,6 +58,7 @@ export {
   Status,
   Student,
   User,
+  useDegrees,
   useAcademicCalendarEvents,
   useAcademicStatus,
   useAccountBalance,
