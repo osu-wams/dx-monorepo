@@ -14,6 +14,8 @@ import * as Holds from './holds';
 import { useHolds } from './holds';
 import * as PlannerItems from './plannerItems';
 import { usePlannerItems } from './plannerItems';
+import * as Degrees from './degrees';
+import { useDegrees } from './degrees';
 
 export {
   AcademicStatus,
@@ -24,6 +26,8 @@ export {
   Grades,
   Holds,
   PlannerItems,
+  Degrees,
+  useDegrees,
   useAcademicStatus,
   useAccountBalance,
   useAccountTransactions,
