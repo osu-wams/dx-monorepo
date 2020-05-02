@@ -195,10 +195,10 @@ const academicCalendar3 = {
     {
       title: 'Testo Event',
       link: 'https://events.oregonstate.edu/event/week_zero_summer_session_ends',
-      pubDate: new Date(),
+      pubDate: new Date().toString(),
       content: 'Week Zero Summer Session Ends',
       contentSnippet: 'Week Zero Summer Session Ends',
-      isoDate: new Date(),
+      isoDate: new Date().toString(),
     },
     {
       title: '11-week session beigns',
@@ -229,7 +229,7 @@ const academicCalendar6 = {
       pubDate: 'Fri, 21 Jun 2019 00:00:00 -0700',
       content: 'Week Zero Summer Session Ends',
       contentSnippet: 'Week Zero Summer Session Ends',
-      isoDate: new Date(),
+      isoDate: new Date().toString(),
     },
     {
       title: '11-week session beigns',

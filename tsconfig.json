@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "composite": true,
     "allowJs": true,
     "target": "es5",
     "module": "esnext",
@@ -21,7 +22,7 @@
     "moduleResolution": "node",
     "baseUrl": "./packages",
     "paths": {
-      "*": ["packages/src/*", "node_modules/*"]
+      "*": ["node_modules/*"]
     },
     "jsx": "react",
     "esModuleInterop": true
