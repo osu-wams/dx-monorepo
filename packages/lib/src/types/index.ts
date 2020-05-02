@@ -5,11 +5,12 @@ export {
   Resource,
   ResourceEntityQueue,
   TrendingResource,
+  User,
+  UserAudienceOverride,
   UserClassificationAttributes,
   UserClassification,
-  User,
-  UserState,
-  UserAudienceOverride,
+  UserMessage,
   UserSettings,
+  UserState,
 } from './user';
 export { Degree, DegreeResponse } from './student';
