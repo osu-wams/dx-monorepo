@@ -96,6 +96,17 @@ export interface UserAudienceOverride {
   international?: boolean;
 }
 
+export interface UserMessage {
+  channelId: string;
+  content: string;
+  contentShort: string;
+  deliveredAt?: string;
+  messageId: string;
+  osuId: string;
+  sendAt: string;
+  status: string;
+}
+
 export interface UserSettings {
   audienceOverride?: UserAudienceOverride;
   primaryAffiliationOverride?: string;
