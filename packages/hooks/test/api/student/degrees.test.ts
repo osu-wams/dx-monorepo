@@ -6,11 +6,11 @@ import { useDegrees, mockDegrees } from '../../../src/api/student/degrees';
 const mock = new MockAdapter(axios);
 
 // Shape the data back to how it looks like in Apigee
-const apigeeResponse = { data: [{ attributes: mockDegrees.data[0] }] };
+const serverResponse = [{ attributes: mockDegrees.data[0] }];
 
 describe('useDegrees', () => {
   it('gets degree on successful returns', async () => {
-    mock.onGet('/api/student/degrees?term=current').reply(200, apigeeResponse);
+    mock.onGet('/api/student/degrees?term=current').reply(200, serverResponse);
     const { result, waitForNextUpdate } = renderHook(() => useDegrees());
     await waitForNextUpdate();
     expect(result.current.loading).toBeFalsy();

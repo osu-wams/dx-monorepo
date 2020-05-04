@@ -13,7 +13,8 @@ export const useDegrees = (term = 'current') =>
   useAPICall<Types.Degree[]>({
     api: getDegrees,
     query: term,
-    dataTransform: (response: { data: Types.DegreeResponse[] }) =>
-      response.data.map((d: Types.DegreeResponse) => d.attributes),
+    dataTransform: (data: { attributes: Types.Degree }[]) => {
+      return data.map((d: { attributes: Types.Degree }) => d.attributes);
+    },
     initialState: [],
   });

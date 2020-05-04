@@ -1887,9 +1887,6 @@
   dependencies:
     "@types/node" ">= 8"
 
-"@osu-wams/lib@^0.1.13":
-  version "0.1.12"
-
 "@rollup/plugin-commonjs@^11.0.0":
   version "11.1.0"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-commonjs/-/plugin-commonjs-11.1.0.tgz#60636c7a722f54b41e419e1709df05c7234557ef"
