@@ -8,8 +8,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # See https://github.com/lerna/lerna/issues/2542
       - name: Begin CI...
         uses: actions/checkout@v2
+        with:
+          # pulls all commits (needed for lerna / semantic release to correctly version)
+          fetch-depth: '0'
+
+      # pulls all tags (needed for lerna / semantic release to correctly version)
+      - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
 
       - name: Use Node 12
         uses: actions/setup-node@v1
