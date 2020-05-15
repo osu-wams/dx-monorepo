@@ -65,7 +65,7 @@ jobs:
           GITHUB_NPM_TOKEN: ${{ secrets.GITHUB_NPM_TOKEN }}
 
       - name: deploy package(s)
-        if: ${{ github.ref == 'master' }}
+        if: ${{ github.base_ref == 'master' }}
         run: yarn publish:patch
         env:
           CI: true
