@@ -13,4 +13,15 @@ export {
   UserSettings,
   UserState,
 } from './user';
-export { Degree, DegreeResponse } from './student';
+export {
+  Classification,
+  ClassificationResponse,
+  CourseSchedule,
+  CourseScheduleFaculty,
+  CourseScheduleMeetingTime,
+  CourseScheduleResponse,
+  Degree,
+  DegreeResponse,
+  PlannerItem,
+} from './student';
+export { Address, AddressesResponse, MealPlan, MealPlansResponse, Profile, ProfileResponse } from './person';
