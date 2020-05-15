@@ -1,7 +1,8 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { renderHook } from '@testing-library/react-hooks';
-import { useCourseSchedule, mockCourseSchedule, CourseSchedule } from '../../../src/api/student/courseSchedule';
+import { useCourseSchedule, mockCourseSchedule } from '../../../src/api/student/courseSchedule';
+import { Types } from '@osu-wams/lib';
 
 const mock = new MockAdapter(axios);
 
@@ -26,7 +27,7 @@ describe('useAcademicStatus', () => {
     mock.onGet('/api/student/class-schedule?term=19790101').reply(200, mockCourseSchedule.schedule);
     const { result, waitForNextUpdate } = renderHook(() =>
       useCourseSchedule({
-        callback: (d: CourseSchedule[]) => {
+        callback: (d: Types.CourseSchedule[]) => {
           let originalData = d;
           originalData = [];
           return originalData;
