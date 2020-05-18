@@ -24,6 +24,7 @@ export interface Resource {
   affiliation: string[];
   audiences: string[];
   categories: string[];
+  excludeTrending: boolean;
   iconName?: string;
   id: string;
   link: string;
