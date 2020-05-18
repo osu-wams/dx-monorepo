@@ -1,4 +1,4 @@
-name: Lint, Build, Test
+name: Lint, Build, Test, and Publish (master)
 on:
   pull_request:
   push:
@@ -71,9 +71,12 @@ jobs:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
           GITHUB_NPM_TOKEN: ${{ secrets.GITHUB_NPM_TOKEN }}
 
-      - name: deploy package(s)
+      - name: publish package(s) with changes
         if: github.ref == 'refs/heads/master'
-        run: yarn publish:patch --yes
+        run: |
+          git config --global user.name 'osu-wams github action'
+          git config --global user.email 'noreply@oregonstate.edu'
+          yarn publish:patch --yes
         env:
           CI: true
           FONTAWESOME_TOKEN: ${{ secrets.FONTAWESOME_TOKEN }}
