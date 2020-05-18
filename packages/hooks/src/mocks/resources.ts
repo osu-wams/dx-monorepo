@@ -13,6 +13,7 @@ const resourcesArray: Types.Resource[] = [
     categories: ['Featured'],
     synonyms: ['help', 'tutoring', 'writing', 'math'],
     type: 'resource',
+    excludeTrending: true,
   },
   {
     id: '2',
@@ -25,6 +26,7 @@ const resourcesArray: Types.Resource[] = [
     locations: ['Corvallis', 'Bend'],
     synonyms: [],
     type: 'resource',
+    excludeTrending: false,
   },
   {
     id: '3',
@@ -37,6 +39,7 @@ const resourcesArray: Types.Resource[] = [
     categories: ['Featured', 'Financial'],
     synonyms: ['boo'],
     type: 'resource',
+    excludeTrending: false,
   },
   {
     id: '4',
@@ -49,6 +52,7 @@ const resourcesArray: Types.Resource[] = [
     affiliation: ['student'],
     synonyms: ['boo'],
     type: 'resource',
+    excludeTrending: false,
   },
   {
     id: '5',
@@ -61,6 +65,7 @@ const resourcesArray: Types.Resource[] = [
     categories: ['Financial'],
     synonyms: [],
     type: 'resource',
+    excludeTrending: false,
   },
   {
     id: '6',
@@ -73,6 +78,7 @@ const resourcesArray: Types.Resource[] = [
     categories: ['Featured'],
     synonyms: [],
     type: 'resource',
+    excludeTrending: false,
   },
 ];
 
@@ -104,6 +110,7 @@ const resourcesDataByCategory: { data: Types.Resource[]; loading: boolean; error
       iconName: 'fal.money-check-edit-alt',
       link: 'http://fa.oregonstate.edu/business-affairs/studentbilling',
       type: 'resource',
+      excludeTrending: false,
     },
   ],
   loading: false,
