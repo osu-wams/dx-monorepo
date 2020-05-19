@@ -1,6 +1,8 @@
 /* eslint-disable camelcase */
 
-const employeeEvents = {
+import { AcademicEvents, LocalistEvents } from '../api/events';
+
+const employeeEvents: { data: LocalistEvents; loading: boolean; error: boolean } = {
   data: [
     {
       action: {
@@ -11,6 +13,8 @@ const employeeEvents = {
       id: 31839819109196,
       title: '2019 Oregon Employees Charitable Fund Drive',
       type: 'localist',
+      campus_id: undefined,
+      city: undefined,
     },
     {
       action: {
@@ -21,6 +25,8 @@ const employeeEvents = {
       id: 31902001667478,
       title: 'The Road Less Traveled - Willamette Valley PhotoArts Guild Exhibit',
       type: 'localist',
+      campus_id: 272,
+      city: 'Corvallis',
     },
     {
       action: {
@@ -31,6 +37,8 @@ const employeeEvents = {
       id: 31965230137778,
       title: 'Bloodborne Pathogen Training for Non-Lab Workers',
       type: 'localist',
+      campus_id: 272,
+      city: 'Corvallis',
     },
     {
       action: {
@@ -41,6 +49,8 @@ const employeeEvents = {
       id: 32122778290228,
       title: 'PhD Preliminary Oral Exam – Manjunath Kareppagoudr',
       type: 'localist',
+      campus_id: 272,
+      city: 'Corvallis',
     },
     {
       action: {
@@ -51,13 +61,15 @@ const employeeEvents = {
       id: 31709247104655,
       title: 'Transfer Tuesdays at COCC',
       type: 'localist',
+      campus_id: 273,
+      city: 'Bend',
     },
   ],
   loading: false,
   error: false,
 };
 
-const studentExperienceEvents = {
+const studentExperienceEvents: { data: LocalistEvents; loading: boolean; error: boolean } = {
   data: [
     {
       action: {
@@ -69,6 +81,8 @@ const studentExperienceEvents = {
       id: 1,
       title: 'Localist test title 1',
       type: 'localist',
+      campus_id: 272,
+      city: 'Corvallis',
     },
     {
       action: { link: 'https://events.oregonstate.edu/event/pathogetesto' },
@@ -77,6 +91,8 @@ const studentExperienceEvents = {
       id: 2,
       title: 'Pathogen Environmental Monitoring Workshop for Pacific Northwest Food Ind',
       type: 'localist',
+      campus_id: 272,
+      city: 'Corvallis',
     },
     {
       action: { link: 'https://events.oregonstate.edu/testo' },
@@ -85,13 +101,15 @@ const studentExperienceEvents = {
       id: 99,
       title: 'Katherine Dziedzic - Integrative Biology PhD Defense Seminar',
       type: 'localist',
+      campus_id: 272,
+      city: 'Corvallis',
     },
   ],
   loading: false,
   error: false,
 };
 
-const studentExperienceEvents_10 = {
+const studentExperienceEvents_10: { data: LocalistEvents; loading: boolean; error: boolean } = {
   data: [
     {
       action: {
@@ -103,6 +121,8 @@ const studentExperienceEvents_10 = {
       id: 1,
       title: 'Localist test title 1',
       type: 'localist',
+      campus_id: 272,
+      city: 'Corvallis',
     },
     {
       action: { link: 'https://events.oregonstate.edu/event/pathogetesto' },
@@ -111,6 +131,8 @@ const studentExperienceEvents_10 = {
       id: 2,
       title: 'Pathogen Environmental Monitoring Workshop for Pacific Northwest Food Ind',
       type: 'localist',
+      campus_id: 272,
+      city: 'Corvallis',
     },
     {
       action: { link: 'https://events.oregonstate.edu/testo' },
@@ -119,6 +141,8 @@ const studentExperienceEvents_10 = {
       id: 3,
       title: 'Katherine Dziedzic - Integrative Biology PhD Defense Seminar',
       type: 'localist',
+      campus_id: 272,
+      city: 'Corvallis',
     },
     {
       action: {
@@ -130,6 +154,8 @@ const studentExperienceEvents_10 = {
       id: 4,
       title: 'Localist test title 1',
       type: 'localist',
+      campus_id: 272,
+      city: 'Corvallis',
     },
     {
       action: { link: 'https://events.oregonstate.edu/event/pathogetesto' },
@@ -138,6 +164,8 @@ const studentExperienceEvents_10 = {
       id: 5,
       title: 'Pathogen Environmental Monitoring Workshop for Pacific Northwest Food Ind',
       type: 'localist',
+      campus_id: 272,
+      city: 'Corvallis',
     },
     {
       action: { link: 'https://events.oregonstate.edu/testo' },
@@ -146,6 +174,8 @@ const studentExperienceEvents_10 = {
       id: 6,
       title: 'Katherine Dziedzic - Integrative Biology PhD Defense Seminar',
       type: 'localist',
+      campus_id: 272,
+      city: 'Corvallis',
     },
     {
       action: {
@@ -157,6 +187,8 @@ const studentExperienceEvents_10 = {
       id: 7,
       title: 'Localist test title 1',
       type: 'localist',
+      campus_id: 272,
+      city: 'Corvallis',
     },
     {
       action: { link: 'https://events.oregonstate.edu/event/pathogetesto' },
@@ -165,6 +197,8 @@ const studentExperienceEvents_10 = {
       id: 8,
       title: 'Pathogen Environmental Monitoring Workshop for Pacific Northwest Food Ind',
       type: 'localist',
+      campus_id: 272,
+      city: 'Corvallis',
     },
     {
       action: { link: 'https://events.oregonstate.edu/testo' },
@@ -173,6 +207,8 @@ const studentExperienceEvents_10 = {
       id: 9,
       title: 'Katherine Dziedzic - Integrative Biology PhD Defense Seminar',
       type: 'localist',
+      campus_id: 272,
+      city: 'Corvallis',
     },
     {
       action: {
@@ -184,13 +220,15 @@ const studentExperienceEvents_10 = {
       id: 10,
       title: 'Localist test title 1',
       type: 'localist',
+      campus_id: 272,
+      city: 'Corvallis',
     },
   ],
   loading: false,
   error: false,
 };
 
-const academicCalendar3 = {
+const academicCalendar3: { data: AcademicEvents; loading: boolean; error: boolean } = {
   data: [
     {
       title: 'Testo Event',
@@ -221,7 +259,7 @@ const academicCalendar3 = {
   error: false,
 };
 
-const academicCalendar6 = {
+const academicCalendar6: { data: AcademicEvents; loading: boolean; error: boolean } = {
   data: [
     {
       title: 'Week Zero Summer Session Ends',

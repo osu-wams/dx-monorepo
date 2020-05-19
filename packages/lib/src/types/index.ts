@@ -25,3 +25,4 @@ export {
   PlannerItem,
 } from './student';
 export { Address, AddressesResponse, MealPlan, MealPlansResponse, Profile, ProfileResponse } from './person';
+export { AcademicEvent, LocalistEvent } from './localist';
