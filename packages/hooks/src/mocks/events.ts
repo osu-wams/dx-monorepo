@@ -15,6 +15,7 @@ const employeeEvents: { data: LocalistEvents; loading: boolean; error: boolean }
       type: 'localist',
       campus_id: undefined,
       city: undefined,
+      campus_code: undefined,
     },
     {
       action: {
@@ -27,6 +28,7 @@ const employeeEvents: { data: LocalistEvents; loading: boolean; error: boolean }
       type: 'localist',
       campus_id: 272,
       city: 'Corvallis',
+      campus_code: 'C',
     },
     {
       action: {
@@ -39,6 +41,7 @@ const employeeEvents: { data: LocalistEvents; loading: boolean; error: boolean }
       type: 'localist',
       campus_id: 272,
       city: 'Corvallis',
+      campus_code: 'C',
     },
     {
       action: {
@@ -51,6 +54,7 @@ const employeeEvents: { data: LocalistEvents; loading: boolean; error: boolean }
       type: 'localist',
       campus_id: 272,
       city: 'Corvallis',
+      campus_code: 'C',
     },
     {
       action: {
@@ -63,6 +67,7 @@ const employeeEvents: { data: LocalistEvents; loading: boolean; error: boolean }
       type: 'localist',
       campus_id: 273,
       city: 'Bend',
+      campus_code: 'B',
     },
   ],
   loading: false,
@@ -83,6 +88,7 @@ const studentExperienceEvents: { data: LocalistEvents; loading: boolean; error: 
       type: 'localist',
       campus_id: 272,
       city: 'Corvallis',
+      campus_code: 'C',
     },
     {
       action: { link: 'https://events.oregonstate.edu/event/pathogetesto' },
@@ -93,6 +99,7 @@ const studentExperienceEvents: { data: LocalistEvents; loading: boolean; error: 
       type: 'localist',
       campus_id: 272,
       city: 'Corvallis',
+      campus_code: 'C',
     },
     {
       action: { link: 'https://events.oregonstate.edu/testo' },
@@ -103,6 +110,7 @@ const studentExperienceEvents: { data: LocalistEvents; loading: boolean; error: 
       type: 'localist',
       campus_id: 272,
       city: 'Corvallis',
+      campus_code: 'C',
     },
   ],
   loading: false,
@@ -123,6 +131,7 @@ const studentExperienceEvents_10: { data: LocalistEvents; loading: boolean; erro
       type: 'localist',
       campus_id: 272,
       city: 'Corvallis',
+      campus_code: 'C',
     },
     {
       action: { link: 'https://events.oregonstate.edu/event/pathogetesto' },
@@ -133,6 +142,7 @@ const studentExperienceEvents_10: { data: LocalistEvents; loading: boolean; erro
       type: 'localist',
       campus_id: 272,
       city: 'Corvallis',
+      campus_code: 'C',
     },
     {
       action: { link: 'https://events.oregonstate.edu/testo' },
@@ -143,6 +153,7 @@ const studentExperienceEvents_10: { data: LocalistEvents; loading: boolean; erro
       type: 'localist',
       campus_id: 272,
       city: 'Corvallis',
+      campus_code: 'C',
     },
     {
       action: {
@@ -156,6 +167,7 @@ const studentExperienceEvents_10: { data: LocalistEvents; loading: boolean; erro
       type: 'localist',
       campus_id: 272,
       city: 'Corvallis',
+      campus_code: 'C',
     },
     {
       action: { link: 'https://events.oregonstate.edu/event/pathogetesto' },
@@ -166,6 +178,7 @@ const studentExperienceEvents_10: { data: LocalistEvents; loading: boolean; erro
       type: 'localist',
       campus_id: 272,
       city: 'Corvallis',
+      campus_code: 'C',
     },
     {
       action: { link: 'https://events.oregonstate.edu/testo' },
@@ -176,6 +189,7 @@ const studentExperienceEvents_10: { data: LocalistEvents; loading: boolean; erro
       type: 'localist',
       campus_id: 272,
       city: 'Corvallis',
+      campus_code: 'C',
     },
     {
       action: {
@@ -189,6 +203,7 @@ const studentExperienceEvents_10: { data: LocalistEvents; loading: boolean; erro
       type: 'localist',
       campus_id: 272,
       city: 'Corvallis',
+      campus_code: 'C',
     },
     {
       action: { link: 'https://events.oregonstate.edu/event/pathogetesto' },
@@ -199,6 +214,7 @@ const studentExperienceEvents_10: { data: LocalistEvents; loading: boolean; erro
       type: 'localist',
       campus_id: 272,
       city: 'Corvallis',
+      campus_code: 'C',
     },
     {
       action: { link: 'https://events.oregonstate.edu/testo' },
@@ -209,6 +225,7 @@ const studentExperienceEvents_10: { data: LocalistEvents; loading: boolean; erro
       type: 'localist',
       campus_id: 272,
       city: 'Corvallis',
+      campus_code: 'C',
     },
     {
       action: {
@@ -222,6 +239,7 @@ const studentExperienceEvents_10: { data: LocalistEvents; loading: boolean; erro
       type: 'localist',
       campus_id: 272,
       city: 'Corvallis',
+      campus_code: 'C',
     },
   ],
   loading: false,
