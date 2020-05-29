@@ -210,6 +210,15 @@ describe('hasAudience', () => {
       mockedItem.mockReturnValue({ ...item, affiliation: [AFFILIATIONS.student] });
       expect(hasAudience(mockedUser(), mockedItem())).toBeFalsy();
     });
+    it('returns true when the item is intended for an undergraduate and the Affiliation Override is Student (Student Dashboard for example)', async () => {
+      mockedUser.mockReturnValue({
+        ...user.data,
+        primaryAffiliation: AFFILIATIONS.employee,
+        primaryAffiliationOverride: AFFILIATIONS.student,
+      });
+      mockedItem.mockReturnValue({ ...item, affiliation: [AFFILIATIONS.student] });
+      expect(hasAudience(mockedUser(), mockedItem())).toBeTruthy();
+    });
     it('returns false when the item is intended for a campus other than the default (an employee doesnt have campus classification)', async () => {
       mockedItem.mockReturnValue({ ...item, affiliation: [AFFILIATIONS.employee], locations: ['ECampus'] });
       expect(hasAudience(mockedUser(), mockedItem())).toBeFalsy();

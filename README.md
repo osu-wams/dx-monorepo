@@ -58,19 +58,6 @@ yarn test
 
 ### Building and Publishing
 
-- Update `package.json` of the particular package (hooks, lib) to the desired version.
-
-Make sure you have node `10.15.x` installed
-
-- Inside the root directory after you have done your changes:
-
-```bash
-nvm use 10.15.3
-yarn build
-```
-
-- When you are ready to deploy the package to github npm:
-
-```bash
-yarn publish
-```
+- All done via CI Automation
+- Do not update package version numbers in `package.json`. Lerna does this through our CI workflow.
+- Simply make a feature branch, and once it is approved and merged to master it will publish
