@@ -1,5 +1,5 @@
 import { User, UserSettings } from '../types';
-import { CLASSIFICATIONS, CLASSIFICATION_AUDIENCES, CAMPUS_CODES, DEFAULT_CAMPUS } from './constants';
+import { CLASSIFICATIONS, CLASSIFICATION_AUDIENCES, CAMPUS_CODES, DEFAULT_CAMPUS, AFFILIATIONS } from './constants';
 
 /**
  * Returns the audience override value or users classification in that order
@@ -212,14 +212,24 @@ const hasAudience = (
   // The user affiliation and campus were found, audiences empty is treated as reason to show all
   if (audiences?.length === 0) return true;
 
-  // The user affiliation asn campus were found, audiences are specified but this user doesn't
-  // have classification data (they are an employee), so audience can't be evaluated and the item shouldn't be showed
-  if (user.classification?.attributes === undefined && Object.keys(user.audienceOverride).length === 0) return false;
+  // The user affiliation and campus were found, audiences are specified but this user doesn't
+  // have classification data (they are an employee), so audience can't be evaluated but if it's an undergraduate
+  // we return that data - otherwise we don't
+  if (user.classification?.attributes === undefined && usersAffiliation === AFFILIATIONS.student) {
+    return item.audiences.some(a => CLASSIFICATION_AUDIENCES.undergraduate.toLowerCase() === a.toLowerCase());
+  }
+
+  if (user.classification?.attributes === undefined && Object.keys(user.audienceOverride).length === 0) {
+    return false;
+  }
 
   const usersAudiences: string[] = [];
   if (isGraduate(user)) usersAudiences.push(CLASSIFICATION_AUDIENCES.graduate.toLowerCase());
+
   if (isUndergraduate(user)) usersAudiences.push(CLASSIFICATION_AUDIENCES.undergraduate.toLowerCase());
+
   if (isFirstYear(user)) usersAudiences.push(CLASSIFICATION_AUDIENCES.firstYear.toLowerCase());
+
   if (isInternational(user)) usersAudiences.push(CLASSIFICATION_AUDIENCES.international.toLowerCase());
 
   // The item has been evaluated to be visible for this users affiliation and campus, and the item
