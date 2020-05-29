@@ -216,6 +216,7 @@ describe('hasAudience', () => {
         classification: { attributes: undefined },
         primaryAffiliation: AFFILIATIONS.employee,
         primaryAffiliationOverride: AFFILIATIONS.student,
+        audienceOverride: {},
       });
       mockedItem.mockReturnValue({
         ...item,
@@ -247,6 +248,7 @@ describe('hasAudience', () => {
         classification: { attributes: undefined },
         primaryAffiliation: AFFILIATIONS.employee,
         primaryAffiliationOverride: AFFILIATIONS.student,
+        audienceOverride: {},
       });
       mockedItem.mockReturnValue({
         ...item,
