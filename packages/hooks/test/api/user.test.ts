@@ -77,7 +77,7 @@ describe('updateUserMessage', () => {
   it('returns an error', async () => {
     jest.spyOn(console, 'error').mockImplementation(() => {});
     mock.onPost('/api/user/messages').reply(500);
-    await expect(updateUserMessage({ messageId: 'message-id-01', status: 'READ' })).rejects.toThrow();
+    await expect(updateUserMessage({ messageId: 'message-id-01', status: 'invalid-status' })).rejects.toThrow();
     expect(console.error).toHaveBeenCalledTimes(1);
   });
 });
