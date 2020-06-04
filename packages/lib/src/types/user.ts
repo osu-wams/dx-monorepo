@@ -106,6 +106,17 @@ export interface UserMessage {
   osuId: string;
   sendAt: string;
   status: string;
+  title: string;
+}
+
+export interface UserMessageItems {
+  items: UserMessage[];
+  lastKey?: string;
+}
+
+export interface UserMessageUpdate {
+  messageId: string;
+  status: string;
 }
 
 export interface UserSettings {

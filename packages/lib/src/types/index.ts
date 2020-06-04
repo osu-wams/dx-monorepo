@@ -10,6 +10,8 @@ export {
   UserClassificationAttributes,
   UserClassification,
   UserMessage,
+  UserMessageItems,
+  UserMessageUpdate,
   UserSettings,
   UserState,
 } from './user';
