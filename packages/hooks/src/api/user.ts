@@ -96,3 +96,22 @@ export const postSettings = (settings: Types.UserSettings): Promise<Types.UserSe
       console.error(e);
       throw e;
     });
+
+export const getUserMessages = (): Promise<Types.UserMessageItems> =>
+  axios.get('/api/user/messages').then(res => res.data);
+
+export const useMessages = () =>
+  useAPICall<Types.UserMessageItems>({
+    api: getUserMessages,
+    dataTransform: (data: any) => data,
+    initialState: { items: [] },
+  });
+
+export const updateUserMessage = (update: Types.UserMessageUpdate): Promise<Types.UserMessage> =>
+  axios
+    .post('/api/user/messages', update)
+    .then(res => res.data)
+    .catch(e => {
+      console.error(e);
+      throw e;
+    });

@@ -1,4 +1,11 @@
-import { UserAudienceOverride, UserClassification, UserState, FavoriteResource } from '../types';
+import {
+  UserAudienceOverride,
+  UserClassification,
+  UserState,
+  UserMessage,
+  UserMessageItems,
+  FavoriteResource,
+} from '../types';
 
 const settings = {
   data: {
@@ -51,6 +58,23 @@ const userFavoriteResources: FavoriteResource[] = [
   },
 ];
 
+const userMessage: UserMessage = {
+  channelId: 'dashboard',
+  content: 'content',
+  contentShort: 'contentShort',
+  deliveredAt: '2020-01-01',
+  messageId: 'message-id-01',
+  osuId: '111111111',
+  sendAt: '2020-01-01',
+  status: 'SENT',
+  title: 'Title',
+};
+
+const userMessageItems: UserMessageItems = {
+  items: [userMessage],
+  lastKey: undefined,
+};
+
 const user: UserState = {
   data: {
     osuId: '123',
@@ -73,4 +97,12 @@ const user: UserState = {
   refreshFavorites: () => {},
 };
 
-export default { user, userAudienceOverride, userFavoriteResources, userClassification, settings };
+export default {
+  user,
+  userAudienceOverride,
+  userFavoriteResources,
+  userClassification,
+  settings,
+  userMessage,
+  userMessageItems,
+};

@@ -40,7 +40,7 @@ import {
   useDegrees,
 } from './api/student';
 import * as User from './api/user';
-import { useUser } from './api/user';
+import { useMessages, useUser } from './api/user';
 
 export {
   Announcements,
@@ -77,6 +77,7 @@ export {
   useHolds,
   useInfoButtons,
   useMealPlans,
+  useMessages,
   usePageContent,
   usePerson,
   usePlannerItems,
