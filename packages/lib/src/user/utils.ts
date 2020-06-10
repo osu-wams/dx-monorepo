@@ -172,7 +172,7 @@ const usersCampus = (user: User): { campusName: string | undefined; campusCode: 
   // set for the announcement
   const campusName = Object.keys(CAMPUS_CODES)
     .map(k => k.toLowerCase())
-    .find(key => CAMPUS_CODES[key].toLowerCase() === campusCode.toLowerCase());
+    .find(key => CAMPUS_CODES[key].map(c => c.toLowerCase()).includes(campusCode.toLowerCase()));
   return { campusCode, campusName };
 };
 

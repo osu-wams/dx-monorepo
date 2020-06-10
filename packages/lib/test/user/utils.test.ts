@@ -538,6 +538,14 @@ describe('usersCampus', () => {
   it('has corvallis users campus', async () => {
     expect(usersCampus(mockedUser())).toEqual({ campusCode: 'C', campusName: 'corvallis' });
   });
+  it('has another type of corvallis users campus', async () => {
+    mockedUser.mockReturnValue({
+      ...user.data,
+      audienceOverride: { campusCode: 'J' },
+      classification: { attributes: { ...classificationAttributes, campusCode: 'J' } },
+    });
+    expect(usersCampus(mockedUser())).toEqual({ campusCode: 'J', campusName: 'corvallis' });
+  });
   it('has bend users campus', async () => {
     mockedUser.mockReturnValue({
       ...user.data,
