@@ -35,10 +35,10 @@ export const CLASSIFICATION_AUDIENCES = {
   undergraduate: 'Undergraduate Student',
 };
 
-export const CAMPUS_CODES: { [key: string]: string } = {
-  bend: 'B',
-  corvallis: 'C',
-  ecampus: 'DSC',
+export const CAMPUS_CODES: { [key: string]: string[] } = {
+  bend: ['B'],
+  corvallis: ['C', 'J'],
+  ecampus: ['DSC'],
 };
 
 export const AFFILIATIONS = {
