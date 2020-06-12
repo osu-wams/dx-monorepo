@@ -101,12 +101,19 @@ const usersSettings = (user: User): UserSettings => ({
  * @param currentValue the value to consider when the student classification doesn't exist
  * @param defaultValue the default value for comparison
  */
-const settingIsDefault = (user: User, propertyName: string, currentValue: string, defaultValue: string): boolean => {
-  const {
-    classification: { attributes },
-  } = user;
-  if (attributes) {
-    return attributes[propertyName] === currentValue;
+const settingIsDefault = (
+  user: User | undefined,
+  propertyName: string,
+  currentValue: string,
+  defaultValue: string,
+): boolean => {
+  if (user && user.classification) {
+    const {
+      classification: { attributes },
+    } = user;
+    if (attributes) {
+      return attributes[propertyName] === currentValue;
+    }
   }
 
   return currentValue === defaultValue;
@@ -120,44 +127,46 @@ const settingIsDefault = (user: User, propertyName: string, currentValue: string
  * @param defaultValue the default value for comparison
  */
 const settingIsOverridden = (
-  user: User,
+  user: User | undefined,
   propertyName: string,
   currentValue: boolean | undefined,
   defaultValue: boolean,
 ): boolean => {
-  const {
-    classification: { attributes },
-  } = user;
-  if (attributes) {
-    const { isInternational, classification, levelCode } = attributes;
-    switch (propertyName) {
-      case 'international':
-        if (isInternational && currentValue !== undefined) {
-          return !currentValue;
-        }
+  if (user && user.classification) {
+    const {
+      classification: { attributes },
+    } = user;
+    if (attributes) {
+      const { isInternational, classification, levelCode } = attributes;
+      switch (propertyName) {
+        case 'international':
+          if (isInternational && currentValue !== undefined) {
+            return !currentValue;
+          }
 
-        return false;
+          return false;
 
-      case 'firstYear':
-        if (CLASSIFICATIONS.firstYear.includes(classification?.toLowerCase()) && currentValue !== undefined) {
-          return !currentValue;
-        }
+        case 'firstYear':
+          if (CLASSIFICATIONS.firstYear.includes(classification?.toLowerCase()) && currentValue !== undefined) {
+            return !currentValue;
+          }
 
-        return false;
+          return false;
 
-      case 'graduate':
-        if (CLASSIFICATIONS.graduate.includes(levelCode?.toLowerCase()) && currentValue !== undefined) {
-          return !currentValue;
-        }
+        case 'graduate':
+          if (CLASSIFICATIONS.graduate.includes(levelCode?.toLowerCase()) && currentValue !== undefined) {
+            return !currentValue;
+          }
 
-        return false;
+          return false;
 
-      default:
-        return false;
+        default:
+          return false;
+      }
     }
-  } else {
-    return currentValue !== defaultValue;
   }
+
+  return currentValue !== defaultValue;
 };
 
 /**

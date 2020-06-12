@@ -409,6 +409,10 @@ describe('hasAudience', () => {
 });
 
 describe('settingIsOverridden', () => {
+  it('evaluates current and default value only when user is undefined', async () => {
+    expect(settingIsOverridden(undefined, 'BOB_ROSS', true, true)).toBeFalsy();
+    expect(settingIsOverridden(undefined, 'BOB_ROSS', true, false)).toBeTruthy();
+  });
   it('returns false when an unexpected property is evaluated', async () => {
     const result = settingIsOverridden(mockedUser(), 'BOB_ROSS', true, true);
     expect(result).toBeFalsy();
@@ -446,6 +450,10 @@ describe('settingIsOverridden', () => {
 });
 
 describe('settingIsDefault', () => {
+  it('evaluates current and default value only when user is undefined', async () => {
+    expect(settingIsDefault(undefined, 'BOB_ROSS', 'current', 'default')).toBeFalsy();
+    expect(settingIsDefault(undefined, 'BOB_ROSS', 'default', 'default')).toBeTruthy();
+  });
   it('returns true when current and default values match', async () => {
     mockedUser.mockReturnValue({
       ...user.data,
