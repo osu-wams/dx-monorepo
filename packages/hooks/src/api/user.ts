@@ -45,6 +45,11 @@ export const useUser = () => {
     dataTransform: (data: Types.User) => data,
     initialState: INITIAL_USER,
     useCache: false,
+    errorCallback: (e: { response?: { status: number } }) => {
+      if (e.response?.status === 401) {
+        window.location.assign(`/login?return=${window.location.pathname}`);
+      }
+    },
   });
   const classification = useAPICall<Types.UserClassification>({
     api: getClassification,

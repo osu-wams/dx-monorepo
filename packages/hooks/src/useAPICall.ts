@@ -78,7 +78,8 @@ const useAPICall = <T>(options: APICall<T>): APIResult<T> => {
           // flow through the login process while providing the backend the target
           // url to redirect the user to after a successful login.
           if (e.response?.status === 401) {
-            window.location.assign(`/login?return=${window.location.pathname}`);
+            storageCache.removeItem(cacheKey);
+            if (errorCallback) errorCallback(e);
           } else {
             // Gives the ability for an API call to bypass posting an error to the server in
             // certain circumstances, such as an HTTP 403 from Planner Item API call when the user
@@ -89,7 +90,7 @@ const useAPICall = <T>(options: APICall<T>): APIResult<T> => {
             }
 
             storageCache.removeItem(cacheKey);
-            if (errorCallback) errorCallback();
+            if (errorCallback) errorCallback(e);
           }
         }
       });
