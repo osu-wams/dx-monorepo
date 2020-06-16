@@ -66,13 +66,13 @@ describe('useAPICall', () => {
     const { result, waitForNextUpdate } = renderHook(() => useAPICall(testArgs));
     await waitForNextUpdate();
 
-    expect(mockedErrorCallback).not.toHaveBeenCalled();
+    expect(mockedErrorCallback).toHaveBeenCalled();
     expect(mockedPostError).not.toHaveBeenCalled();
     expect(result.current.loading).toBeFalsy();
     expect(mockedGetItem).toHaveBeenCalled();
     expect(mockedSetItem).not.toHaveBeenCalled();
-    expect(mockedRemoveItem).not.toHaveBeenCalled();
-    expect(window.location.assign).toHaveBeenCalled();
+    expect(mockedRemoveItem).toHaveBeenCalled();
+    expect(window.location.assign).not.toHaveBeenCalled();
   });
 
   it('handles an HTTP 403', async () => {
