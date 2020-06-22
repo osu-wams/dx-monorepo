@@ -182,6 +182,7 @@ export const GROUPS = {
 export const INITIAL_USER: Types.User = {
   classification: {},
   audienceOverride: {},
+  affiliations: [],
   isAdmin: false,
   groups: [],
   theme: DEFAULT_THEME,
