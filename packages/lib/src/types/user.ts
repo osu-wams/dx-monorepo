@@ -70,6 +70,7 @@ export interface User {
   firstName?: string;
   lastName?: string;
   email?: string;
+  affiliations: string[];
   isCanvasOptIn?: boolean;
   isAdmin: boolean;
   groups: string[];

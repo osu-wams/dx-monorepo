@@ -81,6 +81,7 @@ const user: UserState = {
     email: 'testo@oregonstate.edu',
     firstName: 'Testo',
     lastName: 'LastTesto',
+    affiliations: ['member'],
     isAdmin: true,
     groups: ['admin', 'masquerade'],
     isCanvasOptIn: true,
