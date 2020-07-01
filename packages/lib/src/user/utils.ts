@@ -75,6 +75,7 @@ const hasPrimaryAffiliation = (user: User, affiliations: string[]): boolean => {
  * @param user the user to inspect
  */
 const getAffiliation = (user: User): string => {
+  if (user.primaryAffiliationOverride === '') return user.primaryAffiliation;
   return user.primaryAffiliationOverride ?? user.primaryAffiliation;
 };
 

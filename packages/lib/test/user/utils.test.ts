@@ -46,6 +46,10 @@ describe('getAffiliation', () => {
     mockedUser.mockReturnValue({ ...user.data, primaryAffiliationOverride: 'employee' });
     expect(getAffiliation(mockedUser())).toBe('employee');
   });
+  it('handles an empty string primaryAffiliationOverride', async () => {
+    mockedUser.mockReturnValue({ ...user.data, primaryAffiliationOverride: '' });
+    expect(getAffiliation(mockedUser())).toBe('student');
+  });
 });
 
 describe('isFirstYear', () => {
