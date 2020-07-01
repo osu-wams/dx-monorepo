@@ -1,4 +1,13 @@
 export default {
+  status: 'success',
+  isIdle: false,
+  isLoading: false,
+  isSuccess: true,
+  isError: false,
+  error: null,
+  isFetching: false,
+  failureCount: 0,
+  refetch: () => {},
   data: [
     {
       audiences: ['Academic Faculty', 'Professional Faculty', 'Staff', 'Students'],
@@ -21,6 +30,4 @@ export default {
       websiteTitle: '',
     },
   ],
-  loading: false,
-  error: false,
 };
