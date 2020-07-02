@@ -19,5 +19,6 @@ export interface Training {
 }
 
 export interface TrainingType {
+  id: string;
   name: string;
 }
