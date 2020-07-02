@@ -28,4 +28,4 @@ export {
 } from './student';
 export { Address, AddressesResponse, MealPlan, MealPlansResponse, Profile, ProfileResponse } from './person';
 export { AcademicEvent, LocalistEvent } from './localist';
-export { Training } from './dx';
+export { Training, TrainingType } from './dx';
