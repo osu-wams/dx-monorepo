@@ -1,4 +1,4 @@
-export default {
+const trainings = {
   status: 'success',
   isIdle: false,
   isLoading: false,
@@ -30,4 +30,29 @@ export default {
       websiteTitle: '',
     },
   ],
+};
+
+const trainingTypes = {
+  status: 'success',
+  isIdle: false,
+  isLoading: false,
+  isSuccess: true,
+  isError: false,
+  error: null,
+  isFetching: false,
+  failureCount: 0,
+  refetch: () => {},
+  data: [
+    {
+      name: 'Professional Learning Community',
+    },
+    {
+      name: 'Continuing Education',
+    },
+  ],
+};
+
+export default {
+  trainings,
+  trainingTypes,
 };
