@@ -17,3 +17,7 @@ export interface Training {
   websiteUri?: string;
   websiteTitle?: string;
 }
+
+export interface TrainingType {
+  name: string;
+}
