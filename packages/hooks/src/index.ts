@@ -41,6 +41,8 @@ import {
 } from './api/student';
 import * as User from './api/user';
 import { useMessages, useUser } from './api/user';
+import * as Trainings from './api/trainings';
+import { useTrainings } from './api/trainings';
 
 export {
   Announcements,
@@ -57,6 +59,7 @@ export {
   Resources,
   Status,
   Student,
+  Trainings,
   User,
   useDegrees,
   useAcademicCalendarEvents,
@@ -87,6 +90,7 @@ export {
   useResourcesByQueue,
   useStatus,
   useStudentExperienceEvents,
+  useTrainings,
   useTrendingResources,
   useUser,
 };

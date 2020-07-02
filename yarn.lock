@@ -7555,6 +7555,13 @@ react-is@^16.12.0, react-is@^16.8.1, react-is@^16.8.4, react-is@^16.8.6:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
+react-query@^2.4.7:
+  version "2.4.7"
+  resolved "https://registry.yarnpkg.com/react-query/-/react-query-2.4.7.tgz#c70cb778d561569b5a810ababa827708107bce44"
+  integrity sha512-xEKXfGV7uFwqoMf8b/wixTnG8nicdWBwOOPmDJVeNwecTz1xBgxMa4sf+3fWL2Wc48rjzTla9bixB/wM7K9dTQ==
+  dependencies:
+    ts-toolbelt "^6.9.4"
+
 react-test-renderer@^16.12.0:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-16.13.1.tgz#de25ea358d9012606de51e012d9742e7f0deabc1"
@@ -8940,6 +8947,11 @@ ts-jest@^24.0.2:
     resolve "1.x"
     semver "^5.5"
     yargs-parser "10.x"
+
+ts-toolbelt@^6.9.4:
+  version "6.9.9"
+  resolved "https://registry.yarnpkg.com/ts-toolbelt/-/ts-toolbelt-6.9.9.tgz#e6cfd8ec7d425d2a06bda3b4fe9577ceaf2abda8"
+  integrity sha512-5a8k6qfbrL54N4Dw+i7M6kldrbjgDWb5Vit8DnT+gwThhvqMg8KtxLE5Vmnft+geIgaSOfNJyAcnmmlflS+Vdg==
 
 tsdx@^0.13.2:
   version "0.13.2"
