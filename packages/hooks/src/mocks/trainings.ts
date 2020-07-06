@@ -24,7 +24,7 @@ const trainings = {
       frequency: 'Daily',
       prerequisites: 'None',
       courseDesign: 'Blended',
-      tags: ['growth'],
+      tags: ['Employee Engagement'],
       type: 'Professional Learning Community',
       websiteUri: 'https://oregonstate.edu',
       websiteTitle: '',
@@ -32,7 +32,7 @@ const trainings = {
   ],
 };
 
-const trainingTypes = {
+const trainingTags = {
   status: 'success',
   isIdle: false,
   isLoading: false,
@@ -45,16 +45,16 @@ const trainingTypes = {
   data: [
     {
       id: '6b82e748-8253-42cc-92d1-34b89f2e5af9',
-      name: 'Professional Learning Community',
+      name: 'Leadership',
     },
     {
       id: '8253-42cc-92d1-34b89f2e5af9-6b82e748',
-      name: 'Continuing Education',
+      name: 'Employee Engagement',
     },
   ],
 };
 
 export default {
   trainings,
-  trainingTypes,
+  trainingTags,
 };

@@ -18,7 +18,7 @@ export interface Training {
   websiteTitle?: string;
 }
 
-export interface TrainingType {
+export interface TrainingTag {
   id: string;
   name: string;
 }
