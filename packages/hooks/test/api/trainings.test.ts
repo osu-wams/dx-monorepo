@@ -4,10 +4,10 @@ import { renderHook } from '@testing-library/react-hooks';
 import {
   useTrainings,
   getTrainings,
-  getTrainingTypes,
-  useTrainingTypes,
+  getTrainingTags,
+  useTrainingTags,
   mockTrainings,
-  mockTrainingTypes,
+  mockTrainingTags,
 } from '../../src/api/trainings';
 import { queryCache } from 'react-query';
 
@@ -49,30 +49,30 @@ describe('useTrainings', () => {
   });
 });
 
-describe('getTrainingTypes', () => {
+describe('getTrainingTags', () => {
   it('gets training types on successful returns', async () => {
-    mock.onGet('/api/trainings/types').replyOnce(200, mockTrainingTypes.data);
-    const result = await getTrainingTypes();
-    expect(result).toEqual(mockTrainingTypes.data);
+    mock.onGet('/api/trainings/tags').replyOnce(200, mockTrainingTags.data);
+    const result = await getTrainingTags();
+    expect(result).toEqual(mockTrainingTags.data);
   });
   it('handles api error', async () => {
-    mock.onGet('/api/trainings/types').replyOnce(500);
-    await getTrainingTypes().catch(err => expect(err.message).toEqual('Request failed with status code 500'));
+    mock.onGet('/api/trainings/tags').replyOnce(500);
+    await getTrainingTags().catch(err => expect(err.message).toEqual('Request failed with status code 500'));
   });
 });
 
-describe('useTrainingTypes', () => {
+describe('useTrainingTags', () => {
   it('performs the call', async () => {
-    mock.onGet('/api/trainings/types').replyOnce(200, mockTrainingTypes.data);
-    const { result, waitForNextUpdate } = renderHook(() => useTrainingTypes());
+    mock.onGet('/api/trainings/tags').replyOnce(200, mockTrainingTags.data);
+    const { result, waitForNextUpdate } = renderHook(() => useTrainingTags());
     expect(result.current.isLoading).toBeTruthy();
     await waitForNextUpdate();
     expect(result.current.isLoading).toBeFalsy();
   });
 
   it('handles an error', async () => {
-    mock.onGet('/api/trainings/types').replyOnce(500, '');
-    const { result, waitForNextUpdate } = renderHook(() => useTrainingTypes());
+    mock.onGet('/api/trainings/tags').replyOnce(500, '');
+    const { result, waitForNextUpdate } = renderHook(() => useTrainingTags());
     expect(result.current.isLoading).toBeTruthy();
     expect(result.current.isError).toBeFalsy();
     await waitForNextUpdate();

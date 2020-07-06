@@ -42,7 +42,7 @@ import {
 import * as User from './api/user';
 import { useMessages, useUser } from './api/user';
 import * as Trainings from './api/trainings';
-import { useTrainings, useTrainingTypes } from './api/trainings';
+import { useTrainings, useTrainingTags } from './api/trainings';
 
 export {
   Announcements,
@@ -91,7 +91,7 @@ export {
   useStatus,
   useStudentExperienceEvents,
   useTrainings,
-  useTrainingTypes,
+  useTrainingTags,
   useTrendingResources,
   useUser,
 };
