@@ -1,9 +1,11 @@
 import axios from 'axios';
+import { useQuery, queryCache, BaseQueryOptions } from 'react-query';
 import useAPICall from '../useAPICall';
 import { useEffect, useState } from 'react';
 import { User, Types } from '@osu-wams/lib';
 import { getFavorites } from '../api/resources';
 import { getClassification } from '../api/classification';
+import { REACT_QUERY_DEFAULT_CONFIG } from '../constants';
 
 export const mockUser = User.mockUser;
 export const DEFAULT_THEME = User.DEFAULT_THEME;
@@ -33,51 +35,61 @@ export const getUser = (): Promise<Types.User> => axios.get('/api/user').then(re
  * The primary hook to fetch the user session and set the user for access throughout the application, this
  * is intended to be set near the root level of the application and exposed by way of the UserContext.
  */
-export const useUser = () => {
+export const useUser = (opts: BaseQueryOptions = REACT_QUERY_DEFAULT_CONFIG): Types.UserState => {
   const [user, setUser] = useState<Types.UserState>({
     data: INITIAL_USER,
     error: false,
     loading: true,
     isCanvasOptIn: false,
   });
-  const u = useAPICall<Types.User>({
-    api: getUser,
-    dataTransform: (data: Types.User) => data,
-    initialState: INITIAL_USER,
-    useCache: false,
-    errorCallback: (e: { response?: { status: number } }) => {
-      if (e.response?.status === 401) {
+
+  const u = useQuery<Types.User, string, Error>('user', getUser, {
+    ...opts,
+    retry: false,
+    onError: (err: any) => {
+      if (err.response?.status === 401) {
         window.location.assign(`/login?return=${window.location.pathname}`);
       }
     },
   });
-  const classification = useAPICall<Types.UserClassification>({
-    api: getClassification,
-    dataTransform: (data: Types.UserClassification) => data,
-    initialState: {},
-    useCache: true,
+  const classification = useQuery('classification', getClassification, {
+    ...opts,
+    enabled: u.isSuccess,
+    initialData: {},
+    initialStale: true,
   });
-
-  const favorites = useAPICall<Types.FavoriteResource[]>({
-    api: getFavorites,
-    dataTransform: (d: Types.FavoriteResource[]): Types.FavoriteResource[] => d,
-    initialState: [],
+  const favorites = useQuery('favorites', getFavorites, {
+    ...opts,
+    enabled: u.isSuccess && classification.isSuccess,
+    initialData: [],
+    initialStale: true,
   });
 
   // Gets the latest favorites and sets the new state
-  const refreshFavorites = async () => {
-    const favoriteResources = await getFavorites();
-    setUser((p: Types.UserState) => ({ ...p, data: { ...p.data, favoriteResources } }));
-  };
+  const refreshFavorites = async () => queryCache.invalidateQueries('favorites');
 
   useEffect(() => {
-    setUser({
-      data: { ...u.data, classification: { ...classification.data }, favoriteResources: [...favorites.data] },
-      error: u.error,
-      loading: u.loading,
-      isCanvasOptIn: u.data.isCanvasOptIn,
-    });
-  }, [u.data, u.error, u.loading, classification.data, classification.loading, favorites.data, favorites.loading]);
+    if (u.isSuccess && classification.isSuccess && favorites.isSuccess) {
+      setUser({
+        data: { ...u.data, classification: { ...classification.data }, favoriteResources: [...favorites.data] },
+        error: false,
+        loading: false,
+        isCanvasOptIn: u.data.isCanvasOptIn,
+      });
+    } else if (u.isError) {
+      queryCache.invalidateQueries('favorites');
+      queryCache.invalidateQueries('classification');
+      setUser((p: Types.UserState) => ({ ...p, error: true, loading: false }));
+    }
+  }, [
+    u.data,
+    classification.data,
+    favorites.data,
+    u.isSuccess,
+    classification.isSuccess,
+    favorites.isSuccess,
+    u.isError,
+  ]);
 
   return {
     error: user.error,
