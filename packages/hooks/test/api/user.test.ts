@@ -3,10 +3,16 @@ import MockAdapter from 'axios-mock-adapter';
 import { renderHook } from '@testing-library/react-hooks';
 import { postSettings, useUser, mockUser, INITIAL_USER, updateUserMessage, useMessages } from '../../src/api/user';
 import { Types } from '@osu-wams/lib';
+import { queryCache } from 'react-query';
 
 const { userClassification, user, settings, userFavoriteResources, userMessage, userMessageItems } = mockUser;
 const mockedUser = jest.fn<Types.User, any>(() => user.data);
 const mock = new MockAdapter(axios);
+
+afterEach(() => {
+  queryCache.clear();
+  mock.reset();
+});
 
 beforeEach(() => {
   mockedUser.mockReturnValue(user.data);
@@ -24,8 +30,7 @@ describe('useUser', () => {
     expect(result.current.data).toEqual(user.data);
   });
   it('handles api error', async () => {
-    mock.onGet('/api/resources/favorites').reply(500);
-    mock.onGet('/api/user/classification').reply(500);
+    jest.spyOn(console, 'error').mockImplementation(() => {});
     mock.onGet('/api/user').reply(500);
     const { result, waitForNextUpdate } = renderHook(() => useUser());
     await waitForNextUpdate();
