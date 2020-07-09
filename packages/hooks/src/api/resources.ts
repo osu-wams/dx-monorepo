@@ -28,7 +28,7 @@ export const useResourcesByQueue = (
   category: string,
   opts: BaseQueryOptions = REACT_QUERY_DEFAULT_CONFIG,
 ): QueryResult<Types.ResourceEntityQueue, Error> =>
-  useQuery('resources-by-queue', () => getResourcesByQueue(category), opts);
+  useQuery(['resources-by-queue', category], () => getResourcesByQueue(category), opts);
 
 /**
  * Categories
@@ -84,5 +84,5 @@ export const useTrendingResources = (
 ): QueryResult<Types.TrendingResource[], Error> => {
   const affiliationPath = affiliation ? `/${affiliation}` : '';
   const query = `${daysAgo}${affiliationPath}`;
-  return useQuery('trending-resources', () => getTrendingResources(query), opts);
+  return useQuery(['trending-resources', daysAgo, affiliation], () => getTrendingResources(query), opts);
 };
