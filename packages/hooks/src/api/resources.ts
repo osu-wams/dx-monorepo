@@ -67,7 +67,7 @@ export const postFavorite = (resourceId: string, active: boolean, order: number)
  * Get a list of trending resources from a number of days in the past
  * @param query url path for filtering trending resources, eg. '7daysAgo', or '7daysAgo/student'
  */
-export const getTrendingResources = (query: string): Promise<Types.Resource[]> =>
+export const getTrendingResources = (query: string): Promise<Types.TrendingResource[]> =>
   axios.get(`/api/resources/trending/${query}`).then(res => {
     return res.data;
   });
@@ -81,8 +81,8 @@ export const useTrendingResources = (
   daysAgo: string,
   affiliation?: string,
   opts: BaseQueryOptions = REACT_QUERY_DEFAULT_CONFIG,
-): QueryResult<Types.Resource[], Error> => {
+): QueryResult<Types.TrendingResource[], Error> => {
   const affiliationPath = affiliation ? `/${affiliation}` : '';
   const query = `${daysAgo}${affiliationPath}`;
-  return useQuery('categories', () => getTrendingResources(query), opts);
+  return useQuery('trending-resources', () => getTrendingResources(query), opts);
 };
