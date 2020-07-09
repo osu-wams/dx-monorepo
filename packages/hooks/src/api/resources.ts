@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { useQuery, BaseQueryOptions, QueryResult } from 'react-query';
 import { Types } from '@osu-wams/lib';
-import useAPICall from '../useAPICall';
 import mocks from '../mocks/resources';
+import { REACT_QUERY_DEFAULT_CONFIG } from '../constants';
 
 export const mockResources = mocks;
 
@@ -13,30 +14,21 @@ export const getResources = (): Promise<Types.Resource[]> =>
     return res.data;
   });
 
-export const useResources = () => {
-  return useAPICall<Types.Resource[]>({
-    api: getResources,
-    dataTransform: (d: Types.Resource[]): Types.Resource[] => d,
-    initialState: [],
-  });
-};
+export const useResources = (
+  opts: BaseQueryOptions = REACT_QUERY_DEFAULT_CONFIG,
+): QueryResult<Types.Resource[], Error> => useQuery('resources', getResources, opts);
 
 /**
  * ResourcesByQueue
  */
-export const getResourcesByQueue = (category: string): Promise<Types.Resource[]> =>
+export const getResourcesByQueue = (category: string): Promise<Types.ResourceEntityQueue> =>
   axios.get(`/api/resources/category/${category}`).then(res => res.data);
 
-export const useResourcesByQueue = (category: string) =>
-  useAPICall<Types.ResourceEntityQueue>({
-    api: getResourcesByQueue,
-    query: category,
-    dataTransform: (d: Types.ResourceEntityQueue): Types.ResourceEntityQueue => d,
-    initialState: {
-      entityQueueTitle: '',
-      items: [],
-    },
-  });
+export const useResourcesByQueue = (
+  category: string,
+  opts: BaseQueryOptions = REACT_QUERY_DEFAULT_CONFIG,
+): QueryResult<Types.ResourceEntityQueue, Error> =>
+  useQuery('resources-by-queue', () => getResourcesByQueue(category), opts);
 
 /**
  * Categories
@@ -48,9 +40,9 @@ export const getCategories = (): Promise<Types.Category[]> =>
  * Gets data from the Categories API
  * @param callback (optional) data transformation function
  */
-export const useCategories = (callback: Function = (data: any) => data) => {
-  return useAPICall<Types.Category[]>({ api: getCategories, dataTransform: callback, initialState: [] });
-};
+export const useCategories = (
+  opts: BaseQueryOptions = REACT_QUERY_DEFAULT_CONFIG,
+): QueryResult<Types.Category[], Error> => useQuery('categories', getCategories, opts);
 
 // Category selected by default. Currently the 'featured' category id
 export const defaultCategoryName = () => 'featured';
@@ -85,13 +77,12 @@ export const getTrendingResources = (query: string): Promise<Types.Resource[]> =
  * @param daysAgo days to look back for trending resources, eg. '7daysAgo'
  * @param affiliation optionally filter trending resources for a type of user, eg. 'student'
  */
-export const useTrendingResources = (daysAgo: string, affiliation?: string) => {
+export const useTrendingResources = (
+  daysAgo: string,
+  affiliation?: string,
+  opts: BaseQueryOptions = REACT_QUERY_DEFAULT_CONFIG,
+): QueryResult<Types.Resource[], Error> => {
   const affiliationPath = affiliation ? `/${affiliation}` : '';
   const query = `${daysAgo}${affiliationPath}`;
-  return useAPICall<Types.TrendingResource[]>({
-    api: getTrendingResources,
-    query,
-    dataTransform: (d: Types.TrendingResource[]): Types.TrendingResource[] => d,
-    initialState: [],
-  });
+  return useQuery('categories', () => getTrendingResources(query), opts);
 };
