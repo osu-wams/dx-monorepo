@@ -171,3 +171,13 @@ export interface ClassificationResponse {
   links: { self: string };
   data: Classification;
 }
+
+/**
+ * GPA
+ */
+export interface GpaLevel {
+  gpa: string;
+  gpaType: string;
+  level: string;
+  levelCode: string;
+}

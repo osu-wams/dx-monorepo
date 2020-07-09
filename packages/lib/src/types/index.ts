@@ -24,6 +24,7 @@ export {
   CourseScheduleResponse,
   Degree,
   DegreeResponse,
+  GpaLevel,
   PlannerItem,
 } from './student';
 export { Address, AddressesResponse, MealPlan, MealPlansResponse, Profile, ProfileResponse } from './person';
