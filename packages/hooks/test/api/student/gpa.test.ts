@@ -20,6 +20,6 @@ describe('useGpa', () => {
     await waitForNextUpdate();
     expect(result.current.loading).toBeFalsy();
     expect(result.current.error).toBeTruthy();
-    expect(result.current.data).toEqual([{ gpa: '', gpaType: '', level: '' }]);
+    expect(result.current.data).toEqual([{ gpa: '', gpaType: '', level: '', levelCode: '' }]);
   });
 });
