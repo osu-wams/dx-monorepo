@@ -1,16 +1,34 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { renderHook } from '@testing-library/react-hooks';
-import { useGpa, mockGpa } from '../../../src/api/student/gpa';
+import { getGpa, useGpa, mockGpa } from '../../../src/api/student/gpa';
+import { queryCache } from 'react-query';
 
 const mock = new MockAdapter(axios);
+
+afterEach(() => {
+  queryCache.clear();
+  mock.reset();
+});
+
+describe('getGpa', () => {
+  it('gets gpa on successful returns', async () => {
+    mock.onGet('/api/student/gpa').replyOnce(200, mockGpa.gpaData);
+    const result = await getGpa();
+    expect(result).toEqual(mockGpa.gpaData);
+  });
+  it('handles api error', async () => {
+    mock.onGet('/api/student/gpa').replyOnce(500);
+    await getGpa().catch(err => expect(err.message).toEqual('Request failed with status code 500'));
+  });
+});
 
 describe('useGpa', () => {
   it('gets gpa on successful returns', async () => {
     mock.onGet('/api/student/gpa').reply(200, mockGpa.gpaData);
     const { result, waitForNextUpdate } = renderHook(() => useGpa());
     await waitForNextUpdate();
-    expect(result.current.loading).toBeFalsy();
+    expect(result.current.isLoading).toBeFalsy();
     expect(result.current.error).toBeFalsy();
     expect(result.current.data).toEqual(mockGpa.gpaData);
   });
@@ -18,8 +36,9 @@ describe('useGpa', () => {
     mock.onGet('/api/student/gpa').reply(500);
     const { result, waitForNextUpdate } = renderHook(() => useGpa());
     await waitForNextUpdate();
-    expect(result.current.loading).toBeFalsy();
-    expect(result.current.error).toBeTruthy();
-    expect(result.current.data).toEqual([{ gpa: '', gpaType: '', level: '', levelCode: '' }]);
+    expect(result.current.isLoading).toBeTruthy();
+    expect(result.current.isError).toBeFalsy();
+    await waitForNextUpdate();
+    expect(result.current.failureCount).toBe(2);
   });
 });
