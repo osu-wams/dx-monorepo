@@ -1,0 +1,20 @@
+@baseUrl = https://grouper.oregonstate.edu/grouper-ws/servicesRest/v2_5_29
+@username = {{$processEnv GROUPER_USERNAME}}
+@password = {{$processEnv GROUPER_PASSWORD}}
+
+###
+# @name getMembers
+POST {{baseUrl}}/groups HTTP/1.1
+content-type: application/json
+Authorization: Basic {{username}} {{password}}
+
+{
+  "WsRestGetMembersRequest": {
+    "wsGroupLookups": [{
+      "groupName": "osu:ref:stu:level:02",
+    }],
+    "subjectAttributeNames": ["id"],
+    "pageNumber": 1,
+    "pageSize": 10
+  }
+}

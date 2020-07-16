@@ -1,0 +1,43 @@
+{
+  "version": "0.0.1",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "name": "@osu-wams/grouper",
+  "author": "Josh Gum <revgum@gmail.com>",
+  "module": "dist/grouper.esm.js",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/osu-wams/dx-monorepo.git",
+    "directory": "packages/grouper"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/jest": "^24.9.0",
+    "@types/winston": "^2.4.4",
+    "husky": "^4.0.10",
+    "msw": "^0.20.5",
+    "tsdx": "^0.13.2",
+    "tslib": "^1.10.0",
+    "typescript": "^3.7.5"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "winston": "^3.3.3"
+  }
+}
