@@ -60,8 +60,15 @@ const gpaUndergraduateData = [
 
 const gpaHookData = {
   data: gpaData,
-  loading: false,
-  error: false,
+  status: 'success',
+  isLoading: false,
+  isError: false,
+  isSuccess: true,
+  isIdle: false,
+  error: null,
+  isFetching: false,
+  failureCount: 0,
+  refetch: () => {},
 };
 
 export default { gpaData, gpaHookData, gpaUndergraduateData };

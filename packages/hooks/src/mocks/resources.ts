@@ -82,22 +82,36 @@ const resourcesArray: Types.Resource[] = [
   },
 ];
 
-const resourcesData: { data: Types.Resource[]; loading: boolean; error: boolean } = {
+const resourcesData = {
   data: resourcesArray,
-  loading: false,
-  error: false,
+  status: 'success',
+  isLoading: false,
+  isError: false,
+  isSuccess: true,
+  isIdle: false,
+  error: null,
+  isFetching: false,
+  failureCount: 0,
+  refetch: () => {},
 };
 
-const resourcesCardData: { data: Types.ResourceEntityQueue; loading: boolean; error: boolean } = {
+const resourcesCardData = {
   data: {
     entityQueueTitle: 'Featured',
     items: resourcesArray,
   },
-  loading: false,
-  error: false,
+  status: 'success',
+  isLoading: false,
+  isError: false,
+  isSuccess: true,
+  isIdle: false,
+  error: null,
+  isFetching: false,
+  failureCount: 0,
+  refetch: () => {},
 };
 
-const resourcesDataByCategory: { data: Types.Resource[]; loading: boolean; error: boolean } = {
+const resourcesDataByCategory = {
   data: [
     {
       audiences: [],
@@ -113,11 +127,18 @@ const resourcesDataByCategory: { data: Types.Resource[]; loading: boolean; error
       excludeTrending: false,
     },
   ],
-  loading: false,
-  error: false,
+  status: 'success',
+  isLoading: false,
+  isError: false,
+  isSuccess: true,
+  isIdle: false,
+  error: null,
+  isFetching: false,
+  failureCount: 0,
+  refetch: () => {},
 };
 
-const categoriesData: { data: Types.Category[]; loading: boolean; error: boolean } = {
+const categoriesData = {
   data: [
     {
       affiliation: ['Employee', 'Student'],
@@ -138,13 +159,20 @@ const categoriesData: { data: Types.Category[]; loading: boolean; error: boolean
       icon: 'http://dev-api-dx.pantheonsite.io/sites/default/files/2019-05/hands-usd.svg',
     },
   ],
-  loading: false,
-  error: false,
+  status: 'success',
+  isLoading: false,
+  isError: false,
+  isSuccess: true,
+  isIdle: false,
+  error: null,
+  isFetching: false,
+  failureCount: 0,
+  refetch: () => {},
 };
 
 const defaultCategory: string = 'Featured';
 
-const trendingResourcesData: { data: Types.TrendingResource[]; loading: boolean; error: boolean } = {
+const trendingResourcesData = {
   data: [
     {
       resourceId: '6',
@@ -167,8 +195,15 @@ const trendingResourcesData: { data: Types.TrendingResource[]; loading: boolean;
       period: '14daysAgo',
     },
   ],
-  loading: false,
-  error: false,
+  status: 'success',
+  isLoading: false,
+  isError: false,
+  isSuccess: true,
+  isIdle: false,
+  error: null,
+  isFetching: false,
+  failureCount: 0,
+  refetch: () => {},
 };
 
 export default {
