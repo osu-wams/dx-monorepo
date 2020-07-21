@@ -73,6 +73,7 @@ export interface User {
   isCanvasOptIn?: boolean;
   isAdmin: boolean;
   groups: string[];
+  affiliations: string[];
   classification: UserClassification;
   audienceOverride: UserAudienceOverride;
   theme: string;
