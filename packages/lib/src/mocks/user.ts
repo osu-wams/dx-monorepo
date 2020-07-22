@@ -83,6 +83,7 @@ const user: UserState = {
     lastName: 'LastTesto',
     isAdmin: true,
     groups: ['admin', 'masquerade'],
+    affiliations: ['student'],
     isCanvasOptIn: true,
     theme: 'light',
     primaryAffiliation: 'student',

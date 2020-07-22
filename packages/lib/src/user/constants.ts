@@ -184,6 +184,7 @@ export const INITIAL_USER: Types.User = {
   audienceOverride: {},
   isAdmin: false,
   groups: [],
+  affiliations: [AFFILIATIONS.employee],
   theme: DEFAULT_THEME,
   primaryAffiliation: AFFILIATIONS.employee,
   favoriteResources: [],
