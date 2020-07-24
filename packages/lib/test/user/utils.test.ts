@@ -1,3 +1,4 @@
+import { LEVEL_CODE, SUBCLASSIFICATION, CLASSIFICATION_AUDIENCES } from './../../src/user/constants';
 import {
   atCampus,
   getAffiliation,
@@ -15,15 +16,16 @@ import {
 import { mockUser, AFFILIATIONS } from '../../src/user';
 import { User } from '../../src/types';
 
-const { user } = mockUser;
-const classificationAttributes = user.data.classification.attributes ?? {
+const { user, userEmployee, userGraduate } = mockUser;
+const emptyAttributes = {
   levelCode: '',
-  level: '',
-  campus: '',
   campusCode: '',
   classification: '',
   isInternational: false,
 };
+const classificationAttributes = user.data.classification.attributes ?? emptyAttributes;
+const gradClassificationAttributes = userGraduate.data.classification.attributes ?? emptyAttributes;
+
 const mockedUser = jest.fn<User, any>(() => user.data);
 
 beforeEach(() => {
@@ -40,11 +42,11 @@ describe('atCampus', () => {
 
 describe('getAffiliation', () => {
   it('detects primaryAffiliation', async () => {
-    expect(getAffiliation(mockedUser())).toBe('student');
+    expect(getAffiliation(mockedUser())).toBe(AFFILIATIONS.student);
   });
   it('detects the primaryAffiliationOverride', async () => {
-    mockedUser.mockReturnValue({ ...user.data, primaryAffiliationOverride: 'employee' });
-    expect(getAffiliation(mockedUser())).toBe('employee');
+    mockedUser.mockReturnValue(userEmployee.data);
+    expect(getAffiliation(mockedUser())).toBe(AFFILIATIONS.employee);
   });
   it('handles an empty string primaryAffiliationOverride', async () => {
     mockedUser.mockReturnValue({ ...user.data, primaryAffiliationOverride: '' });
@@ -59,7 +61,7 @@ describe('isFirstYear', () => {
   it('detects first year student freshman classification', async () => {
     mockedUser.mockReturnValue({
       ...user.data,
-      classification: { attributes: { ...classificationAttributes, classification: 'freshman' } },
+      classification: { attributes: { ...classificationAttributes, classification: SUBCLASSIFICATION.freshman } },
       audienceOverride: {},
     });
     expect(isFirstYear(mockedUser())).toBeTruthy();
@@ -67,13 +69,13 @@ describe('isFirstYear', () => {
   it('detects first year student vet med first year classification', async () => {
     mockedUser.mockReturnValue({
       ...user.data,
-      classification: { attributes: { ...classificationAttributes, classification: 'vet med-first year' } },
+      classification: { attributes: { ...classificationAttributes, classification: SUBCLASSIFICATION.vetmed1 } },
       audienceOverride: {},
     });
     expect(isFirstYear(mockedUser())).toBeTruthy();
   });
   it('detects a first year student override', async () => {
-    mockedUser.mockReturnValue({ ...user.data, audienceOverride: { firstYear: true } });
+    mockedUser.mockReturnValue({ ...userEmployee.data, audienceOverride: { firstYear: true } });
     expect(isFirstYear(mockedUser())).toBeTruthy();
   });
   it('detects not a first year student override', async () => {
@@ -95,17 +97,15 @@ describe('isGraduate', () => {
     expect(isGraduate(mockedUser())).toBeTruthy();
   });
   it('detects graduate student graduate classification', async () => {
-    mockedUser.mockReturnValue({
-      ...user.data,
-      classification: { attributes: { ...classificationAttributes, levelCode: '02' } },
-      audienceOverride: {},
-    });
+    mockedUser.mockReturnValue(userGraduate.data);
     expect(isGraduate(mockedUser())).toBeTruthy();
   });
   it('detects graduate student cascades classification', async () => {
     mockedUser.mockReturnValue({
-      ...user.data,
-      classification: { attributes: { ...classificationAttributes, levelCode: 'cg' } },
+      ...userGraduate.data,
+      classification: {
+        attributes: { ...gradClassificationAttributes, levelCode: LEVEL_CODE.cascadesPartnerGrad },
+      },
       audienceOverride: {},
     });
     expect(isGraduate(mockedUser())).toBeTruthy();
@@ -113,7 +113,7 @@ describe('isGraduate', () => {
   it('detects graduate student ecampus classification', async () => {
     mockedUser.mockReturnValue({
       ...user.data,
-      classification: { attributes: { ...classificationAttributes, levelCode: 'd2' } },
+      classification: { attributes: { ...classificationAttributes, levelCode: LEVEL_CODE.ecampusGrad } },
       audienceOverride: {},
     });
     expect(isGraduate(mockedUser())).toBeTruthy();
@@ -123,13 +123,13 @@ describe('isGraduate', () => {
     expect(isGraduate(mockedUser())).toBeTruthy();
   });
   it('detects not a graduate student override', async () => {
-    mockedUser.mockReturnValue({ ...user.data, audienceOverride: { graduate: false } });
+    mockedUser.mockReturnValue({ ...userGraduate.data, audienceOverride: { graduate: false } });
     expect(isGraduate(mockedUser())).toBeFalsy();
   });
   it('detects not graduate student', async () => {
     mockedUser.mockReturnValue({
-      ...user.data,
-      classification: { attributes: { ...classificationAttributes, level: '', levelCode: '' } },
+      ...userGraduate.data,
+      classification: { attributes: { ...gradClassificationAttributes, levelCode: '' } },
       audienceOverride: {},
     });
     expect(isGraduate(mockedUser())).toBeFalsy();
@@ -138,17 +138,12 @@ describe('isGraduate', () => {
 
 describe('isUndergraduate', () => {
   it('detects undergraduate student undergraduate classification', async () => {
-    mockedUser.mockReturnValue({
-      ...user.data,
-      classification: { attributes: { ...classificationAttributes, levelCode: '01' } },
-      audienceOverride: {},
-    });
     expect(isUndergraduate(mockedUser())).toBeTruthy();
   });
   it('detects undergraduate student cascades classification', async () => {
     mockedUser.mockReturnValue({
       ...user.data,
-      classification: { attributes: { ...classificationAttributes, levelCode: 'cp' } },
+      classification: { attributes: { ...classificationAttributes, levelCode: LEVEL_CODE.cascadesPartner } },
       audienceOverride: {},
     });
     expect(isUndergraduate(mockedUser())).toBeTruthy();
@@ -156,17 +151,13 @@ describe('isUndergraduate', () => {
   it('detects undergraduate student ecampus classification', async () => {
     mockedUser.mockReturnValue({
       ...user.data,
-      classification: { attributes: { ...classificationAttributes, levelCode: 'd1' } },
+      classification: { attributes: { ...classificationAttributes, levelCode: LEVEL_CODE.ecampusUndegrad } },
       audienceOverride: {},
     });
     expect(isUndergraduate(mockedUser())).toBeTruthy();
   });
   it('detects not undergraduate student', async () => {
-    mockedUser.mockReturnValue({
-      ...user.data,
-      classification: { attributes: { ...classificationAttributes, level: '', levelCode: '' } },
-      audienceOverride: {},
-    });
+    mockedUser.mockReturnValue(userGraduate.data);
     expect(isUndergraduate(mockedUser())).toBeFalsy();
   });
 });
@@ -225,7 +216,7 @@ describe('hasAudience', () => {
       mockedItem.mockReturnValue({
         ...item,
         affiliation: [AFFILIATIONS.student],
-        audiences: ['Undergraduate Student'],
+        audiences: [CLASSIFICATION_AUDIENCES.undergraduate],
       });
       expect(hasAudience(mockedUser(), mockedItem())).toBeTruthy();
     });
@@ -241,7 +232,7 @@ describe('hasAudience', () => {
       mockedItem.mockReturnValue({
         ...item,
         affiliation: [AFFILIATIONS.student],
-        audiences: ['Undergraduate Student'],
+        audiences: [CLASSIFICATION_AUDIENCES.undergraduate],
       });
       expect(hasAudience(mockedUser(), mockedItem())).toBeFalsy();
     });
@@ -257,7 +248,7 @@ describe('hasAudience', () => {
       mockedItem.mockReturnValue({
         ...item,
         affiliation: [AFFILIATIONS.student],
-        audiences: ['Graduate Student'],
+        audiences: [CLASSIFICATION_AUDIENCES.graduate],
       });
       expect(hasAudience(mockedUser(), mockedItem())).toBeFalsy();
     });
@@ -272,7 +263,7 @@ describe('hasAudience', () => {
       mockedItem.mockReturnValue({
         ...item,
         affiliation: [AFFILIATIONS.student],
-        audiences: ['Graduate Student'],
+        audiences: [CLASSIFICATION_AUDIENCES.graduate],
       });
       expect(hasAudience(mockedUser(), mockedItem())).toBeTruthy();
     });
@@ -314,7 +305,7 @@ describe('hasAudience', () => {
         ...item,
         affiliation: [AFFILIATIONS.employee, AFFILIATIONS.student],
         locations: ['Corvallis', 'Bend', 'Ecampus'],
-        audiences: ['Graduate Student'],
+        audiences: [CLASSIFICATION_AUDIENCES.graduate],
       });
       expect(hasAudience(mockedUser(), mockedItem())).toBeFalsy();
     });
@@ -330,7 +321,7 @@ describe('hasAudience', () => {
         ...item,
         affiliation: [AFFILIATIONS.employee, AFFILIATIONS.student],
         locations: ['Corvallis', 'Bend', 'Ecampus'],
-        audiences: ['Graduate Student'],
+        audiences: [CLASSIFICATION_AUDIENCES.graduate],
       });
       expect(hasAudience(mockedUser(), mockedItem())).toBeTruthy();
     });
@@ -343,40 +334,51 @@ describe('hasAudience', () => {
     it('returns true that the user is an undergraduate student ', async () => {
       mockedUser.mockReturnValue({
         ...user.data,
-        classification: { attributes: { ...classificationAttributes, levelCode: '01' } },
+        classification: { attributes: { ...classificationAttributes, levelCode: LEVEL_CODE.undergraduate } },
         audienceOverride: {},
       });
       mockedItem.mockReturnValue({ ...item, audiences: ['Undergraduate Student'] });
       expect(hasAudience(mockedUser(), mockedItem())).toBeTruthy();
     });
     it('returns true that the user is a graduate student ', async () => {
-      mockedItem.mockReturnValue({ ...item, audiences: ['Graduate Student'] });
+      mockedItem.mockReturnValue({ ...item, audiences: [CLASSIFICATION_AUDIENCES.graduate] });
       expect(hasAudience(mockedUser(), mockedItem())).toBeTruthy();
     });
     it('returns false that the user is not a graduate student ', async () => {
       mockedUser.mockReturnValue({
         ...user.data,
         audienceOverride: {},
-        classification: { attributes: { ...classificationAttributes, level: '', levelCode: '' } },
+        classification: { attributes: { ...classificationAttributes, levelCode: LEVEL_CODE.ecampusUndegrad } },
       });
-      mockedItem.mockReturnValue({ ...item, audiences: ['Graduate Student'] });
+      mockedItem.mockReturnValue({ ...item, audiences: [CLASSIFICATION_AUDIENCES.graduate] });
       expect(hasAudience(mockedUser(), mockedItem())).toBeFalsy();
     });
-    it('returns true that the user is a first year student ', async () => {
-      mockedItem.mockReturnValue({ ...item, audiences: ['First Year'] });
+    it('returns true that the user is a first year student', async () => {
+      mockedItem.mockReturnValue({ ...item, audiences: [CLASSIFICATION_AUDIENCES.firstYear] });
+      mockedUser.mockReturnValue({
+        ...user.data,
+        audienceOverride: {},
+        classification: { attributes: { ...classificationAttributes, levelCode: '' } },
+      });
       expect(hasAudience(mockedUser(), mockedItem())).toBeTruthy();
     });
+
+    it('Item tagged as "First Year" or "Undegraduate" does not match for graduate student user', async () => {
+      mockedItem.mockReturnValue({ ...item, audiences: ['First Year', 'Undegraduate Student'] });
+      expect(hasAudience(mockedUser(), mockedItem())).toBeFalsy();
+    });
+
     it('returns false that the user is not a first year student ', async () => {
       mockedUser.mockReturnValue({
         ...user.data,
         audienceOverride: {},
-        classification: { attributes: { ...classificationAttributes, classification: 'not-first-year' } },
+        classification: { attributes: { ...classificationAttributes, classification: SUBCLASSIFICATION.senior } },
       });
-      mockedItem.mockReturnValue({ ...item, audiences: ['First Year'] });
+      mockedItem.mockReturnValue({ ...item, audiences: [CLASSIFICATION_AUDIENCES.firstYear] });
       expect(hasAudience(mockedUser(), mockedItem())).toBeFalsy();
     });
     it('returns true that the user is an international student ', async () => {
-      mockedItem.mockReturnValue({ ...item, audiences: ['International Student'] });
+      mockedItem.mockReturnValue({ ...item, audiences: [CLASSIFICATION_AUDIENCES.international] });
       expect(hasAudience(mockedUser(), mockedItem())).toBeTruthy();
     });
     it('returns false that the user is not an international student ', async () => {
@@ -385,7 +387,7 @@ describe('hasAudience', () => {
         audienceOverride: {},
         classification: { attributes: { ...classificationAttributes, isInternational: false } },
       });
-      mockedItem.mockReturnValue({ ...item, audiences: ['International Student'] });
+      mockedItem.mockReturnValue({ ...item, audiences: [CLASSIFICATION_AUDIENCES.international] });
       expect(hasAudience(mockedUser(), mockedItem())).toBeFalsy();
     });
     it('logs an error when an unrecognized campus exists on the users details', async () => {
@@ -439,6 +441,16 @@ describe('settingIsOverridden', () => {
   });
   ['graduate', 'firstYear', 'international'].forEach(propertyName => {
     it(`returns true that ${propertyName} user is overridden`, async () => {
+      mockedUser.mockReturnValue({
+        ...user.data,
+        classification: {
+          ...user.data.classification,
+          attributes: {
+            ...classificationAttributes,
+            levelCode: LEVEL_CODE.graduate,
+          },
+        },
+      });
       const result = settingIsOverridden(mockedUser(), propertyName, false, true);
       expect(result).toBeTruthy();
     });
@@ -474,12 +486,12 @@ describe('settingIsDefault', () => {
     const result = settingIsDefault(mockedUser(), 'BOB_ROSS', 'current', 'overridden');
     expect(result).toBeFalsy();
   });
-  it(`returns true that a property for the user matches the users classification attribute `, async () => {
-    const result = settingIsDefault(mockedUser(), 'level', 'Graduate', 'default');
+  it(`returns true that a property for the user matches the users classification attribute`, async () => {
+    const result = settingIsDefault(mockedUser(), 'levelCode', LEVEL_CODE.undergraduate, 'default');
     expect(result).toBeTruthy();
   });
   it(`returns false that an overridden property for the user is not matching the users classification attribute`, async () => {
-    const result = settingIsDefault(mockedUser(), 'level', 'overridden', 'default');
+    const result = settingIsDefault(mockedUser(), 'levelCode', LEVEL_CODE.graduate, 'default');
     expect(result).toBeFalsy();
   });
 });
