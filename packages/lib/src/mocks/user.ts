@@ -87,7 +87,7 @@ const user: UserState = {
     theme: 'light',
     primaryAffiliation: AFFILIATIONS.student,
     classification: userClassification,
-    audienceOverride: userAudienceOverride,
+    audienceOverride: {},
     favoriteResources: userFavoriteResources,
   },
   loading: false,
@@ -106,7 +106,6 @@ const userEmployee: UserState = {
     primaryAffiliation: AFFILIATIONS.employee,
     affiliations: [AFFILIATIONS.employee],
     classification: {},
-    audienceOverride: {},
   },
 };
 

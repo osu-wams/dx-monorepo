@@ -16,7 +16,7 @@ import {
 import { mockUser, AFFILIATIONS } from '../../src/user';
 import { User } from '../../src/types';
 
-const { user, userEmployee, userGraduate } = mockUser;
+const { user, userEmployee, userGraduate, userAudienceOverride } = mockUser;
 const emptyAttributes = {
   levelCode: '',
   campusCode: '',
@@ -93,8 +93,8 @@ describe('isFirstYear', () => {
 });
 
 describe('isGraduate', () => {
-  it('detects graduate student', async () => {
-    expect(isGraduate(mockedUser())).toBeTruthy();
+  it('Default user is not a graduate student', async () => {
+    expect(isGraduate(mockedUser())).toBeFalsy();
   });
   it('detects graduate student graduate classification', async () => {
     mockedUser.mockReturnValue(userGraduate.data);
@@ -332,18 +332,16 @@ describe('hasAudience', () => {
     });
 
     it('returns true that the user is an undergraduate student ', async () => {
-      mockedUser.mockReturnValue({
-        ...user.data,
-        classification: { attributes: { ...classificationAttributes, levelCode: LEVEL_CODE.undergraduate } },
-        audienceOverride: {},
-      });
       mockedItem.mockReturnValue({ ...item, audiences: ['Undergraduate Student'] });
       expect(hasAudience(mockedUser(), mockedItem())).toBeTruthy();
     });
-    it('returns true that the user is a graduate student ', async () => {
+
+    it('Item tagged as "graduate" matches for a graduate student', async () => {
+      mockedUser.mockReturnValue(userGraduate.data);
       mockedItem.mockReturnValue({ ...item, audiences: [CLASSIFICATION_AUDIENCES.graduate] });
       expect(hasAudience(mockedUser(), mockedItem())).toBeTruthy();
     });
+
     it('returns false that the user is not a graduate student ', async () => {
       mockedUser.mockReturnValue({
         ...user.data,
@@ -353,6 +351,7 @@ describe('hasAudience', () => {
       mockedItem.mockReturnValue({ ...item, audiences: [CLASSIFICATION_AUDIENCES.graduate] });
       expect(hasAudience(mockedUser(), mockedItem())).toBeFalsy();
     });
+
     it('returns true that the user is a first year student', async () => {
       mockedItem.mockReturnValue({ ...item, audiences: [CLASSIFICATION_AUDIENCES.firstYear] });
       mockedUser.mockReturnValue({
@@ -364,6 +363,7 @@ describe('hasAudience', () => {
     });
 
     it('Item tagged as "First Year" or "Undegraduate" does not match for graduate student user', async () => {
+      mockedUser.mockReturnValue(userGraduate.data);
       mockedItem.mockReturnValue({ ...item, audiences: ['First Year', 'Undegraduate Student'] });
       expect(hasAudience(mockedUser(), mockedItem())).toBeFalsy();
     });
@@ -550,6 +550,10 @@ describe('hasPrimaryAffiliation', () => {
 
 describe('usersSettings', () => {
   it('has users settings', async () => {
+    mockedUser.mockReturnValue({
+      ...user.data,
+      audienceOverride: userAudienceOverride,
+    });
     expect(usersSettings(mockedUser())).toEqual({
       audienceOverride: { campusCode: 'C', firstYear: true, graduate: true, international: true },
       primaryAffiliationOverride: undefined,
