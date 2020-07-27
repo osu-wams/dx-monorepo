@@ -1,4 +1,4 @@
-import { LEVEL_CODE, SUBCLASSIFICATION, CLASSIFICATION_AUDIENCES } from './../../src/user/constants';
+import { LEVEL_CODE, SUBCLASSIFICATION, CLASSIFICATION_AUDIENCES } from '../../src/user/constants';
 import {
   atCampus,
   getAffiliation,

@@ -21,6 +21,8 @@ import {
   DEFAULT_THEME,
   GROUPS,
   INITIAL_USER,
+  LEVEL_CODE,
+  SUBCLASSIFICATION,
 } from './constants';
 import mocks from '../mocks/user';
 
@@ -34,6 +36,8 @@ export {
   DEFAULT_THEME,
   GROUPS,
   INITIAL_USER,
+  LEVEL_CODE,
+  SUBCLASSIFICATION,
   atCampus,
   getAffiliation,
   hasAudience,
