@@ -52,9 +52,7 @@ export interface TrendingResource {
 
 export interface UserClassificationAttributes {
   [key: string]: any;
-  level: string;
   levelCode: string;
-  campus: string;
   campusCode: string;
   classification: string;
   isInternational: boolean;

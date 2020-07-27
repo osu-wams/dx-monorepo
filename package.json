@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "build": "CI=true FORCE_COLOR=true yarn lerna run build",
-    "test": "CI=true FORCE_COLOR=true lerna run test -- --coverage --silent",
+    "test": "CI=true FORCE_COLOR=true lerna run test -- --coverage",
     "lint": "FORCE_COLOR=true lerna run lint",
     "publish:dev": "FORCE_COLOR=true lerna publish prerelease --no-git-tag-version --no-push",
     "publish:patch": "FORCE_COLOR=true lerna publish patch",
@@ -32,7 +32,7 @@
     "babel-eslint": "10.0.3",
     "babel-jest": "^25.5.1",
     "cross-env": "^6.0.3",
-    "eslint": "6.6.0",
+    "eslint": "7.5.0",
     "eslint-config-prettier": "^4.2.0",
     "eslint-config-react-app": "^5.1.0",
     "eslint-config-xo": "^0.27.2",
@@ -53,7 +53,7 @@
     "react-dom": "^16.12.0",
     "react-test-renderer": "^16.12.0",
     "ts-jest": "^24.0.2",
-    "typescript": "~3.8.3"
+    "typescript": "~3.9.7"
   },
   "husky": {
     "hooks": {

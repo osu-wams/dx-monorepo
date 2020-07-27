@@ -71,6 +71,15 @@ const hasPrimaryAffiliation = (user: User, affiliations: string[]): boolean => {
 };
 
 /**
+ * Returns a boolean based on if the user is an employee only
+ * Only students (including student employees) have classification attributes.
+ * @param user
+ */
+const isEmployeeOnly = (user: User): boolean => {
+  return user.classification?.attributes === undefined;
+};
+
+/**
  * Returns your primary affiliation or the affiliationOverride if one is present
  * @param user the user to inspect
  */
@@ -227,7 +236,7 @@ const hasAudience = (
   // This is an employee (no user.classification.attributes), using the Student Dashboard (usersAffiliation is finding
   // the affiliationOverride set), and they have no audienceOverrides set in thier profile, then default to returning
   // true if the item is an undergrad audience.. Undergrad is considered the default audience.
-  if (user.classification?.attributes === undefined && usersAffiliation === AFFILIATIONS.student) {
+  if (isEmployeeOnly(user) && usersAffiliation === AFFILIATIONS.student) {
     if (Object.keys(user.audienceOverride).length === 0) {
       return item.audiences.some(a => CLASSIFICATION_AUDIENCES.undergraduate.toLowerCase() === a.toLowerCase());
     }
@@ -237,18 +246,19 @@ const hasAudience = (
 
   // This is an employee (no user.classification.attributes), using the Employee Dashboard,
   // and they have no audienceOverrides set in thier profile so this item is not visible to them.
-  if (user.classification?.attributes === undefined && Object.keys(user.audienceOverride).length === 0) {
+  if (isEmployeeOnly(user) && Object.keys(user.audienceOverride).length === 0) {
     return false;
   }
 
   // An employee with an audienceOverride setting, or a student will have thier classifications (and overrides)
   // evaluated to determine if the item has a matching audience set.
+  if (isGraduate(user)) {
+    usersAudiences.push(CLASSIFICATION_AUDIENCES.graduate.toLowerCase());
+  } else {
+    if (isUndergraduate(user)) usersAudiences.push(CLASSIFICATION_AUDIENCES.undergraduate.toLowerCase());
 
-  if (isGraduate(user)) usersAudiences.push(CLASSIFICATION_AUDIENCES.graduate.toLowerCase());
-
-  if (isUndergraduate(user)) usersAudiences.push(CLASSIFICATION_AUDIENCES.undergraduate.toLowerCase());
-
-  if (isFirstYear(user)) usersAudiences.push(CLASSIFICATION_AUDIENCES.firstYear.toLowerCase());
+    if (isFirstYear(user)) usersAudiences.push(CLASSIFICATION_AUDIENCES.firstYear.toLowerCase());
+  }
 
   if (isInternational(user)) usersAudiences.push(CLASSIFICATION_AUDIENCES.international.toLowerCase());
 

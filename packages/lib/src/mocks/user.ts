@@ -1,3 +1,4 @@
+import { SUBCLASSIFICATION, LEVEL_CODE, AFFILIATIONS, GROUPS, CAMPUS_CODES } from './../user/constants';
 import {
   UserAudienceOverride,
   UserClassification,
@@ -10,13 +11,13 @@ import {
 const settings = {
   data: {
     audienceOverride: {
-      campusCode: 'C',
+      campusCode: CAMPUS_CODES.corvallis[0],
     },
   },
 };
 
 const userAudienceOverride: UserAudienceOverride = {
-  campusCode: 'C',
+  campusCode: CAMPUS_CODES.corvallis[0],
   graduate: true,
   international: true,
   firstYear: true,
@@ -25,11 +26,9 @@ const userAudienceOverride: UserAudienceOverride = {
 const userClassification: UserClassification = {
   id: '123',
   attributes: {
-    levelCode: '02',
-    level: 'Graduate',
-    campus: '',
-    campusCode: 'C',
-    classification: 'Freshman',
+    levelCode: LEVEL_CODE.undergraduate,
+    campusCode: CAMPUS_CODES.corvallis[0],
+    classification: SUBCLASSIFICATION.freshman,
     isInternational: true,
   },
 };
@@ -82,11 +81,11 @@ const user: UserState = {
     firstName: 'Testo',
     lastName: 'LastTesto',
     isAdmin: true,
-    groups: ['admin', 'masquerade'],
-    affiliations: ['student'],
+    groups: [],
+    affiliations: [AFFILIATIONS.student],
     isCanvasOptIn: true,
     theme: 'light',
-    primaryAffiliation: 'student',
+    primaryAffiliation: AFFILIATIONS.student,
     classification: userClassification,
     audienceOverride: userAudienceOverride,
     favoriteResources: userFavoriteResources,
@@ -98,8 +97,66 @@ const user: UserState = {
   refreshFavorites: () => {},
 };
 
+// Employee: No classification, no canvas
+const userEmployee: UserState = {
+  ...user,
+  isCanvasOptIn: false,
+  data: {
+    ...user.data,
+    primaryAffiliation: AFFILIATIONS.employee,
+    affiliations: [AFFILIATIONS.employee],
+    classification: {},
+    audienceOverride: {},
+  },
+};
+
+// Student Employee. Regular undergrad with the additional employee affiliation
+const userStudentEmployee: UserState = {
+  ...user,
+  data: {
+    ...user.data,
+    affiliations: [AFFILIATIONS.student, AFFILIATIONS.employee],
+  },
+};
+
+// Administrator: Employee with admin and masquerade groups
+const userAdmin: UserState = {
+  ...userEmployee,
+  data: {
+    ...userEmployee.data,
+    groups: [GROUPS.admin, GROUPS.masquerade],
+  },
+};
+
+// Undergrad: Our most common user is an undergraduate attending Corvallis
+const userUndergrad: UserState = {
+  ...user,
+};
+
+// Graduate student
+const userGraduate: UserState = {
+  ...user,
+  data: {
+    ...user.data,
+    classification: {
+      ...user.data.classification,
+      attributes: {
+        campusCode: CAMPUS_CODES.corvallis[0],
+        isInternational: true,
+        levelCode: LEVEL_CODE.graduate,
+        classification: SUBCLASSIFICATION.determine,
+      },
+    },
+  },
+};
+
 export default {
   user,
+  userEmployee,
+  userAdmin,
+  userUndergrad,
+  userGraduate,
+  userStudentEmployee,
   userAudienceOverride,
   userFavoriteResources,
   userClassification,

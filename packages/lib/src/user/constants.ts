@@ -1,5 +1,8 @@
 import { Types } from '../';
 
+export const DEFAULT_THEME = 'light';
+export const DEFAULT_CAMPUS = 'C';
+
 /**
  * Classification Academic References
     - `00` - Level Not Declared
@@ -19,13 +22,71 @@ import { Types } from '../';
     - `06` - INTO OSU GE/AE/Pathways
     - `D3` - ECampus CCLP & Couseling PHD
  */
-export const DEFAULT_THEME = 'light';
-export const DEFAULT_CAMPUS = 'C';
+export const LEVEL_CODE = {
+  notDeclared: '00',
+  undergraduate: '01',
+  graduate: '02',
+  postBac: '03',
+  nonDegree: '04',
+  professional: '05',
+  intoOSU: '06',
+  cascadesPartner: 'cp',
+  cascadesPartnerGrad: 'cg',
+  obsolete: 'cx',
+  nonCredit: 'nc',
+  ecampusUndegrad: 'd1',
+  ecampusGrad: 'd2',
+  ecampusOverlay: 'dO',
+  ecampusIntermediate: 'dr',
+  ecampusCCLPHD: 'd3',
+};
 
 export const CLASSIFICATIONS = {
   firstYear: ['freshman', 'vet med-first year'],
-  graduate: ['02', 'cg', 'd2'],
-  undergraduate: ['01', 'cp', 'd1', '00', '03', '04', '05', 'do', 'dr', 'nc', '06', 'd3'],
+  graduate: [LEVEL_CODE.graduate, LEVEL_CODE.cascadesPartnerGrad, LEVEL_CODE.ecampusGrad],
+  undergraduate: [
+    LEVEL_CODE.undergraduate,
+    LEVEL_CODE.notDeclared,
+    LEVEL_CODE.postBac,
+    LEVEL_CODE.nonCredit,
+    LEVEL_CODE.nonDegree,
+    LEVEL_CODE.intoOSU,
+    LEVEL_CODE.cascadesPartner,
+    LEVEL_CODE.professional,
+    LEVEL_CODE.ecampusCCLPHD,
+    LEVEL_CODE.ecampusIntermediate,
+    LEVEL_CODE.ecampusOverlay,
+    LEVEL_CODE.ecampusUndegrad,
+    LEVEL_CODE.obsolete,
+  ],
+};
+
+/** Classification / Attributes / Classification enum
+  - Freshman
+  - Sophomore
+  - Junior
+  - Senior
+  - Vet Med-First Year
+  - Determine from Student Type
+  - Continuing Higher Education
+  - Vet Med-Second Year
+  - Vet Med-Third Year
+  - Vet Med-Fourth Year
+  - Auditor Only
+*/
+
+export const SUBCLASSIFICATION = {
+  freshman: 'Freshman',
+  sophomore: 'Sophomore',
+  junior: 'Junior',
+  senior: 'Senior',
+  vetmed1: 'Vet Med-First Year',
+  vetmed2: 'Vet Med-Second Year',
+  vetmed3: 'Vet Med-Third Year',
+  vetmed4: 'Vet Med-Fourth Year',
+  auditor: 'Auditor Only',
+  continuing: 'Continuing Higher Education',
+  determine: 'Determine from Student Type',
 };
 
 export const CLASSIFICATION_AUDIENCES = {
