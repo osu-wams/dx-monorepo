@@ -1,4 +1,5 @@
-import { Types, CLASSIFICATION_AUDIENCES, AFFILIATIONS } from '@osu-wams/lib';
+import { Types, User } from '@osu-wams/lib';
+const { AFFILIATIONS, CLASSIFICATION_AUDIENCES } = User;
 
 // Reusable array for both Resources and ResourcesCard
 const resourcesArray: Types.Resource[] = [
