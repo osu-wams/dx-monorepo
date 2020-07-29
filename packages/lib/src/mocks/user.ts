@@ -80,7 +80,7 @@ const user: UserState = {
     email: 'testo@oregonstate.edu',
     firstName: 'Testo',
     lastName: 'LastTesto',
-    isAdmin: true,
+    isAdmin: false,
     groups: [],
     affiliations: [AFFILIATIONS.student],
     isCanvasOptIn: true,
@@ -123,6 +123,7 @@ const userAdmin: UserState = {
   ...userEmployee,
   data: {
     ...userEmployee.data,
+    isAdmin: true,
     groups: [GROUPS.admin, GROUPS.masquerade],
   },
 };
