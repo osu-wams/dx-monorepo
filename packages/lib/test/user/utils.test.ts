@@ -415,6 +415,9 @@ describe('hasAudience', () => {
 });
 
 describe('settingIsOverridden', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
   it('evaluates current and default value only when user is undefined', async () => {
     expect(settingIsOverridden(undefined, 'BOB_ROSS', true, true)).toBeFalsy();
     expect(settingIsOverridden(undefined, 'BOB_ROSS', true, false)).toBeTruthy();
@@ -440,7 +443,7 @@ describe('settingIsOverridden', () => {
     expect(result).toBeTruthy();
   });
   ['graduate', 'firstYear', 'international'].forEach(propertyName => {
-    it(`returns true that ${propertyName} user is overridden`, async () => {
+    beforeEach(() => {
       mockedUser.mockReturnValue({
         ...user.data,
         classification: {
@@ -451,6 +454,8 @@ describe('settingIsOverridden', () => {
           },
         },
       });
+    });
+    it(`returns true that ${propertyName} user is overridden`, async () => {
       const result = settingIsOverridden(mockedUser(), propertyName, false, true);
       expect(result).toBeTruthy();
     });

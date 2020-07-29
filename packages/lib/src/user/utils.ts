@@ -7,8 +7,8 @@ import { CLASSIFICATIONS, CLASSIFICATION_AUDIENCES, CAMPUS_CODES, DEFAULT_CAMPUS
  * @param user the user to inspect
  * @returns whether or not the override or user classification is true
  */
-const isFirstYear = (user: User): boolean => {
-  if (user?.audienceOverride?.firstYear !== undefined) {
+const isFirstYear = (user: User, includesOverride = true): boolean => {
+  if (user?.audienceOverride?.firstYear !== undefined && includesOverride) {
     return user.audienceOverride.firstYear;
   }
 
@@ -22,8 +22,8 @@ const isFirstYear = (user: User): boolean => {
  * @param user the user to inspect
  * @returns whether or not the override or user classification is true
  */
-const isInternational = (user: User): boolean => {
-  if (user.audienceOverride?.international !== undefined) {
+const isInternational = (user: User, includesOverride = true): boolean => {
+  if (user.audienceOverride?.international !== undefined && includesOverride) {
     return user.audienceOverride.international;
   }
 
@@ -36,8 +36,8 @@ const isInternational = (user: User): boolean => {
  * @param user the user to inspect
  * @returns if the user is graduate
  */
-const isGraduate = (user: User): boolean => {
-  if (user.audienceOverride?.graduate !== undefined) {
+const isGraduate = (user: User, includesOverride = true): boolean => {
+  if (user.audienceOverride?.graduate !== undefined && includesOverride) {
     return user.audienceOverride.graduate;
   }
 
@@ -142,37 +142,35 @@ const settingIsOverridden = (
   currentValue: boolean | undefined,
   defaultValue: boolean,
 ): boolean => {
-  if (user && user.classification) {
-    const {
-      classification: { attributes },
-    } = user;
-    if (attributes) {
-      const { isInternational, classification, levelCode } = attributes;
-      switch (propertyName) {
-        case 'international':
-          if (isInternational && currentValue !== undefined) {
-            return !currentValue;
-          }
-
+  if (user) {
+    switch (propertyName) {
+      case 'international':
+        if (currentValue === undefined) {
           return false;
+        }
 
-        case 'firstYear':
-          if (CLASSIFICATIONS.firstYear.includes(classification?.toLowerCase()) && currentValue !== undefined) {
-            return !currentValue;
-          }
+        return isInternational(user, false) !== currentValue;
 
+      case 'firstYear':
+        if (currentValue === undefined) {
           return false;
+        }
 
-        case 'graduate':
-          if (CLASSIFICATIONS.graduate.includes(levelCode?.toLowerCase()) && currentValue !== undefined) {
-            return !currentValue;
-          }
+        return isFirstYear(user, false) !== currentValue;
 
+      case 'graduate':
+        if (currentValue === undefined) {
           return false;
+        }
 
-        default:
+        return isGraduate(user, false) !== currentValue;
+
+      default:
+        if (currentValue === undefined) {
           return false;
-      }
+        }
+
+        return currentValue !== defaultValue;
     }
   }
 
