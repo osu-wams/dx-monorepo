@@ -17,7 +17,7 @@ export default class Client {
     this.host = opts.host;
     this.user = opts.user;
     this.pass = opts.pass;
-    this.webServiceVersion = opts.webServiceVersion || 'v2_2_00';
+    this.webServiceVersion = opts.webServiceVersion || 'v2_5_29';
   }
 
   webServiceOptions() {
@@ -33,7 +33,7 @@ export default class Client {
   }
 
   uri(endpoint: string) {
-    return `https://${this.host}/grouper-ws/servicesRest/json/${this.webServiceVersion}/${endpoint}`;
+    return `https://${this.host}/grouper-ws/servicesRest/${this.webServiceVersion}/${endpoint}`;
   }
 
   get(endpoint: string): Promise<any> {

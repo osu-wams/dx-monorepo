@@ -5,19 +5,33 @@ export const getMembers = async (client: Client, stem: string) => {
   return client.get(endpoint);
 };
 
-export const findStems = async (client: Client, stem: string, approx?: boolean) => {
-  const endpoint = 'stems';
+export const findStems = async (client: Client, stemName: string, approx?: boolean) => {
   const payload = {
     WsRestFindStemsRequest: {
       wsStemQueryFilter: {
         stemQueryFilterType: `FIND_BY_STEM_NAME${approx ? '_APPROXIMATE' : ''}`,
-        stemName: stem,
+        stemName,
       },
     },
   };
-  return client.post(endpoint, payload);
+  return client.post('stems', payload);
+};
+
+export const findGroups = async (client: Client, groupName: string, stemName: string, approx?: boolean) => {
+  const payload = {
+    WsRestFindGroupsRequest: {
+      wsQueryFilter: {
+        queryFilterType: `FIND_BY_GROUP_NAME${approx ? '_APPROXIMATE' : '_EXACT'}`,
+        groupName,
+        stemName,
+      },
+    },
+  };
+  return client.post('groups', payload);
 };
 
 export default {
   getMembers,
+  findStems,
+  findGroups,
 };
