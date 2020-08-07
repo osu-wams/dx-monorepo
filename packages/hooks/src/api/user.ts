@@ -70,11 +70,22 @@ export const useUser = (opts: BaseQueryOptions = REACT_QUERY_DEFAULT_CONFIG): Ty
 
   useEffect(() => {
     if (u.isSuccess && classification.isSuccess && favorites.isSuccess) {
-      setUser({
-        data: { ...u.data, classification: { ...classification.data }, favoriteResources: [...favorites.data] },
-        error: false,
-        loading: false,
-        isCanvasOptIn: u.data.isCanvasOptIn,
+      setUser(previousUser => {
+        const primaryAffiliationOverride =
+          previousUser.data.primaryAffiliationOverride || u.data.primaryAffiliationOverride;
+        return {
+          ...previousUser,
+          data: {
+            ...previousUser.data,
+            ...u.data,
+            primaryAffiliationOverride,
+            classification: { ...classification.data },
+            favoriteResources: [...favorites.data],
+          },
+          error: false,
+          loading: false,
+          isCanvasOptIn: previousUser.data.isCanvasOptIn,
+        };
       });
     } else if (u.isError) {
       queryCache.invalidateQueries('favorites');
