@@ -1,6 +1,15 @@
 @baseUrl = https://grouper.oregonstate.edu/grouper-ws/servicesRest/v2_5_000
 @base64Auth = {{$processEnv OSU_GROUPER_BASE64_AUTH}}
 
+# @name getGroupsByNameApproximateHttp
+POST {{baseUrl}}/groups HTTP/1.1
+Connection: close
+Authorization: Basic {{base64Auth}}
+
+wsLiteObjectType=WsRestFindGroupsLiteRequest&groupName=01&queryFilterType=FIND_BY_GROUP_NAME_APPROXIMATE
+
+###
+
 # @name getGroupsByNameApproximate
 POST {{baseUrl}}/groups HTTP/1.1
 Connection: close
@@ -29,7 +38,8 @@ Content-Type: application/json; charset=UTF-8
     "wsQueryFilter": {
       "queryFilterType": "FIND_BY_STEM_NAME",
       "stemName": "osu:ref:stu:level:02"
-    }
+    },
+    "includeGroupDetail": true
   }
 }
 ###
@@ -65,7 +75,7 @@ Content-Type: application/json; charset=UTF-8
 }
 ###
 
-GET {{baseUrl}}/groups/osu:refs:stu:level:02/members HTTP/1.1
+GET {{baseUrl}}/groups/01%20-%20Undergraduate/members HTTP/1.1
 Connection: close
 Authorization: Basic {{base64Auth}}
 Content-Type: application/json; charset=UTF-8

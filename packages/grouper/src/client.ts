@@ -1,34 +1,28 @@
-import axios from 'axios';
-
 interface Config {
   host: string;
-  user: string;
-  pass: string;
+  auth?: string;
   webServiceVersion?: string;
 }
 
 export default class Client {
   host: string;
-  user: string;
-  pass: string;
+  auth: string;
   webServiceVersion: string;
 
   constructor(opts: Config) {
+    if (!opts.auth) throw new Error("missing auth ENV");
     this.host = opts.host;
-    this.user = opts.user;
-    this.pass = opts.pass;
-    this.webServiceVersion = opts.webServiceVersion || 'v2_5_29';
+    this.auth = opts.auth;
+    this.webServiceVersion = opts.webServiceVersion || "v2_5_29";
   }
 
-  webServiceOptions() {
+  fetchOptions(opts: RequestInit): RequestInit {
     return {
+      ...opts,
       headers: {
-        'Content-Type': 'text/x-json',
-      },
-      auth: {
-        username: this.user,
-        password: this.pass,
-      },
+        "Content-Type": "application/json",
+        Authorization: `Basic ${this.auth}`
+      }
     };
   }
 
@@ -36,19 +30,22 @@ export default class Client {
     return `https://${this.host}/grouper-ws/servicesRest/${this.webServiceVersion}/${endpoint}`;
   }
 
-  get(endpoint: string): Promise<any> {
-    return axios.get(this.uri(endpoint), this.webServiceOptions());
+  async get<T>(endpoint: string): Promise<T> {
+    const response = await fetch(
+      this.uri(endpoint),
+      this.fetchOptions({ method: "GET" })
+    );
+    return response.json();
   }
 
-  post(endpoint: string, payload: any): Promise<any> {
-    return axios.post(this.uri(endpoint), payload, this.webServiceOptions());
-  }
-
-  put(endpoint: string, payload: any): Promise<any> {
-    return axios.put(this.uri(endpoint), payload, this.webServiceOptions());
-  }
-
-  delete(endpoint: string): Promise<any> {
-    return axios.put(this.uri(endpoint), this.webServiceOptions());
+  async post<T>(endpoint: string, payload: any): Promise<T> {
+    const response = await fetch(
+      this.uri(endpoint),
+      this.fetchOptions({
+        method: "POST",
+        body: JSON.stringify(payload)
+      })
+    );
+    return response.json();
   }
 }
