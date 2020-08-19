@@ -1,28 +1,43 @@
+import axios, { AxiosRequestConfig } from 'axios'; // eslint-disable no-unused-vars
+import { GROUPER_USERNAME, GROUPER_PASSWORD } from './constants';
+import log from './log';
+
 interface Config {
   host: string;
-  auth?: string;
   webServiceVersion?: string;
+  username?: string;
+  password?: string;
 }
 
-export default class Client {
+export class Client {
   host: string;
-  auth: string;
+  username: string;
+  password: string;
   webServiceVersion: string;
 
   constructor(opts: Config) {
-    if (!opts.auth) throw new Error("missing auth ENV");
     this.host = opts.host;
-    this.auth = opts.auth;
-    this.webServiceVersion = opts.webServiceVersion || "v2_5_29";
+    this.webServiceVersion = opts.webServiceVersion || 'v2_5_29';
+    this.username = opts.username || GROUPER_USERNAME;
+    this.password = opts.password || GROUPER_PASSWORD;
+    if (this.username === '' || this.password === '') {
+      const message =
+        'Client missing credentials passed as options (username, password) or set in environment (GROUPER_USERNAME, GROUPER_PASSWORD), unable to authenticate with grouper API.';
+      log.error(message);
+      throw new Error(message);
+    }
   }
 
-  fetchOptions(opts: RequestInit): RequestInit {
+  requestOptions(opts: AxiosRequestConfig): AxiosRequestConfig {
     return {
       ...opts,
+      auth: {
+        username: this.username,
+        password: this.password,
+      },
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Basic ${this.auth}`
-      }
+        'content-type': 'application/json',
+      },
     };
   }
 
@@ -30,22 +45,22 @@ export default class Client {
     return `https://${this.host}/grouper-ws/servicesRest/${this.webServiceVersion}/${endpoint}`;
   }
 
-  async get<T>(endpoint: string): Promise<T> {
-    const response = await fetch(
-      this.uri(endpoint),
-      this.fetchOptions({ method: "GET" })
-    );
-    return response.json();
+  async get<T>(endpoint: string, opts?: AxiosRequestConfig): Promise<T> {
+    const response = await axios.get(this.uri(endpoint), this.requestOptions({ ...opts, method: 'GET' }));
+    return response.data;
   }
 
-  async post<T>(endpoint: string, payload: any): Promise<T> {
-    const response = await fetch(
+  async post<T>(endpoint: string, payload: any, opts?: AxiosRequestConfig): Promise<T> {
+    const response = await axios.post(
       this.uri(endpoint),
-      this.fetchOptions({
-        method: "POST",
-        body: JSON.stringify(payload)
-      })
+      JSON.stringify(payload),
+      this.requestOptions({
+        ...opts,
+        method: 'POST',
+      }),
     );
-    return response.json();
+    return response.data;
   }
 }
+
+export default Client;
