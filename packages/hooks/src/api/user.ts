@@ -69,16 +69,35 @@ export const useUser = (opts: BaseQueryOptions = REACT_QUERY_DEFAULT_CONFIG): Ty
   const refreshFavorites = async () => queryCache.invalidateQueries('favorites');
 
   useEffect(() => {
-    if (u.isSuccess && classification.isSuccess && favorites.isSuccess) {
+    if (u.isSuccess) {
       setUser(previousUser => {
         const primaryAffiliationOverride =
           previousUser.data.primaryAffiliationOverride || u.data.primaryAffiliationOverride;
         return {
           ...previousUser,
           data: {
-            ...previousUser.data,
             ...u.data,
             primaryAffiliationOverride,
+            classification: previousUser.data.classification,
+            favoriteResources: previousUser.data.favoriteResources,
+          },
+          error: false,
+          loading: false,
+          isCanvasOptIn: previousUser.data.isCanvasOptIn,
+        };
+      });
+    } else if (u.isError) {
+      setUser((p: Types.UserState) => ({ ...p, error: true, loading: false }));
+    }
+  }, [u.data, u.isError, u.isSuccess]);
+
+  useEffect(() => {
+    if (classification.isSuccess && favorites.isSuccess) {
+      setUser(previousUser => {
+        return {
+          ...previousUser,
+          data: {
+            ...previousUser.data,
             classification: { ...classification.data },
             favoriteResources: [...favorites.data],
           },
@@ -87,19 +106,18 @@ export const useUser = (opts: BaseQueryOptions = REACT_QUERY_DEFAULT_CONFIG): Ty
           isCanvasOptIn: previousUser.data.isCanvasOptIn,
         };
       });
-    } else if (u.isError) {
-      queryCache.invalidateQueries('favorites');
+    } else if (classification.isError) {
       queryCache.invalidateQueries('classification');
-      setUser((p: Types.UserState) => ({ ...p, error: true, loading: false }));
+    } else if (favorites.isError) {
+      queryCache.invalidateQueries('favorites');
     }
   }, [
-    u.data,
     classification.data,
     favorites.data,
-    u.isSuccess,
     classification.isSuccess,
     favorites.isSuccess,
-    u.isError,
+    classification.isError,
+    favorites.isError,
   ]);
 
   return {
