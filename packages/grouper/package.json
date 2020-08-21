@@ -1,11 +1,10 @@
 {
-  "version": "1.0.52",
+  "version": "0.0.1",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
-    "dist",
-    "mocks"
+    "dist"
   ],
   "scripts": {
     "start": "tsdx watch",
@@ -14,38 +13,31 @@
     "lint": "tsdx lint",
     "prepare": "tsdx build"
   },
-  "peerDependencies": {
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
-  },
-  "dependencies": {
-    "@osu-wams/lib": "^0.1.36",
-    "@osu-wams/utils": "^0.0.7",
-    "axios": "^0.19.1",
-    "react-query": "^2.9.0",
-    "stacktrace-js": "^2.0.2"
-  },
   "husky": {
     "hooks": {
       "pre-commit": "tsdx lint"
     }
   },
-  "name": "@osu-wams/hooks",
+  "name": "@osu-wams/grouper",
   "author": "Josh Gum <revgum@gmail.com>",
-  "module": "dist/hooks.esm.js",
+  "module": "dist/grouper.esm.js",
   "repository": {
     "type": "git",
     "url": "ssh://git@github.com/osu-wams/dx-monorepo.git",
-    "directory": "packages/hooks"
+    "directory": "packages/grouper"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/jest": "^24.9.0",
-    "@types/react": "^16.9.17",
-    "@types/react-dom": "^16.9.4",
-    "axios-mock-adapter": "^1.17.0",
+    "@types/winston": "^2.4.4",
     "husky": "^4.0.10",
+    "msw": "^0.20.5",
     "tsdx": "^0.13.2",
     "tslib": "^1.10.0",
     "typescript": "^3.7.5"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "winston": "^3.3.3"
   }
 }
