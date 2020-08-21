@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useQuery, BaseQueryOptions, QueryResult } from 'react-query';
+import { useQuery, QueryObserverConfig, QueryResult } from 'react-query';
 import { Types } from '@osu-wams/lib';
 import mocks from '../mocks/resources';
 import { REACT_QUERY_DEFAULT_CONFIG } from '../constants';
@@ -15,7 +15,7 @@ export const getResources = (): Promise<Types.Resource[]> =>
   });
 
 export const useResources = (
-  opts: BaseQueryOptions = REACT_QUERY_DEFAULT_CONFIG,
+  opts: QueryObserverConfig<Types.Resource[], Error> = REACT_QUERY_DEFAULT_CONFIG,
 ): QueryResult<Types.Resource[], Error> => useQuery('resources', getResources, opts);
 
 /**
@@ -26,7 +26,7 @@ export const getResourcesByQueue = (category: string): Promise<Types.ResourceEnt
 
 export const useResourcesByQueue = (
   category: string,
-  opts: BaseQueryOptions = REACT_QUERY_DEFAULT_CONFIG,
+  opts: QueryObserverConfig<Types.ResourceEntityQueue, Error> = REACT_QUERY_DEFAULT_CONFIG,
 ): QueryResult<Types.ResourceEntityQueue, Error> =>
   useQuery(['resources-by-queue', category], () => getResourcesByQueue(category), opts);
 
@@ -41,7 +41,7 @@ export const getCategories = (): Promise<Types.Category[]> =>
  * @param callback (optional) data transformation function
  */
 export const useCategories = (
-  opts: BaseQueryOptions = REACT_QUERY_DEFAULT_CONFIG,
+  opts: QueryObserverConfig<Types.Category[], Error> = REACT_QUERY_DEFAULT_CONFIG,
 ): QueryResult<Types.Category[], Error> => useQuery('categories', getCategories, opts);
 
 // Category selected by default. Currently the 'featured' category id
@@ -80,7 +80,7 @@ export const getTrendingResources = (query: string): Promise<Types.TrendingResou
 export const useTrendingResources = (
   daysAgo: string,
   affiliation?: string,
-  opts: BaseQueryOptions = REACT_QUERY_DEFAULT_CONFIG,
+  opts: QueryObserverConfig<Types.TrendingResource[], Error> = REACT_QUERY_DEFAULT_CONFIG,
 ): QueryResult<Types.TrendingResource[], Error> => {
   const affiliationPath = affiliation ? `/${affiliation}` : '';
   const query = `${daysAgo}${affiliationPath}`;

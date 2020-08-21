@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useQuery, queryCache, BaseQueryOptions } from 'react-query';
+import { useQuery, queryCache, QueryObserverConfig } from 'react-query';
 import useAPICall from '../useAPICall';
 import { useEffect, useState } from 'react';
 import { User, Types } from '@osu-wams/lib';
@@ -35,7 +35,7 @@ export const getUser = (): Promise<Types.User> => axios.get('/api/user').then(re
  * The primary hook to fetch the user session and set the user for access throughout the application, this
  * is intended to be set near the root level of the application and exposed by way of the UserContext.
  */
-export const useUser = (opts: BaseQueryOptions = REACT_QUERY_DEFAULT_CONFIG): Types.UserState => {
+export const useUser = (opts: QueryObserverConfig<any, Error> = REACT_QUERY_DEFAULT_CONFIG): Types.UserState => {
   const [user, setUser] = useState<Types.UserState>({
     data: INITIAL_USER,
     error: false,
@@ -43,7 +43,7 @@ export const useUser = (opts: BaseQueryOptions = REACT_QUERY_DEFAULT_CONFIG): Ty
     isCanvasOptIn: false,
   });
 
-  const u = useQuery<Types.User, string, Error>('user', getUser, {
+  const u = useQuery('user', getUser, {
     ...opts,
     retry: false,
     onError: (err: any) => {
