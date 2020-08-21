@@ -3,9 +3,9 @@ import { getMembers } from '../src/index';
 import { server, GROUPER_CLIENT } from '../src/mocks/server';
 
 it('queries members from groups', async () => {
-  const results = await getMembers(GROUPER_CLIENT, ['stem:name:group_name'], ['id']);
+  const results = await getMembers(GROUPER_CLIENT, ['stem:name:group_name'], ['id'], { pageNumber: 1, pageSize: 10 });
   expect(results).toHaveLength(1);
-  expect(results.flatMap(r => r.subjects?.map(s => s.id))).toStrictEqual(['useridone', 'useridtwo']);
+  expect(results.map(r => r.subjects?.map(s => s.id))).toStrictEqual([['useridone', 'useridtwo']]);
 });
 
 it('does not find members in an invalid group', async () => {
