@@ -101,8 +101,11 @@ export interface UserMessage {
   content: string;
   contentShort: string;
   deliveredAt?: string;
+  id: string;
+  imageUrl?: string;
   messageId: string;
-  osuId: string;
+  onid?: string;
+  osuId?: string;
   sendAt: string;
   status: string;
   title: string;
