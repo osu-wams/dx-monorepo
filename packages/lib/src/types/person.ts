@@ -53,44 +53,41 @@ export interface MealPlansResponse {
 }
 
 /**
- * Profile
- * Synonyms: Person data
+ * Persons
+ * Synonyms: Profile
  */
-export interface Profile {
+
+export interface PersonsAttributes {
+  id: string;
+  birthDate: string;
+  firstName: string | null;
+  middleName: string | null;
+  lastName: string;
+  displayFirstName: string | null;
+  displayMiddleName: string | null;
+  displayLastName: string | null;
+  previousRecords: [] | never;
+  homePhone: string | null;
+  alternatePhone: string | null;
+  osuUID: string;
+  primaryPhone: string | null;
+  mobilePhone: string | null;
+  currentStudent: boolean;
+  currentEmployee: boolean;
+  employeeStatus: string;
+  email: string;
+  username: string;
+  confidential: boolean;
+}
+
+interface Persons {
   id: string;
   type: string;
-  attributes: {
-    birthDate: string;
-    firstName: string | null;
-    middleName: string | null;
-    lastName: string | null;
-    displayFirstName: string | null;
-    displayMiddleName: string | null;
-    displayLastName: string | null;
-    previousRecords: {
-      osuID: string;
-      firstName: string;
-      middleName: string | null;
-      lastName: string;
-      preferredName: string | null;
-    }[];
-    citizen: string;
-    sex: string;
-    homePhone: string | null;
-    alternatePhone: string | null;
-    osuUID: string;
-    primaryPhone: string | null;
-    mobilePhone: string | null;
-    employeeStatus: string;
-    email: string;
-    username: string;
-    confidential: boolean;
-    ssnStatus: string;
-  };
+  attributes: PersonsAttributes;
   links: { self: string };
 }
 
-export interface ProfileResponse {
+export interface PersonsResponse {
   links: { self: string };
-  data: Profile;
+  data: Persons;
 }

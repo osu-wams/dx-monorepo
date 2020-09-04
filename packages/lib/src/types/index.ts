@@ -27,6 +27,6 @@ export {
   GpaLevel,
   PlannerItem,
 } from './student';
-export { Address, AddressesResponse, MealPlan, MealPlansResponse, Profile, ProfileResponse } from './person';
+export { Address, AddressesResponse, MealPlan, MealPlansResponse, PersonsAttributes, PersonsResponse } from './person';
 export { AcademicEvent, LocalistEvent } from './localist';
 export { Training, TrainingTag } from './dx';
