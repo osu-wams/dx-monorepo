@@ -1,5 +1,6 @@
 const personsData = {
-  loading: false,
+  isLoading: false,
+  isSuccess: true,
   error: false,
   data: {
     id: '123',
@@ -49,7 +50,8 @@ const preferredName = {
     ssnStatus: 'vault',
     username: null,
   },
-  loading: false,
+  isLoading: false,
+  isSuccess: true,
   error: false,
 };
 
@@ -79,7 +81,8 @@ const preferredFirstName = {
     ssnStatus: 'vault',
     username: null,
   },
-  loading: false,
+  isLoading: false,
+  isSuccess: true,
   error: false,
 };
 
@@ -107,7 +110,8 @@ const nullName = {
     ssnStatus: 'vault',
     username: null,
   },
-  loading: false,
+  isLoading: false,
+  isSuccuess: true,
   error: false,
 };
 
