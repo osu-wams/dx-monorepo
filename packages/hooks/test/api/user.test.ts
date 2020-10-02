@@ -59,17 +59,21 @@ describe('useMessages', () => {
     mock.onGet('/api/user/messages').reply(200, userMessageItems);
     const { result, waitForNextUpdate } = renderHook(() => useMessages());
     await waitForNextUpdate();
-    expect(result.current.loading).toBeFalsy();
-    expect(result.current.error).toBeFalsy();
+    expect(result.current.isLoading).toBeFalsy();
+    expect(result.current.isError).toBeFalsy();
     expect(result.current.data).toEqual(userMessageItems);
   });
   it('handles api error', async () => {
     mock.onGet('/api/user/messages').reply(500);
     const { result, waitForNextUpdate } = renderHook(() => useMessages());
+
     await waitForNextUpdate();
-    expect(result.current.loading).toBeFalsy();
-    expect(result.current.error).toBeTruthy();
-    expect(result.current.data).toEqual({ items: [] });
+    expect(result.current.failureCount).toBe(1);
+    expect(result.current.isLoading).toBeTruthy();
+    await waitForNextUpdate();
+    expect(result.current.failureCount).toBe(2);
+    await waitForNextUpdate();
+    expect(result.current.failureCount).toBe(3); // Retry 3 tiems
   });
 });
 
