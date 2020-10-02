@@ -160,6 +160,7 @@ export const CLASSIFICATION_AUDIENCES = {
  * X - Medford/Grants Pass
  * Y - Gresham/MHCC
  * 0 - Beaverton/Hillsboro/Cptl Cntr
+ * PDX - Portland campus students
  */
 export const CAMPUS_CODES: { [key: string]: string[] } = {
   bend: ['B', '2'],
@@ -190,6 +191,7 @@ export const CAMPUS_CODES: { [key: string]: string[] } = {
     'X',
     'Y',
     '0',
+    'PDX',
   ],
   ecampus: [
     'DSC',

@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { useQuery, queryCache, QueryObserverConfig } from 'react-query';
-import useAPICall from '../useAPICall';
+import { useQuery, queryCache, QueryObserverConfig, QueryResult } from 'react-query';
 import { useEffect, useState } from 'react';
 import { User, Types } from '@osu-wams/lib';
 import { getFavorites } from '../api/resources';
@@ -146,12 +145,9 @@ export const postSettings = (settings: Types.UserSettings): Promise<Types.UserSe
 export const getUserMessages = (): Promise<Types.UserMessageItems> =>
   axios.get('/api/user/messages').then(res => res.data);
 
-export const useMessages = () =>
-  useAPICall<Types.UserMessageItems>({
-    api: getUserMessages,
-    dataTransform: (data: any) => data,
-    initialState: { items: [] },
-  });
+export const useMessages = (
+  opts: QueryObserverConfig<Types.UserMessageItems, Error> = REACT_QUERY_DEFAULT_CONFIG,
+): QueryResult<Types.UserMessageItems, Error> => useQuery('userMessages', getUserMessages, opts);
 
 export const updateUserMessage = (update: Types.UserMessageUpdate): Promise<Types.UserMessage> =>
   axios
