@@ -96,6 +96,11 @@ export interface UserAudienceOverride {
   international?: boolean;
 }
 
+export interface UserMessagesState {
+  data: UserMessage[];
+  isLoading: boolean;
+  isSuccess: boolean;
+}
 export interface UserMessage {
   channelId: string;
   content: string;
