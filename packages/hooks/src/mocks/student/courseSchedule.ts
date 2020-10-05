@@ -639,6 +639,56 @@ const schedule = {
         ],
       },
     },
+    {
+      type: 'class-schedule',
+      id: 'bogus-id-11',
+      links: {
+        self: null,
+      },
+      attributes: {
+        academicYear: '1718',
+        academicYearDescription: 'Academic Year 2017-18',
+        courseReferenceNumber: '18513',
+        courseSubject: 'RL',
+        courseSubjectDescription: 'Physics',
+        courseNumber: '100',
+        courseTitle: 'Remote Learning Version of something awesome',
+        sectionNumber: '002',
+        term: '201801',
+        termDescription: 'Fall 2017',
+        scheduleDescription: 'Recitation',
+        scheduleType: 'C',
+        creditHours: 1,
+        registrationStatus: '**Web Registered**',
+        gradingMode: 'Pass/No Pass Grading Mode',
+        continuingEducation: false,
+        faculty: [
+          {
+            osuId: '123456789',
+            name: 'Jansen, Henri',
+            email: '123456789@physics.oregonstate.edu',
+            primary: true,
+          },
+        ],
+        meetingTimes: [
+          {
+            beginDate: currentBeginDate,
+            beginTime: '09:00:00',
+            endDate: currentEndDate,
+            endTime: '09:50:00',
+            room: 'RL', // Found as remote learning data
+            building: 'REM', // Found as remote learning data
+            buildingDescription: 'Remote Learning', // Found as remote learning data
+            campus: ' Oregon State - Corvallis',
+            hoursPerWeek: 0.83,
+            creditHourSession: 1,
+            scheduleType: 'C',
+            scheduleDescription: 'Recitation',
+            weeklySchedule: ['M', 'T', 'W', 'Th', 'F', 'Sa', 'Su'],
+          },
+        ],
+      },
+    },
   ],
   loading: false,
   error: false,
