@@ -9,6 +9,7 @@ export {
   UserAudienceOverride,
   UserClassificationAttributes,
   UserClassification,
+  UserMessagesState,
   UserMessage,
   UserMessageItems,
   UserMessageUpdate,
