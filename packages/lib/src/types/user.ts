@@ -122,7 +122,7 @@ export interface UserMessageItems {
 }
 
 export interface UserMessageUpdate {
-  messageId: string;
+  messageId?: string; // Without it, it will affect all messages
   status: string;
 }
 
