@@ -75,6 +75,7 @@ export interface User {
   classification: UserClassification;
   audienceOverride: UserAudienceOverride;
   theme: string;
+  devTools?: boolean;
   primaryAffiliation: string;
   primaryAffiliationOverride?: string;
   favoriteResources?: FavoriteResource[];
