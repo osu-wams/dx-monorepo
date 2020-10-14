@@ -77,6 +77,47 @@ const userMessageItems: UserMessageItems = {
   lastKey: undefined,
 };
 
+export const userReadMessage = {
+  items: [
+    {
+      ...userMessage,
+      status: 'READ',
+    },
+  ],
+  lastKey: undefined,
+};
+
+export const userThreeMessages = {
+  items: [
+    userMessage,
+    {
+      channelId: 'dashboard',
+      content: 'second message body content',
+      contentShort: '2contentShort',
+      deliveredAt: '2020-01-01T16:20:00.000Z',
+      imageUrl: 'https://blah.png',
+      messageId: 'message-id-02',
+      osuId: '111111111',
+      sendAt: '2020-01-01T16:20:00.000Z',
+      status: 'READ',
+      title: 'Second Message Title',
+    },
+    {
+      channelId: 'dashboard',
+      content: 'third message content',
+      contentShort: '3contentShort',
+      deliveredAt: '2020-01-01T16:20:00.000Z',
+      imageUrl: 'https://blah.png',
+      messageId: 'message-id-03',
+      osuId: '111111111',
+      sendAt: '2020-01-01T16:20:00.000Z',
+      status: 'SENT',
+      title: 'Third Message Title',
+    },
+  ],
+  lastKey: undefined,
+};
+
 const user: UserState = {
   data: {
     osuId: '123',
@@ -166,4 +207,6 @@ export default {
   settings,
   userMessage,
   userMessageItems,
+  userReadMessage,
+  userThreeMessages,
 };
