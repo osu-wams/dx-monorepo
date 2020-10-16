@@ -1,6 +1,7 @@
 import axios from 'axios';
-import useAPICall from '../useAPICall';
 import mocks from '../mocks/status';
+import { useQuery, QueryObserverConfig, QueryResult } from 'react-query';
+import { REACT_QUERY_DEFAULT_CONFIG } from '../constants';
 
 export const mockStatus = mocks;
 
@@ -40,8 +41,9 @@ export const allOperational = (components: ICachetComponent[]): boolean => {
 
 export const getStatus = (): Promise<ICachetComponent[]> => axios.get(`/api/status`).then(res => res.data);
 
-export const useStatus = () =>
-  useAPICall<ICachetComponent[]>({ api: getStatus, dataTransform: (data: any) => data, initialState: [] });
+export const useStatus = (
+  opts: QueryObserverConfig<ICachetComponent[], Error> = REACT_QUERY_DEFAULT_CONFIG,
+): QueryResult<ICachetComponent[], Error> => useQuery('status', getStatus, opts);
 
 export interface ICachetIncident {
   id: number;
