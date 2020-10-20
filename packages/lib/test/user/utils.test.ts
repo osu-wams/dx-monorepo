@@ -191,27 +191,65 @@ describe('hasAudience', () => {
     affiliation: [user.data.primaryAffiliation],
     audiences: [],
   };
-  describe('as an Employee', () => {
+  describe('Employee on Employee Dashboard', () => {
     beforeEach(() => {
       mockedUser.mockReturnValue({
-        ...user.data,
-        primaryAffiliation: AFFILIATIONS.employee,
-        primaryAffiliationOverride: undefined,
-        audienceOverride: {},
+        ...userEmployee.data,
       });
     });
-
     it('returns false when the item is intended for a student ', async () => {
       mockedItem.mockReturnValue({ ...item, affiliation: [AFFILIATIONS.student] });
       expect(hasAudience(mockedUser(), mockedItem())).toBeFalsy();
     });
+
+    it('returns false when the item is intended for a campus other than the default (an employee doesnt have campus classification)', async () => {
+      mockedItem.mockReturnValue({ ...item, affiliation: [AFFILIATIONS.employee], locations: ['ECampus'] });
+      expect(hasAudience(mockedUser(), mockedItem())).toBeFalsy();
+    });
+    it('returns false when the item is intended for a campus that the user is not on ', async () => {
+      mockedUser.mockReturnValue({
+        ...userEmployee.data,
+        classification: { attributes: { ...classificationAttributes, campusCode: 'B' } },
+      });
+      mockedItem.mockReturnValue({ ...item, affiliation: [AFFILIATIONS.employee], locations: ['Corvallis'] });
+      expect(hasAudience(mockedUser(), mockedItem())).toBeFalsy();
+    });
+    it('returns true when the item has no audiences specified ', async () => {
+      mockedItem.mockReturnValue({ ...item, affiliation: [AFFILIATIONS.employee], locations: ['Corvallis'] });
+      expect(hasAudience(mockedUser(), mockedItem())).toBeTruthy();
+    });
+    it('returns true, even if employee does not have that audience specified ', async () => {
+      mockedItem.mockReturnValue({
+        ...item,
+        affiliation: [AFFILIATIONS.employee],
+        locations: ['Corvallis', 'Bend', 'Ecampus'],
+        audiences: [CLASSIFICATION_AUDIENCES.graduate],
+      });
+      expect(hasAudience(mockedUser(), mockedItem())).toBeTruthy();
+    });
+    it('returns true when the item has an audiences specified and the user as an audience override matching ', async () => {
+      mockedUser.mockReturnValue({
+        ...userEmployee.data,
+        audienceOverride: { graduate: true },
+      });
+      mockedItem.mockReturnValue({
+        ...item,
+        affiliation: [AFFILIATIONS.employee, AFFILIATIONS.student],
+        locations: ['Corvallis', 'Bend', 'Ecampus'],
+        audiences: [CLASSIFICATION_AUDIENCES.graduate],
+      });
+      expect(hasAudience(mockedUser(), mockedItem())).toBeTruthy();
+    });
+  });
+
+  describe('Employee on Student Dashboard', () => {
+    const studentDashboardEmployee = {
+      ...userEmployee.data,
+      primaryAffiliationOverride: AFFILIATIONS.student,
+    };
     it('returns true when the item is intended for an undergraduate and the Affiliation Override is Student (Student Dashboard for example)', async () => {
       mockedUser.mockReturnValue({
-        ...user.data,
-        classification: { attributes: undefined },
-        primaryAffiliation: AFFILIATIONS.employee,
-        primaryAffiliationOverride: AFFILIATIONS.student,
-        audienceOverride: {},
+        ...studentDashboardEmployee,
       });
       mockedItem.mockReturnValue({
         ...item,
@@ -223,10 +261,7 @@ describe('hasAudience', () => {
 
     it('returns false when Employee has audienceOverride is set to Graduate when the item is intended for an undergraduate', async () => {
       mockedUser.mockReturnValue({
-        ...user.data,
-        classification: { attributes: undefined },
-        primaryAffiliation: AFFILIATIONS.employee,
-        primaryAffiliationOverride: AFFILIATIONS.student,
+        ...studentDashboardEmployee,
         audienceOverride: { graduate: true },
       });
       mockedItem.mockReturnValue({
@@ -239,11 +274,7 @@ describe('hasAudience', () => {
 
     it('returns false when the item is intended for a graduate student and the Affiliation Override is Student (Student Dashboard for example)', async () => {
       mockedUser.mockReturnValue({
-        ...user.data,
-        classification: { attributes: undefined },
-        primaryAffiliation: AFFILIATIONS.employee,
-        primaryAffiliationOverride: AFFILIATIONS.student,
-        audienceOverride: {},
+        ...studentDashboardEmployee,
       });
       mockedItem.mockReturnValue({
         ...item,
@@ -254,73 +285,12 @@ describe('hasAudience', () => {
     });
     it('returns true when the item is intended for a graduate student and the audienceOverride is set to graduate too', async () => {
       mockedUser.mockReturnValue({
-        ...user.data,
-        classification: { attributes: undefined },
-        primaryAffiliation: AFFILIATIONS.employee,
-        primaryAffiliationOverride: AFFILIATIONS.student,
+        ...studentDashboardEmployee,
         audienceOverride: { graduate: true },
       });
       mockedItem.mockReturnValue({
         ...item,
         affiliation: [AFFILIATIONS.student],
-        audiences: [CLASSIFICATION_AUDIENCES.graduate],
-      });
-      expect(hasAudience(mockedUser(), mockedItem())).toBeTruthy();
-    });
-    it('returns false when the item is intended for a campus other than the default (an employee doesnt have campus classification)', async () => {
-      mockedItem.mockReturnValue({ ...item, affiliation: [AFFILIATIONS.employee], locations: ['ECampus'] });
-      expect(hasAudience(mockedUser(), mockedItem())).toBeFalsy();
-    });
-    it('returns false when the item is intended for a campus that the user is not on ', async () => {
-      mockedUser.mockReturnValue({
-        ...user.data,
-        classification: { attributes: { ...classificationAttributes, campusCode: 'B' } },
-        primaryAffiliation: AFFILIATIONS.employee,
-        primaryAffiliationOverride: undefined,
-        audienceOverride: {},
-      });
-      mockedItem.mockReturnValue({ ...item, affiliation: [AFFILIATIONS.employee], locations: ['Corvallis'] });
-      expect(hasAudience(mockedUser(), mockedItem())).toBeFalsy();
-    });
-    it('returns true when the item has no audiences specified ', async () => {
-      mockedUser.mockReturnValue({
-        ...user.data,
-        classification: { attributes: undefined },
-        primaryAffiliation: AFFILIATIONS.employee,
-        primaryAffiliationOverride: undefined,
-        audienceOverride: {},
-      });
-      mockedItem.mockReturnValue({ ...item, affiliation: [AFFILIATIONS.employee], locations: ['Corvallis'] });
-      expect(hasAudience(mockedUser(), mockedItem())).toBeTruthy();
-    });
-    it('returns false when the item has an audiences specified ', async () => {
-      mockedUser.mockReturnValue({
-        ...user.data,
-        classification: { attributes: undefined },
-        primaryAffiliation: AFFILIATIONS.employee,
-        primaryAffiliationOverride: undefined,
-        audienceOverride: {},
-      });
-      mockedItem.mockReturnValue({
-        ...item,
-        affiliation: [AFFILIATIONS.employee, AFFILIATIONS.student],
-        locations: ['Corvallis', 'Bend', 'Ecampus'],
-        audiences: [CLASSIFICATION_AUDIENCES.graduate],
-      });
-      expect(hasAudience(mockedUser(), mockedItem())).toBeFalsy();
-    });
-    it('returns true when the item has an audiences specified and the user as an audience override matching ', async () => {
-      mockedUser.mockReturnValue({
-        ...user.data,
-        classification: { attributes: undefined },
-        primaryAffiliation: AFFILIATIONS.employee,
-        primaryAffiliationOverride: undefined,
-        audienceOverride: { graduate: true },
-      });
-      mockedItem.mockReturnValue({
-        ...item,
-        affiliation: [AFFILIATIONS.employee, AFFILIATIONS.student],
-        locations: ['Corvallis', 'Bend', 'Ecampus'],
         audiences: [CLASSIFICATION_AUDIENCES.graduate],
       });
       expect(hasAudience(mockedUser(), mockedItem())).toBeTruthy();

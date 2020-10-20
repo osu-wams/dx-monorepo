@@ -71,12 +71,19 @@ const hasPrimaryAffiliation = (user: User, affiliations: string[]): boolean => {
 };
 
 /**
- * Returns a boolean based on if the user is an employee only
- * Only students (including student employees) have classification attributes.
+ * Returns a boolean based on if the user is a student (has "student" affiliation in array)
+ * @param user
+ */
+const isStudent = (user: User): boolean => {
+  return user.affiliations.some(a => a === AFFILIATIONS.student);
+};
+
+/**
+ * Returns a boolean based on if the user is an employee only (doesn't have student in the affiliations array)
  * @param user
  */
 const isEmployeeOnly = (user: User): boolean => {
-  return user.classification?.attributes === undefined;
+  return !user.affiliations.some(a => a === AFFILIATIONS.student);
 };
 
 /**
@@ -117,7 +124,7 @@ const settingIsDefault = (
   currentValue: string,
   defaultValue: string,
 ): boolean => {
-  if (user && user.classification) {
+  if (user && user.classification && isStudent(user)) {
     const {
       classification: { attributes },
     } = user;
@@ -142,7 +149,7 @@ const settingIsOverridden = (
   currentValue: boolean | undefined,
   defaultValue: boolean,
 ): boolean => {
-  if (user) {
+  if (user && isStudent(user)) {
     switch (propertyName) {
       case 'international':
         if (currentValue === undefined) {
@@ -226,15 +233,14 @@ const hasAudience = (
   // The user affiliation was found but not the campus, don't show this
   if (!hasValue(locations, campusName)) return false;
 
-  // The user affiliation and campus were found, audiences empty is treated as reason to show all
-  if (audiences?.length === 0) return true;
-
   const usersAudiences: string[] = [];
 
   // This is an employee (no user.classification.attributes), using the Student Dashboard (usersAffiliation is finding
   // the affiliationOverride set), and they have no audienceOverrides set in thier profile, then default to returning
   // true if the item is an undergrad audience.. Undergrad is considered the default audience.
   if (isEmployeeOnly(user) && usersAffiliation === AFFILIATIONS.student) {
+    // Audience override is only empty if user has never changed any data. Once they have changed it,
+    // they'll have data even if they've reset it to their defaults and have no overrides
     if (Object.keys(user.audienceOverride).length === 0) {
       return item.audiences.some(a => CLASSIFICATION_AUDIENCES.undergraduate.toLowerCase() === a.toLowerCase());
     }
@@ -242,14 +248,16 @@ const hasAudience = (
     if (!user?.audienceOverride?.graduate) usersAudiences.push(CLASSIFICATION_AUDIENCES.undergraduate.toLowerCase());
   }
 
-  // This is an employee (no user.classification.attributes), using the Employee Dashboard,
-  // and they have no audienceOverrides set in thier profile so this item is not visible to them.
-  if (isEmployeeOnly(user) && Object.keys(user.audienceOverride).length === 0) {
-    return false;
+  // Employee in the employee dashboard
+  if (isEmployeeOnly(user) && usersAffiliation === AFFILIATIONS.employee) {
+    return item.affiliation.some(a => AFFILIATIONS.employee.toLowerCase() === a.toLowerCase());
   }
 
-  // An employee with an audienceOverride setting, or a student will have thier classifications (and overrides)
-  // evaluated to determine if the item has a matching audience set.
+  // The user affiliation and campus were found, audiences empty is treated as reason to show all
+  if (audiences?.length === 0) return true;
+
+  // Only students including student employees should reach this block...
+  // Graduates cannot be firstYear or undergraduate students but can be international
   if (isGraduate(user)) {
     usersAudiences.push(CLASSIFICATION_AUDIENCES.graduate.toLowerCase());
   } else {

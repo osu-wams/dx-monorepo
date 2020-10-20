@@ -77,7 +77,7 @@ const userMessageItems: UserMessageItems = {
   lastKey: undefined,
 };
 
-export const userReadMessage = {
+const userReadMessage: UserMessageItems = {
   items: [
     {
       ...userMessage,
@@ -87,10 +87,11 @@ export const userReadMessage = {
   lastKey: undefined,
 };
 
-export const userThreeMessages = {
+const userThreeMessages: UserMessageItems = {
   items: [
     userMessage,
     {
+      id: 'bobross2',
       channelId: 'dashboard',
       content: 'second message body content',
       contentShort: '2contentShort',
@@ -103,6 +104,7 @@ export const userThreeMessages = {
       title: 'Second Message Title',
     },
     {
+      id: 'bobross3',
       channelId: 'dashboard',
       content: 'third message content',
       contentShort: '3contentShort',
@@ -130,6 +132,7 @@ const user: UserState = {
     isCanvasOptIn: true,
     theme: 'light',
     primaryAffiliation: AFFILIATIONS.student,
+    primaryAffiliationOverride: undefined,
     classification: userClassification,
     audienceOverride: {},
     favoriteResources: userFavoriteResources,
