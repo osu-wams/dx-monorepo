@@ -12,6 +12,12 @@ const isFirstYear = (user: User, includesOverride = true): boolean => {
     return user.audienceOverride.firstYear;
   }
 
+  // Employees that were once students have classification data. We don't want to take that into account
+  // since they are no longer students.
+  if (isEmployeeOnly(user)) {
+    return false;
+  }
+
   const userClassification = user?.classification?.attributes?.classification?.toLowerCase();
   return userClassification !== undefined && CLASSIFICATIONS.firstYear.includes(userClassification);
 };
@@ -27,6 +33,12 @@ const isInternational = (user: User, includesOverride = true): boolean => {
     return user.audienceOverride.international;
   }
 
+  // Employees that were once students have classification data. We don't want to take that into account
+  // since they are no longer students.
+  if (isEmployeeOnly(user)) {
+    return false;
+  }
+
   return user.classification?.attributes !== undefined && user.classification.attributes.isInternational;
 };
 
@@ -39,6 +51,12 @@ const isInternational = (user: User, includesOverride = true): boolean => {
 const isGraduate = (user: User, includesOverride = true): boolean => {
   if (user.audienceOverride?.graduate !== undefined && includesOverride) {
     return user.audienceOverride.graduate;
+  }
+
+  // Employees that were once students have classification data. We don't want to take that into account
+  // since they are no longer students.
+  if (isEmployeeOnly(user)) {
+    return false;
   }
 
   const userLevelCode = user.classification?.attributes?.levelCode?.toLowerCase();
