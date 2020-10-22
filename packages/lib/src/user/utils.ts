@@ -127,6 +127,7 @@ const usersSettings = (user: User): UserSettings => ({
     graduate: isGraduate(user),
   },
   primaryAffiliationOverride: user.primaryAffiliationOverride,
+  devTools: user.devTools,
 });
 
 /**

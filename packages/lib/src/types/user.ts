@@ -131,4 +131,5 @@ export interface UserSettings {
   audienceOverride?: UserAudienceOverride;
   primaryAffiliationOverride?: string;
   theme?: string;
+  devTools?: boolean;
 }
