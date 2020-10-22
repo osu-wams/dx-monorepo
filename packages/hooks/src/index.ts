@@ -25,6 +25,8 @@ import * as ReleaseNotes from './api/releaseNotes';
 import { useReleaseNotes } from './api/releaseNotes';
 import * as Resources from './api/resources';
 import { useResources, useCategories, useResourcesByQueue, useTrendingResources } from './api/resources';
+import * as Cards from './api/cards';
+import { useCards } from './api/cards';
 import * as Status from './api/status';
 import { useStatus } from './api/status';
 import * as Student from './api/student';
@@ -48,6 +50,7 @@ export {
   Announcements,
   AppVersions,
   Alerts,
+  Cards,
   Classification,
   Errors,
   Events,
@@ -61,6 +64,7 @@ export {
   Student,
   Trainings,
   User,
+  useCards,
   useDegrees,
   useAcademicCalendarEvents,
   useAcademicStatus,

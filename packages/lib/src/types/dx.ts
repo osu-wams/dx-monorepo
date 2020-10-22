@@ -1,3 +1,20 @@
+export interface DynamicCard {
+  affiliation: string[];
+  audiences?: string[];
+  body?: string;
+  icon?: string;
+  id: string;
+  infoButtonId: string;
+  link?: string;
+  linkText?: string;
+  locations: string[];
+  pages: string[];
+  resources?: string[];
+  sticky: boolean;
+  title: string;
+  weight: number;
+}
+
 export interface Training {
   audiences: string[];
   id: string;
