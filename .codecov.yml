@@ -2,6 +2,9 @@ coverage:
   status:
     project:
       default: off
+      components:
+        paths: 'packages/components/'
+        flags: components
       hooks:
         paths: 'packages/hooks/'
         flags: hooks
@@ -15,6 +18,9 @@ coverage:
       default: off
 
 flags:
+  components:
+    paths:
+      - packages/components/
   hooks:
     paths:
       - packages/hooks/
