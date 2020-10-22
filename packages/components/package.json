@@ -11,7 +11,9 @@
     "build": "tsdx build",
     "test": "tsdx test",
     "lint": "tsdx lint",
-    "prepare": "tsdx build"
+    "prepare": "tsdx build",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "peerDependencies": {
     "react": "^16.13.1",
@@ -32,11 +34,18 @@
     "directory": "packages/components"
   },
   "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@storybook/addon-actions": "^6.0.26",
+    "@storybook/addon-essentials": "^6.0.26",
+    "@storybook/addon-links": "^6.0.26",
+    "@storybook/react": "^6.0.26",
     "@types/jest": "^24.9.0",
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.4",
+    "babel-loader": "^8.1.0",
     "husky": "^4.0.10",
+    "react-is": "^16.13.1",
     "tsdx": "^0.14.0",
     "tslib": "^1.10.0",
     "typescript": "^3.7.5"
