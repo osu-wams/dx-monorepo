@@ -45,8 +45,10 @@ import * as User from './api/user';
 import { useMessages, useUser } from './api/user';
 import * as Trainings from './api/trainings';
 import { useTrainings, useTrainingTags } from './api/trainings';
+import * as Admin from './api/admin';
 
 export {
+  Admin,
   Announcements,
   AppVersions,
   Alerts,
