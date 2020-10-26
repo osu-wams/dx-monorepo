@@ -1,3 +1,5 @@
+import { Resource } from './user';
+
 export interface DynamicCard {
   affiliation: string[];
   audiences?: string[];
@@ -9,7 +11,7 @@ export interface DynamicCard {
   linkText?: string;
   locations: string[];
   pages: string[];
-  resources?: string[];
+  resources?: (string | Resource)[];
   sticky: boolean;
   title: string;
   weight: number;
