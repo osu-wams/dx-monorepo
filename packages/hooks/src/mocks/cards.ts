@@ -1,6 +1,9 @@
 import { Types, User } from '@osu-wams/lib';
 const { AFFILIATIONS, CLASSIFICATION_AUDIENCES } = User;
 
+/**
+ * Note: resources: ['id', id2'] need to match ids existing in mocks/resources.ts
+ */
 const cardsArray: Types.DynamicCard[] = [
   {
     affiliation: [AFFILIATIONS.employee, AFFILIATIONS.student],
@@ -16,7 +19,7 @@ const cardsArray: Types.DynamicCard[] = [
     icon: 'fad fa-starship',
     link: 'http://oregonstate.edu',
     linkText: 'Oregon State University',
-    resources: ['resource-id-1', 'resource-id-2'],
+    resources: ['1', '2'],
   },
   {
     affiliation: [AFFILIATIONS.student],
@@ -32,7 +35,7 @@ const cardsArray: Types.DynamicCard[] = [
     icon: 'fad fa-starship',
     link: 'http://oregonstate.edu',
     linkText: 'Oregon State University',
-    resources: ['resource-id-1', 'resource-id-2'],
+    resources: ['1', '2'],
   },
   {
     affiliation: [AFFILIATIONS.student],
@@ -48,7 +51,7 @@ const cardsArray: Types.DynamicCard[] = [
     icon: 'fad fa-starship',
     link: 'http://oregonstate.edu',
     linkText: 'Oregon State University',
-    resources: ['resource-id-1', 'resource-id-2'],
+    resources: ['1', '2', '3'],
   },
   {
     affiliation: [AFFILIATIONS.student],
@@ -64,7 +67,7 @@ const cardsArray: Types.DynamicCard[] = [
     icon: 'fad fa-starship',
     link: 'http://oregonstate.edu',
     linkText: 'Oregon State University',
-    resources: ['resource-id-1', 'resource-id-2'],
+    resources: ['2', '4'],
   },
   {
     affiliation: [AFFILIATIONS.employee],
@@ -80,7 +83,7 @@ const cardsArray: Types.DynamicCard[] = [
     icon: 'fad fa-starship',
     link: 'http://oregonstate.edu',
     linkText: 'Oregon State University',
-    resources: ['resource-id-1', 'resource-id-2'],
+    resources: ['1', '2'],
   },
 ];
 
