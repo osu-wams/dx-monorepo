@@ -50,7 +50,7 @@ export interface PlannerItem {
   context_type: string;
   course_id: number;
   plannable_id: number;
-  planner_override: null;
+  planner_override?: PlannerItemOverride;
   plannable_type: string;
   new_activity: boolean;
   submissions?: PlannerItemSubmissions;
@@ -59,6 +59,20 @@ export interface PlannerItem {
   html_url?: string;
   context_name: string;
   context_image?: undefined;
+}
+
+interface PlannerItemOverride {
+  id: number; // Id of the planner override
+  plannable_type: string; // Type of associated object for the planner override
+  plannable_id: number; // Id of the object for the planner override
+  user_id: number; // Id of the user for the planner override
+  assignment_id?: number; // Id of the plannable's associated assignment, if it has one
+  workflow_state?: string; // Current published state of the item, synced with associated object
+  marked_complete: boolean; // Controls whether or not the associated plannable item is marked complete in the planner
+  dismissed: boolean; // Controls whether or not the associated plannable item shows up in the opportunties list
+  created_at: string; // The datetime of when the planner override was created
+  updated_at?: string; // The datetime of when the planner override was updated
+  deleted_at?: string; // The datetime of when the planner override was deleted, if applicable
 }
 
 interface PlannerItemSubmissions {
