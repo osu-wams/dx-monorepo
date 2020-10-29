@@ -31,6 +31,14 @@ export interface Degree {
     third: string | null;
     fourth: string | null;
   };
+  dualDegree?: {
+    degree?: string;
+    level?: string;
+    college?: string;
+    major?: string;
+    programClassification?: string;
+  };
+  honorsInd?: boolean;
 }
 
 interface DegreeMajors {
