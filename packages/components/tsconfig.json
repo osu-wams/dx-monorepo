@@ -4,7 +4,10 @@
   "compilerOptions": {
     "rootDir": "./src",
     "baseUrl": ".",
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "paths": {
+      "src": ["src"]
+    }
   },
   "references": [{ "path": "../lib" }, { "path": "../utils" }]
 }
