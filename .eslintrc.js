@@ -1,6 +1,6 @@
 module.exports = {
   parser: 'babel-eslint',
-  plugins: ['react', 'prettier', 'jsx-a11y', 'import'],
+  plugins: ['react', 'prettier', 'jsx-a11y', 'import', 'babel'],
   extends: ['xo', 'xo-react', 'react-app', 'prettier', 'prettier/react'],
   globals: {
     expect: true,
