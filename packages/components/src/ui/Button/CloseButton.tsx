@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import Button from './Button';
+import { Button } from 'src/ui/Button';
 import Icon from 'src/ui/Icon';
 import { faTimes } from '@fortawesome/pro-light-svg-icons';
 import VisuallyHidden from '@reach/visually-hidden';

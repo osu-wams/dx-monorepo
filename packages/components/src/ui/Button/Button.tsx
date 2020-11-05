@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import { borderRadius, fontSize, spacing } from 'src/theme';
 
-type IBtnSizes = 'small' | 'large';
+type IBtnSizes = 'small' | 'normal' | 'large';
 
 type BtnProps = {
   bg?: string;
@@ -10,24 +10,7 @@ type BtnProps = {
   btnSize?: IBtnSizes;
 };
 
-const Button = styled.button<BtnProps & React.HTMLProps<HTMLButtonElement>>(
-  ({ theme, fg, bg }) => ({
-    backgroundColor: bg ?? theme.ui.button.background,
-    color: fg ?? theme.ui.button.color,
-    border: 'none',
-    borderRadius: borderRadius[4],
-    cursor: 'pointer',
-    '& + &': {
-      marginLeft: spacing.medium,
-    },
-    '&:disabled': {
-      cursor: 'not-allowed',
-    },
-  }),
-  ({ btnSize = 'normal' }) => btnVariants[btnSize]
-);
-
-const btnVariants = {
+const btnVariants: { [key: string]: { padding: string; fontSize?: string } } = {
   normal: {
     padding: '.6rem 1.4rem',
   },
@@ -41,9 +24,19 @@ const btnVariants = {
   },
 };
 
-const ButtonLink = styled(Button).attrs({ as: 'a' })`
-  text-decoration: none;
-`;
-
-export default Button;
-export { ButtonLink };
+export default styled.button<BtnProps & React.HTMLProps<HTMLButtonElement>>(
+  ({ theme, fg, bg }) => ({
+    backgroundColor: bg ?? theme.ui.button.background,
+    color: fg ?? theme.ui.button.color,
+    border: 'none',
+    borderRadius: borderRadius[4],
+    cursor: 'pointer',
+    '& + &': {
+      marginLeft: spacing.medium,
+    },
+    '&:disabled': {
+      cursor: 'not-allowed',
+    },
+  }),
+  ({ btnSize = 'normal' }) => btnVariants[btnSize],
+);
