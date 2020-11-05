@@ -1,8 +1,21 @@
-export default {
-  data: [
-    {
-      title: 'Beta Page Title',
-      content: `<p>This is the beta release of an all-new student portal, intended to (eventually!)</p><ul><li>beta list item</li></ul><p>This is a <a href="https://orst.edu">beta link</a></p>`,
-    },
-  ],
+const pageContentData = [
+  {
+    title: 'PageContent Title',
+    content: `<p>This is the PageContent body content <a href="https://orst.edu">beta link</a></p>`,
+  },
+];
+
+const pageContentHookData = {
+  data: pageContentData,
+  status: 'success',
+  isLoading: false,
+  isError: false,
+  isSuccess: true,
+  isIdle: false,
+  error: null,
+  isFetching: false,
+  failureCount: 0,
+  refetch: () => {},
 };
+
+export default { pageContentData, pageContentHookData };
