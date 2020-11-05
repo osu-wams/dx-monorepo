@@ -25,6 +25,9 @@
     "@fortawesome/pro-light-svg-icons": "^5.15.1",
     "@fortawesome/pro-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.12",
+    "@reach/dialog": "^0.11.2",
+    "@reach/visually-hidden": "^0.11.1",
+    "recoil": "^0.1.2",
     "styled-components": "^5.2.1"
   },
   "husky": {
