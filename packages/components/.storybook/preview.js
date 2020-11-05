@@ -1,4 +1,6 @@
 import React from 'react';
+import { RecoilRoot } from 'recoil';
+import { GlobalStyles } from '../src/theme';
 import { light } from '../src/theme/themes';
 import { ThemeProvider } from 'styled-components';
 
@@ -9,7 +11,10 @@ export const parameters = {
 export const decorators = [
   Story => (
     <ThemeProvider theme={light}>
-      <Story />
+      <GlobalStyles />
+      <RecoilRoot>
+        <Story />
+      </RecoilRoot>
     </ThemeProvider>
   ),
 ];
