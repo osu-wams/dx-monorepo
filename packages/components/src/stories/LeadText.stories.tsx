@@ -1,6 +1,6 @@
 import React, { ComponentProps } from 'react';
 import { Story } from '@storybook/react/types-6-0';
-import LeadText from '../ui/LeadText';
+import LeadText from 'src/ui/LeadText';
 
 export default {
   title: 'LeadText',

@@ -1,6 +1,6 @@
 import React, { ComponentProps } from 'react';
 import { Story } from '@storybook/react/types-6-0';
-import Description from '../ui/Description';
+import Description from 'src/ui/Description';
 
 export default {
   title: 'Description',
