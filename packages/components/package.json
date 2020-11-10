@@ -44,6 +44,7 @@
     "directory": "packages/components"
   },
   "devDependencies": {
+    "@applitools/eyes-storybook": "^3.10.1",
     "@babel/core": "^7.12.3",
     "@storybook/addon-actions": "^6.0.26",
     "@storybook/addon-essentials": "^6.0.26",
