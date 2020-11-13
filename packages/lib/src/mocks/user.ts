@@ -136,6 +136,7 @@ const user: UserState = {
     classification: userClassification,
     audienceOverride: {},
     favoriteResources: userFavoriteResources,
+    isMobile: false,
   },
   loading: false,
   error: false,

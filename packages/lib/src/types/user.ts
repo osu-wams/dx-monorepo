@@ -63,6 +63,13 @@ export interface UserClassification {
   id?: string;
 }
 
+export interface UserAudienceOverride {
+  campusCode?: string;
+  firstYear?: boolean;
+  graduate?: boolean;
+  international?: boolean;
+}
+
 export interface User {
   osuId?: string;
   firstName?: string;
@@ -79,6 +86,7 @@ export interface User {
   primaryAffiliation: string;
   primaryAffiliationOverride?: string;
   favoriteResources?: FavoriteResource[];
+  isMobile?: boolean; // If the session for this user was initiated through the mobile app
 }
 
 export interface UserState {
@@ -90,18 +98,6 @@ export interface UserState {
   refreshFavorites?: Function;
 }
 
-export interface UserAudienceOverride {
-  campusCode?: string;
-  firstYear?: boolean;
-  graduate?: boolean;
-  international?: boolean;
-}
-
-export interface UserMessagesState {
-  data: UserMessage[];
-  isLoading: boolean;
-  isSuccess: boolean;
-}
 export interface UserMessage {
   channelId: string;
   content: string;
@@ -115,6 +111,12 @@ export interface UserMessage {
   sendAt: string;
   status: string;
   title: string;
+}
+
+export interface UserMessagesState {
+  data: UserMessage[];
+  isLoading: boolean;
+  isSuccess: boolean;
 }
 
 export interface UserMessageItems {
