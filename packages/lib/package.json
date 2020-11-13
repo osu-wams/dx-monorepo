@@ -1,7 +1,7 @@
 {
   "name": "@osu-wams/lib",
   "author": "Josh Gum <revgum@gmail.com>",
-  "version": "0.1.52",
+  "version": "0.1.53",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
