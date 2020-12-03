@@ -37,6 +37,11 @@ export interface Training {
   websiteTitle?: string;
 }
 
+export interface TrainingAudience {
+  id: string;
+  name: string;
+}
+
 export interface TrainingTag {
   id: string;
   name: string;
