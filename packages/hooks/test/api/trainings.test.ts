@@ -4,9 +4,12 @@ import { renderHook } from '@testing-library/react-hooks';
 import {
   useTrainings,
   getTrainings,
+  getTrainingAudiences,
+  useTrainingAudiences,
   getTrainingTags,
   useTrainingTags,
   mockTrainings,
+  mockTrainingAudiences,
   mockTrainingTags,
 } from '../../src/api/trainings';
 import { queryCache } from 'react-query';
@@ -73,6 +76,37 @@ describe('useTrainingTags', () => {
   it('handles an error', async () => {
     mock.onGet('/api/trainings/tags').replyOnce(500, '');
     const { result, waitForNextUpdate } = renderHook(() => useTrainingTags());
+    expect(result.current.isLoading).toBeTruthy();
+    expect(result.current.isError).toBeFalsy();
+    await waitForNextUpdate();
+    expect(result.current.failureCount).toBe(1);
+  });
+});
+
+describe('getTrainingAudiences', () => {
+  it('gets training audiences on successful returns', async () => {
+    mock.onGet('/api/trainings/audiences').replyOnce(200, mockTrainingAudiences.data);
+    const result = await getTrainingAudiences();
+    expect(result).toEqual(mockTrainingAudiences.data);
+  });
+  it('handles api error', async () => {
+    mock.onGet('/api/trainings/audiences').replyOnce(500);
+    await getTrainingAudiences().catch(err => expect(err.message).toEqual('Request failed with status code 500'));
+  });
+});
+
+describe('useTrainingAudiences', () => {
+  it('performs the call', async () => {
+    mock.onGet('/api/trainings/audiences').replyOnce(200, mockTrainingAudiences.data);
+    const { result, waitForNextUpdate } = renderHook(() => useTrainingAudiences());
+    expect(result.current.isLoading).toBeTruthy();
+    await waitForNextUpdate();
+    expect(result.current.isLoading).toBeFalsy();
+  });
+
+  it('handles an error', async () => {
+    mock.onGet('/api/trainings/audiences').replyOnce(500, '');
+    const { result, waitForNextUpdate } = renderHook(() => useTrainingAudiences());
     expect(result.current.isLoading).toBeTruthy();
     expect(result.current.isError).toBeFalsy();
     await waitForNextUpdate();
