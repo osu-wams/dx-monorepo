@@ -71,6 +71,28 @@ const trainings = {
   ],
 };
 
+const trainingAudiences = {
+  status: 'success',
+  isIdle: false,
+  isLoading: false,
+  isSuccess: true,
+  isError: false,
+  error: null,
+  isFetching: false,
+  failureCount: 0,
+  refetch: () => {},
+  data: [
+    {
+      id: '6b82e748-8253-42cc-92d1-34b89f2e5xxx',
+      name: 'Student',
+    },
+    {
+      id: '8253-42cc-92d1-34b89f2e5af9-6b82eyyy',
+      name: 'Classified Staff',
+    },
+  ],
+};
+
 const trainingTags = {
   status: 'success',
   isIdle: false,
@@ -95,5 +117,6 @@ const trainingTags = {
 
 export default {
   trainings,
+  trainingAudiences,
   trainingTags,
 };

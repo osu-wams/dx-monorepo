@@ -30,4 +30,4 @@ export {
 } from './student';
 export { Address, AddressesResponse, MealPlan, MealPlansResponse, PersonsAttributes, PersonsResponse } from './person';
 export { AcademicEvent, LocalistEvent } from './localist';
-export { DynamicCard, Training, TrainingTag } from './dx';
+export { DynamicCard, Training, TrainingAudience, TrainingTag } from './dx';
