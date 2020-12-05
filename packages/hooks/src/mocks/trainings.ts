@@ -10,7 +10,7 @@ const trainings = {
   refetch: () => {},
   data: [
     {
-      audiences: ['Academic Faculty', 'Professional Faculty', 'Staff', 'Students'],
+      audiences: ['Academic Faculty', 'Professional Faculty', 'Student'],
       id: '71560c56-dabb-48e1-a663-64da7a7bb6e8',
       title: 'Play nice with others',
       image: 'https://data-stage.dx.oregonstate.edu/sites/default/files/2019-11/WellnessNook.jpg',
@@ -30,7 +30,7 @@ const trainings = {
       websiteTitle: '',
     },
     {
-      audiences: ['Academic Faculty', 'Professional Faculty', 'Staff', 'Students'],
+      audiences: ['Academic Faculty', 'Professional Faculty', 'Classified Staff'],
       id: '71560c56-dabb-48e1-a663-64da7a7bb6e82',
       title: 'Testo Training',
       image: '',
@@ -50,7 +50,7 @@ const trainings = {
       websiteTitle: '',
     },
     {
-      audiences: ['Academic Faculty', 'Professional Faculty', 'Staff', 'Students'],
+      audiences: ['Academic Faculty', 'Professional Faculty', 'Classified Staff'],
       id: '71560c56-dabb-48e1-a663-64da7a7bb6e83',
       title: 'Super Testo 2',
       image: 'https://data-stage.dx.oregonstate.edu/sites/default/files/2019-11/WellnessNook.jpg',
