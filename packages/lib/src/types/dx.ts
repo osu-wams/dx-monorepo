@@ -26,7 +26,7 @@ export interface Training {
   cost?: boolean;
   body?: string;
   department?: string;
-  duration?: string;
+  courseLength?: string;
   featured?: boolean;
   frequency?: string;
   prerequisites?: string;
