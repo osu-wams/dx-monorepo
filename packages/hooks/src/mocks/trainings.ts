@@ -19,7 +19,7 @@ const trainings = {
       body:
         "<p>In this basic course, you'll learn how to play nice with others. Activities include sharing toys, using your words, and being patient.</p>",
       department: 'Daycare',
-      duration: '1hr',
+      courseLength: 'Full day',
       featured: true,
       frequency: 'Daily',
       prerequisites: 'None',
@@ -39,7 +39,7 @@ const trainings = {
       body:
         "<p>Training Body, you'll learn how to play nice with others. Activities include sharing toys, using your words, and being patient.</p>",
       department: 'Daycare',
-      duration: '1hr',
+      courseLength: 'Half a day',
       featured: true,
       frequency: 'Daily',
       prerequisites: 'None',
@@ -58,7 +58,7 @@ const trainings = {
       cost: true,
       body: "<p>Super Body, you'll learn how to play nice with others.</p>",
       department: 'Daycare',
-      duration: '1hr',
+      courseLength: 'Multiple days',
       featured: false,
       frequency: 'Daily',
       prerequisites: 'None',
