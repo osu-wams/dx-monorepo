@@ -46,6 +46,7 @@ import { useMessages, useUser } from './api/user';
 import * as Trainings from './api/trainings';
 import { useTrainings, useTrainingAudiences, useTrainingTags } from './api/trainings';
 import * as Admin from './api/admin';
+import * as Constants from './constants';
 
 export {
   Admin,
@@ -54,6 +55,7 @@ export {
   Alerts,
   Cards,
   Classification,
+  Constants,
   Errors,
   Events,
   InfoButtons,
