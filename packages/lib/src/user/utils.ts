@@ -284,16 +284,20 @@ const hasAudience = (
 
   // Students, student employees, and employees who are looking at the student dashboard should
   // evaluate if they are or have profile overrides indicating they are one of the following classifications.
-  // Graduates cannot be firstYear or undergraduate students but can be international
-  if (isGraduate(user)) {
-    usersAudiences.push(CLASSIFICATION_AUDIENCES.graduate.toLowerCase());
-  } else {
-    if (isUndergraduate(user)) usersAudiences.push(CLASSIFICATION_AUDIENCES.undergraduate.toLowerCase());
+  // Graduates cannot be firstYear or undergraduate students but can be international.
+  //
+  // Anyone who is on the employee dashboard won't get the student filters.
+  if (usersAffiliation === AFFILIATIONS.student) {
+    if (isGraduate(user)) {
+      usersAudiences.push(CLASSIFICATION_AUDIENCES.graduate.toLowerCase());
+    } else {
+      if (isUndergraduate(user)) usersAudiences.push(CLASSIFICATION_AUDIENCES.undergraduate.toLowerCase());
 
-    if (isFirstYear(user)) usersAudiences.push(CLASSIFICATION_AUDIENCES.firstYear.toLowerCase());
+      if (isFirstYear(user)) usersAudiences.push(CLASSIFICATION_AUDIENCES.firstYear.toLowerCase());
+    }
+
+    if (isInternational(user)) usersAudiences.push(CLASSIFICATION_AUDIENCES.international.toLowerCase());
   }
-
-  if (isInternational(user)) usersAudiences.push(CLASSIFICATION_AUDIENCES.international.toLowerCase());
 
   // The item has been evaluated to be visible for this users affiliation and campus, and the item
   // has audience specified. Return whether or not one of the users audiences are specified in the item
