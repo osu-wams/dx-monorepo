@@ -145,6 +145,15 @@ const user: UserState = {
   refreshFavorites: () => {},
 };
 
+const graduateClassification = {
+  attributes: {
+    campusCode: CAMPUS_CODES.corvallis[0],
+    isInternational: true,
+    levelCode: LEVEL_CODE.graduate,
+    classification: SUBCLASSIFICATION.determine,
+  },
+};
+
 // Employee: No classification, no canvas
 const userEmployee: UserState = {
   ...user,
@@ -163,6 +172,18 @@ const userStudentEmployee: UserState = {
   data: {
     ...user.data,
     affiliations: [AFFILIATIONS.student, AFFILIATIONS.employee],
+  },
+};
+
+// Student Employee who is also a graduate student
+const userGraduateStudentEmployee: UserState = {
+  ...userStudentEmployee,
+  data: {
+    ...userStudentEmployee.data,
+    classification: {
+      ...userStudentEmployee.data.classification,
+      ...graduateClassification,
+    },
   },
 };
 
@@ -188,12 +209,7 @@ const userGraduate: UserState = {
     ...user.data,
     classification: {
       ...user.data.classification,
-      attributes: {
-        campusCode: CAMPUS_CODES.corvallis[0],
-        isInternational: true,
-        levelCode: LEVEL_CODE.graduate,
-        classification: SUBCLASSIFICATION.determine,
-      },
+      ...graduateClassification,
     },
   },
 };
@@ -204,6 +220,7 @@ export default {
   userAdmin,
   userUndergrad,
   userGraduate,
+  userGraduateStudentEmployee,
   userStudentEmployee,
   userAudienceOverride,
   userFavoriteResources,
