@@ -292,16 +292,17 @@ const hasAudience = (
   if (!hasAffiliation(user, item)) return false;
   if (!hasLocation(user, item)) return false;
 
-  // The user affiliation and campus were found, audiences empty is treated as reason to show all and should
-  // skip any further evaluation.
+  // Items with no audiences specified is treated as a "show to everyone", so return true early
   if (audiences?.length === 0) return true;
 
+  // Depending on which dashboard the user is viewing, collect the user audiences we expect to
+  // filter and display to them.
   const usersAudiences: string[] = [];
 
   // STUDENT DASHBOARD LOGIC ---------------
   if (inDashboard(user, student)) {
-    // This is an employee (no user.classification.attributes), using the Student Dashboard (usersAffiliation is finding
-    // the affiliationOverride set). Ensure that a default audience of undergraduate exists unless they have an
+    // This is an employee (no user.classification.attributes), using the Student Dashboard.
+    // Ensure that a default audience of undergraduate exists unless they have an
     // audience override specifying to see graduate student items.
     if (isEmployeeOnly(user) && (Object.keys(user.audienceOverride).length === 0 || !isGraduate(user))) {
       // Audience override is only empty if user has never changed any data. Once they have changed it,
@@ -324,7 +325,8 @@ const hasAudience = (
 
   // EMPLOYEE DASHBOARD LOGIC ---------------
   if (inDashboard(user, employee)) {
-    // Employee in the employee dashboard
+    // Return early for users who are not students, match any item which has the employee
+    // affiliation
     if (isEmployeeOnly(user)) {
       return affiliation.some(a => employee.toLowerCase() === a.toLowerCase());
     }
@@ -336,8 +338,8 @@ const hasAudience = (
     }
   }
 
-  // The item has been evaluated to be visible for this users affiliation and campus, and the item
-  // has audience specified. Return whether or not one of the users audiences are specified in the item
+  // Check the items audiences and return if there are any matches that were set in the logic
+  // exercised above, insuring case-insensitive matching.
   const foundAudiences = usersAudiences.map(a => a.toLowerCase());
   return audiences.map(a => a.toLowerCase()).some(a => foundAudiences.includes(a));
 };
