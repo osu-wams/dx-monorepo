@@ -103,11 +103,28 @@ const isStudent = (user: User): boolean => {
 };
 
 /**
+ * Returns a boolean based on if the user is an employee (has "employee" affiliation in array)
+ * @param user
+ */
+const isEmployee = (user: User): boolean => {
+  return user.affiliations.some(a => a === AFFILIATIONS.employee);
+};
+
+/**
  * Returns a boolean based on if the user is an employee only (doesn't have student in the affiliations array)
  * @param user
  */
 const isEmployeeOnly = (user: User): boolean => {
-  return !user.affiliations.some(a => a === AFFILIATIONS.student);
+  return isEmployee(user) && !isStudent(user);
+};
+
+/**
+ * Returns if the users affiliationOverride (or affiliation) is set to match the provided dashboard name
+ * @param user the user
+ * @param dashboard the dashboard (student | employee)
+ */
+const inDashboard = (user: User, dashboard: string): boolean => {
+  return getAffiliation(user) === dashboard;
 };
 
 /**
@@ -226,6 +243,32 @@ const usersCampus = (user: User): { campusName: string | undefined; campusCode: 
 };
 
 /**
+ * Find the users campus and detect if the supplied item has a matching location for the campus name found.
+ * @param user the user to inspect
+ * @param item an item with locations
+ */
+const hasLocation = (user: User, item: { locations: string[] }): boolean => {
+  const { campusName, campusCode } = usersCampus(user);
+  if (!campusName) {
+    console.error(
+      `Expected campus code ${campusCode} not found in configuration, this is an unexpected circumstance that needs to be repaired.`,
+    );
+    return false;
+  }
+
+  return hasValue(item.locations, campusName);
+};
+
+/**
+ * Determine if the provided item.affiliation includes the users affiliation
+ * @param user the user to inspect
+ * @param item an item with affiliation
+ */
+const hasAffiliation = (user: User, item: { affiliation: string[] }): boolean => {
+  return hasValue(item.affiliation, getAffiliation(user));
+};
+
+/**
  * Detect if the item provided is intended to be visible by the User. The logic is as follows;
  *  - The user affiliation (Employee or Student) _must_ match the user, or the item is not visible.
  *  - The users campus (Corvallis, Bend, Ecampus) _must_ match the user, or the item is not visible.
@@ -242,66 +285,61 @@ const hasAudience = (
   item: { audiences: string[]; locations: string[]; affiliation: string[] },
 ): boolean => {
   // The users affiliation wasn't found, don't show this item
-  const { audiences, locations, affiliation } = item;
-  const usersAffiliation = getAffiliation(user);
-  if (!hasValue(affiliation, usersAffiliation)) return false;
+  const { audiences, affiliation } = item;
+  const { undergraduate, international, graduate, firstYear } = CLASSIFICATION_AUDIENCES;
+  const { employee, student } = AFFILIATIONS;
 
-  // The user affiliation was found but the campus can't be detected, this is a data problem!
-  const { campusName, campusCode } = usersCampus(user);
-  if (!campusName) {
-    console.error(
-      `Expected campus code ${campusCode} not found in configuration, this is an unexpected circumstance that needs to be repaired.`,
-    );
-    return false;
-  }
-
-  // The user affiliation was found but not the campus, don't show this
-  if (!hasValue(locations, campusName)) return false;
+  if (!hasAffiliation(user, item)) return false;
+  if (!hasLocation(user, item)) return false;
 
   // The user affiliation and campus were found, audiences empty is treated as reason to show all and should
   // skip any further evaluation.
   if (audiences?.length === 0) return true;
 
-  // Employee in the employee dashboard
-  if (isEmployeeOnly(user) && usersAffiliation === AFFILIATIONS.employee) {
-    return affiliation.some(a => AFFILIATIONS.employee.toLowerCase() === a.toLowerCase());
-  }
-
   const usersAudiences: string[] = [];
 
-  // This is an employee (no user.classification.attributes), using the Student Dashboard (usersAffiliation is finding
-  // the affiliationOverride set). Ensure that a default audience of undergraduate exists unless they have an
-  // audience override specifying to see graduate student items.
-  if (
-    isEmployeeOnly(user) &&
-    usersAffiliation === AFFILIATIONS.student &&
-    (Object.keys(user.audienceOverride).length === 0 || !isGraduate(user))
-  ) {
-    // Audience override is only empty if user has never changed any data. Once they have changed it,
-    // they'll have data even if they've reset it to their defaults and have no overrides
-    usersAudiences.push(CLASSIFICATION_AUDIENCES.undergraduate.toLowerCase());
-  }
-
-  // Students, student employees, and employees who are looking at the student dashboard should
-  // evaluate if they are or have profile overrides indicating they are one of the following classifications.
-  // Graduates cannot be firstYear or undergraduate students but can be international.
-  //
-  // Anyone who is on the employee dashboard won't get the student filters.
-  if (usersAffiliation === AFFILIATIONS.student) {
-    if (isGraduate(user)) {
-      usersAudiences.push(CLASSIFICATION_AUDIENCES.graduate.toLowerCase());
-    } else {
-      if (isUndergraduate(user)) usersAudiences.push(CLASSIFICATION_AUDIENCES.undergraduate.toLowerCase());
-
-      if (isFirstYear(user)) usersAudiences.push(CLASSIFICATION_AUDIENCES.firstYear.toLowerCase());
+  // STUDENT DASHBOARD LOGIC ---------------
+  if (inDashboard(user, student)) {
+    // This is an employee (no user.classification.attributes), using the Student Dashboard (usersAffiliation is finding
+    // the affiliationOverride set). Ensure that a default audience of undergraduate exists unless they have an
+    // audience override specifying to see graduate student items.
+    if (isEmployeeOnly(user) && (Object.keys(user.audienceOverride).length === 0 || !isGraduate(user))) {
+      // Audience override is only empty if user has never changed any data. Once they have changed it,
+      // they'll have data even if they've reset it to their defaults and have no overrides
+      usersAudiences.push(undergraduate);
     }
 
-    if (isInternational(user)) usersAudiences.push(CLASSIFICATION_AUDIENCES.international.toLowerCase());
+    // Students, student employees, and employees who are looking at the student dashboard should
+    // evaluate if they are or have profile overrides indicating they are one of the following classifications.
+    // Graduates cannot be firstYear or undergraduate students but can be international.
+    if (isGraduate(user)) {
+      usersAudiences.push(graduate);
+    } else {
+      if (isUndergraduate(user)) usersAudiences.push(undergraduate);
+      if (isFirstYear(user)) usersAudiences.push(firstYear);
+    }
+
+    if (isInternational(user)) usersAudiences.push(international);
+  }
+
+  // EMPLOYEE DASHBOARD LOGIC ---------------
+  if (inDashboard(user, employee)) {
+    // Employee in the employee dashboard
+    if (isEmployeeOnly(user)) {
+      return affiliation.some(a => employee.toLowerCase() === a.toLowerCase());
+    }
+
+    // Employees who are also Graduate Students should see "undergraduate" (default) items in the
+    // employee dashboard.
+    if (isStudent(user) && isGraduate(user)) {
+      usersAudiences.push(undergraduate);
+    }
   }
 
   // The item has been evaluated to be visible for this users affiliation and campus, and the item
   // has audience specified. Return whether or not one of the users audiences are specified in the item
-  return audiences.some(a => usersAudiences.includes(a.toLowerCase()));
+  const foundAudiences = usersAudiences.map(a => a.toLowerCase());
+  return audiences.map(a => a.toLowerCase()).some(a => foundAudiences.includes(a));
 };
 
 /**
