@@ -230,6 +230,14 @@ const trendingResourcesData = {
   refetch: () => {},
 };
 
+export const favoriteResource: Types.FavoriteResource = {
+  osuId: 123,
+  created: '2020-01-01',
+  resourceId: '2',
+  order: 0,
+  active: true,
+};
+
 export default {
   resourcesData,
   resourcesDataByCategory,
@@ -237,4 +245,5 @@ export default {
   defaultCategory,
   resourcesCardData,
   trendingResourcesData,
+  favoriteResource,
 };
