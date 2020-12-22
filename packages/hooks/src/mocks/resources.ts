@@ -1,4 +1,5 @@
 import { Types, User } from '@osu-wams/lib';
+import { TypeAssertion } from 'typescript';
 const { AFFILIATIONS, CLASSIFICATION_AUDIENCES } = User;
 
 // Reusable array for both Resources and ResourcesCard
@@ -230,6 +231,14 @@ const trendingResourcesData = {
   refetch: () => {},
 };
 
+export const favoriteResource: Types.FavoriteResource = {
+  osuId: 123,
+  created: '2020-01-01',
+  resourceId: '2',
+  order: 0,
+  active: true,
+};
+
 export default {
   resourcesData,
   resourcesDataByCategory,
@@ -237,4 +246,5 @@ export default {
   defaultCategory,
   resourcesCardData,
   trendingResourcesData,
+  favoriteResource,
 };

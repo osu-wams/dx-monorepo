@@ -77,14 +77,9 @@ const userMessageItems: UserMessageItems = {
   lastKey: undefined,
 };
 
-const userReadMessage: UserMessageItems = {
-  items: [
-    {
-      ...userMessage,
-      status: 'READ',
-    },
-  ],
-  lastKey: undefined,
+const userReadMessage: UserMessage = {
+  ...userMessage,
+  status: 'READ',
 };
 
 const userThreeMessages: UserMessageItems = {
