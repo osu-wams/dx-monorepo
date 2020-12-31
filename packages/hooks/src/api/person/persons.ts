@@ -11,6 +11,16 @@ export const getPerson = (): Promise<Types.PersonsAttributes> =>
     return res.data;
   });
 
+export const getEmails = (): Promise<Types.EmailAttributes> =>
+  axios.get(`/api/persons/emails`).then(res => {
+    return res.data;
+  });
+
+export const getPhones = (): Promise<Types.PhoneAttributes> =>
+  axios.get(`/api/persons/phones`).then(res => {
+    return res.data;
+  });
+
 export const usePerson = (
   opts: QueryObserverConfig<Types.PersonsAttributes, Error> = REACT_QUERY_DEFAULT_CONFIG,
 ): QueryResult<Types.PersonsAttributes, Error> => useQuery('person', getPerson, opts);
