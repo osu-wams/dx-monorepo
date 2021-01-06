@@ -21,7 +21,7 @@
   "dependencies": {
     "@osu-wams/lib": "^0.1.60",
     "@osu-wams/utils": "^0.0.8",
-    "axios": "^0.19.1",
+    "axios": "^0.21.1",
     "react-query": "2.23.0",
     "stacktrace-js": "^2.0.2"
   },

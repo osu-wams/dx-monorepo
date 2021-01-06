@@ -25,14 +25,12 @@ export interface Training {
   contact?: string;
   cost?: boolean;
   body?: string;
-  department?: string;
+  offeredBy?: string;
   courseLength?: string;
   featured?: boolean;
-  frequency?: string;
   prerequisites?: string;
-  courseDesign?: string;
+  deliveryMethod?: string[];
   tags: string[];
-  type?: string;
   websiteUri?: string;
   websiteTitle?: string;
 }
