@@ -62,9 +62,9 @@ Working on the monorepo and testing integration _before publishing updated packa
 - (both repos) : Anytime there are updates to `dx-monorepo` that you want to get to the front end, you have to build/publish and then link again;
   - In **dx-monorepo** : `yarn publish:local`
   - In **dx** : `yalc link <package-name>`
-- (**dx**) : When local development is complete, remove the linked packages from `dx`;
+- (**dx**) : When local development is complete, remove the linked packages from `dx` and replace them with the legitimate npm modules;
   ```bash
-  yalc remove --all
+  yarn install --check-files
   ```
 - **Bonus** In testing, you can leave the DX front end running as each time `yalc link <package-name>` runs it will cause the front end to recompile with the updated package.
 
