@@ -1,3 +1,4 @@
+export { Message, MessageType } from './message';
 export {
   Alert,
   Category,
