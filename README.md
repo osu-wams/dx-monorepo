@@ -59,9 +59,13 @@ Working on the monorepo and testing integration _before publishing updated packa
   yalc link @osu-wams/lib
   yalc link @osu-wams/hooks
   ```
-- Anytime there are updates to `dx-monorepo` that you want to get to the front end, you have to build/publish and then link again;
+- (both repos) : Anytime there are updates to `dx-monorepo` that you want to get to the front end, you have to build/publish and then link again;
   - In **dx-monorepo** : `yarn publish:local`
   - In **dx** : `yalc link <package-name>`
+- (**dx**) : When local development is complete, remove the linked packages from `dx`;
+  ```bash
+  yalc remove --all
+  ```
 - **Bonus** In testing, you can leave the DX front end running as each time `yalc link <package-name>` runs it will cause the front end to recompile with the updated package.
 
 **WARNING:** Don't forget to publish the updated `dx-monorepo` module(s), then update the `package.json` in the project to use the latest deployed version once the code is complete.
