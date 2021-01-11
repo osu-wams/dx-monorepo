@@ -7,7 +7,8 @@
     "lint": "FORCE_COLOR=true lerna run lint",
     "publish:dev": "FORCE_COLOR=true lerna publish prerelease --no-git-tag-version --no-push",
     "publish:patch": "FORCE_COLOR=true lerna publish patch",
-    "publish:prerelease": "FORCE_COLOR=true lerna publish prerelease --force-publish"
+    "publish:prerelease": "FORCE_COLOR=true lerna publish prerelease --force-publish",
+    "publish:local": "find packages/ -maxdepth 1 -mindepth 1 | xargs -n1 -I {} bash -c '{ cd \"{}\" && yalc publish --update && cd .. cd .. ;}'"
   },
   "workspaces": {
     "packages": [

@@ -16,6 +16,10 @@
 
 - [NVM](https://github.com/nvm-sh/nvm#installation-and-update)
 - [Yarn (install via NPM)](https://yarnpkg.com/en/docs/install#alternatives-stable)
+- [Yalc (install as global Yarn)](https://github.com/wclr/yalc)
+  ```bash
+  yarn global add yalc
+  ```
 
 ### Installation
 
@@ -38,14 +42,27 @@ yarn
 
 ### Local Development Workflow
 
-When updating a package being used by another project, such as `dx` or `dx-server`, it can be convenient to make use of the specific package in `dx-monorepo` prior
-to publishing it as an official version to the package registry. Here's a workflow for accomplishing this, for example using the `dx` project;
+Working on the monorepo and testing integration _before publishing updated packages_ is easy with `yalc`. Here's the workflow;
 
-- (**dx** project) Use the local code for the package by updating `package.json`, and setting dependencies for `"@osu-wams/lib": "file:../dx-monorepo/packages/lib"`, or the appropriate local path for your system.
-- (**dx** project) Remove currently installed node module, run: `rm -rf node_modules/@osu-wams`
-- (**dx-monorepo** project) Make code updates then build, run: `yarn build` or `yarn workspace @osu-wams/lib build`
-- (**dx** project) Install new local build module, run: `yarn`
-- (**dx** project) You might need to restart the Typescript Server, this is sometimes needed for VSCode, use the Command Palette and run `Typescript: Reset TS Server`
+- (**dx-monorepo**) : Code some updates, then build and publish all packages to the local `yalc` cache.
+
+  ```bash
+  yarn publish:local
+
+  // or if you want to publish only one package
+
+  cd packages/<package> && yalc publish --update
+  ```
+
+- (**dx**) : Link to the package(s) to use the local yalc cache to use the _yalc published_ packages locally.
+  ```bash
+  yalc link @osu-wams/lib
+  yalc link @osu-wams/hooks
+  ```
+- Anytime there are updates to `dx-monorepo` that you want to get to the front end, you have to build/publish and then link again;
+  - In **dx-monorepo** : `yarn publish:local`
+  - In **dx** : `yalc link <package-name>`
+- **Bonus** In testing, you can leave the DX front end running as each time `yalc link <package-name>` runs it will cause the front end to recompile with the updated package.
 
 **WARNING:** Don't forget to publish the updated `dx-monorepo` module(s), then update the `package.json` in the project to use the latest deployed version once the code is complete.
 
