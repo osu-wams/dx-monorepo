@@ -233,7 +233,13 @@ const settingIsOverridden = (
  * @returns the campus name and campus code that the user is associated with
  */
 const usersCampus = (user: User): { campusName: string | undefined; campusCode: string } => {
-  const campusCode = user.audienceOverride?.campusCode || user.classification?.attributes?.campusCode || DEFAULT_CAMPUS;
+  let campusCode = user.audienceOverride?.campusCode || user.classification?.attributes?.campusCode || DEFAULT_CAMPUS;
+
+  // Check to see if user is employee who used to be a student, return either audience override or default campus
+  if (hasPrimaryAffiliation(user, ['employee']) && isStudent(user)) {
+    campusCode = user.audienceOverride?.campusCode || DEFAULT_CAMPUS;
+  }
+
   // Find the key name associated to the users campusCode to use for matching in the audiences
   // set for the announcement
   const campusName = Object.keys(CAMPUS_CODES)

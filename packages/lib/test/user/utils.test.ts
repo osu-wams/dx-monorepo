@@ -16,7 +16,7 @@ import {
 import { mockUser, AFFILIATIONS } from '../../src/user';
 import { User } from '../../src/types';
 
-const { user, userEmployee, userGraduate, userAudienceOverride } = mockUser;
+const { user, userEmployee, userGraduate, userAudienceOverride, userEmployeePastStudent } = mockUser;
 const emptyAttributes = {
   levelCode: '',
   campusCode: '',
@@ -564,5 +564,20 @@ describe('usersCampus', () => {
       classification: { attributes: { ...classificationAttributes, campusCode: 'DSC' } },
     });
     expect(usersCampus(mockedUser())).toEqual({ campusCode: 'DSC', campusName: 'ecampus' });
+  });
+  it('returns default campus for an employee', async () => {
+    mockedUser.mockReturnValue({
+      ...userEmployeePastStudent.data,
+      classification: { attributes: { ...classificationAttributes, campusCode: 'DSC' } },
+    });
+    expect(usersCampus(mockedUser())).toEqual({ campusCode: 'C', campusName: 'corvallis' });
+  });
+  it('returns an employees campus override', async () => {
+    mockedUser.mockReturnValue({
+      ...userEmployeePastStudent.data,
+      classification: { attributes: { ...classificationAttributes, campusCode: 'DSC' } },
+      audienceOverride: { campusCode: 'B' },
+    });
+    expect(usersCampus(mockedUser())).toEqual({ campusCode: 'B', campusName: 'bend' });
   });
 });
