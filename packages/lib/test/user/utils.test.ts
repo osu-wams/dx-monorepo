@@ -209,7 +209,7 @@ describe('hasAudience', () => {
     it('returns false when the item is intended for a campus that the user is not on ', async () => {
       mockedUser.mockReturnValue({
         ...userEmployee.data,
-        classification: { attributes: { ...classificationAttributes, campusCode: 'B' } },
+        audienceOverride: { campusCode: 'B' },
       });
       mockedItem.mockReturnValue({ ...item, affiliation: [AFFILIATIONS.employee], locations: ['Corvallis'] });
       expect(hasAudience(mockedUser(), mockedItem())).toBeFalsy();

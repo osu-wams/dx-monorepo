@@ -175,7 +175,6 @@ const userEmployeePastStudent: UserState = {
   ...userEmployee,
   data: {
     ...userEmployee.data,
-    affiliations: [AFFILIATIONS.student, AFFILIATIONS.employee],
     classification: {
       ...userStudentEmployee.data.classification,
     },
