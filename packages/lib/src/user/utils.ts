@@ -227,13 +227,31 @@ const settingIsOverridden = (
 };
 
 /**
+ * Returns whether or not the user is an employee who is a former student
+ * @param user the user to inspect
+ */
+const employeeIsFormerStudent = (user: User): boolean => {
+  if (isEmployee(user) && user.classification?.attributes) {
+    return true;
+  }
+
+  return false;
+};
+
+/**
  * Returns the audience override value or users classification in that order
  * of precedence.
  * @param user the user to inspect
  * @returns the campus name and campus code that the user is associated with
  */
 const usersCampus = (user: User): { campusName: string | undefined; campusCode: string } => {
-  const campusCode = user.audienceOverride?.campusCode || user.classification?.attributes?.campusCode || DEFAULT_CAMPUS;
+  let campusCode = user.audienceOverride?.campusCode || user.classification?.attributes?.campusCode || DEFAULT_CAMPUS;
+
+  // Check to see if user is employee who used to be a student, return either audience override or default campus
+  if (employeeIsFormerStudent(user)) {
+    campusCode = user.audienceOverride?.campusCode || DEFAULT_CAMPUS;
+  }
+
   // Find the key name associated to the users campusCode to use for matching in the audiences
   // set for the announcement
   const campusName = Object.keys(CAMPUS_CODES)
