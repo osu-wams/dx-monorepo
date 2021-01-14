@@ -1,5 +1,5 @@
 {
-  "version": "1.0.90",
+  "version": "1.0.91",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -19,7 +19,7 @@
     "react-dom": "^16.13.1"
   },
   "dependencies": {
-    "@osu-wams/lib": "^0.1.62",
+    "@osu-wams/lib": "^0.1.63",
     "@osu-wams/utils": "^0.0.8",
     "axios": "^0.21.1",
     "react-query": "2.23.0",
