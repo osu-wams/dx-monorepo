@@ -87,11 +87,7 @@ const isUndergraduate = (user: User): boolean => {
  * @param affiliations the affiliations to check if the user is associated with
  */
 const hasPrimaryAffiliation = (user: User, affiliations: string[]): boolean => {
-  if (user.primaryAffiliationOverride) {
-    return affiliations.includes(user.primaryAffiliationOverride);
-  }
-
-  return affiliations.includes(user.primaryAffiliation);
+  return affiliations.includes(getAffiliation(user));
 };
 
 /**
@@ -107,7 +103,9 @@ const isStudent = (user: User): boolean => {
  * @param user
  */
 const isEmployee = (user: User): boolean => {
-  return user.affiliations.some(a => a === AFFILIATIONS.employee);
+  if (!user.affiliations.length) return true;
+  const hasEmployeeAffiliation = user.affiliations.some(a => a === AFFILIATIONS.employee);
+  return hasEmployeeAffiliation || (!isStudent(user) && !hasEmployeeAffiliation);
 };
 
 /**
@@ -132,8 +130,16 @@ const inDashboard = (user: User, dashboard: string): boolean => {
  * @param user the user to inspect
  */
 const getAffiliation = (user: User): string => {
-  if (user.primaryAffiliationOverride === '') return user.primaryAffiliation;
-  return user.primaryAffiliationOverride ?? user.primaryAffiliation;
+  if (!user.primaryAffiliation && !user.primaryAffiliationOverride) return 'employee';
+  if (user.primaryAffiliationOverride) return user.primaryAffiliationOverride;
+  if (!user.primaryAffiliation) return 'employee';
+  switch (user.primaryAffiliation.toLowerCase()) {
+    case 'employee':
+    case 'student':
+      return user.primaryAffiliation;
+    default:
+      return 'employee';
+  }
 };
 
 /**
@@ -378,7 +384,8 @@ const atCampus = (user: User, code: string): boolean => {
  * @param value the value to find
  */
 const hasValue = (list: string[], value: string): boolean => {
-  return list?.filter(v => v !== null && v !== undefined).some(a => a.toLowerCase() === value.toLowerCase());
+  if (!list) return false;
+  return list.filter(Boolean).some(a => a.toLowerCase() === value?.toLowerCase());
 };
 
 export {
@@ -386,9 +393,11 @@ export {
   getAffiliation,
   hasAudience,
   hasPrimaryAffiliation,
+  isEmployee,
   isFirstYear,
   isGraduate,
   isInternational,
+  isStudent,
   isUndergraduate,
   settingIsDefault,
   settingIsOverridden,
