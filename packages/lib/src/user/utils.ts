@@ -95,6 +95,7 @@ const hasPrimaryAffiliation = (user: User, affiliations: string[]): boolean => {
  * @param user
  */
 const isStudent = (user: User): boolean => {
+  if (!user.affiliations?.length) return false;
   return user.affiliations.some(a => a === AFFILIATIONS.student);
 };
 
@@ -103,7 +104,7 @@ const isStudent = (user: User): boolean => {
  * @param user
  */
 const isEmployee = (user: User): boolean => {
-  if (!user.affiliations.length) return true;
+  if (!user.affiliations?.length) return true;
   const hasEmployeeAffiliation = user.affiliations.some(a => a === AFFILIATIONS.employee);
   return hasEmployeeAffiliation || (!isStudent(user) && !hasEmployeeAffiliation);
 };
