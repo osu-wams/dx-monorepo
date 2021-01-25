@@ -12,6 +12,8 @@ import {
   settingIsOverridden,
   usersCampus,
   usersSettings,
+  isStudent,
+  isEmployee,
 } from '../../src/user/utils';
 import { mockUser, AFFILIATIONS } from '../../src/user';
 import { User } from '../../src/types';
@@ -189,6 +191,27 @@ describe('isInternational', () => {
       audienceOverride: {},
     });
     expect(isInternational(mockedUser())).toBeFalsy();
+  });
+});
+
+describe('isStudent', () => {
+  it('detects student', async () => {
+    expect(isStudent(mockedUser())).toBeTruthy();
+  });
+  it('handles when affiliation not present', async () => {
+    mockedUser.mockReturnValue({ ...user.data, affiliations: [] });
+    expect(isStudent(mockedUser())).toBeFalsy();
+  });
+});
+
+describe('isEmployee', () => {
+  it('detects employee', async () => {
+    mockedUser.mockReturnValue({ ...userEmployee.data });
+    expect(isEmployee(mockedUser())).toBeTruthy();
+  });
+  it('handles when affiliation not present', async () => {
+    mockedUser.mockReturnValue({ ...userEmployee.data, affiliations: [] });
+    expect(isEmployee(mockedUser())).toBeTruthy();
   });
 });
 
