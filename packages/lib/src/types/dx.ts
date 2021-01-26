@@ -1,5 +1,22 @@
 import { Resource } from './user';
 
+export interface Announcement {
+  action?: {
+    title: string;
+    link: string;
+  };
+  affiliation: string[];
+  audiences: string[];
+  bg_image?: string;
+  body: string;
+  date?: string;
+  id: string;
+  locations: string[];
+  pages: string[];
+  title: string;
+  type: string;
+}
+
 export interface DynamicCard {
   affiliation: string[];
   audiences?: string[];
