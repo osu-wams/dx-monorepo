@@ -2,7 +2,7 @@ import { Resource } from './user';
 
 export interface Announcement {
   action?: {
-    title: string;
+    title?: string;
     link: string;
   };
   affiliation: string[];
@@ -14,7 +14,7 @@ export interface Announcement {
   locations: string[];
   pages: string[];
   title: string;
-  type: string;
+  type?: string;
 }
 
 export interface DynamicCard {
