@@ -8,7 +8,8 @@
     "publish:dev": "FORCE_COLOR=true lerna publish prerelease --no-git-tag-version --no-push",
     "publish:patch": "FORCE_COLOR=true lerna publish patch",
     "publish:prerelease": "FORCE_COLOR=true lerna publish prerelease --force-publish",
-    "publish:local": "find packages/ -maxdepth 1 -mindepth 1 | xargs -n1 -I {} bash -c '{ cd \"{}\" && yalc publish --update && cd .. cd .. ;}'"
+    "COMMMENT_publish:local": "package-list-build-order causes yalc to build packages in the order of which they are dependent upon eachother",
+    "publish:local": "cat package-list-build-order | xargs -n1 -I {} bash -c '{ cd \"packages/{}\" && yalc publish --update && cd .. cd .. ;}'"
   },
   "workspaces": {
     "packages": [
