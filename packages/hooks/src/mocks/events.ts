@@ -1,8 +1,7 @@
 /* eslint-disable camelcase */
+import { Types } from '@osu-wams/lib';
 
-import { AcademicEvents, LocalistEvents } from '../api/events';
-
-const employeeEvents: { data: LocalistEvents; loading: boolean; error: boolean } = {
+const employeeEvents: { data: Types.LocalistEvent[] } = {
   data: [
     {
       action: {
@@ -70,11 +69,9 @@ const employeeEvents: { data: LocalistEvents; loading: boolean; error: boolean }
       campus_code: 'B',
     },
   ],
-  loading: false,
-  error: false,
 };
 
-const studentExperienceEvents: { data: LocalistEvents; loading: boolean; error: boolean } = {
+const studentExperienceEvents: { data: Types.LocalistEvent[] } = {
   data: [
     {
       action: {
@@ -113,11 +110,9 @@ const studentExperienceEvents: { data: LocalistEvents; loading: boolean; error: 
       campus_code: 'C',
     },
   ],
-  loading: false,
-  error: false,
 };
 
-const studentExperienceEvents_10: { data: LocalistEvents; loading: boolean; error: boolean } = {
+const studentExperienceEvents_10: { data: Types.LocalistEvent[] } = {
   data: [
     {
       action: {
@@ -242,11 +237,9 @@ const studentExperienceEvents_10: { data: LocalistEvents; loading: boolean; erro
       campus_code: 'C',
     },
   ],
-  loading: false,
-  error: false,
 };
 
-const academicCalendar3: { data: AcademicEvents; loading: boolean; error: boolean } = {
+const academicCalendar3: { data: Types.AcademicEvent[] } = {
   data: [
     {
       title: 'Testo Event',
@@ -273,11 +266,9 @@ const academicCalendar3: { data: AcademicEvents; loading: boolean; error: boolea
       isoDate: '2019-06-24T07:00:00.000Z',
     },
   ],
-  loading: false,
-  error: false,
 };
 
-const academicCalendar6: { data: AcademicEvents; loading: boolean; error: boolean } = {
+const academicCalendar6: { data: Types.AcademicEvent[] } = {
   data: [
     {
       title: 'Week Zero Summer Session Ends',
@@ -328,8 +319,6 @@ const academicCalendar6: { data: AcademicEvents; loading: boolean; error: boolea
       isoDate: '2019-06-24T07:00:00.000Z',
     },
   ],
-  loading: false,
-  error: false,
 };
 
 export default {
