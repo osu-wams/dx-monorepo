@@ -208,7 +208,7 @@ export interface GpaLevel {
  * Past Course Grades
  */
 
-interface GradesAttributes {
+export interface GradesAttributes {
   courseLevel: string;
   courseNumber: string;
   courseReferenceNumber: string;
