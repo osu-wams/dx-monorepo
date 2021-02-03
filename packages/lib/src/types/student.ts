@@ -214,6 +214,7 @@ export interface GradesAttributes {
   courseReferenceNumber: string;
   courseSubject: string;
   courseSubjectDescription: string;
+  courseSubjectNumber: string; // Derived from values provided by API: {courseSubject}{courseNumber}
   courseTitle: string;
   creditHours: number;
   gradeFinal: string;
