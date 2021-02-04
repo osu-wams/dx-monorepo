@@ -21,6 +21,7 @@ export {
   Classification,
   ClassificationResponse,
   CourseSchedule,
+  CourseScheduleAttributes,
   CourseScheduleFaculty,
   CourseScheduleMeetingTime,
   CourseScheduleResponse,
