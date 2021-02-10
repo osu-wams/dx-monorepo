@@ -35,3 +35,5 @@ export {
 export { Address, AddressesResponse, MealPlan, MealPlansResponse, PersonsAttributes, PersonsResponse } from './person';
 export { AcademicEvent, LocalistEvent } from './localist';
 export { Announcement, DynamicCard, Training, TrainingAudience, TrainingTag } from './dx';
+export { Directory, DirectoryResponse } from './directory';
+export { Location, LocationResponse } from './location';

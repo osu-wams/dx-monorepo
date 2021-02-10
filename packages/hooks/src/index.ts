@@ -42,6 +42,8 @@ import * as Trainings from './api/trainings';
 import { useTrainings, useTrainingAudiences, useTrainingTags } from './api/trainings';
 import * as Admin from './api/admin';
 import * as Constants from './constants';
+import { usePeople } from './api/people';
+import { useLocations } from './api/locations';
 
 export {
   Admin,
@@ -82,9 +84,11 @@ export {
   useGrades,
   useHolds,
   useInfoButtons,
+  useLocations,
   useMealPlans,
   useMessages,
   usePageContent,
+  usePeople,
   usePerson,
   usePlannerItems,
   useRaveAlerts,
