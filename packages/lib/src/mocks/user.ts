@@ -170,6 +170,17 @@ const userStudentEmployee: UserState = {
   },
 };
 
+// Employee who used to be a student
+const userEmployeePastStudent: UserState = {
+  ...userEmployee,
+  data: {
+    ...userEmployee.data,
+    classification: {
+      ...userStudentEmployee.data.classification,
+    },
+  },
+};
+
 // Student Employee who is also a graduate student
 const userGraduateStudentEmployee: UserState = {
   ...userStudentEmployee,
@@ -212,6 +223,7 @@ const userGraduate: UserState = {
 export default {
   user,
   userEmployee,
+  userEmployeePastStudent,
   userAdmin,
   userUndergrad,
   userGraduate,

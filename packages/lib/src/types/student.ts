@@ -148,7 +148,7 @@ export interface CourseSchedule {
   links: { self: string | null };
 }
 
-interface CourseScheduleAttributes {
+export interface CourseScheduleAttributes {
   academicYear: string;
   academicYearDescription: string;
   continuingEducation: boolean;
@@ -156,6 +156,7 @@ interface CourseScheduleAttributes {
   courseReferenceNumber: string;
   courseSubject: string;
   courseSubjectDescription: string;
+  courseSubjectNumber: string; // Derived from values provided by API: "{courseSubject} {courseNumber}"
   courseTitle: string;
   creditHours: number;
   faculty: CourseScheduleFaculty[];
@@ -202,4 +203,36 @@ export interface GpaLevel {
   gpaType: string;
   level: string;
   levelCode: string;
+}
+
+/**
+ * Past Course Grades
+ */
+
+export interface GradesAttributes {
+  courseLevel: string;
+  courseNumber: string;
+  courseReferenceNumber: string;
+  courseSubject: string;
+  courseSubjectDescription: string;
+  courseSubjectNumber: string; // Derived from values provided by API: "{courseSubject} {courseNumber}"
+  courseTitle: string;
+  creditHours: number;
+  gradeFinal: string;
+  gradeMode: string;
+  gradeModeDescription: string;
+  registrationStatus?: string;
+  repeatedCourseInd?: string;
+  scheduleDescription?: string;
+  scheduleType?: string;
+  sectionNumber?: string;
+  term: string;
+  termDescription: string;
+}
+
+export interface Grades {
+  type: string;
+  id: string;
+  links: string;
+  attributes: GradesAttributes;
 }

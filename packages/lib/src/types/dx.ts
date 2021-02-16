@@ -1,5 +1,22 @@
 import { Resource } from './user';
 
+export interface Announcement {
+  action?: {
+    title?: string;
+    link: string;
+  };
+  affiliation: string[];
+  audiences: string[];
+  bg_image?: string;
+  body: string;
+  date?: string;
+  id: string;
+  locations: string[];
+  pages: string[];
+  title: string;
+  type?: string;
+}
+
 export interface DynamicCard {
   affiliation: string[];
   audiences?: string[];
@@ -25,14 +42,12 @@ export interface Training {
   contact?: string;
   cost?: boolean;
   body?: string;
-  department?: string;
+  offeredBy?: string;
   courseLength?: string;
   featured?: boolean;
-  frequency?: string;
   prerequisites?: string;
-  courseDesign?: string;
+  deliveryMethod?: string[];
   tags: string[];
-  type?: string;
   websiteUri?: string;
   websiteTitle?: string;
 }

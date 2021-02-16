@@ -1,51 +1,40 @@
 import axios from 'axios';
 import { Types } from '@osu-wams/lib';
-import useAPICall from '../useAPICall';
+import { useQuery, QueryObserverConfig, QueryResult } from 'react-query';
+import { REACT_QUERY_DEFAULT_CONFIG } from '../constants';
 import mocks from '../mocks/events';
 
 export const mockEvents = mocks;
 
-export interface Event extends Types.AcademicEvent {}
-export type Events = Event[];
-export type AcademicEvents = Event[];
-export type LocalistEvents = Types.LocalistEvent[];
-
-export const getAcademicCalendarEvents = (): Promise<Events> =>
+const getAcademicCalendarEvents = (): Promise<Types.AcademicEvent[]> =>
   axios.get('/api/events/academic-calendar').then(res => res.data);
 
-export const useAcademicCalendarEvents = () =>
-  useAPICall<Events>({
-    api: getAcademicCalendarEvents,
-    dataTransform: (data: Events) => data,
-    initialState: [],
-  });
+export const useAcademicCalendarEvents = (
+  opts: QueryObserverConfig<Types.AcademicEvent[], Error> = REACT_QUERY_DEFAULT_CONFIG,
+): QueryResult<Types.AcademicEvent[], Error> =>
+  useQuery('academicCalendarEvents', () => getAcademicCalendarEvents(), opts);
 
-// Employee Events for use in the EmployeeDashboard
-export const getEmployeeEvents = (): Promise<LocalistEvents> => axios.get('/api/events/employee').then(res => res.data);
+const getAffiliationEvents = (affiliation: string): Promise<Types.LocalistEvent[]> => {
+  const url = '/api/events';
+  switch (affiliation.toLowerCase()) {
+    case 'student':
+      return axios.get(url).then(res => res.data);
 
-export const useEmployeeEvents = () =>
-  useAPICall<LocalistEvents>({
-    api: getEmployeeEvents,
-    dataTransform: (data: LocalistEvents) => data,
-    initialState: [],
-  });
+    default:
+      return axios.get(`${url}/${affiliation.toLowerCase()}`).then(res => res.data);
+  }
+};
 
-export const getStudentExperienceEvents = (): Promise<LocalistEvents> => axios.get('/api/events').then(res => res.data);
+export const useAffiliationEvents = (
+  affiliation: string,
+  opts: QueryObserverConfig<Types.LocalistEvent[], Error> = REACT_QUERY_DEFAULT_CONFIG,
+): QueryResult<Types.LocalistEvent[], Error> =>
+  useQuery(['events', affiliation], () => getAffiliationEvents(affiliation), opts);
 
-export const useStudentExperienceEvents = () =>
-  useAPICall<LocalistEvents>({
-    api: getStudentExperienceEvents,
-    dataTransform: (data: LocalistEvents) => data,
-    initialState: [],
-  });
-
-export const getCampusEvents = (name: string): Promise<LocalistEvents> =>
+export const getCampusEvents = (name: string): Promise<Types.LocalistEvent[]> =>
   axios.get(`/api/events/campus/${name}`).then(res => res.data);
 
-export const useCampusEvents = (name: string) =>
-  useAPICall<LocalistEvents>({
-    api: getCampusEvents,
-    query: name,
-    dataTransform: (data: LocalistEvents) => data,
-    initialState: [],
-  });
+export const useCampusEvents = (
+  campus: string,
+  opts: QueryObserverConfig<Types.LocalistEvent[], Error> = REACT_QUERY_DEFAULT_CONFIG,
+): QueryResult<Types.LocalistEvent[], Error> => useQuery(['campusEvents', campus], () => getCampusEvents(campus), opts);

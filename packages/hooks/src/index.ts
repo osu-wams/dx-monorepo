@@ -8,12 +8,7 @@ import { useDxAlerts, useRaveAlerts } from './api/alerts';
 import * as Classification from './api/classification';
 import * as Errors from './api/errors';
 import * as Events from './api/events';
-import {
-  useAcademicCalendarEvents,
-  useCampusEvents,
-  useEmployeeEvents,
-  useStudentExperienceEvents,
-} from './api/events';
+import { useAcademicCalendarEvents, useCampusEvents, useAffiliationEvents } from './api/events';
 import * as InfoButtons from './api/infoButtons';
 import { useInfoButtons } from './api/infoButtons';
 import * as Masquerade from './api/masquerade';
@@ -47,6 +42,8 @@ import * as Trainings from './api/trainings';
 import { useTrainings, useTrainingAudiences, useTrainingTags } from './api/trainings';
 import * as Admin from './api/admin';
 import * as Constants from './constants';
+import { usePeople } from './api/people';
+import { useLocations } from './api/locations';
 
 export {
   Admin,
@@ -74,6 +71,7 @@ export {
   useAcademicStatus,
   useAccountBalance,
   useAccountTransactions,
+  useAffiliationEvents,
   useAddresses,
   useAnnouncements,
   useAPICall,
@@ -82,14 +80,15 @@ export {
   useCategories,
   useCourseSchedule,
   useDxAlerts,
-  useEmployeeEvents,
   useGpa,
   useGrades,
   useHolds,
   useInfoButtons,
+  useLocations,
   useMealPlans,
   useMessages,
   usePageContent,
+  usePeople,
   usePerson,
   usePlannerItems,
   useRaveAlerts,
@@ -97,7 +96,6 @@ export {
   useResources,
   useResourcesByQueue,
   useStatus,
-  useStudentExperienceEvents,
   useTrainings,
   useTrainingAudiences,
   useTrainingTags,

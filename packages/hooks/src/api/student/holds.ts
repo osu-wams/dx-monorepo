@@ -11,4 +11,6 @@ export const useHolds = () =>
 
 export type Hold = {
   description: string;
+  toDate: string;
+  fromDate: string;
 };

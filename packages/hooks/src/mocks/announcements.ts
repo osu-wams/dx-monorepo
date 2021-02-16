@@ -1,7 +1,7 @@
-import { Announcement } from '../api/announcements';
+import { Types } from '@osu-wams/lib';
 
 /* eslint-disable camelcase */
-const academicAnnouncementResult: { data: Announcement[] } = {
+const academicAnnouncementResult: { data: Types.Announcement[] } = {
   data: [
     {
       id: '67890',
@@ -47,7 +47,7 @@ const academicAnnouncementResult: { data: Announcement[] } = {
     },
   ],
 };
-const financialAnnouncementResult: { data: Announcement[] } = {
+const financialAnnouncementResult: { data: Types.Announcement[] } = {
   data: [
     {
       id: '67890',
@@ -94,7 +94,7 @@ const financialAnnouncementResult: { data: Announcement[] } = {
   ],
 };
 
-const announcementsData: { data: Announcement[]; loading: boolean; error: boolean } = {
+const announcementsData: { data: Types.Announcement[]; loading: boolean; error: boolean } = {
   data: [
     {
       id: '11',
@@ -118,7 +118,7 @@ const announcementsData: { data: Announcement[]; loading: boolean; error: boolea
       title: 'Student Only Announcement',
       body: 'Announcement test body text 2',
       action: {
-        title: null,
+        title: undefined,
         link: 'https://oregonstate.edu',
       },
       affiliation: ['Student'],
@@ -132,7 +132,7 @@ const announcementsData: { data: Announcement[]; loading: boolean; error: boolea
       title: 'Bend Student',
       body: 'Announcement test body text 3',
       action: {
-        title: null,
+        title: undefined,
         link: 'https://oregonstate.edu',
       },
       affiliation: ['Student'],
@@ -146,7 +146,7 @@ const announcementsData: { data: Announcement[]; loading: boolean; error: boolea
       title: 'Bend Employee Announcement',
       body: 'Announcement test body text 3',
       action: {
-        title: null,
+        title: undefined,
         link: 'https://oregonstate.edu',
       },
       affiliation: ['Employee'],
@@ -160,7 +160,7 @@ const announcementsData: { data: Announcement[]; loading: boolean; error: boolea
       title: 'Employee Only Announcement',
       body: 'Announcement test body text 3',
       action: {
-        title: null,
+        title: undefined,
         link: 'https://oregonstate.edu',
       },
       affiliation: ['Employee'],
@@ -172,7 +172,7 @@ const announcementsData: { data: Announcement[]; loading: boolean; error: boolea
   error: false,
 };
 
-const announcementsData_10: { data: Announcement[]; loading: boolean; error: boolean } = {
+const announcementsData_10: { data: Types.Announcement[]; loading: boolean; error: boolean } = {
   data: [
     {
       id: '11',
@@ -196,7 +196,7 @@ const announcementsData_10: { data: Announcement[]; loading: boolean; error: boo
       title: 'Announcement test title 2',
       body: 'Announcement test body text 2',
       action: {
-        title: null,
+        title: undefined,
         link: 'https://oregonstate.edu',
       },
       affiliation: ['Student', 'Employee'],
@@ -210,7 +210,7 @@ const announcementsData_10: { data: Announcement[]; loading: boolean; error: boo
       title: 'Announcement test title 3',
       body: 'Announcement test body text 3',
       action: {
-        title: null,
+        title: undefined,
         link: 'https://oregonstate.edu',
       },
       affiliation: ['Student', 'Employee'],
@@ -224,7 +224,7 @@ const announcementsData_10: { data: Announcement[]; loading: boolean; error: boo
       title: 'Announcement test title 4',
       body: 'Announcement test body text 4',
       action: {
-        title: null,
+        title: undefined,
         link: 'https://oregonstate.edu',
       },
       affiliation: ['Student', 'Employee'],
@@ -238,7 +238,7 @@ const announcementsData_10: { data: Announcement[]; loading: boolean; error: boo
       title: 'Announcement test title 5',
       body: 'Announcement test body text 5',
       action: {
-        title: null,
+        title: undefined,
         link: 'https://oregonstate.edu',
       },
       affiliation: ['Student', 'Employee'],
@@ -252,7 +252,7 @@ const announcementsData_10: { data: Announcement[]; loading: boolean; error: boo
       title: 'Announcement test title 6',
       body: 'Announcement test body text 6',
       action: {
-        title: null,
+        title: undefined,
         link: 'https://oregonstate.edu',
       },
       affiliation: ['Student', 'Employee'],
@@ -266,7 +266,7 @@ const announcementsData_10: { data: Announcement[]; loading: boolean; error: boo
       title: 'Announcement test title 7',
       body: 'Announcement test body text 7',
       action: {
-        title: null,
+        title: undefined,
         link: 'https://oregonstate.edu',
       },
       affiliation: ['Student', 'Employee'],
@@ -280,7 +280,7 @@ const announcementsData_10: { data: Announcement[]; loading: boolean; error: boo
       title: 'Announcement test title 8',
       body: 'Announcement test body text 8',
       action: {
-        title: null,
+        title: undefined,
         link: 'https://oregonstate.edu',
       },
       affiliation: ['Student', 'Employee'],
@@ -294,7 +294,7 @@ const announcementsData_10: { data: Announcement[]; loading: boolean; error: boo
       title: 'Announcement test title 9',
       body: 'Announcement test body text 9',
       action: {
-        title: null,
+        title: undefined,
         link: 'https://oregonstate.edu',
       },
       affiliation: ['Student', 'Employee'],
@@ -308,7 +308,7 @@ const announcementsData_10: { data: Announcement[]; loading: boolean; error: boo
       title: 'Announcement test title 10',
       body: 'Announcement test body text 10',
       action: {
-        title: null,
+        title: undefined,
         link: 'https://oregonstate.edu',
       },
       affiliation: ['Student', 'Employee'],

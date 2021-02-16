@@ -1,88 +1,92 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { renderHook } from '@testing-library/react-hooks';
-import {
-  useAcademicCalendarEvents,
-  useCampusEvents,
-  useEmployeeEvents,
-  useStudentExperienceEvents,
-  mockEvents,
-} from '../../src/api/events';
+import { useAcademicCalendarEvents, useCampusEvents, useAffiliationEvents, mockEvents } from '../../src/api/events';
+import { queryCache } from 'react-query';
 
 const mock = new MockAdapter(axios);
 
+afterEach(() => {
+  queryCache.clear();
+  mock.reset();
+});
+
 describe('useAcademicCalendarEvents', () => {
   it('gets academic calendar events on successful returns', async () => {
-    mock.onGet('/api/events/academic-calendar').reply(200, mockEvents.academicCalendar3.data);
+    mock.onGet('/api/events/academic-calendar').replyOnce(200, mockEvents.academicCalendar3.data);
     const { result, waitForNextUpdate } = renderHook(() => useAcademicCalendarEvents());
-    await waitForNextUpdate();
-    expect(result.current.loading).toBeFalsy();
+    expect(result.current.isLoading).toBeTruthy();
     expect(result.current.error).toBeFalsy();
+    await waitForNextUpdate();
+    expect(result.current.isLoading).toBeFalsy();
     expect(result.current.data).toEqual(mockEvents.academicCalendar3.data);
   });
   it('handles api error', async () => {
-    mock.onGet('/api/events/academic-calendar').reply(500);
+    mock.onGet('/api/events/academic-calendar').replyOnce(500, '');
     const { result, waitForNextUpdate } = renderHook(() => useAcademicCalendarEvents());
+    expect(result.current.isLoading).toBeTruthy();
+    expect(result.current.isError).toBeFalsy();
     await waitForNextUpdate();
-    expect(result.current.loading).toBeFalsy();
-    expect(result.current.error).toBeTruthy();
-    expect(result.current.data).toEqual([]);
+    expect(result.current.failureCount).toBe(1);
   });
 });
 
 describe('useCampuseEvents', () => {
   it('gets campus events on successful returns', async () => {
-    mock.onGet('/api/events/campus/corvallis').reply(200, mockEvents.studentExperienceEvents.data);
+    mock.onGet('/api/events/campus/corvallis').replyOnce(200, mockEvents.studentExperienceEvents.data);
     const { result, waitForNextUpdate } = renderHook(() => useCampusEvents('corvallis'));
-    await waitForNextUpdate();
-    expect(result.current.loading).toBeFalsy();
+    expect(result.current.isLoading).toBeTruthy();
     expect(result.current.error).toBeFalsy();
+    await waitForNextUpdate();
+    expect(result.current.isLoading).toBeFalsy();
     expect(result.current.data).toEqual(mockEvents.studentExperienceEvents.data);
   });
   it('handles api error', async () => {
-    mock.onGet('/api/events/campus/corvallis').reply(500);
+    mock.onGet('/api/events/campus/corvallis').replyOnce(500, '');
     const { result, waitForNextUpdate } = renderHook(() => useCampusEvents('corvallis'));
+    expect(result.current.isLoading).toBeTruthy();
+    expect(result.current.isError).toBeFalsy();
     await waitForNextUpdate();
-    expect(result.current.loading).toBeFalsy();
-    expect(result.current.error).toBeTruthy();
-    expect(result.current.data).toEqual([]);
+    expect(result.current.failureCount).toBe(1);
   });
 });
 
-describe('useEmployeeEvents', () => {
+describe('useAffiliationEvents for Employees', () => {
   it('gets employee events on successful returns', async () => {
-    mock.onGet('/api/events/employee').reply(200, mockEvents.employeeEvents.data);
-    const { result, waitForNextUpdate } = renderHook(() => useEmployeeEvents());
-    await waitForNextUpdate();
-    expect(result.current.loading).toBeFalsy();
+    mock.onGet('/api/events/employee').replyOnce(200, mockEvents.employeeEvents.data);
+    const { result, waitForNextUpdate } = renderHook(() => useAffiliationEvents('employee'));
+    expect(result.current.isLoading).toBeTruthy();
     expect(result.current.error).toBeFalsy();
+    await waitForNextUpdate();
+    expect(result.current.isLoading).toBeFalsy();
     expect(result.current.data).toEqual(mockEvents.employeeEvents.data);
   });
   it('handles api error', async () => {
-    mock.onGet('/api/events/employee').reply(500);
-    const { result, waitForNextUpdate } = renderHook(() => useEmployeeEvents());
+    mock.onGet('/api/events/employee').replyOnce(500, '');
+    const { result, waitForNextUpdate } = renderHook(() => useAffiliationEvents('employee'));
+    expect(result.current.isLoading).toBeTruthy();
+    expect(result.current.isError).toBeFalsy();
     await waitForNextUpdate();
-    expect(result.current.loading).toBeFalsy();
-    expect(result.current.error).toBeTruthy();
-    expect(result.current.data).toEqual([]);
+    expect(result.current.failureCount).toBe(1);
   });
 });
 
-describe('useStudentExperienceEvents', () => {
+describe('useAffiliationEvetns for Students', () => {
   it('gets student events on successful returns', async () => {
-    mock.onGet('/api/events').reply(200, mockEvents.studentExperienceEvents.data);
-    const { result, waitForNextUpdate } = renderHook(() => useStudentExperienceEvents());
-    await waitForNextUpdate();
-    expect(result.current.loading).toBeFalsy();
+    mock.onGet('/api/events').replyOnce(200, mockEvents.studentExperienceEvents.data);
+    const { result, waitForNextUpdate } = renderHook(() => useAffiliationEvents('student'));
+    expect(result.current.isLoading).toBeTruthy();
     expect(result.current.error).toBeFalsy();
+    await waitForNextUpdate();
+    expect(result.current.isLoading).toBeFalsy();
     expect(result.current.data).toEqual(mockEvents.studentExperienceEvents.data);
   });
   it('handles api error', async () => {
-    mock.onGet('/api/events').reply(500);
-    const { result, waitForNextUpdate } = renderHook(() => useStudentExperienceEvents());
+    mock.onGet('/api/events').replyOnce(500, '');
+    const { result, waitForNextUpdate } = renderHook(() => useAffiliationEvents('student'));
+    expect(result.current.isLoading).toBeTruthy();
+    expect(result.current.isError).toBeFalsy();
     await waitForNextUpdate();
-    expect(result.current.loading).toBeFalsy();
-    expect(result.current.error).toBeTruthy();
-    expect(result.current.data).toEqual([]);
+    expect(result.current.failureCount).toBe(1);
   });
 });

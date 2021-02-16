@@ -1,35 +1,15 @@
 import axios from 'axios';
-import useAPICall from '../../useAPICall';
+import { useQuery, QueryObserverConfig, QueryResult } from 'react-query';
+import { REACT_QUERY_DEFAULT_CONFIG } from '../../constants';
 import mocks from '../../mocks/student/grades';
+import { Types } from '@osu-wams/lib';
 
 export const mockGrades = mocks;
 
-export const getGrades = (): Promise<Grades[]> => axios.get(`/api/student/grades`).then(res => res.data);
-export const useGrades = ({ callback = (data: Grades[]) => data } = {}) =>
-  useAPICall<Grades[]>({ api: getGrades, dataTransform: callback, initialState: [] });
+export const getGrades = (): Promise<Types.Grades[]> => axios.get(`/api/student/grades`).then(res => res.data);
 
-export type Grades = {
-  type: string;
-  id: string;
-  links: string;
-  attributes: GradesAttributes;
-};
-
-export type GradesAttributes = {
-  courseReferenceNumber: string;
-  gradeFinal: string;
-  gradeMode: string;
-  gradeModeDescription: string;
-  courseSubject: string;
-  courseSubjectDescription: string;
-  courseNumber: string;
-  courseTitle: string;
-  sectionNumber: string;
-  term: string;
-  termDescription: string;
-  scheduleDescription: string;
-  scheduleType: string;
-  creditHours: number;
-  registrationStatus: string;
-  courseLevel: string;
+export const useGrades = (
+  opts: QueryObserverConfig<Types.Grades[], Error> = REACT_QUERY_DEFAULT_CONFIG,
+): QueryResult<Types.Grades[], Error> => {
+  return useQuery('grades', () => getGrades(), opts);
 };

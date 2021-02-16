@@ -7,7 +7,9 @@
     "lint": "FORCE_COLOR=true lerna run lint",
     "publish:dev": "FORCE_COLOR=true lerna publish prerelease --no-git-tag-version --no-push",
     "publish:patch": "FORCE_COLOR=true lerna publish patch",
-    "publish:prerelease": "FORCE_COLOR=true lerna publish prerelease --force-publish"
+    "publish:prerelease": "FORCE_COLOR=true lerna publish prerelease --force-publish",
+    "COMMMENT_publish:local": "package-list-build-order causes yalc to build packages in the order of which they are dependent upon eachother",
+    "publish:local": "cat package-list-build-order | xargs -n1 -I {} bash -c '{ cd \"packages/{}\" && yalc publish --update && cd .. cd .. ;}'"
   },
   "workspaces": {
     "packages": [
@@ -44,7 +46,7 @@
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-react-hooks": "^1.6.0",
     "husky": "^4.0.0",
-    "jest": "^24.9.0",
+    "jest": "^26",
     "jest-prop-type-error": "^1.1.0",
     "kind-of": "^6.0.3",
     "lerna": "^3.10.7",
@@ -52,7 +54,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-test-renderer": "^16.12.0",
-    "ts-jest": "^24.0.2",
+    "ts-jest": "^26.4.4",
     "typescript": "~3.9.7"
   },
   "husky": {

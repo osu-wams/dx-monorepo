@@ -87,11 +87,7 @@ const isUndergraduate = (user: User): boolean => {
  * @param affiliations the affiliations to check if the user is associated with
  */
 const hasPrimaryAffiliation = (user: User, affiliations: string[]): boolean => {
-  if (user.primaryAffiliationOverride) {
-    return affiliations.includes(user.primaryAffiliationOverride);
-  }
-
-  return affiliations.includes(user.primaryAffiliation);
+  return affiliations.includes(getAffiliation(user));
 };
 
 /**
@@ -99,6 +95,7 @@ const hasPrimaryAffiliation = (user: User, affiliations: string[]): boolean => {
  * @param user
  */
 const isStudent = (user: User): boolean => {
+  if (!user.affiliations?.length) return false;
   return user.affiliations.some(a => a === AFFILIATIONS.student);
 };
 
@@ -107,7 +104,9 @@ const isStudent = (user: User): boolean => {
  * @param user
  */
 const isEmployee = (user: User): boolean => {
-  return user.affiliations.some(a => a === AFFILIATIONS.employee);
+  if (!user.affiliations?.length) return true;
+  const hasEmployeeAffiliation = user.affiliations.some(a => a === AFFILIATIONS.employee);
+  return hasEmployeeAffiliation || (!isStudent(user) && !hasEmployeeAffiliation);
 };
 
 /**
@@ -132,8 +131,16 @@ const inDashboard = (user: User, dashboard: string): boolean => {
  * @param user the user to inspect
  */
 const getAffiliation = (user: User): string => {
-  if (user.primaryAffiliationOverride === '') return user.primaryAffiliation;
-  return user.primaryAffiliationOverride ?? user.primaryAffiliation;
+  if (!user.primaryAffiliation && !user.primaryAffiliationOverride) return 'employee';
+  if (user.primaryAffiliationOverride) return user.primaryAffiliationOverride;
+  if (!user.primaryAffiliation) return 'employee';
+  switch (user.primaryAffiliation.toLowerCase()) {
+    case 'employee':
+    case 'student':
+      return user.primaryAffiliation;
+    default:
+      return 'employee';
+  }
 };
 
 /**
@@ -227,13 +234,31 @@ const settingIsOverridden = (
 };
 
 /**
+ * Returns whether or not the user is an employee who is a former student
+ * @param user the user to inspect
+ */
+const employeeIsFormerStudent = (user: User): boolean => {
+  if (isEmployee(user) && user.classification?.attributes) {
+    return true;
+  }
+
+  return false;
+};
+
+/**
  * Returns the audience override value or users classification in that order
  * of precedence.
  * @param user the user to inspect
  * @returns the campus name and campus code that the user is associated with
  */
 const usersCampus = (user: User): { campusName: string | undefined; campusCode: string } => {
-  const campusCode = user.audienceOverride?.campusCode || user.classification?.attributes?.campusCode || DEFAULT_CAMPUS;
+  let campusCode = user.audienceOverride?.campusCode || user.classification?.attributes?.campusCode || DEFAULT_CAMPUS;
+
+  // Check to see if user is employee who used to be a student, return either audience override or default campus
+  if (employeeIsFormerStudent(user)) {
+    campusCode = user.audienceOverride?.campusCode || DEFAULT_CAMPUS;
+  }
+
   // Find the key name associated to the users campusCode to use for matching in the audiences
   // set for the announcement
   const campusName = Object.keys(CAMPUS_CODES)
@@ -360,7 +385,8 @@ const atCampus = (user: User, code: string): boolean => {
  * @param value the value to find
  */
 const hasValue = (list: string[], value: string): boolean => {
-  return list?.filter(v => v !== null && v !== undefined).some(a => a.toLowerCase() === value.toLowerCase());
+  if (!list) return false;
+  return list.filter(Boolean).some(a => a.toLowerCase() === value?.toLowerCase());
 };
 
 export {
@@ -368,9 +394,11 @@ export {
   getAffiliation,
   hasAudience,
   hasPrimaryAffiliation,
+  isEmployee,
   isFirstYear,
   isGraduate,
   isInternational,
+  isStudent,
   isUndergraduate,
   settingIsDefault,
   settingIsOverridden,

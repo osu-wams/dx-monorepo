@@ -12,11 +12,13 @@ import {
   settingIsOverridden,
   usersCampus,
   usersSettings,
+  isStudent,
+  isEmployee,
 } from '../../src/user/utils';
 import { mockUser, AFFILIATIONS } from '../../src/user';
 import { User } from '../../src/types';
 
-const { user, userEmployee, userGraduate, userAudienceOverride } = mockUser;
+const { user, userEmployee, userGraduate, userAudienceOverride, userEmployeePastStudent } = mockUser;
 const emptyAttributes = {
   levelCode: '',
   campusCode: '',
@@ -51,6 +53,14 @@ describe('getAffiliation', () => {
   it('handles an empty string primaryAffiliationOverride', async () => {
     mockedUser.mockReturnValue({ ...user.data, primaryAffiliationOverride: '' });
     expect(getAffiliation(mockedUser())).toBe('student');
+  });
+  it('handles missing affiliation data', async () => {
+    mockedUser.mockReturnValue({ ...user.data, primaryAffiliation: '', primaryAffiliationOverride: '' });
+    expect(getAffiliation(mockedUser())).toBe('employee');
+  });
+  it('handles edge-case user affiliation data', async () => {
+    mockedUser.mockReturnValue({ ...user.data, primaryAffiliation: 'affiliate' });
+    expect(getAffiliation(mockedUser())).toBe('employee');
   });
 });
 
@@ -184,6 +194,27 @@ describe('isInternational', () => {
   });
 });
 
+describe('isStudent', () => {
+  it('detects student', async () => {
+    expect(isStudent(mockedUser())).toBeTruthy();
+  });
+  it('handles when affiliation not present', async () => {
+    mockedUser.mockReturnValue({ ...user.data, affiliations: [] });
+    expect(isStudent(mockedUser())).toBeFalsy();
+  });
+});
+
+describe('isEmployee', () => {
+  it('detects employee', async () => {
+    mockedUser.mockReturnValue({ ...userEmployee.data });
+    expect(isEmployee(mockedUser())).toBeTruthy();
+  });
+  it('handles when affiliation not present', async () => {
+    mockedUser.mockReturnValue({ ...userEmployee.data, affiliations: [] });
+    expect(isEmployee(mockedUser())).toBeTruthy();
+  });
+});
+
 describe('hasAudience', () => {
   const mockedItem = jest.fn();
   const item = {
@@ -209,7 +240,7 @@ describe('hasAudience', () => {
     it('returns false when the item is intended for a campus that the user is not on ', async () => {
       mockedUser.mockReturnValue({
         ...userEmployee.data,
-        classification: { attributes: { ...classificationAttributes, campusCode: 'B' } },
+        audienceOverride: { campusCode: 'B' },
       });
       mockedItem.mockReturnValue({ ...item, affiliation: [AFFILIATIONS.employee], locations: ['Corvallis'] });
       expect(hasAudience(mockedUser(), mockedItem())).toBeFalsy();
@@ -564,5 +595,20 @@ describe('usersCampus', () => {
       classification: { attributes: { ...classificationAttributes, campusCode: 'DSC' } },
     });
     expect(usersCampus(mockedUser())).toEqual({ campusCode: 'DSC', campusName: 'ecampus' });
+  });
+  it('returns default campus for an employee', async () => {
+    mockedUser.mockReturnValue({
+      ...userEmployeePastStudent.data,
+      classification: { attributes: { ...classificationAttributes, campusCode: 'DSC' } },
+    });
+    expect(usersCampus(mockedUser())).toEqual({ campusCode: 'C', campusName: 'corvallis' });
+  });
+  it('returns an employees campus override', async () => {
+    mockedUser.mockReturnValue({
+      ...userEmployeePastStudent.data,
+      classification: { attributes: { ...classificationAttributes, campusCode: 'DSC' } },
+      audienceOverride: { campusCode: 'B' },
+    });
+    expect(usersCampus(mockedUser())).toEqual({ campusCode: 'B', campusName: 'bend' });
   });
 });
