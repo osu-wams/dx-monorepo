@@ -12,6 +12,7 @@ export interface LocalistEvent {
   campus_id?: number;
   city?: string;
   campus_code?: string;
+  campus_name?: string;
 }
 
 export interface AcademicEvent {
