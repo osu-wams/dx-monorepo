@@ -20,9 +20,11 @@ export interface MailingAddress {
 }
 
 export interface MailingAddressAttributes {
-  addressType: string;
-  addressTypeDescription: string;
-  addressLine1: string | null;
+  addressType: {
+    code: string;
+    description: string | null;
+  };
+  addressLine1: string;
   addressLine2: string | null;
   addressLine3: string | null;
   addressLine4: string | null;

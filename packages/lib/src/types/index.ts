@@ -32,7 +32,17 @@ export {
   GradesAttributes,
   PlannerItem,
 } from './student';
-export { Address, AddressesResponse, MealPlan, MealPlansResponse, PersonsAttributes, PersonsResponse } from './person';
+export {
+  Address,
+  AddressesResponse,
+  MealPlan,
+  MealPlansResponse,
+  PersonsAttributes,
+  PersonsResponse,
+  Email,
+  Phone,
+  Persons,
+} from './person';
 export { AcademicEvent, LocalistEvent } from './localist';
 export { Announcement, DynamicCard, Training, TrainingAudience, TrainingTag } from './dx';
 export { Directory, DirectoryResponse } from './directory';

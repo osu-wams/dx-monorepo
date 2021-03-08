@@ -3,8 +3,10 @@ const personsMailingAddressData = {
     id: '111',
     type: 'addresses',
     attributes: {
-      addressType: 'CM',
-      addressTypeDescription: 'Current Mailing',
+      addressType: {
+        code: 'CM',
+        description: 'Current Mailing',
+      },
       addressLine1: 'Bogus 1st Ave SW',
       addressLine2: null,
       addressLine3: null,
@@ -31,8 +33,10 @@ const personsMinimalAddressData = {
     id: '111',
     type: 'addresses',
     attributes: {
-      addressType: 'CM',
-      addressTypeDescription: null,
+      addressType: {
+        code: 'CM',
+        description: null,
+      },
       addressLine1: 'Bogus 1st Ave SW',
       addressLine2: null,
       addressLine3: null,

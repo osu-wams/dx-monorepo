@@ -5,9 +5,10 @@ export interface Address {
   id: string;
   type: string;
   attributes: {
-    id: string;
-    addressType: string;
-    addressTypeDescription: string;
+    addressType: {
+      code: string;
+      description: string | null;
+    };
     addressLine1: string;
     addressLine2: string | null;
     addressLine3: string | null;
@@ -41,8 +42,10 @@ export interface MealPlan {
   attributes: {
     mealPlans: string;
     balance: number;
-    lastUsedDate: string;
-    lastUsedPlace: string;
+    lastUsed: {
+      dateTime: string;
+      location: string;
+    };
   };
   links: { self: string };
 }
@@ -58,6 +61,7 @@ export interface MealPlansResponse {
  */
 
 export interface PersonsAttributes {
+  id: string;
   firstName: string;
   lastName: string;
   middleName: string;
@@ -81,7 +85,7 @@ export interface PersonsAttributes {
   lastPaidDate: string;
 }
 
-interface Persons {
+export interface Persons {
   id: string;
   type: string;
   attributes: PersonsAttributes;
@@ -114,23 +118,17 @@ export interface PhoneAttributes {
   lastModified: string;
 }
 
-interface Phones {
+export interface Phone {
   id: string;
   type: string;
   attributes: PhoneAttributes;
   links: { self: string };
 }
 
-export interface PhonesResponse {
-  links: { self: string };
-  data: Phones;
-}
-
 /**
  * Emails
  */
-
-export interface EmailAttributes {
+interface EmailAttributes {
   emailType: {
     code: string;
     description: string;
@@ -141,14 +139,9 @@ export interface EmailAttributes {
   lastActivityDate: string;
 }
 
-interface Emails {
+export interface Email {
   id: string;
   type: string;
   attributes: EmailAttributes;
   links: { self: string };
-}
-
-export interface EmailsResponse {
-  links: { self: string };
-  data: Emails;
 }
