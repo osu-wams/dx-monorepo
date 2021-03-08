@@ -11,6 +11,24 @@ export const getPerson = (): Promise<Types.PersonsAttributes> =>
     return res.data;
   });
 
+export const getEmails = (): Promise<Types.Email[]> =>
+  axios.get(`/api/persons/emails`).then(res => {
+    return res.data;
+  });
+
+export const getPhones = (): Promise<Types.Phone[]> =>
+  axios.get(`/api/persons/phones`).then(res => {
+    return res.data;
+  });
+
 export const usePerson = (
   opts: QueryObserverConfig<Types.PersonsAttributes, Error> = REACT_QUERY_DEFAULT_CONFIG,
 ): QueryResult<Types.PersonsAttributes, Error> => useQuery('person', getPerson, opts);
+
+export const useEmails = (
+  opts: QueryObserverConfig<Types.Email[], Error> = REACT_QUERY_DEFAULT_CONFIG,
+): QueryResult<Types.Email[], Error> => useQuery('personEmails', getEmails, opts);
+
+export const usePhones = (
+  opts: QueryObserverConfig<Types.Phone[], Error> = REACT_QUERY_DEFAULT_CONFIG,
+): QueryResult<Types.Phone[], Error> => useQuery('personPhones', getPhones, opts);

@@ -5,9 +5,10 @@ export interface Address {
   id: string;
   type: string;
   attributes: {
-    id: string;
-    addressType: string;
-    addressTypeDescription: string;
+    addressType: {
+      code: string;
+      description: string | null;
+    };
     addressLine1: string;
     addressLine2: string | null;
     addressLine3: string | null;
@@ -41,8 +42,10 @@ export interface MealPlan {
   attributes: {
     mealPlans: string;
     balance: number;
-    lastUsedDate: string;
-    lastUsedPlace: string;
+    lastUsed: {
+      dateTime: string;
+      location: string;
+    };
   };
   links: { self: string };
 }
@@ -59,28 +62,30 @@ export interface MealPlansResponse {
 
 export interface PersonsAttributes {
   id: string;
-  birthDate: string;
-  firstName: string | null;
-  middleName: string | null;
+  firstName: string;
   lastName: string;
-  displayFirstName: string | null;
-  displayMiddleName: string | null;
-  displayLastName: string | null;
-  previousRecords: [] | never;
-  homePhone: string | null;
-  alternatePhone: string | null;
-  osuUID: string;
-  primaryPhone: string | null;
-  mobilePhone: string | null;
-  currentStudent: boolean;
-  currentEmployee: boolean;
-  employeeStatus: string;
-  email: string;
-  username: string;
-  confidential: boolean;
+  middleName: string;
+  birthDate: string;
+  citizen: {
+    code: string;
+    description: string;
+  };
+  sex: string;
+  displayFirstName: string;
+  displayMiddleName: string;
+  displayLastName: string;
+  onid: string;
+  confidentialInd: boolean;
+  currentStudentInd: boolean;
+  employeeStatus: {
+    code: string;
+    description: string;
+  };
+  ssnStatus: string;
+  lastPaidDate: string;
 }
 
-interface Persons {
+export interface Persons {
   id: string;
   type: string;
   attributes: PersonsAttributes;
@@ -90,4 +95,53 @@ interface Persons {
 export interface PersonsResponse {
   links: { self: string };
   data: Persons;
+}
+
+/**
+ * Phones
+ */
+
+export interface PhoneAttributes {
+  areaCode: string;
+  phoneNumber: string;
+  phoneExtension: string;
+  primaryInd: boolean;
+  phoneType: {
+    code: string;
+    description: string;
+  };
+  addressType: {
+    code: string;
+    description: string;
+  };
+  fullPhoneNumber: string;
+  lastModified: string;
+}
+
+export interface Phone {
+  id: string;
+  type: string;
+  attributes: PhoneAttributes;
+  links: { self: string };
+}
+
+/**
+ * Emails
+ */
+interface EmailAttributes {
+  emailType: {
+    code: string;
+    description: string;
+  };
+  emailAddress: string;
+  comment: string;
+  preferredInd: boolean;
+  lastActivityDate: string;
+}
+
+export interface Email {
+  id: string;
+  type: string;
+  attributes: EmailAttributes;
+  links: { self: string };
 }

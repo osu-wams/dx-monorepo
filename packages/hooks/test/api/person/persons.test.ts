@@ -1,7 +1,7 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { renderHook } from '@testing-library/react-hooks';
-import { usePerson, mockPersons } from '../../../src/api/person/persons';
+import { usePerson, useEmails, usePhones, mockPersons } from '../../../src/api/person/persons';
 import { queryCache } from 'react-query';
 
 const mock = new MockAdapter(axios);
@@ -22,6 +22,29 @@ describe('usePerson', () => {
     expect(result.current.isSuccess).toBeTruthy();
     expect(result.current.data).toEqual(mockPersons.personsData.data);
   });
+
+  it('gets emails on successful returns', async () => {
+    mock.onGet('/api/persons/emails').reply(200, mockPersons.emailsData.data);
+
+    const { result, waitForNextUpdate } = renderHook(() => useEmails());
+    await waitForNextUpdate();
+    expect(result.current.isLoading).toBeFalsy();
+    expect(result.current.error).toBeFalsy();
+    expect(result.current.isSuccess).toBeTruthy();
+    expect(result.current.data).toEqual(mockPersons.emailsData.data);
+  });
+
+  it('gets phones on successful returns', async () => {
+    mock.onGet('/api/persons/phones').reply(200, mockPersons.phonesData.data);
+
+    const { result, waitForNextUpdate } = renderHook(() => usePhones());
+    await waitForNextUpdate();
+    expect(result.current.isLoading).toBeFalsy();
+    expect(result.current.error).toBeFalsy();
+    expect(result.current.isSuccess).toBeTruthy();
+    expect(result.current.data).toEqual(mockPersons.phonesData.data);
+  });
+
   it('handles api error', async () => {
     mock.onGet('/api/persons').reply(500);
 

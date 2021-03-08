@@ -3,56 +3,59 @@ const personsData = {
   isSuccess: true,
   error: false,
   data: {
-    id: '123',
-    birthDate: '1980-09-10',
+    id: '1111111',
     firstName: 'Testo',
-    preferredName: '',
-    middleName: null,
     lastName: 'Last',
-    previousRecords: [],
-    homePhone: '1234phone',
-    alternatePhone: null,
-    osuUID: '123456',
-    primaryPhone: '1234phone',
-    mobilePhone: '1234phone',
-    currentStudent: false,
-    currentEmployee: true,
-    employeeStatus: 'A',
-    email: 'testo.last@oregonstate.edu',
-    username: 'testol',
-    confidential: false,
+    middleName: null,
+    birthDate: '1980-09-10',
+    citizen: {
+      code: 'C',
+      description: 'Citizen',
+    },
+    sex: 'M',
+    displayFirstName: 'Testo',
+    displayMiddleName: null,
+    displayLastName: 'Last',
+    onid: 'testol',
+    confidentialInd: false,
+    currentStudentInd: true,
+    employeeStatus: {
+      code: 'A',
+      description: 'Active',
+    },
+    ssnStatus: 'valid',
+    lastPaidDate: '2021-02-28',
   },
 };
 
 const preferredName = {
-  data: {
-    id: '12345',
-    alternatePhone: null,
-    birthDate: '1973-02-08',
-    citizen: null,
-    confidential: false,
-    currentEmployee: false,
-    currentStudent: false,
-    email: null,
-    employeeStatus: null,
-    firstName: 'FirstName',
-    homePhone: '1234home',
-    lastName: 'Testo',
-    middleName: null,
-    mobilePhone: '1234mobile',
-    osuUID: null,
-    displayFirstName: 'displayFirstName',
-    displayLastName: 'displayLastName',
-    displayMiddleName: 'displayMiddleName',
-    previousRecords: [],
-    primaryPhone: '1234mobile',
-    sex: 'F',
-    ssnStatus: 'vault',
-    username: null,
-  },
   isLoading: false,
   isSuccess: true,
   error: false,
+  data: {
+    id: '12345',
+    firstName: 'FirstName',
+    lastName: 'Testo',
+    middleName: null,
+    birthDate: '1980-09-10',
+    citizen: {
+      code: 'C',
+      description: 'Citizen',
+    },
+    sex: 'M',
+    displayFirstName: 'displayFirstName',
+    displayMiddleName: 'displayMiddleName',
+    displayLastName: 'displayLastName',
+    onid: 'testol',
+    confidentialInd: false,
+    currentStudentInd: true,
+    employeeStatus: {
+      code: 'A',
+      description: 'Active',
+    },
+    ssnStatus: 'valid',
+    lastPaidDate: '2021-02-28',
+  },
 };
 
 const preferredFirstName = {
@@ -89,30 +92,164 @@ const preferredFirstName = {
 const nullName = {
   data: {
     id: null,
-    alternatePhone: null,
-    birthDate: '1973-02-08',
-    citizen: null,
-    confidential: false,
-    currentEmployee: false,
-    currentStudent: false,
-    email: null,
-    employeeStatus: null,
     firstName: null,
-    homePhone: '1234home',
-    lastName: 'Testo',
+    lastName: null,
     middleName: null,
-    mobilePhone: '1234mobile',
-    osuUID: null,
-    preferredName: 'Preferred',
-    previousRecords: [],
-    primaryPhone: '1234primary',
-    sex: 'F',
-    ssnStatus: 'vault',
-    username: null,
+    birthDate: '1980-09-10',
+    citizen: {
+      code: 'C',
+      description: 'Citizen',
+    },
+    sex: 'M',
+    displayFirstName: null,
+    displayMiddleName: null,
+    displayLastName: null,
+    onid: null,
+    confidentialInd: false,
+    currentStudentInd: true,
+    employeeStatus: {
+      code: 'A',
+      description: 'Active',
+    },
+    ssnStatus: 'valid',
+    lastPaidDate: '2021-02-28',
   },
   isLoading: false,
   isSuccuess: true,
   error: false,
 };
 
-export default { personsData, nullName, preferredFirstName, preferredName };
+const emailsData = {
+  isLoading: false,
+  isSuccess: true,
+  error: false,
+  data: [
+    {
+      id: '918179',
+      type: 'emails',
+      links: {
+        self: 'string',
+      },
+      attributes: {
+        emailType: {
+          code: 'ONID',
+          description: 'string',
+        },
+        emailAddress: 'testo.last@oregonstate.edu',
+        comment: 'string',
+        preferredInd: true,
+        lastActivityDate: '1970-01-01',
+      },
+    },
+  ],
+};
+
+const phonesData = {
+  isLoading: false,
+  isSuccess: true,
+  error: false,
+  data: [
+    {
+      id: 'string',
+      type: 'phones',
+      links: {
+        self: 'string',
+      },
+      attributes: {
+        areaCode: '1234',
+        phoneNumber: 'phone',
+        phoneExtension: '20',
+        primaryInd: true,
+        phoneType: {
+          code: 'PA',
+          description: 'Current',
+        },
+        addressType: {
+          code: 'PA',
+          description: 'Current Mailing',
+        },
+        fullPhoneNumber: '1234phone',
+        lastModified: '2015-10-19',
+      },
+    },
+  ],
+};
+
+const multiplePhonesData = {
+  isLoading: false,
+  isSuccess: true,
+  error: false,
+  data: [
+    {
+      id: 'string',
+      type: 'phones',
+      links: {
+        self: 'string',
+      },
+      attributes: {
+        areaCode: '1234',
+        phoneNumber: 'phone',
+        phoneExtension: '20',
+        primaryInd: false,
+        phoneType: {
+          code: 'PA',
+          description: 'Current',
+        },
+        addressType: {
+          code: 'PA',
+          description: 'Current Mailing',
+        },
+        fullPhoneNumber: '1234phone',
+        lastModified: '2015-10-19',
+      },
+    },
+    {
+      id: 'string',
+      type: 'phones',
+      links: {
+        self: 'string',
+      },
+      attributes: {
+        areaCode: '1234',
+        phoneNumber: 'phone2',
+        phoneExtension: '20',
+        primaryInd: false,
+        phoneType: {
+          code: 'MP',
+          description: 'Current',
+        },
+        addressType: {
+          code: 'PA',
+          description: 'Current Mailing',
+        },
+        fullPhoneNumber: '1234phone2',
+        lastModified: '2015-10-19',
+      },
+    },
+    {
+      id: 'string',
+      type: 'phones',
+      links: {
+        self: 'string',
+      },
+      attributes: {
+        areaCode: '1234',
+        phoneNumber: 'phoneprimary',
+        phoneExtension: '20',
+        primaryInd: true,
+        phoneType: {
+          code: 'CM',
+          description: 'Current',
+        },
+        addressType: {
+          code: 'CM',
+          description: 'Current Mailing',
+        },
+        fullPhoneNumber: '1234phoneprimary',
+        lastModified: '2015-10-19',
+      },
+    },
+  ],
+};
+
+export default { emailsData, personsData, nullName, preferredFirstName, preferredName, phonesData, multiplePhonesData };
