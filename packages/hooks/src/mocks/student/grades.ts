@@ -1454,6 +1454,6 @@ export default {
       },
     },
   ],
-  loading: false,
-  error: false,
+  isLoading: false,
+  isError: false,
 };
