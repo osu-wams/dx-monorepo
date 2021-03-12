@@ -1,10 +1,12 @@
+import { Types } from '@osu-wams/lib';
+
 const todayUTC = Date.now();
 const currentBeginDate = new Date(todayUTC - 1000 * 60 * 60 * 24).toISOString().slice(0, 10);
 const currentEndDate = new Date(todayUTC).toISOString().slice(0, 10);
 const beginPastDate = new Date(todayUTC - 1000 * 60 * 60 * 24 * 10).toISOString().slice(0, 10);
 const endPastDate = new Date(todayUTC - 1000 * 60 * 60 * 24 * 5).toISOString().slice(0, 10);
 
-const courseScheduleData = [
+const courseScheduleData: Types.CourseSchedule[] = [
   {
     type: 'class-schedule',
     id: 'bogus-id-1',
@@ -17,6 +19,7 @@ const courseScheduleData = [
       courseReferenceNumber: '17342',
       courseSubject: 'WR',
       courseSubjectDescription: 'Written English',
+      courseSubjectNumber: 'WR214',
       courseNumber: '214',
       courseTitle: '*WRITING IN BUSINESS',
       sectionNumber: '004',
@@ -45,7 +48,8 @@ const courseScheduleData = [
           room: '123',
           building: 'SMB',
           buildingDescription: 'Some Building',
-          campus: ' Bend',
+          campusCode: 'B',
+          campus: 'Bend',
           hoursPerWeek: 2.5,
           creditHourSession: 3,
           scheduleType: 'A',
@@ -67,6 +71,7 @@ const courseScheduleData = [
       courseReferenceNumber: '18513',
       courseSubject: 'PH',
       courseSubjectDescription: 'Physics',
+      courseSubjectNumber: 'PH222',
       courseNumber: '222',
       courseTitle: 'RECITATION FOR PHYSICS 212',
       sectionNumber: '002',
@@ -95,7 +100,8 @@ const courseScheduleData = [
           room: '285',
           building: 'WNGR',
           buildingDescription: 'Every Day Test',
-          campus: ' Oregon State - Corvallis',
+          campus: 'Oregon State - Corvallis',
+          campusCode: 'C',
           hoursPerWeek: 0.83,
           creditHourSession: 1,
           scheduleType: 'C',
@@ -117,6 +123,7 @@ const courseScheduleData = [
       courseReferenceNumber: '23908',
       courseSubject: 'CS',
       courseSubjectDescription: 'Computer Science',
+      courseSubjectNumber: 'CS262',
       courseNumber: '262',
       courseTitle: 'DATA SUPER STRUCTURES',
       sectionNumber: '002',
@@ -146,6 +153,7 @@ const courseScheduleData = [
           building: 'PHAR',
           buildingDescription: 'Pharmacy Building',
           campus: ' Oregon State - Corvallis',
+          campusCode: 'C',
           hoursPerWeek: 1.83,
           creditHourSession: 0,
           scheduleType: 'FNL',
@@ -161,6 +169,7 @@ const courseScheduleData = [
           building: 'PHAR',
           buildingDescription: 'Pharmacy Building',
           campus: ' Oregon State - Corvallis',
+          campusCode: 'C',
           hoursPerWeek: 2.5,
           creditHourSession: 4,
           scheduleType: 'A',
@@ -182,6 +191,7 @@ const courseScheduleData = [
       courseReferenceNumber: '23909',
       courseSubject: 'CS',
       courseSubjectDescription: 'Computer Science',
+      courseSubjectNumber: 'CS261',
       courseNumber: '261',
       courseTitle: 'DATA STRUCTURES',
       sectionNumber: '016',
@@ -211,6 +221,7 @@ const courseScheduleData = [
           building: 'STAG',
           buildingDescription: 'Strand Agriculture Hall',
           campus: ' Oregon State - Corvallis',
+          campusCode: 'C',
           hoursPerWeek: 0.83,
           creditHourSession: 0,
           scheduleType: 'C',
@@ -232,6 +243,7 @@ const courseScheduleData = [
       courseReferenceNumber: '24254',
       courseSubject: 'CS',
       courseSubjectDescription: 'Computer Science',
+      courseSubjectNumber: 'CS290',
       courseNumber: '290',
       courseTitle: 'WEB DEVELOPMENT',
       sectionNumber: '001',
@@ -261,6 +273,7 @@ const courseScheduleData = [
           building: 'LINC',
           buildingDescription: 'Learning Innovation Center',
           campus: ' Oregon State - Corvallis',
+          campusCode: 'C',
           hoursPerWeek: 2.5,
           creditHourSession: 4,
           scheduleType: 'A',
@@ -282,6 +295,7 @@ const courseScheduleData = [
       courseReferenceNumber: '25222',
       courseSubject: 'PH',
       courseSubjectDescription: 'Physics',
+      courseSubjectNumber: 'PH212',
       courseNumber: '212',
       courseTitle: 'TESTO PHYSICS',
       sectionNumber: '070',
@@ -329,6 +343,7 @@ const courseScheduleData = [
           building: 'WNGR',
           buildingDescription: 'Library',
           campus: ' Oregon State - Corvallis',
+          campusCode: 'C',
           hoursPerWeek: 1.66,
           creditHourSession: 4,
           scheduleType: 'A',
@@ -344,6 +359,7 @@ const courseScheduleData = [
           building: 'GRP',
           buildingDescription: 'Group Events',
           campus: ' Oregon State - Corvallis',
+          campusCode: 'C',
           hoursPerWeek: 1.83,
           creditHourSession: 0,
           scheduleType: 'FNL',
@@ -359,6 +375,7 @@ const courseScheduleData = [
           building: 'GRP',
           buildingDescription: 'Group Events',
           campus: ' Oregon State - Corvallis',
+          campusCode: 'C',
           hoursPerWeek: 1.33,
           creditHourSession: 0,
           scheduleType: 'A',
@@ -380,6 +397,7 @@ const courseScheduleData = [
       courseReferenceNumber: '25226',
       courseSubject: 'PH',
       courseSubjectDescription: 'Physics',
+      courseSubjectNumber: 'PH212',
       courseNumber: '212',
       courseTitle: '*GENERAL PHYSICS WITH CALCULUS',
       sectionNumber: '074',
@@ -427,6 +445,7 @@ const courseScheduleData = [
           building: 'WNGR',
           buildingDescription: 'Weniger Hall',
           campus: ' Oregon State - Corvallis',
+          campusCode: 'C',
           hoursPerWeek: 1.83,
           creditHourSession: 0,
           scheduleType: 'R',
@@ -448,6 +467,7 @@ const courseScheduleData = [
       courseReferenceNumber: '25233',
       courseSubject: 'PH',
       courseSubjectDescription: 'Physics',
+      courseSubjectNumber: 'PH212',
       courseNumber: '212',
       courseTitle: '*GENERAL PHYSICS WITH CALCULUS',
       sectionNumber: '087',
@@ -495,6 +515,7 @@ const courseScheduleData = [
           building: 'WNGR',
           buildingDescription: 'Weniger Hall',
           campus: ' Oregon State - Corvallis',
+          campusCode: 'C',
           hoursPerWeek: 1.83,
           creditHourSession: 0,
           scheduleType: 'D',
@@ -516,6 +537,7 @@ const courseScheduleData = [
       courseReferenceNumber: '17179',
       courseSubject: 'ED',
       courseSubjectDescription: 'Education',
+      courseSubjectNumber: 'ED408',
       courseNumber: '408',
       courseTitle: 'WORKSHOP/SEPT EXP SECONDARY',
       sectionNumber: '001',
@@ -531,7 +553,7 @@ const courseScheduleData = [
         {
           osuId: '1234567895',
           name: 'McGrory, Sue',
-          email: null,
+          email: 'noreply',
           primary: true,
         },
       ],
@@ -583,6 +605,7 @@ const courseScheduleData = [
       courseReferenceNumber: '17179',
       courseSubject: 'ED',
       courseSubjectDescription: 'Education',
+      courseSubjectNumber: 'ED408',
       courseNumber: '408',
       courseTitle: 'WORKSHOP/SEPT EXP SECONDARY',
       sectionNumber: '001',
@@ -598,7 +621,7 @@ const courseScheduleData = [
         {
           osuId: '1234567895',
           name: 'McGrory, Sue',
-          email: null,
+          email: 'noreply',
           primary: true,
         },
       ],
@@ -651,6 +674,7 @@ const courseScheduleData = [
       courseSubject: 'RL',
       courseSubjectDescription: 'Physics',
       courseNumber: '100',
+      courseSubjectNumber: 'RL100',
       courseTitle: 'Remote Learning Version of something awesome',
       sectionNumber: '002',
       term: '201801',
@@ -679,6 +703,7 @@ const courseScheduleData = [
           building: 'REM', // Found as remote learning data
           buildingDescription: 'Remote Learning', // Found as remote learning data
           campus: ' Oregon State - Corvallis',
+          campusCode: 'C',
           hoursPerWeek: 0.83,
           creditHourSession: 1,
           scheduleType: 'C',
@@ -690,7 +715,14 @@ const courseScheduleData = [
   },
 ];
 
-const simpleSchedule = (startDate: string) => {
+const simpleSchedule = (
+  startDate: string,
+): {
+  data: Types.CourseSchedule[];
+  isLoading: boolean;
+  isSuccess: boolean;
+  error: boolean;
+} => {
   return {
     data: [
       {
@@ -705,6 +737,7 @@ const simpleSchedule = (startDate: string) => {
           courseReferenceNumber: '8675309',
           courseSubject: 'ART',
           courseSubjectDescription: 'Art',
+          courseSubjectNumber: 'ART410',
           courseNumber: '410',
           courseTitle: 'ART APPRECIATION',
           sectionNumber: '001',
@@ -720,7 +753,7 @@ const simpleSchedule = (startDate: string) => {
             {
               osuId: '1234567895',
               name: 'Ross, Bob',
-              email: null,
+              email: 'noreply',
               primary: true,
             },
           ],
@@ -780,4 +813,4 @@ const courseScheduleHookData = {
   refetch: () => {},
 };
 
-export default { simpleSchedule, courseScheduleHookData, courseScheduleData };
+export default { courseScheduleHookData, courseScheduleData, simpleSchedule };
