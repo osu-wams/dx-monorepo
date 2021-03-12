@@ -42,7 +42,9 @@ import * as Trainings from './api/trainings';
 import { useTrainings, useTrainingAudiences, useTrainingTags } from './api/trainings';
 import * as Admin from './api/admin';
 import * as Constants from './constants';
+import * as People from './api/people';
 import { usePeople } from './api/people';
+import * as Locations from './api/locations';
 import { useLocations } from './api/locations';
 
 export {
@@ -56,8 +58,10 @@ export {
   Errors,
   Events,
   InfoButtons,
+  Locations,
   Masquerade,
   PageContents,
+  People,
   Person,
   ReleaseNotes,
   Resources,
@@ -65,8 +69,6 @@ export {
   Student,
   Trainings,
   User,
-  useCards,
-  useDegrees,
   useAcademicCalendarEvents,
   useAcademicStatus,
   useAccountBalance,
@@ -77,8 +79,10 @@ export {
   useAPICall,
   useAppVersions,
   useCampusEvents,
+  useCards,
   useCategories,
   useCourseSchedule,
+  useDegrees,
   useDxAlerts,
   useEmails,
   useGpa,
