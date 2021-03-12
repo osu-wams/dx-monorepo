@@ -120,6 +120,7 @@ interface PlannerItemPlannable {
  */
 
 export interface CourseScheduleFaculty {
+  osuId: string;
   email: string;
   name: string;
   primary: boolean;
@@ -131,6 +132,7 @@ export interface CourseScheduleMeetingTime {
   building: string;
   buildingDescription: string;
   campus: string;
+  campusCode: string;
   creditHourSession: number;
   endDate: string;
   endTime: string;
