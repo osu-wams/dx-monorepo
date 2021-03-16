@@ -15,6 +15,7 @@ const resourcesArray: Types.Resource[] = [
     synonyms: ['help', 'tutoring', 'writing', 'math'],
     type: 'resource',
     excludeTrending: true,
+    itSystem: 'OSU Websites',
   },
   {
     id: '2',
@@ -28,6 +29,7 @@ const resourcesArray: Types.Resource[] = [
     synonyms: [],
     type: 'resource',
     excludeTrending: false,
+    itSystem: 'OSU Websites',
   },
   {
     id: '3',
@@ -41,6 +43,7 @@ const resourcesArray: Types.Resource[] = [
     synonyms: ['boo'],
     type: 'resource',
     excludeTrending: false,
+    itSystem: 'OSU Websites',
   },
   {
     id: '4',
@@ -54,6 +57,7 @@ const resourcesArray: Types.Resource[] = [
     synonyms: ['boo'],
     type: 'resource',
     excludeTrending: false,
+    itSystem: 'Business Intelligence',
   },
   {
     id: '5',
@@ -67,6 +71,7 @@ const resourcesArray: Types.Resource[] = [
     synonyms: [],
     type: 'resource',
     excludeTrending: false,
+    itSystem: 'Business Intelligence',
   },
   {
     id: '6',
