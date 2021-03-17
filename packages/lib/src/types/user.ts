@@ -27,6 +27,7 @@ export interface Resource {
   excludeTrending: boolean;
   iconName?: string;
   id: string;
+  itSystem?: string;
   link: string;
   locations: string[];
   synonyms: string[];
