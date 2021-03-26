@@ -61,3 +61,10 @@ export interface TrainingTag {
   id: string;
   name: string;
 }
+
+export interface PageSearchIndex {
+  id: string;
+  page: string;
+  description: string;
+  searchTerms: string[];
+}
