@@ -713,6 +713,58 @@ const courseScheduleData: Types.CourseSchedule[] = [
       ],
     },
   },
+  {
+    type: 'class-schedule',
+    id: 'bogus-id-12',
+    links: {
+      self: null,
+    },
+    attributes: {
+      academicYear: '1718',
+      academicYearDescription: 'Academic Year 2017-18',
+      courseReferenceNumber: '18513',
+      courseSubject: 'GP',
+      courseSubjectDescription: 'Physics',
+      courseNumber: '100',
+      courseSubjectNumber: 'GP100',
+      courseTitle: 'Group Event Version of something awesome',
+      sectionNumber: '002',
+      term: '201801',
+      termDescription: 'Fall 2017',
+      scheduleDescription: 'Recitation',
+      scheduleType: 'C',
+      creditHours: 1,
+      registrationStatus: '**Web Registered**',
+      gradingMode: 'Pass/No Pass Grading Mode',
+      continuingEducation: false,
+      faculty: [
+        {
+          osuId: '123456789',
+          name: 'Jansen, Henri',
+          email: '123456789@physics.oregonstate.edu',
+          primary: true,
+        },
+      ],
+      meetingTimes: [
+        {
+          beginDate: currentBeginDate,
+          beginTime: '09:00:00',
+          endDate: currentEndDate,
+          endTime: '09:50:00',
+          room: '100', // Found with group event data
+          building: 'GRP', // Found with group event data
+          buildingDescription: 'Group Event', // Found with group event data
+          campus: ' Oregon State - Corvallis',
+          campusCode: 'C',
+          hoursPerWeek: 1.33,
+          creditHourSession: 0,
+          scheduleType: 'A',
+          scheduleDescription: 'Lecture',
+          weeklySchedule: ['M', 'T', 'W', 'Th', 'F', 'Sa', 'Su'],
+        },
+      ],
+    },
+  },
 ];
 
 const simpleSchedule = (
