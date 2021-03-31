@@ -14,6 +14,8 @@ import { useInfoButtons } from './api/infoButtons';
 import * as Masquerade from './api/masquerade';
 import * as PageContents from './api/pageContents';
 import { usePageContent } from './api/pageContents';
+import * as SearchIndex from './api/searchIndex';
+import { usePageSearchIndex } from './api/searchIndex';
 import * as Person from './api/person';
 import { useAddresses, useMealPlans, usePerson, useEmails, usePhones } from './api/person';
 import * as ReleaseNotes from './api/releaseNotes';
@@ -65,6 +67,7 @@ export {
   Person,
   ReleaseNotes,
   Resources,
+  SearchIndex,
   Status,
   Student,
   Trainings,
@@ -93,6 +96,7 @@ export {
   useMealPlans,
   useMessages,
   usePageContent,
+  usePageSearchIndex,
   usePeople,
   usePerson,
   usePhones,

@@ -44,6 +44,6 @@ export {
   Persons,
 } from './person';
 export { AcademicEvent, LocalistEvent } from './localist';
-export { Announcement, DynamicCard, Training, TrainingAudience, TrainingTag } from './dx';
+export { Announcement, DynamicCard, Training, TrainingAudience, TrainingTag, PageSearchIndex } from './dx';
 export { Directory, DirectoryResponse } from './directory';
 export { Location, LocationResponse } from './location';
