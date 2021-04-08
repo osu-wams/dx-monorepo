@@ -88,6 +88,7 @@ export interface User {
   primaryAffiliationOverride?: string;
   favoriteResources?: FavoriteResource[];
   isMobile?: boolean; // If the session for this user was initiated through the mobile app
+  isMasquerade?: boolean; // If the session for this user is masqueraded or undefined when the user is not
 }
 
 export interface UserState {
