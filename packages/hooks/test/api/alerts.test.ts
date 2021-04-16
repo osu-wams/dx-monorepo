@@ -2,43 +2,49 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { renderHook } from '@testing-library/react-hooks';
 import { useDxAlerts, useRaveAlerts, mockAlerts } from '../../src/api/alerts';
+import { queryCache } from 'react-query';
 
 const mock = new MockAdapter(axios);
 
-describe('getRaveAlerts', () => {
-  it('gets versions on successful returns', async () => {
-    mock.onGet('/api/alerts').reply(200, mockAlerts.raveAlerts.data);
+afterEach(() => {
+  queryCache.clear();
+  mock.reset();
+});
+
+describe('useRaveAlerts', () => {
+  it('performs the call', async () => {
+    mock.onGet('/api/alerts').replyOnce(200, mockAlerts.raveAlerts.data);
     const { result, waitForNextUpdate } = renderHook(() => useRaveAlerts());
+    expect(result.current.isLoading).toBeTruthy();
     await waitForNextUpdate();
-    expect(result.current.loading).toBeFalsy();
-    expect(result.current.error).toBeFalsy();
-    expect(result.current.data).toEqual(mockAlerts.raveAlerts.data);
+    expect(result.current.isLoading).toBeFalsy();
   });
-  it('handles api error', async () => {
-    mock.onGet('/api/alerts').reply(500);
+
+  it('handles an error', async () => {
+    mock.onGet('/api/alerts').replyOnce(500, '');
     const { result, waitForNextUpdate } = renderHook(() => useRaveAlerts());
+    expect(result.current.isLoading).toBeTruthy();
+    expect(result.current.isError).toBeFalsy();
     await waitForNextUpdate();
-    expect(result.current.loading).toBeFalsy();
-    expect(result.current.error).toBeTruthy();
-    expect(result.current.data).toEqual([]);
+    expect(result.current.failureCount).toBe(1);
   });
 });
 
-describe('getDxAlerts', () => {
-  it('gets versions on successful returns', async () => {
-    mock.onGet('/api/alerts/dx').reply(200, mockAlerts.dxAlerts.data);
+describe('useDxAlerts', () => {
+  it('performs the call', async () => {
+    mock.onGet('/api/alerts/dx').replyOnce(200, mockAlerts.dxAlerts.data);
     const { result, waitForNextUpdate } = renderHook(() => useDxAlerts());
+    expect(result.current.isLoading).toBeTruthy();
     await waitForNextUpdate();
-    expect(result.current.loading).toBeFalsy();
-    expect(result.current.error).toBeFalsy();
-    expect(result.current.data).toEqual(mockAlerts.dxAlerts.data);
+    expect(result.current.isLoading).toBeFalsy();
   });
-  it('handles api error', async () => {
-    mock.onGet('/api/alerts/dx').reply(500);
+
+  it('handles an error', async () => {
+    mock.onGet('/api/alerts/dx').replyOnce(500, '');
     const { result, waitForNextUpdate } = renderHook(() => useDxAlerts());
+    expect(result.current.isLoading).toBeTruthy();
+    expect(result.current.isError).toBeFalsy();
     await waitForNextUpdate();
-    expect(result.current.loading).toBeFalsy();
-    expect(result.current.error).toBeTruthy();
-    expect(result.current.data).toEqual([]);
+    expect(result.current.failureCount).toBe(1);
   });
 });
