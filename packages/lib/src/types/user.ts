@@ -3,6 +3,7 @@ export interface Alert {
   date: Date;
   title: string;
   type: string;
+  updated: Date;
 }
 
 export interface Category {
