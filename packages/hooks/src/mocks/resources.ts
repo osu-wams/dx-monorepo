@@ -99,6 +99,20 @@ const resourcesArray: Types.Resource[] = [
     type: 'resource',
     excludeTrending: false,
   },
+  {
+    id: '8',
+    title: 'Box',
+    link: 'https://box.com/',
+    iconName: 'fal.check',
+    audiences: [],
+    affiliation: [AFFILIATIONS.student, AFFILIATIONS.employee],
+    categories: ['Featured'],
+    locations: ['Corvallis', 'Bend'],
+    synonyms: [],
+    type: 'resource',
+    excludeTrending: false,
+    itSystem: 'Box',
+  },
 ];
 
 const resourcesData = {
