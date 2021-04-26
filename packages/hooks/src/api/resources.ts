@@ -54,9 +54,11 @@ export const getFavorites = (): Promise<Types.FavoriteResource[]> =>
   axios.get('/api/resources/favorites').then(res => res.data);
 
 // Adds/updates data for Favorite Resources
-export const postFavorite = (resourceId: string, active: boolean, order: number): Promise<Types.FavoriteResource> =>
+export const postFavorite = (
+  favorites: { resourceId: string; active: boolean; order: number }[],
+): Promise<Types.FavoriteResource[]> =>
   axios
-    .post('/api/resources/favorites', { resourceId, active, order })
+    .post('/api/resources/favorites', favorites)
     .then(res => res.data)
     .catch(e => {
       console.error(e);
