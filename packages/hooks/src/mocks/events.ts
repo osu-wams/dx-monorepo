@@ -117,7 +117,7 @@ const studentExperienceEvents_10: { data: Types.LocalistEvent[] } = {
     {
       action: {
         link:
-          'https://events.oregonstate.edu/event/sea-inspired_paintings_on_exhibit_at_hatfield_visitor_center_until_july_7',
+          'https://events.oregonstate.edu/event/sea-inspired_paintings_on_exhibit_at_hatfield_visitor_center_until_july_2',
       },
       bg_image: 'https://images.localist.com/photos/849707/huge/dc9bddd1554ee9119d1109f337d82d700118bba1.jpg',
       date: '2019-10-24T10:00:00-07:00',
@@ -153,7 +153,7 @@ const studentExperienceEvents_10: { data: Types.LocalistEvent[] } = {
     {
       action: {
         link:
-          'https://events.oregonstate.edu/event/sea-inspired_paintings_on_exhibit_at_hatfield_visitor_center_until_july_7',
+          'https://events.oregonstate.edu/event/sea-inspired_paintings_on_exhibit_at_hatfield_visitor_center_until_july_2',
       },
       bg_image: 'https://images.localist.com/photos/849707/huge/dc9bddd1554ee9119d1109f337d82d700118bba1.jpg',
       date: '2019-10-24T10:00:00-07:00',
@@ -165,7 +165,7 @@ const studentExperienceEvents_10: { data: Types.LocalistEvent[] } = {
       campus_code: 'C',
     },
     {
-      action: { link: 'https://events.oregonstate.edu/event/pathogetesto' },
+      action: { link: 'https://events.oregonstate.edu/event/pathogetesto1' },
       bg_image: 'https://images.localist.com/photos/30318536347604/huge/testo.jpg',
       date: '2019-10-24T10:00:00-07:00',
       id: 5,
@@ -176,7 +176,7 @@ const studentExperienceEvents_10: { data: Types.LocalistEvent[] } = {
       campus_code: 'C',
     },
     {
-      action: { link: 'https://events.oregonstate.edu/testo' },
+      action: { link: 'https://events.oregonstate.edu/testo1' },
       bg_image: 'https://images.localist.com/photos/30443006289764/huge/testo.jpg',
       date: '2019-10-24T10:00:00-07:00',
       id: 6,
@@ -201,7 +201,7 @@ const studentExperienceEvents_10: { data: Types.LocalistEvent[] } = {
       campus_code: 'C',
     },
     {
-      action: { link: 'https://events.oregonstate.edu/event/pathogetesto' },
+      action: { link: 'https://events.oregonstate.edu/event/pathogetesto2' },
       bg_image: 'https://images.localist.com/photos/30318536347604/huge/testo.jpg',
       date: '2019-10-24T10:00:00-07:00',
       id: 8,
@@ -212,7 +212,7 @@ const studentExperienceEvents_10: { data: Types.LocalistEvent[] } = {
       campus_code: 'C',
     },
     {
-      action: { link: 'https://events.oregonstate.edu/testo' },
+      action: { link: 'https://events.oregonstate.edu/testo2' },
       bg_image: 'https://images.localist.com/photos/30443006289764/huge/testo.jpg',
       date: '2019-10-24T10:00:00-07:00',
       id: 9,
