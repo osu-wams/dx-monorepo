@@ -34,7 +34,7 @@
     "msw": "^0.20.5",
     "tsdx": "^0.14.0",
     "tslib": "^1.10.0",
-    "typescript": "^3.7.5"
+    "typescript": "~4.2.4"
   },
   "dependencies": {
     "axios": "^0.21.1",

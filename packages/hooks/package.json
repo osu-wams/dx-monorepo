@@ -23,6 +23,7 @@
     "@osu-wams/utils": "^0.0.8",
     "axios": "^0.21.1",
     "react-query": "2.23.0",
+    "recoil": "^0.2.0",
     "stacktrace-js": "^2.0.2"
   },
   "husky": {
@@ -47,6 +48,6 @@
     "husky": "^4.0.10",
     "tsdx": "^0.14.0",
     "tslib": "^1.10.0",
-    "typescript": "^3.7.5"
+    "typescript": "~4.2.4"
   }
 }

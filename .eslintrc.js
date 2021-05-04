@@ -1,7 +1,7 @@
 module.exports = {
   parser: 'babel-eslint',
   plugins: ['react', 'prettier', 'jsx-a11y', 'import'],
-  extends: ['xo', 'xo-react', 'react-app', 'prettier', 'prettier/react'],
+  extends: ['react-app', 'prettier', 'prettier/react'],
   globals: {
     expect: true,
     describe: true,
@@ -15,6 +15,7 @@ module.exports = {
     navigator: true,
   },
   rules: {
+    '@typescript-eslint/no-redeclare': 0,
     'space-before-function-paren': 0,
     quotes: 0,
     'operator-linebreak': 0,
