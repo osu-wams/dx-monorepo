@@ -33,7 +33,7 @@
     "husky": "^4.0.10",
     "msw": "^0.20.5",
     "tsdx": "^0.14.0",
-    "tslib": "^1.10.0",
+    "tslib": "^2.2.0",
     "typescript": "~4.2.4"
   },
   "dependencies": {

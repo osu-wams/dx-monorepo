@@ -1,5 +1,5 @@
 import * as storageCache from './storageCache';
-import * as Url from './externalUrls.data';
+import Url from './externalUrls.data';
 import * as Canvas from './canvas';
 import * as Course from './course';
 import * as Helpers from './helpers';

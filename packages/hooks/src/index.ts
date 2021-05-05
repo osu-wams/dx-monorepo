@@ -48,6 +48,7 @@ import * as People from './api/people';
 import { usePeople } from './api/people';
 import * as Locations from './api/locations';
 import { useLocations } from './api/locations';
+import * as State from './state';
 
 export {
   Admin,
@@ -68,6 +69,7 @@ export {
   ReleaseNotes,
   Resources,
   SearchIndex,
+  State,
   Status,
   Student,
   Trainings,
