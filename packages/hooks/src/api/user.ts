@@ -270,4 +270,6 @@ export const useUserState = (navigate: Function) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.data, user.loading, user.error, initialRoute]);
+
+  return { user };
 };

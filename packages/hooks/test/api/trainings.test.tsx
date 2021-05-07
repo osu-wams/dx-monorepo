@@ -1,8 +1,10 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { renderHook } from '@testing-library/react-hooks';
+import { wrapper } from '../test-utils';
 import {
   useTrainings,
+  useTrainingsState,
   getTrainings,
   getTrainingAudiences,
   useTrainingAudiences,
@@ -49,6 +51,28 @@ describe('useTrainings', () => {
     expect(result.current.isError).toBeFalsy();
     await waitForNextUpdate();
     expect(result.current.failureCount).toBe(1);
+  });
+});
+
+describe('useTrainingsState', () => {
+  it('performs the call', async () => {
+    mock.onGet('/api/trainings').replyOnce(200, mockTrainings.data);
+    const { result, waitForNextUpdate } = renderHook(() => useTrainingsState(), { wrapper });
+    expect(result.current.trainings.isLoading).toBeTruthy();
+    await waitForNextUpdate();
+    expect(result.current.trainings.isLoading).toBeFalsy();
+    expect(result.current.trainings.data).toEqual(mockTrainings.data);
+  });
+
+  it('handles an error', async () => {
+    mock.onGet('/api/trainings').replyOnce(500, '');
+    const { result, waitForNextUpdate } = renderHook(() => useTrainingsState(), { wrapper });
+    expect(result.current.trainings.isLoading).toBeTruthy();
+    expect(result.current.trainings.isError).toBeFalsy();
+    await waitForNextUpdate();
+    expect(result.current.trainings.data).toEqual([]);
+    expect(result.current.trainings.isLoading).toBeTruthy();
+    expect(result.current.trainings.isSuccess).toBeFalsy();
   });
 });
 

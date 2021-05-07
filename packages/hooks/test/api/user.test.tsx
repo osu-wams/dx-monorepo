@@ -1,13 +1,24 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { renderHook } from '@testing-library/react-hooks';
-import { postSettings, useUser, mockUser, INITIAL_USER, updateUserMessage, useMessages } from '../../src/api/user';
+import { wrapper } from '../test-utils';
+import {
+  postSettings,
+  useUser,
+  mockUser,
+  INITIAL_USER,
+  updateUserMessage,
+  useMessages,
+  useUserState,
+} from '../../src/api/user';
 import { Types } from '@osu-wams/lib';
 import { queryCache } from 'react-query';
 
 const { userClassification, user, settings, userFavoriteResources, userMessage, userMessageItems } = mockUser;
 const mockedUser = jest.fn<Types.User, any>(() => user.data);
 const mock = new MockAdapter(axios);
+
+const mockNavigate = jest.fn();
 
 afterEach(() => {
   queryCache.clear();
@@ -37,6 +48,28 @@ describe('useUser', () => {
     expect(result.current.loading).toBeFalsy();
     expect(result.current.error).toBeTruthy();
     expect(result.current.data).toEqual(INITIAL_USER);
+  });
+});
+
+describe('useUserState', () => {
+  it('gets user on successful returns', async () => {
+    mock.onGet('/api/resources/favorites').reply(200, userFavoriteResources);
+    mock.onGet('/api/user/classification').reply(200, userClassification);
+    mock.onGet('/api/user').reply(200, user.data);
+    const { result, waitForNextUpdate } = renderHook(() => useUserState(mockNavigate), { wrapper });
+    await waitForNextUpdate();
+    expect(result.current.user.loading).toBeFalsy();
+    expect(result.current.user.error).toBeFalsy();
+    expect(mockNavigate).toHaveBeenCalled();
+  });
+  it('handles api error', async () => {
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+    mock.onGet('/api/user').reply(500);
+    const { result, waitForNextUpdate } = renderHook(() => useUserState(mockNavigate), { wrapper });
+    await waitForNextUpdate();
+    expect(result.current.user.loading).toBeFalsy();
+    expect(result.current.user.error).toBeTruthy();
+    expect(mockNavigate).not.toHaveBeenCalled();
   });
 });
 
