@@ -11,6 +11,8 @@ import {
   useTrendingResources,
 } from '../../src/api/resources';
 import { queryCache } from 'react-query';
+import { RecoilRoot } from 'recoil';
+import React from 'react';
 
 const mock = new MockAdapter(axios);
 
@@ -41,16 +43,18 @@ describe('useResources', () => {
 
 describe('useResourcesState', () => {
   it('gets resources on successful returns', async () => {
+    const wrapper = ({ children }: any) => <RecoilRoot>{children}</RecoilRoot>;
     mock.onGet('/api/resources').reply(200, mockResources.resourcesData.data);
-    const { result, waitForNextUpdate } = renderHook(() => useResourcesState());
+    const { result, waitForNextUpdate } = renderHook(() => useResourcesState(), { wrapper });
     await waitForNextUpdate();
     expect(result.current.resources.isLoading).toBeFalsy();
     expect(result.current.resources.isError).toBeFalsy();
     expect(result.current.resources.data).toEqual(mockResources.resourcesData.data);
   });
   it('handles api error', async () => {
+    const wrapper = ({ children }: any) => <RecoilRoot>{children}</RecoilRoot>;
     mock.onGet('/api/resources').reply(500);
-    const { result, waitForNextUpdate } = renderHook(() => useResourcesState());
+    const { result, waitForNextUpdate } = renderHook(() => useResourcesState(), { wrapper });
     await waitForNextUpdate();
     expect(result.current.resources.isLoading).toBeTruthy();
     expect(result.current.resources.isError).toBeFalsy();
