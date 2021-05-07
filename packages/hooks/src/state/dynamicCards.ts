@@ -1,6 +1,5 @@
 import { atom, selectorFamily } from 'recoil';
-import { Types } from '@osu-wams/lib';
-import { hasAudience } from '../api/user';
+import { User, Types } from '@osu-wams/lib';
 import { resourceState } from './resources';
 import { userState } from './application';
 
@@ -32,7 +31,7 @@ export const filteredCards = selectorFamily<Types.DynamicCard[], string>({
       const filtered = cards.data
         .filter(c => c.pages.map(p => p.toLowerCase()).includes(page.toLowerCase()))
         .filter(c =>
-          hasAudience(user.data, {
+          User.hasAudience(user.data, {
             locations: c.locations,
             audiences: c.audiences ?? [],
             affiliation: c.affiliation,

@@ -1,6 +1,5 @@
 import { atom, selector } from 'recoil';
-import { AFFILIATIONS, INITIAL_USER } from '../api/user';
-import { Types } from '@osu-wams/lib';
+import { User, Types } from '@osu-wams/lib';
 
 export const isLoadedState = atom<boolean>({
   key: 'isLoadedState',
@@ -14,12 +13,12 @@ export const initialRouteState = atom<string>({
 
 export const dashboardState = atom<{ affiliation: string; navigateTo: string }>({
   key: 'dashboardState',
-  default: { affiliation: AFFILIATIONS.student, navigateTo: `/${AFFILIATIONS.student}` },
+  default: { affiliation: User.AFFILIATIONS.student, navigateTo: `/${User.AFFILIATIONS.student}` },
 });
 
 export const userState = atom<Types.UserState>({
   key: 'userState',
-  default: { data: INITIAL_USER, loading: true, error: false },
+  default: { data: User.INITIAL_USER, loading: true, error: false },
 });
 
 export const isEmployeeState = selector<boolean>({
