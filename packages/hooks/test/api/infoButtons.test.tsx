@@ -33,12 +33,4 @@ describe('useInfoButtonsState', () => {
     await waitForNextUpdate();
     expect(result.current.infoButtons).toEqual(mockInfoButtons.data);
   });
-  it('handles api error', async () => {
-    mock.onGet('/api/info-buttons').reply(500);
-    const { result, waitForNextUpdate } = renderHook(() => useInfoButtonsState(), { wrapper });
-    await waitForNextUpdate();
-    expect(result.current.infoButtons).toEqual([]);
-    await waitForNextUpdate();
-    expect(result.current.infoButtons).toEqual([]);
-  });
 });

@@ -56,7 +56,7 @@ describe('useUserState', () => {
     global.window = Object.create(window);
     Object.defineProperty(window, 'location', {
       value: {
-        pathname: '/student',
+        pathname: '/',
         search: '',
       },
       writable: true,
