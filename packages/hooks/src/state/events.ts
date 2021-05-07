@@ -1,7 +1,7 @@
 import { atomFamily, SerializableParam } from 'recoil';
 import { Types } from '@osu-wams/lib';
 
-interface LocalistEventParam extends Readonly<{ [key: string]: SerializableParam }> {
+export interface LocalistEventParam extends Readonly<{ [key: string]: SerializableParam }> {
   campus?: SerializableParam;
   affiliation?: SerializableParam;
 }

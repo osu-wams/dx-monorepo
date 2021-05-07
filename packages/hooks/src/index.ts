@@ -1,6 +1,6 @@
 import useAPICall from './useAPICall';
 import * as Announcements from './api/announcements';
-import { useAnnouncements } from './api/announcements';
+import { useAnnouncements, useAnnouncementsState } from './api/announcements';
 import { useApplicationMessagesState } from './api/applicationMessages';
 import * as AppVersions from './api/appVersions';
 import { useAppVersions } from './api/appVersions';
@@ -9,7 +9,13 @@ import { useDxAlerts, useRaveAlerts } from './api/alerts';
 import * as Classification from './api/classification';
 import * as Errors from './api/errors';
 import * as Events from './api/events';
-import { useAcademicCalendarEvents, useCampusEvents, useAffiliationEvents } from './api/events';
+import {
+  useAcademicCalendarEvents,
+  useAffiliationEvents,
+  useAffiliationEventsState,
+  useCampusEvents,
+  useCampusEventsState,
+} from './api/events';
 import * as InfoButtons from './api/infoButtons';
 import { useInfoButtons } from './api/infoButtons';
 import * as Masquerade from './api/masquerade';
@@ -86,12 +92,15 @@ export {
   useAccountBalance,
   useAccountTransactions,
   useAffiliationEvents,
+  useAffiliationEventsState,
   useAddresses,
   useAnnouncements,
+  useAnnouncementsState,
   useApplicationMessagesState,
   useAPICall,
   useAppVersions,
   useCampusEvents,
+  useCampusEventsState,
   useCards,
   useCategories,
   useCourseSchedule,
