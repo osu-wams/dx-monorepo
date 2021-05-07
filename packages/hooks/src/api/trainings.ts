@@ -31,6 +31,10 @@ export const useTrainingAudiences = (
   opts: QueryObserverConfig<Types.TrainingAudience[], Error> = REACT_QUERY_DEFAULT_CONFIG,
 ): QueryResult<Types.TrainingAudience[], Error> => useQuery('training-audiences', getTrainingAudiences, opts);
 
+/**
+ * Fetch the data from the api hook and persist in shared state
+ * @returns data and setter for trainings state
+ */
 export const useTrainingsState = () => {
   const api = useTrainings();
   const [trainings, setTrainings] = useRecoilState(trainingState);
