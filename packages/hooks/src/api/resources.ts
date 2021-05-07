@@ -1,6 +1,9 @@
 import axios from 'axios';
+import { useEffect } from 'react';
 import { useQuery, QueryObserverConfig, QueryResult } from 'react-query';
 import { Types } from '@osu-wams/lib';
+import { resourceState } from '../state/resources';
+import { useRecoilState } from 'recoil';
 import mocks from '../mocks/resources';
 import { REACT_QUERY_DEFAULT_CONFIG } from '../constants';
 
@@ -87,4 +90,29 @@ export const useTrendingResources = (
   const affiliationPath = affiliation ? `/${affiliation}` : '';
   const query = `${daysAgo}${affiliationPath}`;
   return useQuery(['trending-resources', daysAgo, affiliation], () => getTrendingResources(query), opts);
+};
+
+/**
+ * Fetch the data from the api hook and persist in shared state
+ * @returns data and setter for resourceState
+ */
+export const useResourcesState = () => {
+  const api = useResources();
+  const [resources, setResources] = useRecoilState(resourceState);
+
+  useEffect(() => {
+    const { isError, isLoading, isSuccess, data } = api;
+    // Only reset application state when the api has returned new data that isn't already set
+    if (isSuccess && data && data !== resources.data) {
+      setResources({
+        data,
+        isLoading,
+        isSuccess,
+        isError,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [api.data, api.isSuccess]);
+
+  return { resources, setResources };
 };

@@ -22,7 +22,13 @@ import { useAddresses, useMealPlans, usePerson, useEmails, usePhones } from './a
 import * as ReleaseNotes from './api/releaseNotes';
 import { useReleaseNotes } from './api/releaseNotes';
 import * as Resources from './api/resources';
-import { useResources, useCategories, useResourcesByQueue, useTrendingResources } from './api/resources';
+import {
+  useResources,
+  useCategories,
+  useResourcesByQueue,
+  useTrendingResources,
+  useResourcesState,
+} from './api/resources';
 import * as Cards from './api/cards';
 import { useCards } from './api/cards';
 import * as Status from './api/status';
@@ -109,6 +115,7 @@ export {
   useReleaseNotes,
   useResources,
   useResourcesByQueue,
+  useResourcesState,
   useStatus,
   useTrainings,
   useTrainingAudiences,
