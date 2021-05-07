@@ -59,7 +59,9 @@ describe('useResourcesState', () => {
     expect(result.current.resources.isLoading).toBeTruthy();
     expect(result.current.resources.isError).toBeFalsy();
     await waitForNextUpdate();
-    expect(result.current.resources.isError).toBeTruthy();
+    expect(result.current.resources.data).toEqual([]);
+    expect(result.current.resources.isLoading).toBeTruthy();
+    expect(result.current.resources.isSuccess).toBeFalsy();
   });
 });
 
