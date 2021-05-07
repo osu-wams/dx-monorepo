@@ -17,7 +17,7 @@ import {
   useCampusEventsState,
 } from './api/events';
 import * as InfoButtons from './api/infoButtons';
-import { useInfoButtons } from './api/infoButtons';
+import { useInfoButtons, useInfoButtonsState } from './api/infoButtons';
 import * as Masquerade from './api/masquerade';
 import * as PageContents from './api/pageContents';
 import { usePageContent } from './api/pageContents';
@@ -117,6 +117,7 @@ export {
   useGradesState,
   useHolds,
   useInfoButtons,
+  useInfoButtonsState,
   useLocations,
   useMealPlans,
   useMessages,
