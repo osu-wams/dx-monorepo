@@ -54,7 +54,7 @@ import {
 import * as User from './api/user';
 import { useMessages, useUser, useUserState } from './api/user';
 import * as Trainings from './api/trainings';
-import { useTrainings, useTrainingAudiences, useTrainingTags } from './api/trainings';
+import { useTrainings, useTrainingAudiences, useTrainingTags, useTrainingsState } from './api/trainings';
 import * as Admin from './api/admin';
 import * as Constants from './constants';
 import * as People from './api/people';
@@ -128,6 +128,7 @@ export {
   useResourcesState,
   useStatus,
   useTrainings,
+  useTrainingsState,
   useTrainingAudiences,
   useTrainingTags,
   useTrendingResources,
