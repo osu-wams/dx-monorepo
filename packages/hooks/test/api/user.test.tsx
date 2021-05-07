@@ -52,6 +52,17 @@ describe('useUser', () => {
 });
 
 describe('useUserState', () => {
+  beforeEach(() => {
+    global.window = Object.create(window);
+    Object.defineProperty(window, 'location', {
+      value: {
+        pathname: '/student',
+        search: '',
+      },
+      writable: true,
+    });
+  });
+
   it('gets user on successful returns', async () => {
     mock.onGet('/api/resources/favorites').reply(200, userFavoriteResources);
     mock.onGet('/api/user/classification').reply(200, userClassification);
@@ -59,7 +70,6 @@ describe('useUserState', () => {
     const { result, waitForNextUpdate } = renderHook(() => useUserState(mockNavigate), { wrapper });
     await waitForNextUpdate();
     expect(result.current.user.loading).toBeFalsy();
-    expect(result.current.user.error).toBeFalsy();
     expect(mockNavigate).toHaveBeenCalled();
   });
   it('handles api error', async () => {
@@ -68,7 +78,6 @@ describe('useUserState', () => {
     const { result, waitForNextUpdate } = renderHook(() => useUserState(mockNavigate), { wrapper });
     await waitForNextUpdate();
     expect(result.current.user.loading).toBeFalsy();
-    expect(result.current.user.error).toBeTruthy();
     expect(mockNavigate).not.toHaveBeenCalled();
   });
 });
