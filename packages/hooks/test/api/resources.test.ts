@@ -3,6 +3,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { renderHook } from '@testing-library/react-hooks';
 import {
   useResources,
+  useResourcesState,
   mockResources,
   defaultCategoryName,
   useResourcesByQueue,
@@ -35,6 +36,26 @@ describe('useResources', () => {
     expect(result.current.isError).toBeFalsy();
     await waitForNextUpdate();
     expect(result.current.failureCount).toBe(2);
+  });
+});
+
+describe('useResourcesState', () => {
+  it('gets resources on successful returns', async () => {
+    mock.onGet('/api/resources').reply(200, mockResources.resourcesData.data);
+    const { result, waitForNextUpdate } = renderHook(() => useResourcesState());
+    await waitForNextUpdate();
+    expect(result.current.resources.isLoading).toBeFalsy();
+    expect(result.current.resources.isError).toBeFalsy();
+    expect(result.current.resources.data).toEqual(mockResources.resourcesData.data);
+  });
+  it('handles api error', async () => {
+    mock.onGet('/api/resources').reply(500);
+    const { result, waitForNextUpdate } = renderHook(() => useResourcesState());
+    await waitForNextUpdate();
+    expect(result.current.resources.isLoading).toBeTruthy();
+    expect(result.current.resources.isError).toBeFalsy();
+    await waitForNextUpdate();
+    expect(result.current.resources.isError).toBeTruthy();
   });
 });
 
