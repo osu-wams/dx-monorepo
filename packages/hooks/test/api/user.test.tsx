@@ -18,7 +18,7 @@ const { userClassification, user, settings, userFavoriteResources, userMessage, 
 const mockedUser = jest.fn<Types.User, any>(() => user.data);
 const mock = new MockAdapter(axios);
 
-const mockNavigate = jest.fn();
+const mockNavigate = jest.fn(() => Promise.resolve());
 
 afterEach(() => {
   queryCache.clear();
