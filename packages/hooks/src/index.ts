@@ -36,7 +36,7 @@ import {
   useResourcesState,
 } from './api/resources';
 import * as Cards from './api/cards';
-import { useCards } from './api/cards';
+import { useCards, useCardsState } from './api/cards';
 import * as Status from './api/status';
 import { useStatus } from './api/status';
 import * as Student from './api/student';
@@ -102,6 +102,7 @@ export {
   useCampusEvents,
   useCampusEventsState,
   useCards,
+  useCardsState,
   useCategories,
   useCourseSchedule,
   useDegrees,
