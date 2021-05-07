@@ -23,6 +23,7 @@
     "@osu-wams/utils": "^0.0.8",
     "axios": "^0.21.1",
     "fuse.js": "^6.4.6",
+    "nanoid": "^3.1.22",
     "react-query": "2.23.0",
     "recoil": "^0.2.0",
     "stacktrace-js": "^2.0.2"

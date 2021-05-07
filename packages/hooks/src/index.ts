@@ -1,6 +1,7 @@
 import useAPICall from './useAPICall';
 import * as Announcements from './api/announcements';
 import { useAnnouncements } from './api/announcements';
+import { useApplicationMessagesState } from './api/applicationMessages';
 import * as AppVersions from './api/appVersions';
 import { useAppVersions } from './api/appVersions';
 import * as Alerts from './api/alerts';
@@ -39,7 +40,7 @@ import {
   useDegrees,
 } from './api/student';
 import * as User from './api/user';
-import { useMessages, useUser } from './api/user';
+import { useMessages, useUser, useUserState } from './api/user';
 import * as Trainings from './api/trainings';
 import { useTrainings, useTrainingAudiences, useTrainingTags } from './api/trainings';
 import * as Admin from './api/admin';
@@ -81,6 +82,7 @@ export {
   useAffiliationEvents,
   useAddresses,
   useAnnouncements,
+  useApplicationMessagesState,
   useAPICall,
   useAppVersions,
   useCampusEvents,
@@ -113,4 +115,5 @@ export {
   useTrainingTags,
   useTrendingResources,
   useUser,
+  useUserState,
 };
