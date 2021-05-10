@@ -49,6 +49,6 @@ describe('plannerItemDate', () => {
     expect(plannerItemDate('calendar_event', new Date('2020-01-01T08:00:00Z'))).toBe('January 1, 2020');
   });
   it('returns default formatted date for all other context types', () => {
-    expect(plannerItemDate('quiz', new Date('2020-01-01T08:00:00Z'))).toBe('Due Jan 1st at 12:00 AM');
+    expect(plannerItemDate('quiz', new Date('2020-01-01T08:00:00Z'))).toBe('Due Jan 1st at 8:00 AM');
   });
 });

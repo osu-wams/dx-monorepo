@@ -1,6 +1,8 @@
 global.window = {};
 window.__DEV__ = true;
 
+process.env.TZ = 'UTC';
+
 module.exports = {
   preset: 'ts-jest',
   transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$'],
