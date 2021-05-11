@@ -51,6 +51,7 @@ export const usePlannerItemsState = () => {
   const [plannerItems, setPlannerItems] = useRecoilState(plannerItemState);
 
   useEffect(() => {
+    console.log(api);
     const { isError, error, isLoading, isSuccess, data } = api;
     if (data && data !== plannerItems.data) {
       setPlannerItems({

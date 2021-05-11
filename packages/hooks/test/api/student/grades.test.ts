@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { wrapper } from '../../test-utils';
 import MockAdapter from 'axios-mock-adapter';
 import { renderHook } from '@testing-library/react-hooks';
-import { useGrades, mockGrades } from '../../../src/api/student/grades';
+import { useGradesState, useGrades, mockGrades } from '../../../src/api/student/grades';
 import { queryCache } from 'react-query';
 
 const mock = new MockAdapter(axios);
@@ -28,5 +29,26 @@ describe('useGrades', () => {
     expect(result.current.isError).toBeFalsy();
     await waitForNextUpdate();
     expect(result.current.failureCount).toBe(2);
+  });
+});
+
+describe('useGradesState', () => {
+  it('performs the call', async () => {
+    mock.onGet('/api/student/grades').replyOnce(200, mockGrades.data);
+    const { result, waitForNextUpdate } = renderHook(() => useGradesState(), { wrapper });
+    expect(result.current.grades.isLoading).toBeTruthy();
+    await waitForNextUpdate();
+    expect(result.current.grades.isLoading).toBeFalsy();
+    expect(result.current.grades.data).toEqual(mockGrades.data);
+  });
+
+  it('handles an error', async () => {
+    mock.onGet('/api/student/grades').replyOnce(500, '');
+    const { result, waitForNextUpdate } = renderHook(() => useGradesState(), { wrapper });
+    expect(result.current.grades.isLoading).toBeTruthy();
+    await waitForNextUpdate();
+    expect(result.current.grades.data).toEqual([]);
+    expect(result.current.grades.isLoading).toBeTruthy();
+    expect(result.current.grades.isSuccess).toBeFalsy();
   });
 });

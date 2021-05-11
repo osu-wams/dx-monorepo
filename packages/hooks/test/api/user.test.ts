@@ -74,7 +74,7 @@ describe('useUserState', () => {
   });
   it('handles api error', async () => {
     jest.spyOn(console, 'error').mockImplementation(() => {});
-    mock.onGet('/api/user').reply(500);
+    mock.onGet('/api/user/classification').reply(500);
     const { result, waitForNextUpdate } = renderHook(() => useUserState(mockNavigate), { wrapper });
     await waitForNextUpdate();
     expect(result.current.user.loading).toBeFalsy();
