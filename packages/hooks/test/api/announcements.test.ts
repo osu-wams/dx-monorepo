@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { wrapper } from '../test-utils';
 import MockAdapter from 'axios-mock-adapter';
 import { renderHook } from '@testing-library/react-hooks';
-import { useAnnouncements, mockAnnouncements } from '../../src/api/announcements';
+import { useAnnouncements, mockAnnouncements, useAnnouncementsState } from '../../src/api/announcements';
 import { queryCache } from 'react-query';
 
 const mock = new MockAdapter(axios);
@@ -49,5 +50,32 @@ describe('useAnnouncements', () => {
     expect(result.current.isError).toBeFalsy();
     await waitForNextUpdate();
     expect(result.current.failureCount).toBe(1);
+  });
+});
+
+describe('useAnnouncementsState', () => {
+  it('performs the call', async () => {
+    mock
+      .onGet('/api/announcements/financial_announcements')
+      .replyOnce(200, mockAnnouncements.financialAnnouncementResult.data);
+    const { result, waitForNextUpdate } = renderHook(() => useAnnouncementsState('financial_announcements'), {
+      wrapper,
+    });
+    expect(result.current.announcements.isLoading).toBeTruthy();
+    await waitForNextUpdate();
+    expect(result.current.announcements.isLoading).toBeFalsy();
+    expect(result.current.announcements.data).toEqual(mockAnnouncements.financialAnnouncementResult.data);
+  });
+
+  it('handles an error', async () => {
+    mock.onGet('/api/announcements/academic_announcements').replyOnce(500, '');
+    const { result, waitForNextUpdate } = renderHook(() => useAnnouncementsState('financial_announcements'), {
+      wrapper,
+    });
+    expect(result.current.announcements.isLoading).toBeTruthy();
+    await waitForNextUpdate();
+    expect(result.current.announcements.data).toEqual([]);
+    expect(result.current.announcements.isLoading).toBeTruthy();
+    expect(result.current.announcements.isSuccess).toBeFalsy();
   });
 });

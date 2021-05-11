@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { wrapper } from '../test-utils';
 import MockAdapter from 'axios-mock-adapter';
 import { renderHook } from '@testing-library/react-hooks';
-import { usePageSearchIndex, mockPageSearchIndex } from '../../src/api/searchIndex';
+import { usePageSearchIndexState, usePageSearchIndex, mockPageSearchIndex } from '../../src/api/searchIndex';
 import { queryCache } from 'react-query';
 
 const mock = new MockAdapter(axios);
@@ -9,7 +10,7 @@ afterEach(() => {
   queryCache.clear();
   mock.reset();
 });
-describe('usePageContent', () => {
+describe('usePageSearchIndex', () => {
   it('gets page contents on successful returns', async () => {
     mock.onGet('/api/searchIndex/pages').reply(200, mockPageSearchIndex.pageSearchIndexData);
     const { result, waitForNextUpdate } = renderHook(() => usePageSearchIndex());
@@ -27,5 +28,27 @@ describe('usePageContent', () => {
     expect(result.current.isError).toBeFalsy();
     await waitForNextUpdate();
     expect(result.current.failureCount).toBe(2);
+  });
+});
+
+describe('usePageSearchIndexState', () => {
+  it('performs the call', async () => {
+    mock.onGet('/api/searchIndex/pages').reply(200, mockPageSearchIndex.pageSearchIndexData);
+    const { result, waitForNextUpdate } = renderHook(() => usePageSearchIndexState(), { wrapper });
+    expect(result.current.pageSearchIndex.isLoading).toBeTruthy();
+    await waitForNextUpdate();
+    expect(result.current.pageSearchIndex.isLoading).toBeFalsy();
+    expect(result.current.pageSearchIndex.data).toEqual(mockPageSearchIndex.pageSearchIndexData);
+  });
+
+  it('handles an error', async () => {
+    mock.onGet('/api/searchIndex/pages').reply(500);
+    const { result, waitForNextUpdate } = renderHook(() => usePageSearchIndexState(), { wrapper });
+    expect(result.current.pageSearchIndex.isLoading).toBeTruthy();
+    expect(result.current.pageSearchIndex.isError).toBeFalsy();
+    await waitForNextUpdate();
+    expect(result.current.pageSearchIndex.data).toEqual([]);
+    expect(result.current.pageSearchIndex.isLoading).toBeTruthy();
+    expect(result.current.pageSearchIndex.isSuccess).toBeFalsy();
   });
 });

@@ -1,7 +1,13 @@
 import axios from 'axios';
+import { wrapperWithUser } from '../../test-utils';
 import MockAdapter from 'axios-mock-adapter';
 import { renderHook } from '@testing-library/react-hooks';
-import { usePlannerItems, mockPlannerItems, getPlannerItems } from '../../../src/api/student/plannerItems';
+import {
+  usePlannerItemsState,
+  usePlannerItems,
+  mockPlannerItems,
+  getPlannerItems,
+} from '../../../src/api/student/plannerItems';
 import { queryCache } from 'react-query';
 
 const mock = new MockAdapter(axios);
@@ -38,5 +44,24 @@ describe('usePlannerItems', () => {
     expect(result.current.isError).toBeFalsy();
     await waitForNextUpdate();
     expect(result.current.failureCount).toBe(1);
+  });
+});
+
+describe('usePlannerItemsState', () => {
+  it('performs the call', async () => {
+    mock.onGet('/api/student/planner-items').reply(200, mockPlannerItems.data);
+    const { result, waitForNextUpdate } = renderHook(() => usePlannerItemsState(), { wrapper: wrapperWithUser });
+    await waitForNextUpdate();
+    expect(result.current.plannerItems.isLoading).toBeFalsy();
+    expect(result.current.plannerItems.data).toEqual(mockPlannerItems.data);
+  });
+
+  it('handles an error', async () => {
+    mock.onGet('/api/student/planner-items').reply(500, '');
+    const { result, waitForNextUpdate } = renderHook(() => usePlannerItemsState(), { wrapper: wrapperWithUser });
+    await waitForNextUpdate();
+    expect(result.current.plannerItems.data).toEqual([]);
+    expect(result.current.plannerItems.isLoading).toBeFalsy();
+    expect(result.current.plannerItems.isSuccess).toBeFalsy();
   });
 });

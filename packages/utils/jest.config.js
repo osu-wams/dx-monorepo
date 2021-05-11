@@ -1,10 +1,10 @@
 global.window = {};
 window.__DEV__ = true;
 
+process.env.TZ = 'UTC';
+
 module.exports = {
-  transform: {
-    '.(ts|tsx)': 'ts-jest',
-  },
+  preset: 'ts-jest',
   transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   collectCoverageFrom: ['src/**/*.{ts,tsx}', '!src/mocks/**/*.{ts,tsx}', '!src/**/index.{ts,tsx}'],
