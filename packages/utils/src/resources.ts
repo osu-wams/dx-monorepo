@@ -17,7 +17,7 @@ export const activeFavoriteResources = (
  * @param {string} name the category name to filter on
  * @param {Resource[]} resources a list of resources to inspect for matching category
  */
-export const filterByCategory = (user: any, name: string, resources: Types.Resource[]): Types.Resource[] => {
+export const filterByCategory = (user: Types.User, name: string, resources: Types.Resource[]): Types.Resource[] => {
   // Skips categories and displays all resources
   if (name === 'all') return resources;
 
@@ -39,7 +39,7 @@ export const filterByCategory = (user: any, name: string, resources: Types.Resou
  * @param o object having an affiliation string array
  * @returns {boolean} true or false depending if the item is associated with the current affiliation
  */
-export const checkAffiliation = (user: any, o: { affiliation: string[] }): boolean => {
+export const checkAffiliation = (user: Types.User, o: { affiliation: string[] }): boolean => {
   const userAffiliation = User.getAffiliation(user).toLowerCase();
   return (
     o.affiliation?.length === 0 ||
