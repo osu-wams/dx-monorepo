@@ -1,25 +1,15 @@
 import axios from 'axios';
+import { Types } from '@osu-wams/lib';
 import useAPICall from '../../useAPICall';
 import mocks from '../../mocks/student/accountBalance';
 
 export const mockAccountBalance = mocks;
 
-export const getAccountBalance = (): Promise<AccountBalance> =>
+export const getAccountBalance = (): Promise<Types.AccountBalance> =>
   axios.get('/api/student/account-balance').then(res => res.data);
 export const useAccountBalance = () =>
-  useAPICall<AccountBalance | undefined>({
+  useAPICall<Types.AccountBalance | undefined>({
     api: getAccountBalance,
-    dataTransform: (data: AccountBalance) => data,
+    dataTransform: (data: Types.AccountBalance) => data,
     initialState: undefined,
   });
-
-export interface AccountBalance {
-  attributes: AccountBalanceAttributes;
-  id: number;
-  links: { self: null };
-  type: string;
-}
-
-export type AccountBalanceAttributes = {
-  currentBalance: number;
-};

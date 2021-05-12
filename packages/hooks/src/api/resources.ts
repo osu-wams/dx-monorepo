@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect } from 'react';
-import { useQuery, QueryObserverConfig, QueryResult } from 'react-query';
+import { useQuery, UseQueryOptions } from 'react-query';
 import { Types } from '@osu-wams/lib';
 import { resourceState } from '../state/resources';
 import { useRecoilState } from 'recoil';
@@ -17,9 +17,8 @@ export const getResources = (): Promise<Types.Resource[]> =>
     return res.data;
   });
 
-export const useResources = (
-  opts: QueryObserverConfig<Types.Resource[], Error> = REACT_QUERY_DEFAULT_CONFIG,
-): QueryResult<Types.Resource[], Error> => useQuery('resources', getResources, opts);
+export const useResources = (opts: UseQueryOptions<Types.Resource[], Error> = REACT_QUERY_DEFAULT_CONFIG) =>
+  useQuery('resources', getResources, opts);
 
 /**
  * ResourcesByQueue
@@ -29,9 +28,8 @@ export const getResourcesByQueue = (category: string): Promise<Types.ResourceEnt
 
 export const useResourcesByQueue = (
   category: string,
-  opts: QueryObserverConfig<Types.ResourceEntityQueue, Error> = REACT_QUERY_DEFAULT_CONFIG,
-): QueryResult<Types.ResourceEntityQueue, Error> =>
-  useQuery(['resources-by-queue', category], () => getResourcesByQueue(category), opts);
+  opts: UseQueryOptions<Types.ResourceEntityQueue, Error> = REACT_QUERY_DEFAULT_CONFIG,
+) => useQuery(['resources-by-queue', category], () => getResourcesByQueue(category), opts);
 
 /**
  * Categories
@@ -43,9 +41,8 @@ export const getCategories = (): Promise<Types.Category[]> =>
  * Gets data from the Categories API
  * @param callback (optional) data transformation function
  */
-export const useCategories = (
-  opts: QueryObserverConfig<Types.Category[], Error> = REACT_QUERY_DEFAULT_CONFIG,
-): QueryResult<Types.Category[], Error> => useQuery('categories', getCategories, opts);
+export const useCategories = (opts: UseQueryOptions<Types.Category[], Error> = REACT_QUERY_DEFAULT_CONFIG) =>
+  useQuery('categories', getCategories, opts);
 
 // Category selected by default. Currently the 'featured' category id
 export const defaultCategoryName = () => 'featured';
@@ -85,8 +82,8 @@ export const getTrendingResources = (query: string): Promise<Types.TrendingResou
 export const useTrendingResources = (
   daysAgo: string,
   affiliation?: string,
-  opts: QueryObserverConfig<Types.TrendingResource[], Error> = REACT_QUERY_DEFAULT_CONFIG,
-): QueryResult<Types.TrendingResource[], Error> => {
+  opts: UseQueryOptions<Types.TrendingResource[], Error> = REACT_QUERY_DEFAULT_CONFIG,
+) => {
   const affiliationPath = affiliation ? `/${affiliation}` : '';
   const query = `${daysAgo}${affiliationPath}`;
   return useQuery(['trending-resources', daysAgo, affiliation], () => getTrendingResources(query), opts);

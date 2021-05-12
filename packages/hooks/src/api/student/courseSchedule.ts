@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { useQuery, QueryObserverConfig, QueryResult } from 'react-query';
+import { Types } from '@osu-wams/lib';
+import { useQuery, UseQueryOptions } from 'react-query';
 import { REACT_QUERY_DEFAULT_CONFIG } from '../../constants';
 import mocks from '../../mocks/student/courseSchedule';
-import { Types } from '@osu-wams/lib';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { courseState } from '../../state/courses';
@@ -17,8 +17,8 @@ export const getCourseSchedule = (term: string = 'current'): Promise<Types.Cours
  */
 export const useCourseSchedule = (
   term?: string,
-  opts: QueryObserverConfig<Types.CourseSchedule[], Error> = REACT_QUERY_DEFAULT_CONFIG,
-): QueryResult<Types.CourseSchedule[], Error> => {
+  opts: UseQueryOptions<Types.CourseSchedule[], Error> = REACT_QUERY_DEFAULT_CONFIG,
+) => {
   return useQuery(['courseSchedule', term], () => getCourseSchedule(term), opts);
 };
 

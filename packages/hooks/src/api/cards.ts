@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { useQuery, QueryObserverConfig, QueryResult } from 'react-query';
 import { Types } from '@osu-wams/lib';
+import { useQuery, UseQueryOptions } from 'react-query';
 import mocks from '../mocks/cards';
 import { REACT_QUERY_DEFAULT_CONFIG } from '../constants';
 import { useEffect } from 'react';
@@ -17,9 +17,8 @@ export const getCards = (): Promise<Types.DynamicCard[]> =>
     return res.data;
   });
 
-export const useCards = (
-  opts: QueryObserverConfig<Types.DynamicCard[], Error> = REACT_QUERY_DEFAULT_CONFIG,
-): QueryResult<Types.DynamicCard[], Error> => useQuery('cards', getCards, opts);
+export const useCards = (opts: UseQueryOptions<Types.DynamicCard[], Error> = REACT_QUERY_DEFAULT_CONFIG) =>
+  useQuery('cards', getCards, opts);
 
 /**
  * Fetch the data from the api hook and persist in shared state

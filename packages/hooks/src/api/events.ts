@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Types } from '@osu-wams/lib';
-import { useQuery, QueryObserverConfig, QueryResult } from 'react-query';
+import { useQuery, UseQueryOptions } from 'react-query';
 import { REACT_QUERY_DEFAULT_CONFIG } from '../constants';
 import { localistEventsState } from '../state/events';
 import mocks from '../mocks/events';
@@ -13,9 +13,8 @@ const getAcademicCalendarEvents = (): Promise<Types.AcademicEvent[]> =>
   axios.get('/api/events/academic-calendar').then(res => res.data);
 
 export const useAcademicCalendarEvents = (
-  opts: QueryObserverConfig<Types.AcademicEvent[], Error> = REACT_QUERY_DEFAULT_CONFIG,
-): QueryResult<Types.AcademicEvent[], Error> =>
-  useQuery('academicCalendarEvents', () => getAcademicCalendarEvents(), opts);
+  opts: UseQueryOptions<Types.AcademicEvent[], Error> = REACT_QUERY_DEFAULT_CONFIG,
+) => useQuery('academicCalendarEvents', () => getAcademicCalendarEvents(), opts);
 
 const getAffiliationEvents = (affiliation: string): Promise<Types.LocalistEvent[]> => {
   const url = '/api/events';
@@ -30,17 +29,16 @@ const getAffiliationEvents = (affiliation: string): Promise<Types.LocalistEvent[
 
 export const useAffiliationEvents = (
   affiliation: string,
-  opts: QueryObserverConfig<Types.LocalistEvent[], Error> = REACT_QUERY_DEFAULT_CONFIG,
-): QueryResult<Types.LocalistEvent[], Error> =>
-  useQuery(['events', affiliation], () => getAffiliationEvents(affiliation), opts);
+  opts: UseQueryOptions<Types.LocalistEvent[], Error> = REACT_QUERY_DEFAULT_CONFIG,
+) => useQuery(['events', affiliation], () => getAffiliationEvents(affiliation), opts);
 
 export const getCampusEvents = (name: string): Promise<Types.LocalistEvent[]> =>
   axios.get(`/api/events/campus/${name}`).then(res => res.data);
 
 export const useCampusEvents = (
   campus: string,
-  opts: QueryObserverConfig<Types.LocalistEvent[], Error> = REACT_QUERY_DEFAULT_CONFIG,
-): QueryResult<Types.LocalistEvent[], Error> => useQuery(['campusEvents', campus], () => getCampusEvents(campus), opts);
+  opts: UseQueryOptions<Types.LocalistEvent[], Error> = REACT_QUERY_DEFAULT_CONFIG,
+) => useQuery(['campusEvents', campus], () => getCampusEvents(campus), opts);
 
 /**
  * Fetch the data from the api hook and persist in shared state

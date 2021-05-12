@@ -1,6 +1,6 @@
-import { QueryObserverConfig } from 'react-query';
+import { UseQueryOptions } from 'react-query';
 
-const REACT_QUERY_DEFAULT_CONFIG: QueryObserverConfig<any, unknown> = {
+const REACT_QUERY_DEFAULT_CONFIG: UseQueryOptions<any, any> = {
   /**
    * Set this to `false` to disable automatic refetching when the query mounts or changes query keys.
    * To refetch the query, use the `refetch` method returned from the `useQuery` instance.

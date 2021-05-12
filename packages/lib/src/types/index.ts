@@ -31,6 +31,12 @@ export {
   Grades,
   GradesAttributes,
   PlannerItem,
+  Hold,
+  AccountTransactions,
+  Transaction,
+  AccountBalance,
+  AccountBalanceAttributes,
+  AcademicStatus,
 } from './student';
 export {
   Address,
@@ -47,3 +53,8 @@ export { AcademicEvent, LocalistEvent } from './localist';
 export { Announcement, DynamicCard, Training, TrainingAudience, TrainingTag, PageSearchIndex } from './dx';
 export { Directory, DirectoryResponse } from './directory';
 export { Location, LocationResponse } from './location';
+export { CachetComponent, CachetIncident } from './status';
+export { ReleaseNotes, ReleaseNotesData } from './releaseNotes';
+export { PageContent, PageContentData } from './pageContents';
+export { InfoButtonData, InfoButtonState } from './infoButtons';
+export { Versions } from './appVersions';

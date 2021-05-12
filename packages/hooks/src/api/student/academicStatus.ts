@@ -1,19 +1,15 @@
 import axios from 'axios';
+import { Types } from '@osu-wams/lib';
 import useAPICall from '../../useAPICall';
 import mocks from '../../mocks/student/academicStatus';
 
 export const mockAcademicStatus = mocks;
 
-export const getAcademicStatus = (): Promise<AcademicStatus> =>
+export const getAcademicStatus = (): Promise<Types.AcademicStatus> =>
   axios.get(`/api/student/academic-status`).then(res => res.data);
 export const useAcademicStatus = () =>
-  useAPICall<AcademicStatus>({
+  useAPICall<Types.AcademicStatus>({
     api: getAcademicStatus,
-    dataTransform: (data: AcademicStatus) => data,
+    dataTransform: (data: Types.AcademicStatus) => data,
     initialState: {},
   });
-
-export interface AcademicStatus {
-  academicStanding?: string;
-  term?: string;
-}

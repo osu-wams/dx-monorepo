@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useQuery, QueryObserverConfig, QueryResult } from 'react-query';
+import { useQuery, UseQueryOptions } from 'react-query';
 import mocks from '../mocks/locations';
 import { REACT_QUERY_DEFAULT_CONFIG } from '../constants';
 import { Types } from '@osu-wams/lib';
@@ -11,5 +11,5 @@ export const getLocations = (location: string): Promise<Types.Location[]> =>
 
 export const useLocations = (
   location: string,
-  opts: QueryObserverConfig<Types.Location[], Error> = REACT_QUERY_DEFAULT_CONFIG,
-): QueryResult<Types.Location[], Error> => useQuery(['locations', location], () => getLocations(location), opts);
+  opts: UseQueryOptions<Types.Location[], Error> = REACT_QUERY_DEFAULT_CONFIG,
+) => useQuery(['locations', location], () => getLocations(location), opts);

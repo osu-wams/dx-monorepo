@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Types } from '@osu-wams/lib';
 import useAPICall from '../useAPICall';
 import mocks from '../mocks/infoButtons';
 import { useEffect } from 'react';
@@ -6,23 +7,14 @@ import { useRecoilState } from 'recoil';
 import { infoButtonState } from '../state/application';
 
 export const mockInfoButtons = mocks;
-export interface InfoButtonState {
-  id: string;
-  title: string;
-  content: string;
-}
 
-export interface InfoButtonData {
-  data: InfoButtonState[];
-}
-
-export const getInfoButtons = (): Promise<InfoButtonState[]> =>
-  axios.get(`/api/info-buttons`).then((res: InfoButtonData) => res.data ?? []);
+export const getInfoButtons = (): Promise<Types.InfoButtonState[]> =>
+  axios.get(`/api/info-buttons`).then((res: Types.InfoButtonData) => res.data ?? []);
 
 export const useInfoButtons = () =>
-  useAPICall<InfoButtonState[]>({
+  useAPICall<Types.InfoButtonState[]>({
     api: getInfoButtons,
-    dataTransform: (data: InfoButtonState[]) => data,
+    dataTransform: (data: Types.InfoButtonState[]) => data,
     initialState: [],
   });
 
