@@ -24,7 +24,7 @@
     "axios": "^0.21.1",
     "fuse.js": "^6.4.6",
     "nanoid": "^3.1.22",
-    "react-query": "2.23.0",
+    "react-query": "3.16.0",
     "recoil": "0.2.0",
     "stacktrace-js": "^2.0.2"
   },
