@@ -25,7 +25,7 @@ Object.defineProperty(global, 'localStorage', { value: storageMock });
 const consoleError = console.error;
 beforeAll(() => {
   jest.spyOn(console, 'error').mockImplementation((...args) => {
-    if (!args[0].includes('Warning: An update to %s inside a test was not wrapped in act')) {
+    if (args[0].includes && !args[0].includes('Warning: An update to %s inside a test was not wrapped in act')) {
       consoleError(...args);
     }
   });
