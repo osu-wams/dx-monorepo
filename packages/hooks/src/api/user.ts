@@ -78,7 +78,7 @@ export const useUser = (opts: UseQueryOptions<any, Error> = REACT_QUERY_DEFAULT_
   const refreshFavorites = async () => queryClient.invalidateQueries('favorites');
 
   useEffect(() => {
-    if (u.isSuccess) {
+    if (!u.isLoading && u.isSuccess) {
       setUser((previousUser: Types.UserState) => {
         const primaryAffiliationOverride =
           previousUser.data.primaryAffiliationOverride || u.data.primaryAffiliationOverride;
@@ -95,10 +95,10 @@ export const useUser = (opts: UseQueryOptions<any, Error> = REACT_QUERY_DEFAULT_
           isCanvasOptIn: previousUser.data.isCanvasOptIn,
         };
       });
-    } else if (u.isError) {
+    } else if (!u.isLoading && u.isError) {
       setUser((p: Types.UserState) => ({ ...p, error: true, loading: false }));
     }
-  }, [u.data, u.isError, u.isSuccess]);
+  }, [u.data, u.isError, u.isSuccess, u.isLoading]);
 
   useEffect(() => {
     if (classification.isSuccess && favorites.isSuccess) {
@@ -110,8 +110,6 @@ export const useUser = (opts: UseQueryOptions<any, Error> = REACT_QUERY_DEFAULT_
             classification: { ...classification.data },
             favoriteResources: [...favorites.data],
           },
-          error: false,
-          loading: false,
           isCanvasOptIn: previousUser.data.isCanvasOptIn,
         };
       });
@@ -202,7 +200,7 @@ export const useUserState = (navigate: Function) => {
   const initialRoute = useRecoilValue(initialRouteState);
 
   useEffect(() => {
-    if (!user.loading) {
+    if (!user.loading && !user.error) {
       const currentAffiliation = User.getAffiliation(user.data);
       const { affiliation, navigateTo } = dashboard;
       if (currentAffiliation !== affiliation) {
@@ -212,7 +210,7 @@ export const useUserState = (navigate: Function) => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dashboard]);
+  }, [dashboard, user.error, user.loading]);
 
   /**
    * User Bootstrap for User setup
