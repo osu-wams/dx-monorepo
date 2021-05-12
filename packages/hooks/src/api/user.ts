@@ -78,7 +78,7 @@ export const useUser = (opts: UseQueryOptions<any, Error> = REACT_QUERY_DEFAULT_
   const refreshFavorites = async () => queryClient.invalidateQueries('favorites');
 
   useEffect(() => {
-    if (!u.isLoading && u.isSuccess) {
+    if (u.isSuccess) {
       setUser((previousUser: Types.UserState) => {
         const primaryAffiliationOverride =
           previousUser.data.primaryAffiliationOverride || u.data.primaryAffiliationOverride;
@@ -95,10 +95,10 @@ export const useUser = (opts: UseQueryOptions<any, Error> = REACT_QUERY_DEFAULT_
           isCanvasOptIn: previousUser.data.isCanvasOptIn,
         };
       });
-    } else if (!u.isLoading && u.isError) {
+    } else if (u.isError) {
       setUser((p: Types.UserState) => ({ ...p, error: true, loading: false }));
     }
-  }, [u.data, u.isError, u.isSuccess, u.isLoading]);
+  }, [u.data, u.isError, u.isSuccess]);
 
   useEffect(() => {
     if (classification.isSuccess && favorites.isSuccess) {
