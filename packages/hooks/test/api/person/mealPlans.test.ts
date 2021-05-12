@@ -21,6 +21,6 @@ describe('useMealPlans', () => {
     await waitForNextUpdate();
     expect(result.current.loading).toBeFalsy();
     expect(result.current.error).toBeTruthy();
-    expect(result.current.data).toBeUndefined();
+    expect(result.current.data).toStrictEqual([]);
   });
 });
