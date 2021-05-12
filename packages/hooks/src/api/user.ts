@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useQuery, queryCache, QueryObserverConfig, QueryResult } from 'react-query';
+import { useQuery, UseQueryOptions, useQueryClient } from 'react-query';
 import { useEffect, useState } from 'react';
 import { User, Types } from '@osu-wams/lib';
 import { getFavorites } from '../api/resources';
@@ -44,7 +44,9 @@ export const getUser = (): Promise<Types.User> => axios.get('/api/user').then(re
  * The primary hook to fetch the user session and set the user for access throughout the application, this
  * is intended to be set near the root level of the application and exposed by way of the UserContext.
  */
-export const useUser = (opts: QueryObserverConfig<any, Error> = REACT_QUERY_DEFAULT_CONFIG): Types.UserState => {
+export const useUser = (opts: UseQueryOptions<any, Error> = REACT_QUERY_DEFAULT_CONFIG): Types.UserState => {
+  const queryClient = useQueryClient();
+
   const [user, setUser] = useState<Types.UserState>({
     data: INITIAL_USER,
     error: false,
@@ -65,21 +67,19 @@ export const useUser = (opts: QueryObserverConfig<any, Error> = REACT_QUERY_DEFA
     ...opts,
     enabled: u.isSuccess,
     initialData: {},
-    initialStale: true,
   });
   const favorites = useQuery('favorites', getFavorites, {
     ...opts,
     enabled: u.isSuccess && classification.isSuccess,
     initialData: [],
-    initialStale: true,
   });
 
   // Gets the latest favorites and sets the new state
-  const refreshFavorites = async () => queryCache.invalidateQueries('favorites');
+  const refreshFavorites = async () => queryClient.invalidateQueries('favorites');
 
   useEffect(() => {
     if (u.isSuccess) {
-      setUser(previousUser => {
+      setUser((previousUser: Types.UserState) => {
         const primaryAffiliationOverride =
           previousUser.data.primaryAffiliationOverride || u.data.primaryAffiliationOverride;
         return {
@@ -102,7 +102,7 @@ export const useUser = (opts: QueryObserverConfig<any, Error> = REACT_QUERY_DEFA
 
   useEffect(() => {
     if (classification.isSuccess && favorites.isSuccess) {
-      setUser(previousUser => {
+      setUser((previousUser: Types.UserState) => {
         return {
           ...previousUser,
           data: {
@@ -110,16 +110,15 @@ export const useUser = (opts: QueryObserverConfig<any, Error> = REACT_QUERY_DEFA
             classification: { ...classification.data },
             favoriteResources: [...favorites.data],
           },
-          error: false,
-          loading: false,
           isCanvasOptIn: previousUser.data.isCanvasOptIn,
         };
       });
     } else if (classification.isError) {
-      queryCache.invalidateQueries('classification');
+      queryClient.invalidateQueries('classification');
     } else if (favorites.isError) {
-      queryCache.invalidateQueries('favorites');
+      queryClient.invalidateQueries('favorites');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     classification.data,
     favorites.data,
@@ -174,9 +173,8 @@ export const changeAffiliation = (affiliationType: string, user: Types.UserState
 export const getUserMessages = (): Promise<Types.UserMessageItems> =>
   axios.get('/api/user/messages').then(res => res.data);
 
-export const useMessages = (
-  opts: QueryObserverConfig<Types.UserMessageItems, Error> = REACT_QUERY_DEFAULT_CONFIG,
-): QueryResult<Types.UserMessageItems, Error> => useQuery('userMessages', getUserMessages, opts);
+export const useMessages = (opts: UseQueryOptions<Types.UserMessageItems, Error> = REACT_QUERY_DEFAULT_CONFIG) =>
+  useQuery('userMessages', getUserMessages, opts);
 
 export const updateUserMessage = (update: Types.UserMessageUpdate): Promise<Types.UserMessage> =>
   axios
@@ -202,7 +200,7 @@ export const useUserState = (navigate: Function) => {
   const initialRoute = useRecoilValue(initialRouteState);
 
   useEffect(() => {
-    if (!user.loading) {
+    if (!user.loading && !user.error) {
       const currentAffiliation = User.getAffiliation(user.data);
       const { affiliation, navigateTo } = dashboard;
       if (currentAffiliation !== affiliation) {
@@ -212,7 +210,7 @@ export const useUserState = (navigate: Function) => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dashboard]);
+  }, [dashboard, user.error, user.loading]);
 
   /**
    * User Bootstrap for User setup

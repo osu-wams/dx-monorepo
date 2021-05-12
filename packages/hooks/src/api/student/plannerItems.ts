@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { useQuery, QueryObserverConfig, QueryResult } from 'react-query';
-import mocks from '../../mocks/student/plannertItems';
 import { Types } from '@osu-wams/lib';
+import { useQuery, UseQueryOptions } from 'react-query';
+import mocks from '../../mocks/student/plannertItems';
 import { REACT_QUERY_DEFAULT_CONFIG } from '../../constants';
 import { useEffect } from 'react';
 import { useRecoilValue, useRecoilState } from 'recoil';
@@ -12,9 +12,8 @@ export const mockPlannerItems = mocks;
 
 export const getPlannerItems = (): Promise<any> => axios.get('/api/student/planner-items').then(res => res.data);
 
-export const usePlannerItems = (
-  opts: QueryObserverConfig<Types.PlannerItem[], Error> = REACT_QUERY_DEFAULT_CONFIG,
-): QueryResult<Types.PlannerItem[], Error> => useQuery('planner-items', getPlannerItems, opts);
+export const usePlannerItems = (opts: UseQueryOptions<Types.PlannerItem[], Error> = REACT_QUERY_DEFAULT_CONFIG) =>
+  useQuery('planner-items', getPlannerItems, opts);
 
 /**
  * Fetch the data from the api hook and persist in shared state

@@ -14,12 +14,10 @@ import {
   mockTrainingAudiences,
   mockTrainingTags,
 } from '../../src/api/trainings';
-import { queryCache } from 'react-query';
 
 const mock = new MockAdapter(axios);
 
 afterEach(() => {
-  queryCache.clear();
   mock.reset();
 });
 
@@ -38,7 +36,7 @@ describe('getTrainings', () => {
 describe('useTrainings', () => {
   it('performs the call', async () => {
     mock.onGet('/api/trainings').replyOnce(200, mockTrainings.data);
-    const { result, waitForNextUpdate } = renderHook(() => useTrainings());
+    const { result, waitForNextUpdate } = renderHook(() => useTrainings(), { wrapper });
     expect(result.current.isLoading).toBeTruthy();
     await waitForNextUpdate();
     expect(result.current.isLoading).toBeFalsy();
@@ -46,7 +44,7 @@ describe('useTrainings', () => {
 
   it('handles an error', async () => {
     mock.onGet('/api/trainings').replyOnce(500, '');
-    const { result, waitForNextUpdate } = renderHook(() => useTrainings());
+    const { result, waitForNextUpdate } = renderHook(() => useTrainings(), { wrapper });
     expect(result.current.isLoading).toBeTruthy();
     expect(result.current.isError).toBeFalsy();
     await waitForNextUpdate();
@@ -91,7 +89,7 @@ describe('getTrainingTags', () => {
 describe('useTrainingTags', () => {
   it('performs the call', async () => {
     mock.onGet('/api/trainings/tags').replyOnce(200, mockTrainingTags.data);
-    const { result, waitForNextUpdate } = renderHook(() => useTrainingTags());
+    const { result, waitForNextUpdate } = renderHook(() => useTrainingTags(), { wrapper });
     expect(result.current.isLoading).toBeTruthy();
     await waitForNextUpdate();
     expect(result.current.isLoading).toBeFalsy();
@@ -99,7 +97,7 @@ describe('useTrainingTags', () => {
 
   it('handles an error', async () => {
     mock.onGet('/api/trainings/tags').replyOnce(500, '');
-    const { result, waitForNextUpdate } = renderHook(() => useTrainingTags());
+    const { result, waitForNextUpdate } = renderHook(() => useTrainingTags(), { wrapper });
     expect(result.current.isLoading).toBeTruthy();
     expect(result.current.isError).toBeFalsy();
     await waitForNextUpdate();
@@ -122,7 +120,7 @@ describe('getTrainingAudiences', () => {
 describe('useTrainingAudiences', () => {
   it('performs the call', async () => {
     mock.onGet('/api/trainings/audiences').replyOnce(200, mockTrainingAudiences.data);
-    const { result, waitForNextUpdate } = renderHook(() => useTrainingAudiences());
+    const { result, waitForNextUpdate } = renderHook(() => useTrainingAudiences(), { wrapper });
     expect(result.current.isLoading).toBeTruthy();
     await waitForNextUpdate();
     expect(result.current.isLoading).toBeFalsy();
@@ -130,7 +128,7 @@ describe('useTrainingAudiences', () => {
 
   it('handles an error', async () => {
     mock.onGet('/api/trainings/audiences').replyOnce(500, '');
-    const { result, waitForNextUpdate } = renderHook(() => useTrainingAudiences());
+    const { result, waitForNextUpdate } = renderHook(() => useTrainingAudiences(), { wrapper });
     expect(result.current.isLoading).toBeTruthy();
     expect(result.current.isError).toBeFalsy();
     await waitForNextUpdate();

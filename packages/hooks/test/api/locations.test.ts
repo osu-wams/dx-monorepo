@@ -2,12 +2,11 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { renderHook } from '@testing-library/react-hooks';
 import { useLocations, getLocations, mockLocations } from '../../src/api/locations';
-import { queryCache } from 'react-query';
+import { wrapper } from '../test-utils';
 
 const mock = new MockAdapter(axios);
 
 afterEach(() => {
-  queryCache.clear();
   mock.reset();
 });
 
@@ -26,7 +25,7 @@ describe('getLocations', () => {
 describe('useLocations', () => {
   it('performs the call', async () => {
     mock.onGet('/api/locations/cascade').replyOnce(200, mockLocations.data);
-    const { result, waitForNextUpdate } = renderHook(() => useLocations('cascade'));
+    const { result, waitForNextUpdate } = renderHook(() => useLocations('cascade'), { wrapper });
     expect(result.current.isLoading).toBeTruthy();
     await waitForNextUpdate();
     expect(result.current.isLoading).toBeFalsy();
@@ -34,7 +33,7 @@ describe('useLocations', () => {
 
   it('handles an error', async () => {
     mock.onGet('/api/locations/cascade').replyOnce(500, '');
-    const { result, waitForNextUpdate } = renderHook(() => useLocations('cascade'));
+    const { result, waitForNextUpdate } = renderHook(() => useLocations('cascade'), { wrapper });
     expect(result.current.isLoading).toBeTruthy();
     expect(result.current.isError).toBeFalsy();
     await waitForNextUpdate();

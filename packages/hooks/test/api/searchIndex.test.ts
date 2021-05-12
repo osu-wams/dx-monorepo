@@ -3,17 +3,15 @@ import { wrapper } from '../test-utils';
 import MockAdapter from 'axios-mock-adapter';
 import { renderHook } from '@testing-library/react-hooks';
 import { usePageSearchIndexState, usePageSearchIndex, mockPageSearchIndex } from '../../src/api/searchIndex';
-import { queryCache } from 'react-query';
 
 const mock = new MockAdapter(axios);
 afterEach(() => {
-  queryCache.clear();
   mock.reset();
 });
 describe('usePageSearchIndex', () => {
   it('gets page contents on successful returns', async () => {
     mock.onGet('/api/searchIndex/pages').reply(200, mockPageSearchIndex.pageSearchIndexData);
-    const { result, waitForNextUpdate } = renderHook(() => usePageSearchIndex());
+    const { result, waitForNextUpdate } = renderHook(() => usePageSearchIndex(), { wrapper });
     await waitForNextUpdate();
     expect(result.current.isLoading).toBeFalsy();
     expect(result.current.error).toBeFalsy();
@@ -22,7 +20,7 @@ describe('usePageSearchIndex', () => {
 
   it('handles api error', async () => {
     mock.onGet('/api/searchIndex/pages').reply(500);
-    const { result, waitForNextUpdate } = renderHook(() => usePageSearchIndex());
+    const { result, waitForNextUpdate } = renderHook(() => usePageSearchIndex(), { wrapper });
     await waitForNextUpdate();
     expect(result.current.isLoading).toBeTruthy();
     expect(result.current.isError).toBeFalsy();

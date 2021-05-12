@@ -5,8 +5,13 @@
 /**
  * Degree
  */
-export interface DegreeResponse {
-  attributes: Degree;
+interface DegreeMajors {
+  major: string | null;
+  programClassification: string | null;
+  department: string | null;
+  firstConcentration: string | null;
+  secondConcentration: string | null;
+  thirdConcentration: string | null;
 }
 
 export interface Degree {
@@ -41,33 +46,13 @@ export interface Degree {
   honorsInd?: boolean;
 }
 
-interface DegreeMajors {
-  major: string | null;
-  programClassification: string | null;
-  department: string | null;
-  firstConcentration: string | null;
-  secondConcentration: string | null;
-  thirdConcentration: string | null;
+export interface DegreeResponse {
+  attributes: Degree;
 }
 
 /**
  * Canvas Planner Items
  */
-
-export interface PlannerItem {
-  context_type: string;
-  course_id: number;
-  plannable_id: number;
-  planner_override?: PlannerItemOverride;
-  plannable_type: string;
-  new_activity: boolean;
-  submissions?: PlannerItemSubmissions;
-  plannable_date: string;
-  plannable: PlannerItemPlannable;
-  html_url?: string;
-  context_name: string;
-  context_image?: undefined;
-}
 
 interface PlannerItemOverride {
   id: number; // Id of the planner override
@@ -83,6 +68,13 @@ interface PlannerItemOverride {
   deleted_at?: string; // The datetime of when the planner override was deleted, if applicable
 }
 
+interface PlannerItemFeedback {
+  comment: string;
+  is_media: boolean;
+  author_name: string;
+  author_avatar_url?: string;
+}
+
 interface PlannerItemSubmissions {
   submitted: boolean;
   excused: boolean;
@@ -92,13 +84,6 @@ interface PlannerItemSubmissions {
   needs_grading: boolean;
   has_feedback: boolean;
   feedback?: PlannerItemFeedback;
-}
-
-interface PlannerItemFeedback {
-  comment: string;
-  is_media: boolean;
-  author_name: string;
-  author_avatar_url?: string;
 }
 
 interface PlannerItemPlannable {
@@ -112,6 +97,21 @@ interface PlannerItemPlannable {
   assignment_id: number;
   points_possible: number;
   due_at: string;
+}
+
+export interface PlannerItem {
+  context_type: string;
+  course_id: number;
+  plannable_id: number;
+  planner_override?: PlannerItemOverride;
+  plannable_type: string;
+  new_activity: boolean;
+  submissions?: PlannerItemSubmissions;
+  plannable_date: string;
+  plannable: PlannerItemPlannable;
+  html_url?: string;
+  context_name: string;
+  context_image?: undefined;
 }
 
 /**
@@ -143,13 +143,6 @@ export interface CourseScheduleMeetingTime {
   weeklySchedule: string[];
 }
 
-export interface CourseSchedule {
-  id: string;
-  type: string;
-  attributes: CourseScheduleAttributes;
-  links: { self: string | null };
-}
-
 export interface CourseScheduleAttributes {
   academicYear: string;
   academicYearDescription: string;
@@ -170,6 +163,13 @@ export interface CourseScheduleAttributes {
   sectionNumber: string;
   term: string;
   termDescription: string;
+}
+
+export interface CourseSchedule {
+  id: string;
+  type: string;
+  attributes: CourseScheduleAttributes;
+  links: { self: string | null };
 }
 
 export interface CourseScheduleResponse {
@@ -237,4 +237,40 @@ export interface Grades {
   id: string;
   links: string;
   attributes: GradesAttributes;
+}
+
+export interface Hold {
+  description: string;
+  toDate: string;
+  fromDate: string;
+}
+
+export interface Transaction {
+  amount: number;
+  category: string;
+  description: string;
+  entryDate: Date;
+  term: string;
+  transactionType: string;
+}
+export interface AccountTransactions {
+  attributes: { transactions: [Transaction] };
+  id: string;
+  links: { self: null };
+  type: string;
+}
+
+export type AccountBalanceAttributes = {
+  currentBalance: number;
+};
+export interface AccountBalance {
+  attributes: AccountBalanceAttributes;
+  id: number;
+  links: { self: null };
+  type: string;
+}
+
+export interface AcademicStatus {
+  academicStanding?: string;
+  term?: string;
 }

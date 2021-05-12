@@ -1,5 +1,5 @@
-import { Types } from '@osu-wams/lib';
 import { format } from './helpers';
+import { Types } from '@osu-wams/lib';
 /**
  * Hacky method (that's being kind) which tries to find a course that the student is
  * currently enrolled in that matches the course context name for an assignment being

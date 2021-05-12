@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { useQuery, QueryObserverConfig, QueryResult } from 'react-query';
+import { Types } from '@osu-wams/lib';
+import { useQuery, UseQueryOptions } from 'react-query';
 import { REACT_QUERY_DEFAULT_CONFIG } from '../../constants';
 import mocks from '../../mocks/student/grades';
-import { Types } from '@osu-wams/lib';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { gradesState } from '../../state/grades';
@@ -11,9 +11,7 @@ export const mockGrades = mocks;
 
 export const getGrades = (): Promise<Types.Grades[]> => axios.get(`/api/student/grades`).then(res => res.data);
 
-export const useGrades = (
-  opts: QueryObserverConfig<Types.Grades[], Error> = REACT_QUERY_DEFAULT_CONFIG,
-): QueryResult<Types.Grades[], Error> => {
+export const useGrades = (opts: UseQueryOptions<Types.Grades[], Error> = REACT_QUERY_DEFAULT_CONFIG) => {
   return useQuery('grades', () => getGrades(), opts);
 };
 

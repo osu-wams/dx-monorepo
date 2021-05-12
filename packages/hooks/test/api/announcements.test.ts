@@ -1,14 +1,12 @@
 import axios from 'axios';
-import { wrapper } from '../test-utils';
 import MockAdapter from 'axios-mock-adapter';
 import { renderHook } from '@testing-library/react-hooks';
 import { useAnnouncements, mockAnnouncements, useAnnouncementsState } from '../../src/api/announcements';
-import { queryCache } from 'react-query';
+import { wrapper } from '../test-utils';
 
 const mock = new MockAdapter(axios);
 
 afterEach(() => {
-  queryCache.clear();
   mock.reset();
 });
 
@@ -17,7 +15,7 @@ describe('useAnnouncements', () => {
     mock
       .onGet('/api/announcements/financial_announcements')
       .replyOnce(200, mockAnnouncements.financialAnnouncementResult.data);
-    const { result, waitForNextUpdate } = renderHook(() => useAnnouncements('financial_announcements'));
+    const { result, waitForNextUpdate } = renderHook(() => useAnnouncements('financial_announcements'), { wrapper });
     expect(result.current.isLoading).toBeTruthy();
     expect(result.current.error).toBeFalsy();
     await waitForNextUpdate();
@@ -26,7 +24,7 @@ describe('useAnnouncements', () => {
   });
   it('handles financial announcements api error', async () => {
     mock.onGet('/api/announcements/financial_announcements').replyOnce(500, '');
-    const { result, waitForNextUpdate } = renderHook(() => useAnnouncements('financial_announcements'));
+    const { result, waitForNextUpdate } = renderHook(() => useAnnouncements('financial_announcements'), { wrapper });
     expect(result.current.isLoading).toBeTruthy();
     expect(result.current.isError).toBeFalsy();
     await waitForNextUpdate();
@@ -36,7 +34,7 @@ describe('useAnnouncements', () => {
     mock
       .onGet('/api/announcements/academic_announcements')
       .replyOnce(200, mockAnnouncements.academicAnnouncementResult.data);
-    const { result, waitForNextUpdate } = renderHook(() => useAnnouncements('academic_announcements'));
+    const { result, waitForNextUpdate } = renderHook(() => useAnnouncements('academic_announcements'), { wrapper });
     expect(result.current.isLoading).toBeTruthy();
     expect(result.current.error).toBeFalsy();
     await waitForNextUpdate();
@@ -45,7 +43,7 @@ describe('useAnnouncements', () => {
   });
   it('handles academic announcements api error', async () => {
     mock.onGet('/api/announcements/academic_announcements').replyOnce(500, '');
-    const { result, waitForNextUpdate } = renderHook(() => useAnnouncements('academic_announcements'));
+    const { result, waitForNextUpdate } = renderHook(() => useAnnouncements('academic_announcements'), { wrapper });
     expect(result.current.isLoading).toBeTruthy();
     expect(result.current.isError).toBeFalsy();
     await waitForNextUpdate();

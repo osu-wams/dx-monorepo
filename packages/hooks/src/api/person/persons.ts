@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { useQuery, QueryObserverConfig, QueryResult } from 'react-query';
 import { Types } from '@osu-wams/lib';
+import { useQuery, UseQueryOptions } from 'react-query';
 import { REACT_QUERY_DEFAULT_CONFIG } from '../../constants';
 import mocks from '../../mocks/person/persons';
 
@@ -21,14 +21,11 @@ export const getPhones = (): Promise<Types.Phone[]> =>
     return res.data;
   });
 
-export const usePerson = (
-  opts: QueryObserverConfig<Types.PersonsAttributes, Error> = REACT_QUERY_DEFAULT_CONFIG,
-): QueryResult<Types.PersonsAttributes, Error> => useQuery('person', getPerson, opts);
+export const usePerson = (opts: UseQueryOptions<Types.PersonsAttributes, Error> = REACT_QUERY_DEFAULT_CONFIG) =>
+  useQuery('person', getPerson, opts);
 
-export const useEmails = (
-  opts: QueryObserverConfig<Types.Email[], Error> = REACT_QUERY_DEFAULT_CONFIG,
-): QueryResult<Types.Email[], Error> => useQuery('personEmails', getEmails, opts);
+export const useEmails = (opts: UseQueryOptions<Types.Email[], Error> = REACT_QUERY_DEFAULT_CONFIG) =>
+  useQuery('personEmails', getEmails, opts);
 
-export const usePhones = (
-  opts: QueryObserverConfig<Types.Phone[], Error> = REACT_QUERY_DEFAULT_CONFIG,
-): QueryResult<Types.Phone[], Error> => useQuery('personPhones', getPhones, opts);
+export const usePhones = (opts: UseQueryOptions<Types.Phone[], Error> = REACT_QUERY_DEFAULT_CONFIG) =>
+  useQuery('personPhones', getPhones, opts);

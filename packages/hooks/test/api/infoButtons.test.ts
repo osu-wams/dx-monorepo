@@ -9,7 +9,7 @@ const mock = new MockAdapter(axios);
 describe('useInfoButtons', () => {
   it('gets info buttons on successful returns', async () => {
     mock.onGet('/api/info-buttons').reply(200, mockInfoButtons.data);
-    const { result, waitForNextUpdate } = renderHook(() => useInfoButtons());
+    const { result, waitForNextUpdate } = renderHook(() => useInfoButtons(), { wrapper });
     await waitForNextUpdate();
     expect(result.current.loading).toBeFalsy();
     expect(result.current.error).toBeFalsy();
@@ -17,7 +17,7 @@ describe('useInfoButtons', () => {
   });
   it('handles api error', async () => {
     mock.onGet('/api/info-buttons').reply(500);
-    const { result, waitForNextUpdate } = renderHook(() => useInfoButtons());
+    const { result, waitForNextUpdate } = renderHook(() => useInfoButtons(), { wrapper });
     await waitForNextUpdate();
     expect(result.current.loading).toBeFalsy();
     expect(result.current.error).toBeTruthy();
