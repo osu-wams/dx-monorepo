@@ -2,19 +2,18 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { renderHook } from '@testing-library/react-hooks';
 import { useStatus, mockStatus, sortedByStatus, allOperational, withStickyIncidents } from '../../src/api/status';
-import { queryCache } from 'react-query';
+import { wrapper } from '../test-utils';
 
 const mock = new MockAdapter(axios);
 
 afterEach(() => {
-  queryCache.clear();
   mock.reset();
 });
 
 describe('useStatus', () => {
   it('gets all statuses', async () => {
     mock.onGet('/api/status').reply(200, mockStatus.statusData);
-    const { result, waitForNextUpdate } = renderHook(() => useStatus());
+    const { result, waitForNextUpdate } = renderHook(() => useStatus(), { wrapper });
     await waitForNextUpdate();
 
     expect(result.current.isLoading).toBeFalsy();
@@ -24,7 +23,7 @@ describe('useStatus', () => {
 
   it('sorts the components based on the status', async () => {
     mock.onGet('/api/status').reply(200, mockStatus.statusData);
-    const { result, waitForNextUpdate } = renderHook(() => useStatus());
+    const { result, waitForNextUpdate } = renderHook(() => useStatus(), { wrapper });
     await waitForNextUpdate();
     expect(result.current.isLoading).toBeFalsy();
     expect(result.current.error).toBeFalsy();
@@ -37,7 +36,7 @@ describe('useStatus', () => {
   });
   it('returns that some components have non operational status', async () => {
     mock.onGet('/api/status').reply(200, mockStatus.statusData);
-    const { result, waitForNextUpdate } = renderHook(() => useStatus());
+    const { result, waitForNextUpdate } = renderHook(() => useStatus(), { wrapper });
     await waitForNextUpdate();
     expect(allOperational(result.current.data)).toBeFalsy();
   });
@@ -46,13 +45,13 @@ describe('useStatus', () => {
       200,
       mockStatus.statusData.map(c => ({ ...c, status: 1 })),
     );
-    const { result, waitForNextUpdate } = renderHook(() => useStatus());
+    const { result, waitForNextUpdate } = renderHook(() => useStatus(), { wrapper });
     await waitForNextUpdate();
     expect(allOperational(result.current.data)).toBeTruthy();
   });
   it('returns components with sticky incidents', async () => {
     mock.onGet('/api/status').reply(200, mockStatus.statusData);
-    const { result, waitForNextUpdate } = renderHook(() => useStatus());
+    const { result, waitForNextUpdate } = renderHook(() => useStatus(), { wrapper });
     await waitForNextUpdate();
     expect(withStickyIncidents(result.current.data)).toHaveLength(1);
   });
@@ -61,7 +60,7 @@ describe('useStatus', () => {
       200,
       mockStatus.statusData.map(c => ({ ...c, incidents: [] })),
     );
-    const { result, waitForNextUpdate } = renderHook(() => useStatus());
+    const { result, waitForNextUpdate } = renderHook(() => useStatus(), { wrapper });
     await waitForNextUpdate();
     expect(withStickyIncidents(result.current.data)).toHaveLength(0);
   });

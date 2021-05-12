@@ -11,19 +11,17 @@ import {
   useCategories,
   useTrendingResources,
 } from '../../src/api/resources';
-import { queryCache } from 'react-query';
 
 const mock = new MockAdapter(axios);
 
 afterEach(() => {
-  queryCache.clear();
   mock.reset();
 });
 
 describe('useResources', () => {
   it('gets resources on successful returns', async () => {
     mock.onGet('/api/resources').reply(200, mockResources.resourcesData.data);
-    const { result, waitForNextUpdate } = renderHook(() => useResources());
+    const { result, waitForNextUpdate } = renderHook(() => useResources(), { wrapper });
     await waitForNextUpdate();
     expect(result.current.isLoading).toBeFalsy();
     expect(result.current.isError).toBeFalsy();
@@ -31,7 +29,7 @@ describe('useResources', () => {
   });
   it('handles api error', async () => {
     mock.onGet('/api/resources').reply(500);
-    const { result, waitForNextUpdate } = renderHook(() => useResources());
+    const { result, waitForNextUpdate } = renderHook(() => useResources(), { wrapper });
     await waitForNextUpdate();
     expect(result.current.isLoading).toBeTruthy();
     expect(result.current.isError).toBeFalsy();
@@ -67,7 +65,7 @@ describe('useResourcesByQueue', () => {
     mock
       .onGet(`/api/resources/category/${defaultCategoryName()}`)
       .reply(200, mockResources.resourcesDataByCategory.data);
-    const { result, waitForNextUpdate } = renderHook(() => useResourcesByQueue(defaultCategoryName()));
+    const { result, waitForNextUpdate } = renderHook(() => useResourcesByQueue(defaultCategoryName()), { wrapper });
     await waitForNextUpdate();
     expect(result.current.isLoading).toBeFalsy();
     expect(result.current.isError).toBeFalsy();
@@ -75,7 +73,7 @@ describe('useResourcesByQueue', () => {
   });
   it('handles api error', async () => {
     mock.onGet(`/api/resources/category/${defaultCategoryName()}`).reply(500);
-    const { result, waitForNextUpdate } = renderHook(() => useResourcesByQueue(defaultCategoryName()));
+    const { result, waitForNextUpdate } = renderHook(() => useResourcesByQueue(defaultCategoryName()), { wrapper });
     await waitForNextUpdate();
     expect(result.current.isLoading).toBeTruthy();
     expect(result.current.isError).toBeFalsy();
@@ -87,7 +85,7 @@ describe('useResourcesByQueue', () => {
 describe('useCategories', () => {
   it('gets categories on successful returns', async () => {
     mock.onGet('/api/resources/categories').reply(200, mockResources.categoriesData.data);
-    const { result, waitForNextUpdate } = renderHook(() => useCategories());
+    const { result, waitForNextUpdate } = renderHook(() => useCategories(), { wrapper });
     await waitForNextUpdate();
     expect(result.current.isLoading).toBeFalsy();
     expect(result.current.isError).toBeFalsy();
@@ -95,7 +93,7 @@ describe('useCategories', () => {
   });
   it('handles api error', async () => {
     mock.onGet('/api/resources/categories').reply(500);
-    const { result, waitForNextUpdate } = renderHook(() => useCategories());
+    const { result, waitForNextUpdate } = renderHook(() => useCategories(), { wrapper });
     await waitForNextUpdate();
     expect(result.current.isLoading).toBeTruthy();
     expect(result.current.isError).toBeFalsy();
@@ -107,7 +105,7 @@ describe('useCategories', () => {
 describe('useTrendingResources', () => {
   it('gets student trending resources on success returns', async () => {
     mock.onGet('/api/resources/trending/7daysAgo/student').reply(200, mockResources.trendingResourcesData.data);
-    const { result, waitForNextUpdate } = renderHook(() => useTrendingResources('7daysAgo', 'student'));
+    const { result, waitForNextUpdate } = renderHook(() => useTrendingResources('7daysAgo', 'student'), { wrapper });
     await waitForNextUpdate();
     expect(result.current.isLoading).toBeFalsy();
     expect(result.current.isError).toBeFalsy();
@@ -115,7 +113,7 @@ describe('useTrendingResources', () => {
   });
   it('gets trending resources on success returns', async () => {
     mock.onGet('/api/resources/trending/7daysAgo').reply(200, mockResources.trendingResourcesData.data);
-    const { result, waitForNextUpdate } = renderHook(() => useTrendingResources('7daysAgo'));
+    const { result, waitForNextUpdate } = renderHook(() => useTrendingResources('7daysAgo'), { wrapper });
     await waitForNextUpdate();
     expect(result.current.isLoading).toBeFalsy();
     expect(result.current.isError).toBeFalsy();
@@ -123,7 +121,7 @@ describe('useTrendingResources', () => {
   });
   it('handles api error', async () => {
     mock.onGet('/api/resources/trending/7daysAgo/student').reply(500);
-    const { result, waitForNextUpdate } = renderHook(() => useTrendingResources('7daysAgo', 'student'));
+    const { result, waitForNextUpdate } = renderHook(() => useTrendingResources('7daysAgo', 'student'), { wrapper });
     await waitForNextUpdate();
     expect(result.current.isLoading).toBeTruthy();
     expect(result.current.isError).toBeFalsy();

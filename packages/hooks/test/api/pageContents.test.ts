@@ -2,17 +2,16 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { renderHook } from '@testing-library/react-hooks';
 import { usePageContent, mockPageContents } from '../../src/api/pageContents';
-import { queryCache } from 'react-query';
+import { wrapper } from '../test-utils';
 
 const mock = new MockAdapter(axios);
 afterEach(() => {
-  queryCache.clear();
   mock.reset();
 });
 describe('usePageContent', () => {
   it('gets page contents on successful returns', async () => {
     mock.onGet('/api/page-content/about-page-title').reply(200, mockPageContents.pageContentData);
-    const { result, waitForNextUpdate } = renderHook(() => usePageContent('about-page-title'));
+    const { result, waitForNextUpdate } = renderHook(() => usePageContent('about-page-title'), { wrapper });
     await waitForNextUpdate();
     expect(result.current.isLoading).toBeFalsy();
     expect(result.current.error).toBeFalsy();
@@ -20,7 +19,7 @@ describe('usePageContent', () => {
   });
   it('handles api error', async () => {
     mock.onGet('/api/page-content/about-page-title').reply(500);
-    const { result, waitForNextUpdate } = renderHook(() => usePageContent('about-page-title'));
+    const { result, waitForNextUpdate } = renderHook(() => usePageContent('about-page-title'), { wrapper });
     await waitForNextUpdate();
     expect(result.current.isLoading).toBeTruthy();
     expect(result.current.isError).toBeFalsy();

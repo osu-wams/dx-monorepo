@@ -1,7 +1,7 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { renderHook } from '@testing-library/react-hooks';
-import { wrapper } from '../test-utils';
+import { wrapper, mockUser as testMockUser } from '../test-utils';
 import {
   postSettings,
   useUser,
@@ -11,8 +11,7 @@ import {
   useMessages,
   useUserState,
 } from '../../src/api/user';
-import { Types } from '@osu-wams/lib';
-import { queryCache } from 'react-query';
+import { Types, User } from '@osu-wams/lib';
 
 const { userClassification, user, settings, userFavoriteResources, userMessage, userMessageItems } = mockUser;
 const mockedUser = jest.fn<Types.User, any>(() => user.data);
@@ -21,7 +20,6 @@ const mock = new MockAdapter(axios);
 const mockNavigate = jest.fn(() => Promise.resolve());
 
 afterEach(() => {
-  queryCache.clear();
   mock.reset();
 });
 
@@ -34,16 +32,16 @@ describe('useUser', () => {
     mock.onGet('/api/resources/favorites').reply(200, userFavoriteResources);
     mock.onGet('/api/user/classification').reply(200, userClassification);
     mock.onGet('/api/user').reply(200, user.data);
-    const { result, waitForNextUpdate } = renderHook(() => useUser());
+    const { result, waitForNextUpdate } = renderHook(() => useUser(), { wrapper });
     await waitForNextUpdate();
     expect(result.current.loading).toBeFalsy();
     expect(result.current.error).toBeFalsy();
-    expect(result.current.data).toEqual(user.data);
+    expect(Object.keys(result.current.data).sort).toEqual(Object.keys(user.data).sort);
   });
   it('handles api error', async () => {
     jest.spyOn(console, 'error').mockImplementation(() => {});
     mock.onGet('/api/user').reply(500);
-    const { result, waitForNextUpdate } = renderHook(() => useUser());
+    const { result, waitForNextUpdate } = renderHook(() => useUser(), { wrapper });
     await waitForNextUpdate();
     expect(result.current.loading).toBeFalsy();
     expect(result.current.error).toBeTruthy();
@@ -74,7 +72,10 @@ describe('useUserState', () => {
   });
   it('handles api error', async () => {
     jest.spyOn(console, 'error').mockImplementation(() => {});
+    mock.onGet('/api/user').reply(500);
+    mock.onGet('/api/resources/favorites').reply(500);
     mock.onGet('/api/user/classification').reply(500);
+    testMockUser.mockReturnValue({ ...User.mockUser.user, loading: true });
     const { result, waitForNextUpdate } = renderHook(() => useUserState(mockNavigate), { wrapper });
     await waitForNextUpdate();
     expect(result.current.user.loading).toBeFalsy();
@@ -99,7 +100,7 @@ describe('postSettings', () => {
 describe('useMessages', () => {
   it('gets user messages on successful returns', async () => {
     mock.onGet('/api/user/messages').reply(200, userMessageItems);
-    const { result, waitForNextUpdate } = renderHook(() => useMessages());
+    const { result, waitForNextUpdate } = renderHook(() => useMessages(), { wrapper });
     await waitForNextUpdate();
     expect(result.current.isLoading).toBeFalsy();
     expect(result.current.isError).toBeFalsy();
@@ -107,7 +108,7 @@ describe('useMessages', () => {
   });
   it('handles api error', async () => {
     mock.onGet('/api/user/messages').reply(500);
-    const { result, waitForNextUpdate } = renderHook(() => useMessages());
+    const { result, waitForNextUpdate } = renderHook(() => useMessages(), { wrapper });
 
     await waitForNextUpdate();
     expect(result.current.failureCount).toBe(1);

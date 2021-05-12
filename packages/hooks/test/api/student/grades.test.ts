@@ -1,21 +1,19 @@
 import axios from 'axios';
-import { wrapper } from '../../test-utils';
 import MockAdapter from 'axios-mock-adapter';
 import { renderHook } from '@testing-library/react-hooks';
 import { useGradesState, useGrades, mockGrades } from '../../../src/api/student/grades';
-import { queryCache } from 'react-query';
+import { wrapper } from '../../test-utils';
 
 const mock = new MockAdapter(axios);
 
 afterEach(() => {
-  queryCache.clear();
   mock.reset();
 });
 
 describe('useGrades', () => {
   it('gets grades on successful returns', async () => {
     mock.onGet('/api/student/grades').replyOnce(200, mockGrades.data);
-    const { result, waitForNextUpdate } = renderHook(() => useGrades());
+    const { result, waitForNextUpdate } = renderHook(() => useGrades(), { wrapper });
     await waitForNextUpdate();
     expect(result.current.isLoading).toBeFalsy();
     expect(result.current.error).toBeFalsy();
@@ -23,7 +21,7 @@ describe('useGrades', () => {
   });
   it('handles api error', async () => {
     mock.onGet('/api/student/grades').replyOnce(500, '');
-    const { result, waitForNextUpdate } = renderHook(() => useGrades());
+    const { result, waitForNextUpdate } = renderHook(() => useGrades(), { wrapper });
     await waitForNextUpdate();
     expect(result.current.isLoading).toBeTruthy();
     expect(result.current.isError).toBeFalsy();
