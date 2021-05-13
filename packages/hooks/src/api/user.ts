@@ -66,12 +66,10 @@ export const useUser = (opts: UseQueryOptions<any, Error> = REACT_QUERY_DEFAULT_
   const classification = useQuery('classification', getClassification, {
     ...opts,
     enabled: u.isSuccess,
-    initialData: {},
   });
   const favorites = useQuery('favorites', getFavorites, {
     ...opts,
     enabled: u.isSuccess && classification.isSuccess,
-    initialData: [],
   });
 
   // Gets the latest favorites and sets the new state
@@ -200,7 +198,7 @@ export const useUserState = (navigate: Function) => {
   const initialRoute = useRecoilValue(initialRouteState);
 
   useEffect(() => {
-    if (!user.loading && !user.error) {
+    if (!user.loading) {
       const currentAffiliation = User.getAffiliation(user.data);
       const { affiliation, navigateTo } = dashboard;
       if (currentAffiliation !== affiliation) {
@@ -210,7 +208,7 @@ export const useUserState = (navigate: Function) => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dashboard, user.error, user.loading]);
+  }, [dashboard]);
 
   /**
    * User Bootstrap for User setup
