@@ -11,6 +11,9 @@ coverage:
       utils:
         paths: 'packages/utils/'
         flags: utils
+      theme:
+        paths: 'packages/theme/'
+        flags: theme
     patch:
       default: off
 
@@ -24,3 +27,6 @@ flags:
   utils:
     paths:
       - packages/utils/
+  theme:
+    paths:
+      - packages/theme/
