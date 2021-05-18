@@ -5,7 +5,7 @@ const defaultTheme = 'light';
 
 const themesLookup = {
   light,
-  dark
+  dark,
 };
 
 export { light, dark, themesLookup, defaultTheme };
