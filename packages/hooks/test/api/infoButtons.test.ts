@@ -11,17 +11,16 @@ describe('useInfoButtons', () => {
     mock.onGet('/api/info-buttons').reply(200, mockInfoButtons.data);
     const { result, waitForNextUpdate } = renderHook(() => useInfoButtons(), { wrapper });
     await waitForNextUpdate();
-    expect(result.current.loading).toBeFalsy();
+    expect(result.current.isLoading).toBeFalsy();
     expect(result.current.error).toBeFalsy();
     expect(result.current.data).toEqual(mockInfoButtons.data);
   });
   it('handles api error', async () => {
     mock.onGet('/api/info-buttons').reply(500);
     const { result, waitForNextUpdate } = renderHook(() => useInfoButtons(), { wrapper });
+    expect(result.current.isLoading).toBeTruthy();
     await waitForNextUpdate();
-    expect(result.current.loading).toBeFalsy();
-    expect(result.current.error).toBeTruthy();
-    expect(result.current.data).toEqual([]);
+    expect(result.current.failureCount).toEqual(1);
   });
 });
 

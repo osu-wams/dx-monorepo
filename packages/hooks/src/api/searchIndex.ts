@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useQuery, UseQueryOptions } from 'react-query';
 import mock from '../mocks/pageSearchIndex';
 import { Types } from '@osu-wams/lib';
@@ -9,12 +8,9 @@ import { pageSearchIndexState } from '../state/searchIndex';
 
 export const mockPageSearchIndex = mock;
 
-export const getPageSearchIndex = (): Promise<Types.PageSearchIndex[]> =>
-  axios.get(`/api/searchIndex/pages`).then(res => res.data);
-
 export const usePageSearchIndex = (
   opts: UseQueryOptions<Types.PageSearchIndex[], Error> = REACT_QUERY_DEFAULT_CONFIG,
-) => useQuery('pageSearchIndex', getPageSearchIndex, opts);
+) => useQuery('/api/searchIndex/pages', opts);
 
 /**
  * Fetch the data from the api hook and persist in shared state

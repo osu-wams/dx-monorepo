@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { Types } from '@osu-wams/lib';
-import useAPICall from '../useAPICall';
+import { useQuery, UseQueryOptions } from 'react-query';
+import { REACT_QUERY_DEFAULT_CONFIG } from '../constants';
 import mocks from '../mocks/infoButtons';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
@@ -8,15 +8,8 @@ import { infoButtonState } from '../state/application';
 
 export const mockInfoButtons = mocks;
 
-export const getInfoButtons = (): Promise<Types.InfoButtonState[]> =>
-  axios.get(`/api/info-buttons`).then((res: Types.InfoButtonData) => res.data ?? []);
-
-export const useInfoButtons = () =>
-  useAPICall<Types.InfoButtonState[]>({
-    api: getInfoButtons,
-    dataTransform: (data: Types.InfoButtonState[]) => data,
-    initialState: [],
-  });
+export const useInfoButtons = (opts: UseQueryOptions<Types.InfoButtonState[], Error> = REACT_QUERY_DEFAULT_CONFIG) =>
+  useQuery('/api/info-buttons', opts);
 
 /**
  * Fetch the data from the api hook and persist in shared state

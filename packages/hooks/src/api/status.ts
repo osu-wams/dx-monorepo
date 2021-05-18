@@ -1,4 +1,3 @@
-import axios from 'axios';
 import mocks from '../mocks/status';
 import { Types } from '@osu-wams/lib';
 import { useQuery, UseQueryOptions } from 'react-query';
@@ -42,7 +41,5 @@ export const allOperational = (components?: Types.CachetComponent[]): boolean =>
   return components?.filter(c => c.status > 1).length === 0 ?? false;
 };
 
-export const getStatus = (): Promise<Types.CachetComponent[]> => axios.get(`/api/status`).then(res => res.data);
-
 export const useStatus = (opts: UseQueryOptions<Types.CachetComponent[], Error> = REACT_QUERY_DEFAULT_CONFIG) =>
-  useQuery('status', getStatus, opts);
+  useQuery('/api/status', opts);

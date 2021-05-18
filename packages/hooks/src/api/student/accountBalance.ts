@@ -1,15 +1,9 @@
-import axios from 'axios';
 import { Types } from '@osu-wams/lib';
-import useAPICall from '../../useAPICall';
+import { useQuery, UseQueryOptions } from 'react-query';
 import mocks from '../../mocks/student/accountBalance';
+import { REACT_QUERY_DEFAULT_CONFIG } from '../../constants';
 
 export const mockAccountBalance = mocks;
 
-export const getAccountBalance = (): Promise<Types.AccountBalance> =>
-  axios.get('/api/student/account-balance').then(res => res.data);
-export const useAccountBalance = () =>
-  useAPICall<Types.AccountBalance | undefined>({
-    api: getAccountBalance,
-    dataTransform: (data: Types.AccountBalance) => data,
-    initialState: undefined,
-  });
+export const useAccountBalance = (opts: UseQueryOptions<Types.AccountBalance, Error> = REACT_QUERY_DEFAULT_CONFIG) =>
+  useQuery('/api/student/account-balance', opts);

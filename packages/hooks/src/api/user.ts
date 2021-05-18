@@ -2,8 +2,8 @@ import axios from 'axios';
 import { useQuery, UseQueryOptions, useQueryClient } from 'react-query';
 import { useEffect, useState } from 'react';
 import { User, Types } from '@osu-wams/lib';
-import { getFavorites } from '../api/resources';
-import { getClassification } from '../api/classification';
+import { useFavorites } from '../api/resources';
+import { useClassification } from '../api/classification';
 import { REACT_QUERY_DEFAULT_CONFIG } from '../constants';
 import { useApplicationMessagesState } from './applicationMessages';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
@@ -38,8 +38,6 @@ export const usersCampus = User.usersCampus;
 export const hasAudience = User.hasAudience;
 export const atCampus = User.atCampus;
 
-export const getUser = (): Promise<Types.User> => axios.get('/api/user').then(res => res.data);
-
 /**
  * The primary hook to fetch the user session and set the user for access throughout the application, this
  * is intended to be set near the root level of the application and exposed by way of the UserContext.
@@ -54,7 +52,7 @@ export const useUser = (opts: UseQueryOptions<any, Error> = REACT_QUERY_DEFAULT_
     isCanvasOptIn: false,
   });
 
-  const u = useQuery('user', getUser, {
+  const u = useQuery('/api/user', {
     ...opts,
     retry: false,
     onError: (err: any) => {
@@ -63,17 +61,11 @@ export const useUser = (opts: UseQueryOptions<any, Error> = REACT_QUERY_DEFAULT_
       }
     },
   });
-  const classification = useQuery('classification', getClassification, {
-    ...opts,
-    enabled: u.isSuccess,
-  });
-  const favorites = useQuery('favorites', getFavorites, {
-    ...opts,
-    enabled: u.isSuccess && classification.isSuccess,
-  });
+  const classification = useClassification({ ...opts, enabled: u.isSuccess });
+  const favorites = useFavorites({ ...opts, enabled: u.isSuccess && classification.isSuccess });
 
   // Gets the latest favorites and sets the new state
-  const refreshFavorites = async () => queryClient.invalidateQueries('favorites');
+  const refreshFavorites = async () => queryClient.invalidateQueries('/api/resources/favorites');
 
   useEffect(() => {
     if (u.isSuccess) {
@@ -112,9 +104,9 @@ export const useUser = (opts: UseQueryOptions<any, Error> = REACT_QUERY_DEFAULT_
         };
       });
     } else if (classification.isError) {
-      queryClient.invalidateQueries('classification');
+      queryClient.invalidateQueries('/api/user/classification');
     } else if (favorites.isError) {
-      queryClient.invalidateQueries('favorites');
+      queryClient.invalidateQueries('/api/resources/favorites');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -168,11 +160,8 @@ export const changeAffiliation = (affiliationType: string, user: Types.UserState
   });
 };
 
-export const getUserMessages = (): Promise<Types.UserMessageItems> =>
-  axios.get('/api/user/messages').then(res => res.data);
-
 export const useMessages = (opts: UseQueryOptions<Types.UserMessageItems, Error> = REACT_QUERY_DEFAULT_CONFIG) =>
-  useQuery('userMessages', getUserMessages, opts);
+  useQuery('/api/user/messages', opts);
 
 export const updateUserMessage = (update: Types.UserMessageUpdate): Promise<Types.UserMessage> =>
   axios

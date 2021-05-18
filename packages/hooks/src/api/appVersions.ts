@@ -1,27 +1,13 @@
-import axios from 'axios';
-import { Types } from '@osu-wams/lib';
-import useAPICall from '../useAPICall';
+import { REACT_QUERY_DEFAULT_CONFIG } from '../constants';
+import { useQuery, UseQueryOptions } from 'react-query';
 
-export const getAppVersions = async (): Promise<Types.Versions> => {
-  const healthCheck: { version: string } = await axios
-    .get('/healthcheck')
-    .then(res => res.data)
-    .catch(err => {
-      console.error(`Failed fetching server deployed version. ${err}`);
-      return { version: 'failed-to-fetch' };
-    });
-  const appVersion: string = await axios
-    .get('/app_version')
-    .then(res => res.data)
-    .catch(err => {
-      console.error(`Failed fetching client deployed version. ${err}`);
-      return 'failed-to-fetch';
-    });
-  return {
-    serverVersion: healthCheck.version,
-    appVersion,
-  };
+const useHealthCheck = (opts: UseQueryOptions<{ version: string }, Error> = REACT_QUERY_DEFAULT_CONFIG) =>
+  useQuery('/healthcheck', { ...opts, retry: false });
+const useAppVersion = (opts: UseQueryOptions<string, Error> = REACT_QUERY_DEFAULT_CONFIG) =>
+  useQuery('/app_version', { ...opts, retry: false });
+
+export const useAppVersions = (opts: UseQueryOptions<any, Error> = REACT_QUERY_DEFAULT_CONFIG) => {
+  const healthCheck = useHealthCheck(opts);
+  const appVersion = useAppVersion(opts);
+  return { healthCheck, appVersion };
 };
-
-export const useAppVersions = (initialState: Types.Versions) =>
-  useAPICall<Types.Versions>({ api: getAppVersions, dataTransform: (data: any) => data, initialState });

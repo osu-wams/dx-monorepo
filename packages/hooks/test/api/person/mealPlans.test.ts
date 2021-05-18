@@ -11,7 +11,7 @@ describe('useMealPlans', () => {
     mock.onGet('/api/persons/meal-plans').reply(200, mockMealPlans.data);
     const { result, waitForNextUpdate } = renderHook(() => useMealPlans(), { wrapper });
     await waitForNextUpdate();
-    expect(result.current.loading).toBeFalsy();
+    expect(result.current.isLoading).toBeFalsy();
     expect(result.current.error).toBeFalsy();
     expect(result.current.data).toEqual(mockMealPlans.data);
   });
@@ -19,8 +19,7 @@ describe('useMealPlans', () => {
     mock.onGet('/api/persons/meal-plans').reply(500);
     const { result, waitForNextUpdate } = renderHook(() => useMealPlans(), { wrapper });
     await waitForNextUpdate();
-    expect(result.current.loading).toBeFalsy();
-    expect(result.current.error).toBeTruthy();
-    expect(result.current.data).toStrictEqual([]);
+    expect(result.current.failureCount).toEqual(1);
+    expect(result.current.data).toBeUndefined();
   });
 });

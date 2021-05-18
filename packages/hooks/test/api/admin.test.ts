@@ -4,13 +4,17 @@ import { getResetApiCache } from './../../src/api/admin';
 
 const mock = new MockAdapter(axios);
 
-describe('reset-api-cache', () => {
-  it('gets gpa on successful return', async () => {
-    mock.onGet('api/admin/reset-api-cache').replyOnce(200);
+describe('getResetApiCache', () => {
+  it('performs the call', async () => {
+    mock.onGet('/api/admin/reset-api-cache').replyOnce(200);
+    const response = await getResetApiCache();
+    expect(response.status).toBe(200);
   });
 
-  it('handles api error', async () => {
-    mock.onGet('api/admin/reset-api-cache').replyOnce(500);
-    await getResetApiCache().catch(err => expect(err.message).toEqual('Error while resetting api cache.'));
+  it('handles an error', async () => {
+    mock.onGet('/api/admin/reset-api-cache').replyOnce(500, '');
+    await getResetApiCache().catch(err => {
+      expect(err.message).toBe('Request failed with status code 500');
+    });
   });
 });

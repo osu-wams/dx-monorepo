@@ -2,7 +2,7 @@
   "extends": "../../tsconfig.json",
   "include": ["src", "types", "mocks", "test"],
   "compilerOptions": {
-    "rootDir": "./src",
+    "rootDir": "./",
     "baseUrl": ".",
     "outDir": "./dist"
   },

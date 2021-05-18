@@ -1,25 +1,13 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { renderHook } from '@testing-library/react-hooks';
-import { getGpa, useGpa, mockGpa } from '../../../src/api/student/gpa';
+import { useGpa, mockGpa } from '../../../src/api/student/gpa';
 import { wrapper } from '../../test-utils';
 
 const mock = new MockAdapter(axios);
 
 afterEach(() => {
   mock.reset();
-});
-
-describe('getGpa', () => {
-  it('gets gpa on successful returns', async () => {
-    mock.onGet('/api/student/gpa').replyOnce(200, mockGpa.gpaData);
-    const result = await getGpa();
-    expect(result).toEqual(mockGpa.gpaData);
-  });
-  it('handles api error', async () => {
-    mock.onGet('/api/student/gpa').replyOnce(500);
-    await getGpa().catch(err => expect(err.message).toEqual('Request failed with status code 500'));
-  });
 });
 
 describe('useGpa', () => {
