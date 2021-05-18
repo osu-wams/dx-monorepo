@@ -1,3 +1,5 @@
-import axios from 'axios';
+import { useQuery, UseQueryOptions } from 'react-query';
+import { REACT_QUERY_DEFAULT_CONFIG } from '../constants';
 
-export const getResetApiCache = () => axios.get(`/api/admin/reset-api-cache`).then(res => res.data);
+export const useResetApiCache = (opts: UseQueryOptions<any, Error> = REACT_QUERY_DEFAULT_CONFIG) =>
+  useQuery('/api/admin/reset-api-cache', { ...opts, retry: false });

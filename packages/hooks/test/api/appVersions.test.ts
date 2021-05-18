@@ -10,29 +10,21 @@ describe('useAppVersions', () => {
   it('gets versions on successful returns', async () => {
     mock.onGet('/healthcheck').reply(200, { version: 'server-tested-version' });
     mock.onGet('/app_version').reply(200, 'client-tested-version');
-    const { result, waitForNextUpdate } = renderHook(() => useAppVersions({ serverVersion: '', appVersion: '' }), {
-      wrapper,
-    });
+    const { result, waitForNextUpdate } = renderHook(() => useAppVersions(), { wrapper });
     await waitForNextUpdate();
-    expect(result.current.loading).toBeFalsy();
-    expect(result.current.error).toBeFalsy();
-    expect(result.current.data).toEqual({
-      serverVersion: 'server-tested-version',
-      appVersion: 'client-tested-version',
-    });
+    expect(result.current.appVersion.isLoading).toBeFalsy();
+    expect(result.current.healthCheck.isLoading).toBeFalsy();
+    expect(result.current.appVersion.data).toEqual('client-tested-version');
+    expect(result.current.healthCheck.data).toEqual({ version: 'server-tested-version' });
   });
   it('handles api errors with default data', async () => {
     mock.onGet('/healthcheck').reply(500);
     mock.onGet('/app_version').reply(500);
-    const { result, waitForNextUpdate } = renderHook(() => useAppVersions({ serverVersion: '', appVersion: '' }), {
-      wrapper,
-    });
+    const { result, waitForNextUpdate } = renderHook(() => useAppVersions(), { wrapper });
     await waitForNextUpdate();
-    expect(result.current.loading).toBeFalsy();
-    expect(result.current.error).toBeFalsy();
-    expect(result.current.data).toEqual({
-      serverVersion: 'failed-to-fetch',
-      appVersion: 'failed-to-fetch',
-    });
+    expect(result.current.appVersion.isLoading).toBeFalsy();
+    expect(result.current.healthCheck.isLoading).toBeFalsy();
+    expect(result.current.appVersion.failureCount).toEqual(1);
+    expect(result.current.healthCheck.failureCount).toEqual(1);
   });
 });

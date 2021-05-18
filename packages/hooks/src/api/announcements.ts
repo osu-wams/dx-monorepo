@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useQuery, UseQueryOptions } from 'react-query';
 import { User } from '@osu-wams/lib';
 import mocks from '../mocks/announcements';
@@ -10,10 +9,8 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 
 export const mockAnnouncements = mocks;
 
-const getAnnouncements = (type: string): Promise<any> => axios.get(`/api/announcements/${type}`).then(res => res.data);
-
 export const useAnnouncements = (type: string, opts: UseQueryOptions<any, Error> = REACT_QUERY_DEFAULT_CONFIG) =>
-  useQuery(['announcements', type], () => getAnnouncements(type), opts);
+  useQuery(`/api/announcements/${type}`, opts);
 
 const { getAffiliation } = User;
 

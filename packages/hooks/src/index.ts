@@ -1,4 +1,3 @@
-import useAPICall from './useAPICall';
 import * as Announcements from './api/announcements';
 import { useAnnouncements, useAnnouncementsState } from './api/announcements';
 import { useApplicationMessagesState } from './api/applicationMessages';
@@ -65,6 +64,7 @@ import { usePeople } from './api/people';
 import * as Locations from './api/locations';
 import { useLocations } from './api/locations';
 import * as State from './state';
+import queryClient, { updateQueryClientOptions } from './queryClient';
 
 export {
   Admin,
@@ -90,6 +90,8 @@ export {
   Student,
   Trainings,
   User,
+  queryClient,
+  updateQueryClientOptions,
   useAcademicCalendarEvents,
   useAcademicStatus,
   useAccountBalance,
@@ -100,7 +102,6 @@ export {
   useAnnouncements,
   useAnnouncementsState,
   useApplicationMessagesState,
-  useAPICall,
   useAppVersions,
   useCampusEvents,
   useCampusEventsState,

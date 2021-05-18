@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useQuery, UseQueryOptions } from 'react-query';
 import mock from '../mocks/trainings';
 import { Types } from '@osu-wams/lib';
@@ -11,23 +10,15 @@ export const mockTrainings = mock.trainings;
 export const mockTrainingTags = mock.trainingTags;
 export const mockTrainingAudiences = mock.trainingAudiences;
 
-export const getTrainings = (): Promise<Types.Training[]> => axios.get(`/api/trainings`).then(res => res.data);
-
 export const useTrainings = (opts: UseQueryOptions<Types.Training[], Error> = REACT_QUERY_DEFAULT_CONFIG) =>
-  useQuery('trainings', getTrainings, opts);
-
-export const getTrainingTags = (): Promise<Types.TrainingTag[]> =>
-  axios.get(`/api/trainings/tags`).then(res => res.data);
+  useQuery('/api/trainings', opts);
 
 export const useTrainingTags = (opts: UseQueryOptions<Types.TrainingTag[], Error> = REACT_QUERY_DEFAULT_CONFIG) =>
-  useQuery('training-tags', getTrainingTags, opts);
-
-export const getTrainingAudiences = (): Promise<Types.TrainingAudience[]> =>
-  axios.get(`/api/trainings/audiences`).then(res => res.data);
+  useQuery('/api/trainings/tags', opts);
 
 export const useTrainingAudiences = (
   opts: UseQueryOptions<Types.TrainingAudience[], Error> = REACT_QUERY_DEFAULT_CONFIG,
-) => useQuery('training-audiences', getTrainingAudiences, opts);
+) => useQuery('/api/trainings/audiences', opts);
 
 /**
  * Fetch the data from the api hook and persist in shared state

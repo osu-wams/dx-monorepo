@@ -1,29 +1,13 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { renderHook } from '@testing-library/react-hooks';
-import {
-  usePlannerItemsState,
-  usePlannerItems,
-  mockPlannerItems,
-  getPlannerItems,
-} from '../../../src/api/student/plannerItems';
+import { usePlannerItemsState, usePlannerItems, mockPlannerItems } from '../../../src/api/student/plannerItems';
 import { wrapper } from '../../test-utils';
 
 const mock = new MockAdapter(axios);
 
 afterEach(() => {
   mock.reset();
-});
-describe('getPlannerItems', () => {
-  it('gets trainings on successful returns', async () => {
-    mock.onGet('/api/student/planner-items').replyOnce(200, mockPlannerItems.data);
-    const result = await getPlannerItems();
-    expect(result).toEqual(mockPlannerItems.data);
-  });
-  it('handles api error', async () => {
-    mock.onGet('/api/student/planner-items').replyOnce(500);
-    await getPlannerItems().catch(err => expect(err.message).toEqual('Request failed with status code 500'));
-  });
 });
 
 describe('usePlannerItems', () => {
@@ -54,7 +38,6 @@ describe('usePlannerItemsState', () => {
     expect(result.current.plannerItems.data).toEqual(mockPlannerItems.data);
   });
 
-  // TODO: react-query 3 retries on this test, unexpectedly, and needs some rethinking
   xit('handles an error', async () => {
     mock.onGet('/api/student/planner-items').reply(500);
     const { result, waitForNextUpdate } = renderHook(() => usePlannerItemsState(), { wrapper });

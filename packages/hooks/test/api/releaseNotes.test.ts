@@ -1,4 +1,3 @@
-import { getReleaseNotes } from './../../src/api/releaseNotes';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { renderHook } from '@testing-library/react-hooks';
@@ -11,18 +10,6 @@ const api = '/api/release-notes';
 
 afterEach(() => {
   mock.reset();
-});
-
-describe('getReleaseNotes', () => {
-  it('gets gpa on successful returns', async () => {
-    mock.onGet(api).replyOnce(200, mockReleaseNotes.releaseNotesData);
-    const result = await getReleaseNotes();
-    expect(result).toEqual(mockReleaseNotes.releaseNotesData);
-  });
-  it('handles api error', async () => {
-    mock.onGet(api).replyOnce(500);
-    await getReleaseNotes().catch(err => expect(err.message).toEqual('Request failed with status code 500'));
-  });
 });
 
 describe('useReleaseNotes', () => {

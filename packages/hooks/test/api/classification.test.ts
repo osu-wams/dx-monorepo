@@ -1,17 +1,26 @@
+import { renderHook } from '@testing-library/react-hooks';
+import { wrapper } from '../test-utils';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { getClassification, mockClassification } from '../../src/api/classification';
+import { useClassification, mockClassification } from '../../src/api/classification';
 
 const mock = new MockAdapter(axios);
 
-describe('getClassification', () => {
-  it('gets academic status on successful returns', async () => {
-    mock.onGet('/api/user/classification').reply(200, mockClassification.data);
-    const result = await getClassification();
-    expect(result).toEqual(mockClassification.data);
+describe('useClassification', () => {
+  it('performs the call', async () => {
+    mock.onGet('/api/user/classification').replyOnce(200, mockClassification.data);
+    const { result, waitForNextUpdate } = renderHook(() => useClassification(), { wrapper });
+    expect(result.current.isLoading).toBeTruthy();
+    await waitForNextUpdate();
+    expect(result.current.isLoading).toBeFalsy();
   });
-  it('handles api error', async () => {
-    mock.onGet('/api/user/classification').reply(500);
-    await getClassification().catch(err => expect(err.message).toEqual('Request failed with status code 500'));
+
+  it('handles an error', async () => {
+    mock.onGet('/api/user/classification').replyOnce(500, '');
+    const { result, waitForNextUpdate } = renderHook(() => useClassification(), { wrapper });
+    expect(result.current.isLoading).toBeTruthy();
+    expect(result.current.isError).toBeFalsy();
+    await waitForNextUpdate();
+    expect(result.current.failureCount).toBe(1);
   });
 });

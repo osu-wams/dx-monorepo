@@ -1,15 +1,9 @@
-import axios from 'axios';
 import { Types } from '@osu-wams/lib';
-import useAPICall from '../../useAPICall';
 import mocks from '../../mocks/student/academicStatus';
+import { useQuery, UseQueryOptions } from 'react-query';
+import { REACT_QUERY_DEFAULT_CONFIG } from '../../constants';
 
 export const mockAcademicStatus = mocks;
 
-export const getAcademicStatus = (): Promise<Types.AcademicStatus> =>
-  axios.get(`/api/student/academic-status`).then(res => res.data);
-export const useAcademicStatus = () =>
-  useAPICall<Types.AcademicStatus>({
-    api: getAcademicStatus,
-    dataTransform: (data: Types.AcademicStatus) => data,
-    initialState: {},
-  });
+export const useAcademicStatus = (opts: UseQueryOptions<Types.AcademicStatus, Error> = REACT_QUERY_DEFAULT_CONFIG) =>
+  useQuery('/api/student/academic-status', opts);

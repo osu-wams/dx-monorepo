@@ -14,16 +14,15 @@ describe('useDegrees', () => {
     mock.onGet('/api/student/degrees?term=current').reply(200, serverResponse);
     const { result, waitForNextUpdate } = renderHook(() => useDegrees(), { wrapper });
     await waitForNextUpdate();
-    expect(result.current.loading).toBeFalsy();
+    expect(result.current.isLoading).toBeFalsy();
     expect(result.current.error).toBeFalsy();
-    expect(result.current.data).toEqual(mockDegrees.data);
+    expect(result.current.data).toEqual(serverResponse);
   });
   it('handles api error', async () => {
     mock.onGet('/api/student/degrees?term=current').reply(500);
     const { result, waitForNextUpdate } = renderHook(() => useDegrees(), { wrapper });
     await waitForNextUpdate();
-    expect(result.current.loading).toBeFalsy();
-    expect(result.current.error).toBeTruthy();
-    expect(result.current.data).toEqual([]);
+    expect(result.current.failureCount).toEqual(1);
+    expect(result.current.data).toBeUndefined();
   });
 });

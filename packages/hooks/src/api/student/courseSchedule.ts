@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { Types } from '@osu-wams/lib';
 import { useQuery, UseQueryOptions } from 'react-query';
 import { REACT_QUERY_DEFAULT_CONFIG } from '../../constants';
@@ -9,17 +8,14 @@ import { courseState } from '../../state/courses';
 
 export const mockCourseSchedule = mocks;
 
-export const getCourseSchedule = (term: string = 'current'): Promise<Types.CourseSchedule[]> =>
-  axios.get(`/api/student/class-schedule?term=${term}`).then(res => res.data);
-
 /**
  * Returns an array of course schedules.
  */
 export const useCourseSchedule = (
-  term?: string,
+  term: string = 'current',
   opts: UseQueryOptions<Types.CourseSchedule[], Error> = REACT_QUERY_DEFAULT_CONFIG,
 ) => {
-  return useQuery(['courseSchedule', term], () => getCourseSchedule(term), opts);
+  return useQuery(`/api/student/class-schedule?term=${term}`, opts);
 };
 
 /**

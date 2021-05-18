@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { Types } from '@osu-wams/lib';
 import { useQuery, UseQueryOptions } from 'react-query';
 import { REACT_QUERY_DEFAULT_CONFIG } from '../../constants';
@@ -9,11 +8,8 @@ import { gradesState } from '../../state/grades';
 
 export const mockGrades = mocks;
 
-export const getGrades = (): Promise<Types.Grades[]> => axios.get(`/api/student/grades`).then(res => res.data);
-
-export const useGrades = (opts: UseQueryOptions<Types.Grades[], Error> = REACT_QUERY_DEFAULT_CONFIG) => {
-  return useQuery('grades', () => getGrades(), opts);
-};
+export const useGrades = (opts: UseQueryOptions<Types.Grades[], Error> = REACT_QUERY_DEFAULT_CONFIG) =>
+  useQuery('/api/student/grades', opts);
 
 /**
  * Fetch the data from the api hook and persist in shared state

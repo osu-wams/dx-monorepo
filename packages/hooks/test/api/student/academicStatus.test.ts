@@ -11,7 +11,7 @@ describe('useAcademicStatus', () => {
     mock.onGet('/api/student/academic-status').reply(200, mockAcademicStatus.data);
     const { result, waitForNextUpdate } = renderHook(() => useAcademicStatus(), { wrapper });
     await waitForNextUpdate();
-    expect(result.current.loading).toBeFalsy();
+    expect(result.current.isLoading).toBeFalsy();
     expect(result.current.error).toBeFalsy();
     expect(result.current.data).toEqual(mockAcademicStatus.data);
   });
@@ -19,8 +19,7 @@ describe('useAcademicStatus', () => {
     mock.onGet('/api/student/academic-status').reply(500);
     const { result, waitForNextUpdate } = renderHook(() => useAcademicStatus(), { wrapper });
     await waitForNextUpdate();
-    expect(result.current.loading).toBeFalsy();
-    expect(result.current.error).toBeTruthy();
-    expect(result.current.data).toEqual({});
+    expect(result.current.failureCount).toEqual(1);
+    expect(result.current.data).toBeUndefined();
   });
 });

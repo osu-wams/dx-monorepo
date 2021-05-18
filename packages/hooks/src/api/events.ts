@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { Types } from '@osu-wams/lib';
 import { useQuery, UseQueryOptions } from 'react-query';
 import { REACT_QUERY_DEFAULT_CONFIG } from '../constants';
@@ -9,36 +8,24 @@ import { useEffect } from 'react';
 
 export const mockEvents = mocks;
 
-const getAcademicCalendarEvents = (): Promise<Types.AcademicEvent[]> =>
-  axios.get('/api/events/academic-calendar').then(res => res.data);
-
 export const useAcademicCalendarEvents = (
   opts: UseQueryOptions<Types.AcademicEvent[], Error> = REACT_QUERY_DEFAULT_CONFIG,
-) => useQuery('academicCalendarEvents', () => getAcademicCalendarEvents(), opts);
-
-const getAffiliationEvents = (affiliation: string): Promise<Types.LocalistEvent[]> => {
-  const url = '/api/events';
-  switch (affiliation.toLowerCase()) {
-    case 'student':
-      return axios.get(url).then(res => res.data);
-
-    default:
-      return axios.get(`${url}/${affiliation.toLowerCase()}`).then(res => res.data);
-  }
-};
+) => useQuery('/api/events/academic-calendar', opts);
 
 export const useAffiliationEvents = (
   affiliation: string,
   opts: UseQueryOptions<Types.LocalistEvent[], Error> = REACT_QUERY_DEFAULT_CONFIG,
-) => useQuery(['events', affiliation], () => getAffiliationEvents(affiliation), opts);
-
-export const getCampusEvents = (name: string): Promise<Types.LocalistEvent[]> =>
-  axios.get(`/api/events/campus/${name}`).then(res => res.data);
+) => {
+  const apiUrl = '/api/events';
+  const endpoint = affiliation.toLowerCase();
+  const url = endpoint === 'student' ? apiUrl : `${apiUrl}/${endpoint}`;
+  return useQuery(url, opts);
+};
 
 export const useCampusEvents = (
   campus: string,
   opts: UseQueryOptions<Types.LocalistEvent[], Error> = REACT_QUERY_DEFAULT_CONFIG,
-) => useQuery(['campusEvents', campus], () => getCampusEvents(campus), opts);
+) => useQuery(`/api/events/campus/${campus}`, opts);
 
 /**
  * Fetch the data from the api hook and persist in shared state

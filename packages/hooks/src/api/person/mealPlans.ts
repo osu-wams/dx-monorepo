@@ -1,11 +1,9 @@
-import axios from 'axios';
 import { Types } from '@osu-wams/lib';
-import useAPICall from '../../useAPICall';
 import mocks from '../../mocks/person/mealPlans';
+import { useQuery, UseQueryOptions } from 'react-query';
+import { REACT_QUERY_DEFAULT_CONFIG } from '../../constants';
 
 export const mockMealPlans = mocks;
 
-export const getMealPlans = (): Promise<Types.MealPlan[]> => axios.get(`/api/persons/meal-plans`).then(res => res.data);
-
-export const useMealPlans = ({ callback = (data: Types.MealPlan[]) => data } = {}) =>
-  useAPICall<Types.MealPlan[]>({ api: getMealPlans, dataTransform: callback, initialState: [] });
+export const useMealPlans = (opts: UseQueryOptions<Types.PersonsAttributes, Error> = REACT_QUERY_DEFAULT_CONFIG) =>
+  useQuery('/api/persons/meal-plans', opts);

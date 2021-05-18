@@ -11,7 +11,7 @@ describe('useHolds', () => {
     mock.onGet('/api/student/holds').reply(200, mockHolds.data);
     const { result, waitForNextUpdate } = renderHook(() => useHolds(), { wrapper });
     await waitForNextUpdate();
-    expect(result.current.loading).toBeFalsy();
+    expect(result.current.isLoading).toBeFalsy();
     expect(result.current.error).toBeFalsy();
     expect(result.current.data).toEqual(mockHolds.data);
   });
@@ -19,8 +19,7 @@ describe('useHolds', () => {
     mock.onGet('/api/student/holds').reply(500);
     const { result, waitForNextUpdate } = renderHook(() => useHolds(), { wrapper });
     await waitForNextUpdate();
-    expect(result.current.loading).toBeFalsy();
-    expect(result.current.error).toBeTruthy();
-    expect(result.current.data).toEqual([]);
+    expect(result.current.failureCount).toEqual(1);
+    expect(result.current.data).toBeUndefined();
   });
 });

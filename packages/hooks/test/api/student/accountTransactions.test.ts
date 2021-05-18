@@ -11,7 +11,7 @@ describe('useAccountTransactions', () => {
     mock.onGet('/api/student/account-transactions').reply(200, mockAccountTransactions.data);
     const { result, waitForNextUpdate } = renderHook(() => useAccountTransactions(), { wrapper });
     await waitForNextUpdate();
-    expect(result.current.loading).toBeFalsy();
+    expect(result.current.isLoading).toBeFalsy();
     expect(result.current.error).toBeFalsy();
     expect(result.current.data).toEqual(mockAccountTransactions.data);
   });
@@ -19,8 +19,7 @@ describe('useAccountTransactions', () => {
     mock.onGet('/api/student/account-transactions').reply(500);
     const { result, waitForNextUpdate } = renderHook(() => useAccountTransactions(), { wrapper });
     await waitForNextUpdate();
-    expect(result.current.loading).toBeFalsy();
-    expect(result.current.error).toBeTruthy();
-    expect(result.current.data).toEqual(undefined);
+    expect(result.current.failureCount).toEqual(1);
+    expect(result.current.data).toBeUndefined();
   });
 });
