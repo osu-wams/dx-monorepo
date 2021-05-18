@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import { fontSize } from './';
+import { fontSize } from './theme-settings';
 
 const GlobalStyle = createGlobalStyle`
   html {
