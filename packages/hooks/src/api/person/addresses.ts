@@ -5,5 +5,5 @@ import { REACT_QUERY_DEFAULT_CONFIG } from '../../constants';
 
 export const mockAddresses = mocks;
 
-export const useAddresses = (opts: UseQueryOptions<Types.PersonsAttributes, Error> = REACT_QUERY_DEFAULT_CONFIG) =>
+export const useAddresses = (opts: UseQueryOptions<Types.Address, Error> = REACT_QUERY_DEFAULT_CONFIG) =>
   useQuery('/api/persons/addresses', opts);
