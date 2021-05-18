@@ -1,26 +1,20 @@
-import { renderHook } from '@testing-library/react-hooks';
-import { wrapper } from '../test-utils';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { useResetApiCache } from './../../src/api/admin';
+import { getResetApiCache } from './../../src/api/admin';
 
 const mock = new MockAdapter(axios);
 
-describe('useResetApiCache', () => {
+describe('getResetApiCache', () => {
   it('performs the call', async () => {
     mock.onGet('/api/admin/reset-api-cache').replyOnce(200);
-    const { result, waitForNextUpdate } = renderHook(() => useResetApiCache(), { wrapper });
-    expect(result.current.isLoading).toBeTruthy();
-    await waitForNextUpdate();
-    expect(result.current.isLoading).toBeFalsy();
+    const response = await getResetApiCache();
+    expect(response.status).toBe(200);
   });
 
   it('handles an error', async () => {
     mock.onGet('/api/admin/reset-api-cache').replyOnce(500, '');
-    const { result, waitForNextUpdate } = renderHook(() => useResetApiCache(), { wrapper });
-    expect(result.current.isLoading).toBeTruthy();
-    expect(result.current.isError).toBeFalsy();
-    await waitForNextUpdate();
-    expect(result.current.failureCount).toBe(1);
+    await getResetApiCache().catch(err => {
+      expect(err.message).toBe('Request failed with status code 500');
+    });
   });
 });
