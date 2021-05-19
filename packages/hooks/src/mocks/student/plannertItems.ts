@@ -330,6 +330,7 @@ export default {
       context_name: 'INTRODUCTORY BIOLOGY III (BI_206_C401_S2019)',
     },
   ],
-  loading: false,
+  isSuccess: true,
+  isLoading: false,
   error: false,
 };

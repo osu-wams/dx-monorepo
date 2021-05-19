@@ -10,6 +10,7 @@ export default {
       isInternational: false,
     },
   },
-  loading: false,
+  isSuccess: true,
+  isLoading: false,
   error: false,
 };

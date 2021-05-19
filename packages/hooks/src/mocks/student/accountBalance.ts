@@ -9,6 +9,7 @@ export default {
       self: null,
     },
   },
-  loading: false,
+  isSuccess: true,
+  isLoading: false,
   error: false,
 };
