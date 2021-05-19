@@ -15,7 +15,8 @@ export const raveAlerts = {
       updated: new Date().toString(),
     },
   ],
-  loading: false,
+  isSuccess: true,
+  isLoading: false,
   error: false,
 };
 
@@ -36,6 +37,7 @@ export const dxAlerts = {
       updated: new Date().toString(),
     },
   ],
-  loading: false,
+  isSuccess: true,
+  isLoading: false,
   error: false,
 };

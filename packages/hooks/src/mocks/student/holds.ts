@@ -6,6 +6,7 @@ export default {
       fromDate: '2019-08-29',
     },
   ],
-  loading: false,
+  isSuccess: true,
+  isLoading: false,
   error: false,
 };

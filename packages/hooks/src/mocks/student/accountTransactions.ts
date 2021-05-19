@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   data: {
     type: 'account-transactions',
@@ -66,6 +67,7 @@ export default {
       ],
     },
   },
-  loading: false,
+  isSuccess: true,
+  isLoading: false,
   error: false,
 };

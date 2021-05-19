@@ -24,7 +24,8 @@ const personsMailingAddressData = {
     },
     links: null,
   },
-  loading: false,
+  isSuccess: true,
+  isLoading: false,
   error: false,
 };
 
@@ -54,8 +55,10 @@ const personsMinimalAddressData = {
     },
     links: null,
   },
-  loading: false,
+  isSuccess: true,
+  isLoading: false,
   error: false,
 };
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default { personsMailingAddressData, personsMinimalAddressData };

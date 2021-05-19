@@ -1,4 +1,4 @@
-export default {
+export const mealPlanData = {
   data: [
     {
       id: '2',
@@ -14,6 +14,9 @@ export default {
       },
     },
   ],
-  loading: false,
+  isSuccess: true,
+  isLoading: false,
   error: false,
 };
+
+export default mealPlanData;

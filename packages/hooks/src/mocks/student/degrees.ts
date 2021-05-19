@@ -39,6 +39,7 @@ export default {
       },
     },
   ],
-  loading: false,
+  isSuccess: true,
+  isLoading: false,
   error: false,
 };

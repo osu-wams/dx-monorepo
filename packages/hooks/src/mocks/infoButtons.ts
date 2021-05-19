@@ -11,6 +11,7 @@ export default {
       content: 'This is content for Financial Overview.',
     },
   ],
-  loading: false,
+  isSuccess: true,
+  isLoading: false,
   error: false,
 };
