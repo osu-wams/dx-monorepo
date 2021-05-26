@@ -241,7 +241,7 @@ export interface Grades {
 
 export interface Hold {
   description: string;
-  reason: string;
+  reason: string | null;
   toDate: string;
   fromDate: string;
 }
