@@ -26,6 +26,7 @@ const Url = {
     financialTransactions: 'https://xe.ucsadm.oregonstate.edu:9990/ssomanager/c/SSB?pkg=OSU_ARWEB.P_ViewBillDate',
     studentProfile: 'https://xe.ucsadm.oregonstate.edu:8890/StudentSelfService/ssb/studentProfile',
     editProfile: 'https://xe.ucsadm.oregonstate.edu:9990/ssomanager/c/SSB?pkg=twbkwbis.P_GenMenu?name=bmenu.P_GenMnu',
+    viewHolds: 'https://xe.ucsadm.oregonstate.edu:9990/ssomanager/c/SSB?pkg=bwskoacc.P_ViewHold',
   },
   myosu: {
     main: 'https://myosu.oregonstate.edu/',
