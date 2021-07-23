@@ -313,6 +313,15 @@ export const dark: MOSTheme = {
         color: iconSecondary,
       },
     },
+    covidVaccination: {
+      content: {
+        color: neutral550,
+      },
+      icon: {
+        compliantColor: Color['pine-200'],
+        nonCompliantColor: Color['luminance-300'],
+      },
+    },
     finances: {
       accountBalance: {
         emphasis: {
