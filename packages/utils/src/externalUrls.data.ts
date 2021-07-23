@@ -59,6 +59,11 @@ const Url = {
   gettingStarted: {
     main: 'https://oregonstate.teamdynamix.com/TDClient/1935/Portal/KB/?CategoryID=18200',
   },
+  covidCompliance: {
+    getVaccinated: 'https://www.vaccines.gov/search/',
+    register: 'https://myhealth.oregonstate.edu/',
+    decline: 'https://studenthealth.oregonstate.edu/covid%E2%80%9019-immunization-requirements',
+  },
 };
 
 export default Url;

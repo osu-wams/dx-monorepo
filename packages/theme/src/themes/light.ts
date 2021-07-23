@@ -311,6 +311,15 @@ export const light = {
         color: iconPrimary,
       },
     },
+    covidVaccination: {
+      content: {
+        color: neutral550,
+      },
+      icon: {
+        compliantColor: Color['pine-200'],
+        nonCompliantColor: Color['luminance-300'],
+      },
+    },
     finances: {
       accountBalance: {
         emphasis: {
