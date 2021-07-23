@@ -23,7 +23,7 @@ import { usePageContent } from './api/pageContents';
 import * as SearchIndex from './api/searchIndex';
 import { usePageSearchIndex, usePageSearchIndexState } from './api/searchIndex';
 import * as Person from './api/person';
-import { useAddresses, useMealPlans, usePerson, useEmails, usePhones } from './api/person';
+import { useAddresses, useMealPlans, usePerson, useEmails, usePhones, useMedical } from './api/person';
 import * as ReleaseNotes from './api/releaseNotes';
 import { useReleaseNotes } from './api/releaseNotes';
 import * as Resources from './api/resources';
@@ -121,6 +121,7 @@ export {
   useInfoButtonsState,
   useLocations,
   useMealPlans,
+  useMedical,
   useMessages,
   usePageContent,
   usePageSearchIndex,

@@ -43,6 +43,7 @@ export {
   AddressesResponse,
   MealPlan,
   MealPlansResponse,
+  Medical,
   PersonsAttributes,
   PersonsResponse,
   Email,
