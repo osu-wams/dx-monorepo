@@ -147,122 +147,122 @@ export interface Email {
 }
 
 /* Medical Codes
-LD - Learning Disabled
-MU - mumps missing
-ID - inpatient diagnosis
-IP - inpatient practitioner
-TW - temp immunization waiver signd
-CA - completed all immunizations
-MBEM - MenB Exception Medical
 AA - Alcohol Dependent
-HH - Health History missing
-M2 - Second measles missing
+AEC - Alcohol.edu Complete
+AER - Alcohol.edu Required
+AI - All immunizations missing
+AR - Archives
+CA - completed all immunizations
+CH - Clear Health Hist requirement
+CI - Completed MMR and MCV4 Reqmnt
+CICC - CIC Complete
+CICR - CIC Required
+CICW - CIC Waived
+COVIDVACC - COVID-19 Vaccine Completed
 CT - Clear T.B. requirement
 DISABSURV - Disability Survey
+ER - Early Registration
+FO - Health History Form Only
 HAC - Haven Complete
 HAR - Haven Required
-NHB - Needs Hepatitis B requirement
-NVAR - Needs Varicella Requirement
-CICR - CIC Required
+HH - Health History missing
+IA - Inpatient Admit/Discharge
+ID - inpatient diagnosis
+IP - inpatient practitioner
+LD - Learning Disabled
+M1 - First measles missing
+M2 - Second measles missing
 MBB1 - Bexsero 1
 MBB2 - Bexsero 2
-AI - All immunizations missing
-TA - T.B. Testing needed
-FO - Health History Form Only
-AR - Archives
-CICC - CIC Complete
+MBEM - MenB Exception Medical
 MBEN - MenB Exception Non-Medical
-RU - Rubella missing
-TE - Taking INH
-TG - T.B. testing complete
-WD - Withdrawn
-TH - Needing INH Counseling
-TK - Completed INH Counseling
-AER - Alcohol.edu Required
-NMCV - Needs MCV4 requirement
+MBFA - MenB Former Academic Exception
 MBT1 - Trumenba 1
-PP - Paraplegic
-M1 - First measles missing
-TB - T.B. CXR needed
-IA - Inpatient Admit/Discharge
+MBT2 - Trumenba 2
+MBT3 - Trumenba 3
+MU - mumps missing
+NHB - Needs Hepatitis B requirement
 NMB - Meng B Form - Not Proof of Vax
-CI - Completed MMR and MCV4 Reqmnt
+NMCV - Needs MCV4 requirement
+NMMR - Needs MMR requirement
+NTD - Needs Tdap Requirement
+NVAR - Needs Varicella Requirement
+OC - Occupational Medicine
+PP - Paraplegic
+PW - Perm Immunization Waiver Signd
+RU - Rubella missing
+ST - Storage
+TA - T.B. Testing needed
+TB - T.B. CXR needed
 TC - T.B. F.U. needed
 TD - PPD positive
+TE - Taking INH
 TF - Completed INH
-CICW - CIC Waived
-ST - Storage
-NTD - Needs Tdap Requirement
-COVIDVACC - COVID-19 Vaccine Completed
-MBT3 - Trumenba 3
-MBFA - MenB Former Academic Exception
-ER - Early Registration
-OC - Occupational Medicine
-PW - Perm Immunization Waiver Signd
-CH - Clear Health Hist requirement
-AEC - Alcohol.edu Complete
-NMMR - Needs MMR requirement
-MBT2 - Trumenba 2
+TG - T.B. testing complete
+TH - Needing INH Counseling
+TK - Completed INH Counseling
+TW - temp immunization waiver signd
+WD - Withdrawn
 */
 export interface Medical {
   id: string;
   code:
-    | 'LD'
-    | 'MU'
-    | 'ID'
-    | 'IP'
-    | 'TW'
-    | 'CA'
-    | 'MBEM'
     | 'AA'
-    | 'HH'
-    | 'M2'
+    | 'AEC'
+    | 'AER'
+    | 'AI'
+    | 'AR'
+    | 'CA'
+    | 'CH'
+    | 'CI'
+    | 'CICC'
+    | 'CICR'
+    | 'CICW'
+    | 'COVIDVACC'
     | 'CT'
     | 'DISABSURV'
+    | 'ER'
+    | 'FO'
     | 'HAC'
     | 'HAR'
-    | 'NHB'
-    | 'NVAR'
-    | 'CICR'
+    | 'HH'
+    | 'IA'
+    | 'ID'
+    | 'IP'
+    | 'LD'
+    | 'M1'
+    | 'M2'
     | 'MBB1'
     | 'MBB2'
-    | 'AI'
-    | 'TA'
-    | 'FO'
-    | 'AR'
-    | 'CICC'
+    | 'MBEM'
     | 'MBEN'
-    | 'RU'
-    | 'TE'
-    | 'TG'
-    | 'WD'
-    | 'TH'
-    | 'TK'
-    | 'AER'
-    | 'NMCV'
+    | 'MBFA'
     | 'MBT1'
-    | 'PP'
-    | 'M1'
-    | 'TB'
-    | 'IA'
+    | 'MBT2'
+    | 'MBT3'
+    | 'MU'
+    | 'NHB'
     | 'NMB'
-    | 'CI'
+    | 'NMCV'
+    | 'NMMR'
+    | 'NTD'
+    | 'NVAR'
+    | 'OC'
+    | 'PP'
+    | 'PW'
+    | 'RU'
+    | 'ST'
+    | 'TA'
+    | 'TB'
     | 'TC'
     | 'TD'
+    | 'TE'
     | 'TF'
-    | 'CICW'
-    | 'ST'
-    | 'NTD'
-    | 'COVIDVACC'
-    | 'MBT3'
-    | 'MBFA'
-    | 'ER'
-    | 'OC'
-    | 'PW'
-    | 'CH'
-    | 'AEC'
-    | 'NMMR'
-    | 'MBT2';
+    | 'TG'
+    | 'TH'
+    | 'TK'
+    | 'TW'
+    | 'WD';
   description: string;
   codeDate?: string;
 }
