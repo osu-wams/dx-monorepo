@@ -41,7 +41,7 @@ import {
   trainingTagState,
 } from './trainings';
 import { messagesState, showMessage, WARN_STUDENT_ACCESS_EMPLOYEE_DASHBOARD } from './messages';
-import { SearchItem } from './search';
+import { fuseIndex, SearchItem } from './search';
 import { ANNOUNCEMENT_PAGES } from './announcements';
 
 export {
@@ -68,6 +68,7 @@ export {
   filteredGradesState,
   filteredResourcesState,
   filteredTrainingsState,
+  fuseIndex,
   gradesState,
   gradesSearchState,
   infoButtonState,
