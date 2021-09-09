@@ -43,7 +43,7 @@ export const postFavorite = (
   favorites: { resourceId: string; active: boolean; order: number }[],
 ): Promise<Types.FavoriteResource[]> =>
   axios
-    .post('/api/resources/favorites', favorites)
+    .post('api/resources/favorites', favorites)
     .then(res => res.data)
     .catch(e => {
       console.error(e);

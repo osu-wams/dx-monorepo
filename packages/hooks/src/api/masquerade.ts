@@ -6,4 +6,4 @@ export const useMasqueradeUser = (opts: UseQueryOptions<any, Error> = REACT_QUER
   useQuery('/api/masquerade', opts);
 
 export const postMasqueradeUser = (masqueradeId?: string, masqueradeReason?: string): Promise<any> =>
-  masqueradeId ? axios.post(`/api/masquerade`, { masqueradeId, masqueradeReason }) : axios.post(`/api/masquerade`);
+  masqueradeId ? axios.post(`api/masquerade`, { masqueradeId, masqueradeReason }) : axios.post(`api/masquerade`);

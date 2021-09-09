@@ -134,7 +134,7 @@ export const useUser = (opts: UseQueryOptions<any, Error> = REACT_QUERY_DEFAULT_
  */
 export const postSettings = (settings: Types.UserSettings): Promise<Types.UserSettings> =>
   axios
-    .post('/api/user/settings', settings)
+    .post('api/user/settings', settings)
     .then(res => res.data)
     .catch(e => {
       console.error(e);
@@ -165,7 +165,7 @@ export const useMessages = (opts: UseQueryOptions<Types.UserMessageItems, Error>
 
 export const updateUserMessage = (update: Types.UserMessageUpdate): Promise<Types.UserMessage> =>
   axios
-    .post('/api/user/messages', update)
+    .post('api/user/messages', update)
     .then(res => res.data)
     .catch(e => {
       console.error(e);
