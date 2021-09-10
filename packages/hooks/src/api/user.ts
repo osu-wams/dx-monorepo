@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { User, Types } from '@osu-wams/lib';
 import { useFavorites } from '../api/resources';
 import { useClassification } from '../api/classification';
-import { REACT_QUERY_DEFAULT_CONFIG } from '../constants';
+import { BASEURL, REACT_QUERY_DEFAULT_CONFIG } from '../constants';
 import { useApplicationMessagesState } from './applicationMessages';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import {
@@ -134,7 +134,7 @@ export const useUser = (opts: UseQueryOptions<any, Error> = REACT_QUERY_DEFAULT_
  */
 export const postSettings = (settings: Types.UserSettings): Promise<Types.UserSettings> =>
   axios
-    .post('/api/user/settings', settings)
+    .post(`${BASEURL}/api/user/settings`, settings)
     .then(res => res.data)
     .catch(e => {
       console.error(e);
@@ -165,7 +165,7 @@ export const useMessages = (opts: UseQueryOptions<Types.UserMessageItems, Error>
 
 export const updateUserMessage = (update: Types.UserMessageUpdate): Promise<Types.UserMessage> =>
   axios
-    .post('/api/user/messages', update)
+    .post(`${BASEURL}/api/user/messages`, update)
     .then(res => res.data)
     .catch(e => {
       console.error(e);

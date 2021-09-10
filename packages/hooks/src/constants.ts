@@ -26,4 +26,6 @@ const REACT_QUERY_DEFAULT_CONFIG: UseQueryOptions<any, any> = {
   refetchOnWindowFocus: true,
 };
 
-export { REACT_QUERY_DEFAULT_CONFIG };
+const BASEURL = window.location.protocol ? `${window.location.protocol}//${window.location.host}` : '';
+
+export { BASEURL, REACT_QUERY_DEFAULT_CONFIG };

@@ -5,7 +5,7 @@ import { Types } from '@osu-wams/lib';
 import { resourceState } from '../state/resources';
 import { useRecoilState } from 'recoil';
 import mocks from '../mocks/resources';
-import { REACT_QUERY_DEFAULT_CONFIG } from '../constants';
+import { BASEURL, REACT_QUERY_DEFAULT_CONFIG } from '../constants';
 
 export const mockResources = mocks;
 
@@ -43,7 +43,7 @@ export const postFavorite = (
   favorites: { resourceId: string; active: boolean; order: number }[],
 ): Promise<Types.FavoriteResource[]> =>
   axios
-    .post('/api/resources/favorites', favorites)
+    .post(`${BASEURL}/api/resources/favorites`, favorites)
     .then(res => res.data)
     .catch(e => {
       console.error(e);
