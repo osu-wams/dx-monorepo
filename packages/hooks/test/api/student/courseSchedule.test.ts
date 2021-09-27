@@ -13,7 +13,7 @@ afterEach(() => {
 describe('useCouseSchedule', () => {
   it('gets academic status for the current term on successful returns', async () => {
     mock.onGet('/api/student/class-schedule?term=current').reply(200, mockCourseSchedule.courseScheduleData);
-    const { result, waitForNextUpdate } = renderHook(() => useCourseSchedule(), { wrapper });
+    const { result, waitForNextUpdate } = renderHook(() => useCourseSchedule('current'), { wrapper });
     await waitForNextUpdate();
     expect(result.current.isLoading).toBeFalsy();
     expect(result.current.error).toBeFalsy();
@@ -22,6 +22,14 @@ describe('useCouseSchedule', () => {
   it('gets academic status for another term on successful returns', async () => {
     mock.onGet('/api/student/class-schedule?term=19790101').reply(200, mockCourseSchedule.courseScheduleData);
     const { result, waitForNextUpdate } = renderHook(() => useCourseSchedule('19790101'), { wrapper });
+    await waitForNextUpdate();
+    expect(result.current.isLoading).toBeFalsy();
+    expect(result.current.error).toBeFalsy();
+    expect(result.current.data).toEqual(mockCourseSchedule.courseScheduleData);
+  });
+  it('get class schedule for all terms', async () => {
+    mock.onGet('/api/student/class-schedule').reply(200, mockCourseSchedule.courseScheduleData);
+    const { result, waitForNextUpdate } = renderHook(() => useCourseSchedule(), { wrapper });
     await waitForNextUpdate();
     expect(result.current.isLoading).toBeFalsy();
     expect(result.current.error).toBeFalsy();

@@ -12,10 +12,10 @@ export const mockCourseSchedule = mocks;
  * Returns an array of course schedules.
  */
 export const useCourseSchedule = (
-  term: string = 'current',
+  term?: string,
   opts: UseQueryOptions<Types.CourseSchedule[], Error> = REACT_QUERY_DEFAULT_CONFIG,
 ) => {
-  return useQuery(`/api/student/class-schedule?term=${term}`, opts);
+  return useQuery(`/api/student/class-schedule${term ? `?term=${term}` : ''}`, opts);
 };
 
 /**
@@ -23,7 +23,7 @@ export const useCourseSchedule = (
  * @returns data and setter for course schedule state
  */
 export const useCourseScheduleState = () => {
-  const api = useCourseSchedule();
+  const api = useCourseSchedule('current');
   const [courses, setCourses] = useRecoilState(courseState);
 
   useEffect(() => {
