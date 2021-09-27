@@ -23,7 +23,7 @@ export const useCourseSchedule = (
  * @returns data and setter for course schedule state
  */
 export const useCourseScheduleState = () => {
-  const api = useCourseSchedule();
+  const api = useCourseSchedule('current');
   const [courses, setCourses] = useRecoilState(courseState);
 
   useEffect(() => {
