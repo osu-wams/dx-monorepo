@@ -24,6 +24,14 @@ export default {
         repeatedCourseInd: null,
         registrationStatus: '**Web Registered**',
         courseLevel: 'Undergraduate',
+        faculty: [
+          {
+            osuId: '123456789',
+            name: 'Hess, Robin',
+            email: '123456789@oregonstate.edu',
+            primary: true,
+          },
+        ],
       },
     },
     {

@@ -5,6 +5,7 @@ import mocks from '../../mocks/student/grades';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { gradesState } from '../../state/grades';
+import { useCourseSchedule } from './courseSchedule';
 
 export const mockGrades = mocks;
 
@@ -16,17 +17,27 @@ export const useGrades = (opts: UseQueryOptions<Types.Grades[], Error> = REACT_Q
  * @returns data and setter for grades state
  */
 export const useGradesState = () => {
-  const api = useGrades();
+  const gradesApi = useGrades();
+  const courseApi = useCourseSchedule();
   const [grades, setGrades] = useRecoilState(gradesState);
 
   useEffect(() => {
-    const { isError, isLoading, isSuccess, data } = api;
+    const { data, isSuccess, isLoading, isError } = gradesApi;
     // Only reset application state when the api has returned new data that isn't already set
-    if (isSuccess && data && data !== grades.data) {
-      setGrades({ data, isLoading, isSuccess, isError });
+    if (isSuccess && data && courseApi.isSuccess && courseApi.data) {
+      for (const grade of data) {
+        const course = courseApi.data.find((item) => (grade.id === item.id) && item);
+        if (course && course.attributes) {
+          grade.attributes.faculty = course.attributes.faculty;
+        }
+      }
+
+      if (data !== grades.data) {
+        setGrades({ data, isLoading, isSuccess, isError });
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [api.data, api.isSuccess]);
+  }, [gradesApi.data, gradesApi.isSuccess, courseApi.data, courseApi.isSuccess]);
 
   return { grades, setGrades };
 };
