@@ -2,6 +2,7 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { renderHook } from '@testing-library/react-hooks';
 import { useGradesState, useGrades, mockGrades } from '../../../src/api/student/grades';
+import { mockCourseSchedule } from '../../../src/api/student/courseSchedule';
 import { wrapper } from '../../test-utils';
 
 const mock = new MockAdapter(axios);
@@ -33,6 +34,7 @@ describe('useGrades', () => {
 describe('useGradesState', () => {
   it('performs the call', async () => {
     mock.onGet('/api/student/grades').replyOnce(200, mockGrades.data);
+    mock.onGet('/api/student/class-schedule').replyOnce(200, mockCourseSchedule.courseScheduleData);
     const { result, waitForNextUpdate } = renderHook(() => useGradesState(), { wrapper });
     expect(result.current.grades.isLoading).toBeTruthy();
     await waitForNextUpdate();
