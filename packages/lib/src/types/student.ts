@@ -230,6 +230,7 @@ export interface GradesAttributes {
   sectionNumber?: string;
   term: string;
   termDescription: string;
+  faculty?: CourseScheduleFaculty[];
 }
 
 export interface Grades {
