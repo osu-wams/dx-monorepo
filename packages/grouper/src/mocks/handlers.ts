@@ -17,4 +17,16 @@ export const handlers = [
       }),
     );
   }),
+  rest.get(/\/groups\/.+\/members/, (_, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        WsHasMemberLiteResult: {
+          resultMetadata: {
+            resultCode: 'IS_MEMBER',
+          },
+        },
+      }),
+    );
+  }),
 ];
