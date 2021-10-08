@@ -1,5 +1,5 @@
 import Client from './client';
-import { Group, GetMembersResults, Subject } from './types';
+import { Group, GetMembersResults, isMemberResult, Subject } from './types';
 import log from './log';
 
 export const getMembers = async (
@@ -33,6 +33,16 @@ export const getMembers = async (
   }
 };
 
+export const isMember = async (
+  client: Client,
+  groupName: string,
+  onid: string,
+): Promise<Boolean> => {
+  const json: isMemberResult = await client.get<isMemberResult>(`groups/${groupName}/members/${onid}`)
+  return json.WsHasMemberLiteResult.resultMetadata.resultCode === 'IS_MEMBER';
+}
+
 export default {
   getMembers,
+  isMember,
 };

@@ -1,2 +1,2 @@
 export { Client } from './client';
-export { getMembers } from './queries';
+export { getMembers, isMember } from './queries';

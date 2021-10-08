@@ -1,5 +1,5 @@
 import { rest } from 'msw';
-import { getMembers } from '../src/index';
+import { getMembers, isMember } from '../src/index';
 import { server, GROUPER_CLIENT } from '../src/mocks/server';
 
 it('queries members from groups', async () => {

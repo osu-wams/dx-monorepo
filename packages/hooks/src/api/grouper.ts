@@ -18,6 +18,13 @@ export const useGrouper = (
   return useQuery(`/api/grouper?group=${group}`, opts);
 };
 
+export const useHasMember = (
+  group: string,
+  opts: UseQueryOptions<Types.Grouper[], Error> = REACT_QUERY_DEFAULT_CONFIG,
+) => {
+  return useQuery(`/api/grouper/hasMember?group=${group}`, opts);
+};
+
 /**
  * Fetch the data from the api hook and persist in shared state
  * @returns data and setter for course schedule state
