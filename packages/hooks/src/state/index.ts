@@ -23,6 +23,7 @@ import {
 } from './applicationSearch';
 import { courseState } from './courses';
 import { gradesState, gradesSearchState, debouncedGradesSearchState, filteredGradesState } from './grades';
+import { covidvacStudentState } from './grouper';
 import { dynamicCardState, filteredCards } from './dynamicCards';
 import { filteredNotifications, userMessagesState } from './notifications';
 import { plannerItemState } from './plannerItems';
@@ -71,6 +72,7 @@ export {
   fuseIndex,
   gradesState,
   gradesSearchState,
+  covidvacStudentState,
   infoButtonState,
   initialRouteState,
   isEmployeeState,

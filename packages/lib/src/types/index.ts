@@ -50,6 +50,7 @@ export {
   Phone,
   Persons,
 } from './person';
+export { Grouper } from './grouper';
 export { AcademicEvent, LocalistEvent } from './localist';
 export { Announcement, DynamicCard, Training, TrainingAudience, TrainingTag, PageSearchIndex } from './dx';
 export { Directory, DirectoryResponse } from './directory';
