@@ -1,5 +1,5 @@
 {
-  "version": "1.0.133",
+  "version": "1.0.132",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -19,8 +19,8 @@
     "react-dom": "^17.0.2"
   },
   "dependencies": {
-    "@osu-wams/lib": "^0.1.85",
-    "@osu-wams/utils": "^0.0.20",
+    "@osu-wams/lib": "^0.1.84",
+    "@osu-wams/utils": "^0.0.19",
     "axios": "^0.21.4",
     "fuse.js": "^6.4.6",
     "nanoid": "^3.1.22",
