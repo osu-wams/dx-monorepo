@@ -18,6 +18,9 @@ export const useGrouper = (
   return useQuery(`/api/grouper?group=${group}`, opts);
 };
 
+/**
+ * Returns true if current user is in grouper group
+ */
 export const useHasMember = (
   group: string,
   opts: UseQueryOptions<Types.Grouper[], Error> = REACT_QUERY_DEFAULT_CONFIG,
