@@ -307,12 +307,16 @@ const hasAffiliation = (user: User, item: { affiliation: string[] }): boolean =>
  */
 const hasAudience = (
   user: User,
-  item: { audiences: string[]; locations: string[]; affiliation: string[] },
+  item: { audiences: string[], locations: string[], affiliation: string[], colleges?: string[] },
 ): boolean => {
   // The users affiliation wasn't found, don't show this item
-  const { audiences, affiliation } = item;
+  const { audiences, affiliation, colleges } = item;
   const { undergraduate, international, graduate, firstYear } = CLASSIFICATION_AUDIENCES;
   const { employee, student } = AFFILIATIONS;
+
+  if (colleges && user && user.colleges) {
+    return user.colleges.some(college => colleges.includes(college));
+  }
 
   if (!hasAffiliation(user, item)) return false;
   if (!hasLocation(user, item)) return false;
