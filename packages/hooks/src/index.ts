@@ -57,6 +57,7 @@ import * as User from './api/user';
 import { useMessages, useUser, useUserState } from './api/user';
 import * as Trainings from './api/trainings';
 import { useTrainings, useTrainingAudiences, useTrainingTags, useTrainingsState } from './api/trainings';
+import { useColleges } from './api/colleges';
 import * as Admin from './api/admin';
 import * as Constants from './constants';
 import { useGrouper, useHasMember, useCovidvacStudentState, mockGrouper } from './api/grouper';
@@ -110,6 +111,7 @@ export {
   useCards,
   useCardsState,
   useCategories,
+  useColleges,
   useCourseSchedule,
   useCourseScheduleState,
   useDegrees,

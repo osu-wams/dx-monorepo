@@ -90,6 +90,7 @@ export interface User {
   favoriteResources?: FavoriteResource[];
   isMobile?: boolean; // If the session for this user was initiated through the mobile app
   isMasquerade?: boolean; // If the session for this user is masqueraded or undefined when the user is not
+  colleges?: string[];
 }
 
 export interface UserState {

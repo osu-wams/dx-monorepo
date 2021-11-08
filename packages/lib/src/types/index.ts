@@ -52,7 +52,15 @@ export {
 } from './person';
 export { Grouper } from './grouper';
 export { AcademicEvent, LocalistEvent } from './localist';
-export { Announcement, DynamicCard, Training, TrainingAudience, TrainingTag, PageSearchIndex } from './dx';
+export {
+  Announcement,
+  Colleges,
+  DynamicCard,
+  Training,
+  TrainingAudience,
+  TrainingTag,
+  PageSearchIndex
+} from './dx';
 export { Directory, DirectoryResponse } from './directory';
 export { Location, LocationResponse } from './location';
 export { CachetComponent, CachetIncident } from './status';

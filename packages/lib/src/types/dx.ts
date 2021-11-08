@@ -17,6 +17,11 @@ export interface Announcement {
   type?: string;
 }
 
+export interface Colleges {
+  id: string;
+  name: string;
+}
+
 export interface DynamicCard {
   affiliation: string[];
   audiences?: string[];
