@@ -27,7 +27,6 @@
     "directory": "packages/grouper"
   },
   "devDependencies": {
-    "@types/axios": "^0.14.0",
     "@types/jest": "^24.9.0",
     "@types/winston": "^2.4.4",
     "husky": "^4.0.10",
