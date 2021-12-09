@@ -223,7 +223,8 @@ export const useUserState = (navigate: Function) => {
       // user to the dashboard they were last one or what matches their primaryAffiliation, set application loaded to
       // make it visible
       if (pathname === '/') {
-        navigate(`/${userSetDashboard}`, { replace: true }).then(() => setIsLoaded(true));
+        navigate(`/${userSetDashboard}`, { replace: true });
+        setIsLoaded(true);
       } else {
         const onStudentDashboard = pathname.toLowerCase().startsWith(Routes.Routes().student.fullPath);
         const onEmployeeDashboard = pathname.toLowerCase().startsWith(Routes.Routes().employee.fullPath);
@@ -237,7 +238,8 @@ export const useUserState = (navigate: Function) => {
           // User is a student (non-employee type) visiting an employee dashboard link, redirect them to the student dashboard
           if (!User.isEmployee(data) && onEmployeeDashboard) {
             addMessage(WARN_STUDENT_ACCESS_EMPLOYEE_DASHBOARD);
-            navigate(Routes.Routes().student.fullPath, { replace: true }).then(() => setIsLoaded(true));
+            navigate(Routes.Routes().student.fullPath, { replace: true });
+            setIsLoaded(true);
           } else {
             // changeAffiliation to match the dashboard they are attempting to visit, which will cause the effect to re-run
             // and finally be handled the by the last else-statement to setIsLoaded(true)
@@ -248,7 +250,8 @@ export const useUserState = (navigate: Function) => {
             } else {
               // The user is visiting the dashboard matching thier setting, the application is ready for rendering
               if (initialRoute && initialRoute !== '/') {
-                navigate(initialRoute, { replace: true }).then(() => setIsLoaded(true));
+                navigate(initialRoute, { replace: true });
+                setIsLoaded(true);
               } else {
                 setIsLoaded(true);
               }
