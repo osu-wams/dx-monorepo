@@ -37,17 +37,19 @@ export const announcementState = atomFamily<
 
 export const filteredAnnouncements = selectorFamily<Types.Announcement[], string>({
   key: 'filteredAnnouncements',
-  get: param => ({ get }) => {
-    const page = param.toLowerCase();
-    const announcements = get(announcementState(page));
-    const { affiliation: aff } = get(announcementsFilterState(page));
-    if (!aff) return announcements.data;
+  get:
+    param =>
+    ({ get }) => {
+      const page = param.toLowerCase();
+      const announcements = get(announcementState(page));
+      const { affiliation: aff } = get(announcementsFilterState(page));
+      if (!aff) return announcements.data;
 
-    const filtered = announcements.data.filter(({ affiliation }) => {
-      if (!affiliation || affiliation.length === 0) return true;
+      const filtered = announcements.data.filter(({ affiliation }) => {
+        if (!affiliation || affiliation.length === 0) return true;
 
-      return affiliation.findIndex(s => s.toLowerCase().includes(aff)) > -1;
-    });
-    return filtered;
-  },
+        return affiliation.findIndex(s => s.toLowerCase().includes(aff)) > -1;
+      });
+      return filtered;
+    },
 });

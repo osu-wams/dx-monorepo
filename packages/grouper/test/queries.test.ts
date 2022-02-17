@@ -16,7 +16,7 @@ it('does not find members in an invalid group', async () => {
 it('finds member in group', async () => {
   const results = await isMember(GROUPER_CLIENT, 'stem:name:group_name', 'test');
   expect(results === true);
-})
+});
 
 it('handles an error', async () => {
   server.use(

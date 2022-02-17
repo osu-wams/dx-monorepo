@@ -26,7 +26,7 @@ export const useGradesState = () => {
     // Only reset application state when the api has returned new data that isn't already set
     if (isSuccess && data && courseApi.isSuccess && courseApi.data) {
       for (const grade of data) {
-        const course = courseApi.data.find((item) => (grade.id === item.id) && item);
+        const course = courseApi.data.find(item => grade.id === item.id && item);
         if (course && course.attributes) {
           grade.attributes.faculty = course.attributes.faculty;
         }
