@@ -7,15 +7,18 @@
     "dist"
   ],
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
-    "test": "tsdx test",
-    "lint": "tsdx lint",
-    "prepare": "tsdx build"
+    "start": "dts watch",
+    "build": "dts build",
+    "test": "dts test",
+    "lint": "dts lint src test",
+    "prepare": "dts build"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "tsdx lint"
+      "pre-commit": "dts lint src test"
     }
   },
   "name": "@osu-wams/grouper",
@@ -31,7 +34,6 @@
     "@types/winston": "^2.4.4",
     "husky": "^4.0.10",
     "msw": "^0.20.5",
-    "tsdx": "^0.14.0",
     "tslib": "^2.2.0",
     "typescript": "~4.2.4"
   },
