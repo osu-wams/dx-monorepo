@@ -1,4 +1,5 @@
-import axios, { AxiosRequestConfig } from 'axios'; // eslint-disable no-unused-vars
+/* eslint @typescript-eslint/no-unused-vars: "off" */
+import axios, { AxiosRequestConfig } from 'axios';
 import { GROUPER_USERNAME, GROUPER_PASSWORD } from './constants';
 import log from './log';
 

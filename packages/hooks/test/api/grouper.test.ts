@@ -17,7 +17,7 @@ describe('useGrouper', () => {
     await waitForNextUpdate();
     expect(result.current.isLoading).toBeFalsy();
     expect(result.current.error).toBeFalsy();
-    expect(result.current.data).toBeDefined;
+    expect(result.current.data).toBeDefined();
     expect(Object.keys(result.current.data![0]).sort).toEqual(Object.keys(mockGrouper[0]).sort);
   });
   it('handles api error', async () => {
@@ -28,6 +28,6 @@ describe('useGrouper', () => {
     expect(result.current.isLoading).toBeTruthy();
     expect(result.current.isError).toBeFalsy();
     await waitForNextUpdate();
-    expect(result.current.failureCount).toBe(2)
+    expect(result.current.failureCount).toBe(2);
   });
 });

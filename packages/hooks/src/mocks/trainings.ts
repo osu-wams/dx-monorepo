@@ -16,8 +16,7 @@ const trainings = {
       image: 'https://data-stage.dx.oregonstate.edu/sites/default/files/2019-11/WellnessNook.jpg',
       contact: 'noreply@oregonstate.edu',
       cost: true,
-      body:
-        "<p>In this basic course, you'll learn how to play nice with others. Activities include sharing toys, using your words, and being patient.</p>",
+      body: "<p>In this basic course, you'll learn how to play nice with others. Activities include sharing toys, using your words, and being patient.</p>",
       offeredBy: 'Daycare',
       courseLength: 'Full day',
       featured: true,
@@ -34,8 +33,7 @@ const trainings = {
       image: '',
       contact: 'noreply@oregonstate.edu',
       cost: true,
-      body:
-        "<p>Training Body, you'll learn how to play nice with others. Activities include sharing toys, using your words, and being patient.</p>",
+      body: "<p>Training Body, you'll learn how to play nice with others. Activities include sharing toys, using your words, and being patient.</p>",
       offeredBy: 'Daycare',
       courseLength: 'Half a day',
       featured: true,

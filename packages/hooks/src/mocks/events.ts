@@ -75,8 +75,7 @@ const studentExperienceEvents: { data: Types.LocalistEvent[] } = {
   data: [
     {
       action: {
-        link:
-          'https://events.oregonstate.edu/event/sea-inspired_paintings_on_exhibit_at_hatfield_visitor_center_until_july_7',
+        link: 'https://events.oregonstate.edu/event/sea-inspired_paintings_on_exhibit_at_hatfield_visitor_center_until_july_7',
       },
       bg_image: 'https://images.localist.com/photos/849707/huge/dc9bddd1554ee9119d1109f337d82d700118bba1.jpg',
       date: '2019-10-24T10:00:00-07:00',
@@ -116,8 +115,7 @@ const studentExperienceEvents_10: { data: Types.LocalistEvent[] } = {
   data: [
     {
       action: {
-        link:
-          'https://events.oregonstate.edu/event/sea-inspired_paintings_on_exhibit_at_hatfield_visitor_center_until_july_2',
+        link: 'https://events.oregonstate.edu/event/sea-inspired_paintings_on_exhibit_at_hatfield_visitor_center_until_july_2',
       },
       bg_image: 'https://images.localist.com/photos/849707/huge/dc9bddd1554ee9119d1109f337d82d700118bba1.jpg',
       date: '2019-10-24T10:00:00-07:00',
@@ -152,8 +150,7 @@ const studentExperienceEvents_10: { data: Types.LocalistEvent[] } = {
     },
     {
       action: {
-        link:
-          'https://events.oregonstate.edu/event/sea-inspired_paintings_on_exhibit_at_hatfield_visitor_center_until_july_2',
+        link: 'https://events.oregonstate.edu/event/sea-inspired_paintings_on_exhibit_at_hatfield_visitor_center_until_july_2',
       },
       bg_image: 'https://images.localist.com/photos/849707/huge/dc9bddd1554ee9119d1109f337d82d700118bba1.jpg',
       date: '2019-10-24T10:00:00-07:00',
@@ -188,8 +185,7 @@ const studentExperienceEvents_10: { data: Types.LocalistEvent[] } = {
     },
     {
       action: {
-        link:
-          'https://events.oregonstate.edu/event/sea-inspired_paintings_on_exhibit_at_hatfield_visitor_center_until_july_7',
+        link: 'https://events.oregonstate.edu/event/sea-inspired_paintings_on_exhibit_at_hatfield_visitor_center_until_july_7',
       },
       bg_image: 'https://images.localist.com/photos/849707/huge/dc9bddd1554ee9119d1109f337d82d700118bba1.jpg',
       date: '2019-10-24T10:00:00-07:00',
@@ -224,8 +220,7 @@ const studentExperienceEvents_10: { data: Types.LocalistEvent[] } = {
     },
     {
       action: {
-        link:
-          'https://events.oregonstate.edu/event/sea-inspired_paintings_on_exhibit_at_hatfield_visitor_center_until_july_7',
+        link: 'https://events.oregonstate.edu/event/sea-inspired_paintings_on_exhibit_at_hatfield_visitor_center_until_july_7',
       },
       bg_image: 'https://images.localist.com/photos/849707/huge/dc9bddd1554ee9119d1109f337d82d700118bba1.jpg',
       date: '2019-10-24T10:00:00-07:00',

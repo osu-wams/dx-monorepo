@@ -38,22 +38,22 @@ export interface isMemberResult {
       success: 'T' | 'F';
       resultCode: string;
       resultMessage: string;
-    },
+    };
     wsGroup: {
-      extension: string,
-      displayName: string,
-      description: string,
-      uuid: string,
-      enabled: 'T' | 'F',
-      displayExtension: string,
-      name: string,
-      typeOfGroup: string,
-      idIndex: string,
-    },
-    wsSubject: Subject,
+      extension: string;
+      displayName: string;
+      description: string;
+      uuid: string;
+      enabled: 'T' | 'F';
+      displayExtension: string;
+      name: string;
+      typeOfGroup: string;
+      idIndex: string;
+    };
+    wsSubject: Subject;
     resonseMetaData: {
-      serverVersion: string,
-      millis: string,
-    }
-  }
+      serverVersion: string;
+      millis: string;
+    };
+  };
 }

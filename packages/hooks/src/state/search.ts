@@ -367,9 +367,11 @@ export const fuseIndex = selector<Fuse<SearchItem>>({
 
 export const searchIndex = selectorFamily<Fuse.FuseResult<SearchItem>[], string>({
   key: 'searchIndex',
-  get: query => ({ get }) => {
-    const index = get(fuseIndex);
-    const results = index.search(query);
-    return results;
-  },
+  get:
+    query =>
+    ({ get }) => {
+      const index = get(fuseIndex);
+      const results = index.search(query);
+      return results;
+    },
 });
