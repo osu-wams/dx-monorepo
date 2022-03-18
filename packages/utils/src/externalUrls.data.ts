@@ -48,7 +48,7 @@ const Url = {
     holdsInfo: 'https://beav.es/holds',
   },
   empcenter: {
-    main: 'https://osu.workforcehosting.com/',
+    main: 'https://osu-prod.wta-us8.wfs.cloud/workforce/SSO.do',
   },
   evals: {
     main: 'https://evals.oregonstate.edu/',
