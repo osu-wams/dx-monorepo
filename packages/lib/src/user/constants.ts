@@ -240,6 +240,7 @@ export const AFFILIATIONS = {
 export const GROUPS = {
   admin: 'admin',
   masquerade: 'masquerade',
+  successFactors: 'successFactors',
 };
 
 export const INITIAL_USER: Types.User = {
