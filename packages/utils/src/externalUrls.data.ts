@@ -64,6 +64,10 @@ const Url = {
     register: 'https://myhealth.oregonstate.edu/',
     decline: 'https://studenthealth.oregonstate.edu/covid%E2%80%9019-immunization-requirements',
   },
+  successFactors: {
+    main: 'https://fa.oregonstate.edu/performance-management-pilot',
+    login: 'https://hcm41.sapsf.com/login?company=oregonstat',
+  },
 };
 
 export default Url;
