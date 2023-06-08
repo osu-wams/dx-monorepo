@@ -23,10 +23,10 @@ const Url = {
     academicCalendar: 'https://registrar.oregonstate.edu/osu-academic-calendar',
   },
   banner: {
-    financialTransactions: 'https://prodapps.isadm.oregonstate.edu/ssomanager/c/SSB?pkg=OSU_ARWEB.P_ViewBillDate',
+    financialTransactions: 'https://beav.es/statement-payment-history',
     studentProfile: 'https://prodapps.isadm.oregonstate.edu/StudentSelfService/ssb/studentProfile',
-    editProfile: 'https://prodapps.isadm.oregonstate.edu/ssomanager/c/SSB?pkg=twbkwbis.P_GenMenu?name=bmenu.P_GenMnu',
-    viewHolds: 'https://prodapps.isadm.oregonstate.edu/ssomanager/c/SSB?pkg=bwskoacc.P_ViewHold',
+    editProfile: 'https://beav.es/edit-profile',
+    viewHolds: 'https://beav.es/view-holds',
   },
   myosu: {
     main: 'https://myosu.oregonstate.edu/',
