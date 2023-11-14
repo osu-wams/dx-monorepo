@@ -59,7 +59,7 @@ import * as Trainings from './api/trainings';
 import { useTrainings, useTrainingAudiences, useTrainingTags, useTrainingsState } from './api/trainings';
 import * as Admin from './api/admin';
 import * as Constants from './constants';
-import { useGrouper, useHasMember, useCovidvacStudentState, mockGrouper } from './api/grouper';
+import { useGrouper, useHasMember, mockGrouper } from './api/grouper';
 import * as People from './api/people';
 import { usePeople } from './api/people';
 import * as Locations from './api/locations';
@@ -120,7 +120,6 @@ export {
   useGradesState,
   useGrouper,
   useHasMember,
-  useCovidvacStudentState,
   useHolds,
   useInfoButtons,
   useInfoButtonsState,
