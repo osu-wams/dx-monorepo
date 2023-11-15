@@ -27,6 +27,5 @@ export const useInfoButtonsState = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [api.data]);
-
   return { infoButtons, setInfoButtons };
 };
