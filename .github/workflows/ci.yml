@@ -19,10 +19,10 @@ jobs:
       # pulls all tags (needed for lerna / semantic release to correctly version)
       - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
 
-      - name: Use Node 14
+      - name: Use Node 18
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 18.x
 
       - name: Use cached node_modules
         uses: actions/cache@v1
