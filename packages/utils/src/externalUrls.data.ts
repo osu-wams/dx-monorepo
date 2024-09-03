@@ -35,12 +35,12 @@ const Url = {
     main: 'http://mybill.oregonstate.edu',
   },
   support: {
-    main: 'https://oregonstate.teamdynamix.com/TDClient/1935/Portal/Requests/TicketRequests/NewForm?ID=ZpgUdtILMxQ_',
+    main: 'https://mysupport.oregonstate.edu',
   },
   // Used to be qualtrix, we might need to remove this at some point
   // Now it's a copy of support.main above
   feedback: {
-    main: 'https://oregonstate.teamdynamix.com/TDClient/1935/Portal/Requests/TicketRequests/NewForm?ID=ZpgUdtILMxQ_',
+    main: 'https://mysupport.oregonstate.edu',
     // main: 'https://oregonstate.qualtrics.com/jfe/form/SV_73vMvyQZBQx8aaN?type=feedback',
   },
   registrar: {
@@ -57,7 +57,7 @@ const Url = {
     main: 'https://status.is.oregonstate.edu',
   },
   gettingStarted: {
-    main: 'https://oregonstate.teamdynamix.com/TDClient/1935/Portal/KB/?CategoryID=18200',
+    main: 'https://mysupport.oregonstate.edu',
   },
   covidCompliance: {
     getVaccinated: 'https://www.vaccines.gov/search/',
