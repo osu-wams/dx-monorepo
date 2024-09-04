@@ -37,12 +37,6 @@ const Url = {
   support: {
     main: 'https://mysupport.oregonstate.edu',
   },
-  // Used to be qualtrix, we might need to remove this at some point
-  // Now it's a copy of support.main above
-  feedback: {
-    main: 'https://mysupport.oregonstate.edu',
-    // main: 'https://oregonstate.qualtrics.com/jfe/form/SV_73vMvyQZBQx8aaN?type=feedback',
-  },
   registrar: {
     academicStanding: 'https://registrar.oregonstate.edu/grades-honor-roll-academic-standing',
     holdsInfo: 'https://beav.es/holds',
@@ -55,9 +49,6 @@ const Url = {
   },
   itSystemStatus: {
     main: 'https://status.is.oregonstate.edu',
-  },
-  gettingStarted: {
-    main: 'https://mysupport.oregonstate.edu',
   },
   covidCompliance: {
     getVaccinated: 'https://www.vaccines.gov/search/',
