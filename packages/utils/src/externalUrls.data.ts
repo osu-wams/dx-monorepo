@@ -55,6 +55,7 @@ const Url = {
     register: 'https://myhealth.oregonstate.edu/',
     decline: 'https://studenthealth.oregonstate.edu/covid%E2%80%9019-immunization-requirements',
   },
+  // links for osu's travel pay portal
   concur: {
     main: 'https://launcher.myapps.microsoft.com/api/signin/364f7f3d-0162-4bf3-8757-4b05f7cbc2bb?tenantId=ce6d05e1-3c5e-4d62-87a8-4c4a2713c113',
     accountsPayable: 'https://finance.oregonstate.edu/accounts-payable',
