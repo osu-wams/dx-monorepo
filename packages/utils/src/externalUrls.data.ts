@@ -35,7 +35,7 @@ const Url = {
     main: 'http://mybill.oregonstate.edu',
   },
   support: {
-    main: 'https://mysupport.oregonstate.edu',
+    main: 'https://mysupport.oregonstate.edu/esp',
   },
   registrar: {
     academicStanding: 'https://registrar.oregonstate.edu/grades-honor-roll-academic-standing',
