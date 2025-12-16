@@ -53,3 +53,5 @@ export const filteredAnnouncements = selectorFamily<Types.Announcement[], string
       return filtered;
     },
 });
+
+console.log('hello');
