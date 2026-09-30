@@ -50,11 +50,7 @@ export {
   Phone,
   Persons,
 } from './person';
-export {
-  IdentitiesAttributes,
-  Identities,
-  IdentitiesResponse,
-} from './identity'
+export { IdentitiesAttributes, Identities, IdentitiesResponse } from './identity';
 export { Grouper } from './grouper';
 export { AcademicEvent, LocalistEvent } from './localist';
 export { Announcement, DynamicCard, Training, TrainingAudience, TrainingTag, PageSearchIndex } from './dx';
