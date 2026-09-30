@@ -79,7 +79,7 @@ jobs:
         run: |
           git config --global user.name 'osu-wams github action'
           git config --global user.email 'noreply@oregonstate.edu'
-          yarn publish:patch --yes --since=HEAD~1
+          yarn publish:patch --yes --force-publish=*
         env:
           CI: true
           FONTAWESOME_TOKEN: ${{ secrets.FONTAWESOME_TOKEN }}
