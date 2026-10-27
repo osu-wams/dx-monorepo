@@ -7,19 +7,11 @@
     "dist"
   ],
   "scripts": {
-    "start": "dts watch",
-    "build": "dts build",
-    "test": "dts test",
-    "lint": "dts lint src test",
-    "prepare": "dts build"
-  },
-  "jest": {
-    "testEnvironment": "jsdom"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "dts lint src test"
-    }
+    "start": "tsup --watch",
+    "build": "tsup && tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "jest",
+    "prepare": "yarn build"
   },
   "name": "@osu-wams/utils",
   "author": "Josh Gum <revgum@gmail.com>",
@@ -29,15 +21,12 @@
     "url": "ssh://git@github.com/osu-wams/dx-monorepo.git",
     "directory": "packages/utils"
   },
-  "devDependencies": {
-    "@types/jest": "^24.9.0",
-    "husky": "^4.0.10",
-    "tslib": "^2.2.0",
-    "typescript": "~4.2.4"
-  },
   "dependencies": {
     "@osu-wams/lib": "^0.1.89",
-    "date-fns": "^2.21.1",
-    "libphonenumber-js": "^1.9.17"
+    "date-fns": "^4.4.0",
+    "libphonenumber-js": "^1.13.15"
+  },
+  "engines": {
+    "node": ">=24.0.0"
   }
 }

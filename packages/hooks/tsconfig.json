@@ -1,10 +1,4 @@
 {
   "extends": "../../tsconfig.json",
-  "include": ["src", "types", "mocks", "test"],
-  "compilerOptions": {
-    "rootDir": "./",
-    "baseUrl": ".",
-    "outDir": "./dist"
-  },
-  "references": [{ "path": "../lib" }, { "path": "../utils" }]
+  "include": ["src", "test", "types"]
 }

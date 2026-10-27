@@ -1,9 +1,4 @@
 {
   "extends": "../../tsconfig.json",
-  "include": ["src", "types"],
-  "compilerOptions": {
-    "rootDir": "./src",
-    "baseUrl": ".",
-    "outDir": "./dist"
-  }
+  "include": ["src", "test", "types"]
 }

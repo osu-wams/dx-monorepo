@@ -33,7 +33,7 @@ export const getMembers = async (
   }
 };
 
-export const isMember = async (client: Client, groupName: string, onid: string): Promise<Boolean> => {
+export const isMember = async (client: Client, groupName: string, onid: string): Promise<boolean> => {
   const json: isMemberResult = await client.get<isMemberResult>(`groups/${groupName}/members/${onid}`);
   return json.WsHasMemberLiteResult.resultMetadata.resultCode === 'IS_MEMBER';
 };

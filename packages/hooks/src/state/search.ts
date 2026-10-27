@@ -1,5 +1,5 @@
 import { selector, selectorFamily } from 'recoil';
-import Fuse from 'fuse.js';
+import Fuse, { type FuseResult, type IFuseOptions } from 'fuse.js';
 import { Types, User } from '@osu-wams/lib';
 import { Canvas, Course, Helpers, Routes } from '@osu-wams/utils';
 import { announcementState, ANNOUNCEMENT_PAGES } from './announcements';
@@ -284,7 +284,7 @@ const plannerItemSearchItems = selector<SearchItem[]>({
   },
 });
 
-const fuseOptions: Fuse.IFuseOptions<SearchItem> = {
+const fuseOptions: IFuseOptions<SearchItem> = {
   includeScore: true,
   minMatchCharLength: 2,
   threshold: 0.1, // the lower the number, the more exact the match, 0.2 seems too broad
@@ -365,7 +365,7 @@ export const fuseIndex = selector<Fuse<SearchItem>>({
   },
 });
 
-export const searchIndex = selectorFamily<Fuse.FuseResult<SearchItem>[], string>({
+export const searchIndex = selectorFamily<FuseResult<SearchItem>[], string>({
   key: 'searchIndex',
   get:
     query =>

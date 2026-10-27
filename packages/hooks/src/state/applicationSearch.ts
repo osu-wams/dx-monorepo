@@ -1,4 +1,4 @@
-import Fuse from 'fuse.js';
+import type { FuseResult } from 'fuse.js';
 import { atom, selector } from 'recoil';
 import { SearchItem, searchIndex } from './search';
 
@@ -85,7 +85,7 @@ export const selectedCampusFilters = selector<string[]>({
   },
 });
 
-export const filteredApplicationSearchState = selector<Fuse.FuseResult<SearchItem>[]>({
+export const filteredApplicationSearchState = selector<FuseResult<SearchItem>[]>({
   key: 'filteredApplicationSearchState',
   get: ({ get }) => {
     const query = get(applicationSearchState);

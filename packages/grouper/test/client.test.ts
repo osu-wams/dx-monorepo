@@ -20,6 +20,6 @@ it('handles an error', async () => {
       password: '',
     });
   } catch (err) {
-    expect(err.message).toContain('missing credentials');
+    expect((err as Error).message).toContain('missing credentials');
   }
 });

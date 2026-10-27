@@ -60,5 +60,4 @@ const personsMinimalAddressData = {
   error: false,
 };
 
-// eslint-disable-next-line import/no-anonymous-default-export
 export default { personsMailingAddressData, personsMinimalAddressData };

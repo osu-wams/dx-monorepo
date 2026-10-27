@@ -11,7 +11,7 @@ jobs:
     steps:
       # See https://github.com/lerna/lerna/issues/2542
       - name: Begin CI...
-        uses: actions/checkout@v2
+        uses: actions/checkout@v5
         with:
           # This forces GitHub Actions to checkout the actual branch reference rather than a detached SHA
           ref: ${{ github.head_ref || github.ref_name }}
@@ -21,10 +21,10 @@ jobs:
       # pulls all tags (needed for lerna / semantic release to correctly version)
       - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
 
-      - name: Use Node 18
-        uses: actions/setup-node@v1
+      - name: Use Node from .nvmrc
+        uses: actions/setup-node@v5
         with:
-          node-version: 18.x
+          node-version-file: .nvmrc
 
       - name: Use cached node_modules
         uses: actions/cache@v4
@@ -46,9 +46,6 @@ jobs:
         run: yarn lint
         env:
           CI: true
-          FONTAWESOME_TOKEN: ${{ secrets.FONTAWESOME_TOKEN }}
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-          GITHUB_NPM_TOKEN: ${{ secrets.GH_NPM_TOKEN }}
 
       - name: Build
         run: yarn build
@@ -57,6 +54,11 @@ jobs:
           FONTAWESOME_TOKEN: ${{ secrets.FONTAWESOME_TOKEN }}
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
           GITHUB_NPM_TOKEN: ${{ secrets.GH_NPM_TOKEN }}
+
+      - name: Typecheck
+        run: yarn typecheck
+        env:
+          CI: true
 
       - name: Test
         run: yarn test
@@ -67,12 +69,9 @@ jobs:
           GITHUB_NPM_TOKEN: ${{ secrets.GH_NPM_TOKEN }}
 
       - name: report code coverage
-        run: npx codecov@3
-        env:
-          CI: true
-          FONTAWESOME_TOKEN: not-actually-used-but-necessary-here
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-          GITHUB_NPM_TOKEN: not-actually-used-but-necessary-here
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: publish package(s) with changes
         if: github.ref == 'refs/heads/master'

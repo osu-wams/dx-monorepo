@@ -1,7 +1,6 @@
-Object.defineProperty(window, 'location', {
-  writable: true,
-  value: { assign: jest.fn() },
-});
+// jsdom's window.location can no longer be redefined, so tests run against the default
+// http://localhost origin. BASEURL is mocked to '' so API mocks can keep using relative paths.
+jest.mock('./constants', () => ({ ...jest.requireActual('./constants'), BASEURL: '' }));
 
 afterEach(() => {
   jest.clearAllMocks();
