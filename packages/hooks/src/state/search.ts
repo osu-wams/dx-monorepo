@@ -340,6 +340,8 @@ const fuseOptions: IFuseOptions<SearchItem> = {
 
 export const fuseIndex = selector<Fuse<SearchItem>>({
   key: 'fuseIndex',
+  // Fuse caches the last query on the instance during search(); Recoil must not freeze it.
+  dangerouslyAllowMutability: true,
   get: ({ get }) => {
     const announcements = get(announcementSearchItems);
     const trainings = get(trainingSearchItems);
