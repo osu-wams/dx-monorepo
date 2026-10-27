@@ -1,5 +1,5 @@
 {
-  "version": "0.0.37",
+  "version": "0.0.38",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -22,7 +22,7 @@
     "directory": "packages/utils"
   },
   "dependencies": {
-    "@osu-wams/lib": "^0.1.90",
+    "@osu-wams/lib": "^0.1.91",
     "date-fns": "^4.4.0",
     "libphonenumber-js": "^1.13.15"
   },
