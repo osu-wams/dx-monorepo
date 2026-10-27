@@ -50,17 +50,6 @@ describe('useUser', () => {
 });
 
 describe('useUserState', () => {
-  beforeEach(() => {
-    global.window = Object.create(window);
-    Object.defineProperty(window, 'location', {
-      value: {
-        pathname: '/',
-        search: '',
-      },
-      writable: true,
-    });
-  });
-
   it('gets user on successful returns', async () => {
     mock.onGet('/api/resources/favorites').reply(200, userFavoriteResources);
     mock.onGet('/api/user/classification').reply(200, userClassification);
@@ -113,9 +102,10 @@ describe('useMessages', () => {
     await waitForNextUpdate();
     expect(result.current.failureCount).toBe(1);
     expect(result.current.isLoading).toBeTruthy();
-    await waitForNextUpdate();
+    // react-query backs off 1s, then 2s, between retries; longer than waitForNextUpdate's 1s default timeout.
+    await waitForNextUpdate({ timeout: 5000 });
     expect(result.current.failureCount).toBe(2);
-    await waitForNextUpdate();
+    await waitForNextUpdate({ timeout: 5000 });
     expect(result.current.failureCount).toBe(3); // Retry 3 tiems
   });
 });

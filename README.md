@@ -14,7 +14,7 @@
 
 ### Pre-Requisites
 
-- [NVM](https://github.com/nvm-sh/nvm#installation-and-update)
+- [NVM](https://github.com/nvm-sh/nvm#installation-and-update) (Node 24, see `.nvmrc`; run `nvm use`)
 - [Yarn (install via NPM)](https://yarnpkg.com/en/docs/install#alternatives-stable)
 - [Yalc (install as global Yarn)](https://github.com/wclr/yalc)
   ```bash
@@ -73,9 +73,17 @@ Working on the monorepo and testing integration _before publishing updated packa
 ### Linting & Testing
 
 ```bash
-yarn lint
-yarn test
+yarn lint       # eslint (flat config in eslint.config.mjs)
+yarn typecheck  # tsc --noEmit per package, including tests
+yarn test       # jest per package
 ```
+
+### Tooling notes
+
+- Packages are bundled with [tsup](https://tsup.egoist.dev) (`tsup.base.mjs` + `packages/*/tsup.config.ts`); type
+  declarations are emitted per-file by `tsc -p tsconfig.build.json` so the published `dist/` layout is unchanged.
+- `@osu-wams/hooks` keeps `react`, `react-query` and `recoil` on the same versions `dx` pins (React 17,
+  react-query 3.16.0, recoil 0.2.0): both apps must share a single copy of each for context/state to work.
 
 ### Building and Publishing
 

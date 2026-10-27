@@ -1,11 +1,4 @@
 {
   "extends": "../../tsconfig.json",
-  "include": ["src", "types", "test"],
-  "compilerOptions": {
-    "allowJs": true,
-    "rootDir": "./src",
-    "baseUrl": ".",
-    "outDir": "./dist",
-    "declaration": true
-  }
+  "include": ["src", "test", "types"]
 }

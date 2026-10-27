@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { getMembers, isMember } from '../src/index';
 import { server, GROUPER_CLIENT } from '../src/mocks/server';
 
@@ -20,13 +20,13 @@ it('finds member in group', async () => {
 
 it('handles an error', async () => {
   server.use(
-    rest.post(/\/groups$/, (_req, res, ctx) => {
-      return res(ctx.status(500), ctx.json({ message: 'Internal Server Error' }));
+    http.post(/\/groups$/, () => {
+      return HttpResponse.json({ message: 'Internal Server Error' }, { status: 500 });
     }),
   );
   try {
     await getMembers(GROUPER_CLIENT, ['stem:name:group_name'], ['id']);
   } catch (err) {
-    expect(err.message).toBe('Request failed with status code 500');
+    expect((err as Error).message).toBe('Request failed with status code 500');
   }
 });

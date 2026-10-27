@@ -38,7 +38,7 @@ export const withStickyIncidents = (components?: Types.CachetComponent[]): Types
  * @param components the IT System components from the API
  */
 export const allOperational = (components?: Types.CachetComponent[]): boolean => {
-  return components?.filter(c => c.status > 1).length === 0 ?? false;
+  return components?.filter(c => c.status > 1).length === 0;
 };
 
 export const useStatus = (opts: UseQueryOptions<Types.CachetComponent[], Error> = REACT_QUERY_DEFAULT_CONFIG) =>

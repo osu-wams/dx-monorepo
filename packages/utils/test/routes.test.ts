@@ -10,58 +10,58 @@ describe('Dashboards', () => {
 describe('Routes', () => {
   it('has student routes', () =>
     expect(Routes('student')).toMatchInlineSnapshot(`
-      Object {
-        "about": Object {
+      {
+        "about": {
           "fullPath": "/about",
           "pageName": "About",
           "path": "about",
         },
-        "academics": Object {
+        "academics": {
           "fullPath": "/student/academics",
           "pageName": "Academics",
           "path": "academics",
         },
-        "employee": Object {
+        "employee": {
           "fullPath": "/employee",
           "pageName": "employee",
           "path": "employee",
         },
-        "finances": Object {
+        "finances": {
           "fullPath": "/student/finances",
           "pageName": "Finances",
           "path": "finances",
         },
-        "notifications": Object {
+        "notifications": {
           "fullPath": "/notifications",
           "pageName": "Notifications",
           "path": "notifications",
         },
-        "past courses": Object {
+        "past courses": {
           "fullPath": "/student/academics/past-courses",
           "pageName": "Past Courses",
           "path": "past-courses",
         },
-        "profile": Object {
+        "profile": {
           "fullPath": "/profile",
           "pageName": "Profile",
           "path": "profile",
         },
-        "resources": Object {
+        "resources": {
           "fullPath": "/student/resources",
           "pageName": "Resources",
           "path": "resources",
         },
-        "search": Object {
+        "search": {
           "fullPath": "/search",
           "pageName": "Search",
           "path": "search",
         },
-        "student": Object {
+        "student": {
           "fullPath": "/student",
           "pageName": "student",
           "path": "student",
         },
-        "trainings": Object {
+        "trainings": {
           "fullPath": "/employee/training",
           "pageName": "Trainings",
           "path": "training",
@@ -70,58 +70,58 @@ describe('Routes', () => {
     `));
   it('has employee routes', () =>
     expect(Routes('employee')).toMatchInlineSnapshot(`
-      Object {
-        "about": Object {
+      {
+        "about": {
           "fullPath": "/about",
           "pageName": "About",
           "path": "about",
         },
-        "academics": Object {
+        "academics": {
           "fullPath": "/student/academics",
           "pageName": "Academics",
           "path": "academics",
         },
-        "employee": Object {
+        "employee": {
           "fullPath": "/employee",
           "pageName": "employee",
           "path": "employee",
         },
-        "finances": Object {
+        "finances": {
           "fullPath": "/student/finances",
           "pageName": "Finances",
           "path": "finances",
         },
-        "notifications": Object {
+        "notifications": {
           "fullPath": "/notifications",
           "pageName": "Notifications",
           "path": "notifications",
         },
-        "past courses": Object {
+        "past courses": {
           "fullPath": "/student/academics/past-courses",
           "pageName": "Past Courses",
           "path": "past-courses",
         },
-        "profile": Object {
+        "profile": {
           "fullPath": "/profile",
           "pageName": "Profile",
           "path": "profile",
         },
-        "resources": Object {
+        "resources": {
           "fullPath": "/employee/resources",
           "pageName": "Resources",
           "path": "resources",
         },
-        "search": Object {
+        "search": {
           "fullPath": "/search",
           "pageName": "Search",
           "path": "search",
         },
-        "student": Object {
+        "student": {
           "fullPath": "/student",
           "pageName": "student",
           "path": "student",
         },
-        "trainings": Object {
+        "trainings": {
           "fullPath": "/employee/training",
           "pageName": "Trainings",
           "path": "training",
@@ -130,58 +130,58 @@ describe('Routes', () => {
     `));
   it('has default routes', () =>
     expect(Routes()).toMatchInlineSnapshot(`
-      Object {
-        "about": Object {
+      {
+        "about": {
           "fullPath": "/about",
           "pageName": "About",
           "path": "about",
         },
-        "academics": Object {
+        "academics": {
           "fullPath": "/student/academics",
           "pageName": "Academics",
           "path": "academics",
         },
-        "employee": Object {
+        "employee": {
           "fullPath": "/employee",
           "pageName": "employee",
           "path": "employee",
         },
-        "finances": Object {
+        "finances": {
           "fullPath": "/student/finances",
           "pageName": "Finances",
           "path": "finances",
         },
-        "notifications": Object {
+        "notifications": {
           "fullPath": "/notifications",
           "pageName": "Notifications",
           "path": "notifications",
         },
-        "past courses": Object {
+        "past courses": {
           "fullPath": "/student/academics/past-courses",
           "pageName": "Past Courses",
           "path": "past-courses",
         },
-        "profile": Object {
+        "profile": {
           "fullPath": "/profile",
           "pageName": "Profile",
           "path": "profile",
         },
-        "resources": Object {
+        "resources": {
           "fullPath": "/resources",
           "pageName": "Resources",
           "path": "resources",
         },
-        "search": Object {
+        "search": {
           "fullPath": "/search",
           "pageName": "Search",
           "path": "search",
         },
-        "student": Object {
+        "student": {
           "fullPath": "/student",
           "pageName": "student",
           "path": "student",
         },
-        "trainings": Object {
+        "trainings": {
           "fullPath": "/employee/training",
           "pageName": "Trainings",
           "path": "training",
